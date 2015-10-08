@@ -8,6 +8,7 @@ module.exports = {
       title: rawPost.title,
       date: new Date(rawPost.date),
       artist: rawPost.artist,
+      genre: rawPost.genre,
       author: rawPost.user.id,
       author_img: rawPost.user.img,
       stream_url: rawPost.song.stream_url,

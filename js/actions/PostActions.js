@@ -19,6 +19,21 @@ var PostActions = {
     });
   },
 
+  sort: function(method) {
+    AppDispatcher.dispatch({
+      actionType: PostConstants.ActionTypes.SORT_POSTS,
+      method: method
+    });
+  },
+
+  filterByGenre: function(genre) {
+    console.log(genre);
+    AppDispatcher.dispatch({
+      actionType: "FILTER_POST_GENRE",
+      genre: genre
+    })
+  }
+
 };
 
 module.exports = PostActions;

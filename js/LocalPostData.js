@@ -9,6 +9,8 @@ module.exports = {
         date: '10 6 2015',
         title: 'One Step Closer',
         artist: 'Linkin Park',
+        genre: 'Rock',
+        created_at: 1,
         song : {
           stream_url : "killersong.com",
           thumbnail_url : "https://images.rapgenius.com/06a364b985e9b788d00775c2fe6c13ba.1000x1000x1.jpg"
@@ -24,6 +26,8 @@ module.exports = {
         date: '10 7 2015',        
         title: 'Numb',
         artist: 'Linkin Park',
+        genre: 'Rock',
+        created_at: 1,
         song : {
           stream_url : "killersong.com",
           thumbnail_url : "https://images.rapgenius.com/06a364b985e9b788d00775c2fe6c13ba.1000x1000x1.jpg"
@@ -39,6 +43,8 @@ module.exports = {
         date: '10 7 2015',
         title: 'New Divide',
         artist: 'Linkin Park',
+        genre: 'Rock',
+        created_at: 7,
         song : {
           stream_url : "killersong.com",
           thumbnail_url : "https://images.rapgenius.com/06a364b985e9b788d00775c2fe6c13ba.1000x1000x1.jpg"
@@ -54,6 +60,8 @@ module.exports = {
         date: '10 7 2015',
         title: 'Catalyst',
         artist: 'Linkin Park',
+        genre: 'Rock',
+        created_at: 1,
         song : {
           stream_url : "killersong.com",
           thumbnail_url : "https://images.rapgenius.com/06a364b985e9b788d00775c2fe6c13ba.1000x1000x1.jpg"
@@ -69,6 +77,8 @@ module.exports = {
         date: '10 7 2015',
         title: 'Giving Up',
         artist: 'Linkin Park',
+        genre: 'Rock',
+        created_at: 2,
         song : {
           stream_url : "killersong.com",
           thumbnail_url : "https://images.rapgenius.com/06a364b985e9b788d00775c2fe6c13ba.1000x1000x1.jpg"
@@ -84,6 +94,8 @@ module.exports = {
         date: '10 7 2015',
         title: 'Numb/Encore',
         artist: 'Linkin Park Ft. Jay Z',
+        genre: 'Hip Hop',
+        created_at: 4,
         song : {
           stream_url : "killersong.com",
           thumbnail_url : "https://images.rapgenius.com/06a364b985e9b788d00775c2fe6c13ba.1000x1000x1.jpg"
@@ -99,6 +111,8 @@ module.exports = {
         date: '10 7 2015',
         title: 'Breaking the Habit',
         artist: 'Linkin Park',
+        genre: 'Electronic',
+        created_at: 2,
         song : {
           stream_url : "killersong.com",
           thumbnail_url : "https://images.rapgenius.com/06a364b985e9b788d00775c2fe6c13ba.1000x1000x1.jpg"

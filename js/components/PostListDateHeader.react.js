@@ -18,7 +18,7 @@ var PostListDateHeader = React.createClass({
   render: function() {
     date = this.props.date
     return (
-      <li id="tf-date-header">
+      <li id="tf-date-header" key={this.props.key}>
         <h3>{date}</h3>
       </li>
     );

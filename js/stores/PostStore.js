@@ -71,11 +71,14 @@ var PostStore = assign({}, EventEmitter.prototype, {
    * @return {object}
    */
   getAllOfGenre: function(genre){
-    for (var id in _posts ) {
-      if( _posts[id].genre == genre && !_postsG[_posts[id]]) {
-        _postsG[_posts[id]] = PostUtils.convertRawPost(_posts[id]);
+    var postsOfGenre = {};
+    for (var id in _posts ) { 
+      if(_posts[id].genre == genre) {
+        postsOfGenre[id] = _posts[id];
       }
     }
+
+    return postsOfGenre;
   },
 
   emitChange: function() {
@@ -103,6 +106,9 @@ AppDispatcher.register(function(action) {
   switch(action.type) {
     //case "FILTER_POST_GENRE"
       //console.log('filtering', action.genre);
+      //break;
+    //case "SORT_POSTS"
+      //console.log('sorting', action.method)
       //break;
     case "RECEIVE_RAW_POSTS":
       console.log('recieving', action.rawPosts);

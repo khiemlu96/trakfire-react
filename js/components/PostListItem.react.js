@@ -16,6 +16,7 @@ var classNames = require('classnames');
 var PostListItem = React.createClass({
 
   propTypes: {
+   key: ReactPropTypes.string,
    post: ReactPropTypes.object
   },
 
@@ -23,6 +24,15 @@ var PostListItem = React.createClass({
     return {};
   },
 
+  upvote: function(e) {
+    e.preventDefault();
+    this.PostActions.upvote(this.props.key);
+  },
+
+  playTrack: function(e) {
+    e.preventDefault();
+    //this.PostActions.playTrack(this.props.post.song.stream_url);
+  },
   /**
    * @return {object}
    */
