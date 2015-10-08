@@ -6,7 +6,7 @@ module.exports = {
     localStorage.setItem('posts', JSON.stringify([
       {
         id: 'p_1',
-        date: 'Wed October 7',
+        date: '10 6 2015',
         title: 'One Step Closer',
         artist: 'Linkin Park',
         song : {
@@ -21,7 +21,7 @@ module.exports = {
       },
       {
         id: 'p_2',
-        date: 'Wed October 7',        
+        date: '10 7 2015',        
         title: 'Numb',
         artist: 'Linkin Park',
         song : {
@@ -36,7 +36,7 @@ module.exports = {
       },
       {
         id: 'p_3',
-        date: 'Wed October 7',
+        date: '10 7 2015',
         title: 'New Divide',
         artist: 'Linkin Park',
         song : {
@@ -51,7 +51,7 @@ module.exports = {
       },
       {
         id: 'p_4',
-        date: 'Wed October 7',
+        date: '10 7 2015',
         title: 'Catalyst',
         artist: 'Linkin Park',
         song : {
@@ -66,7 +66,7 @@ module.exports = {
       },
       {
         id: 'p_5',
-        date: 'Wed October 7',
+        date: '10 7 2015',
         title: 'Giving Up',
         artist: 'Linkin Park',
         song : {
@@ -81,7 +81,7 @@ module.exports = {
       },
       {
         id: 'p_6',
-        date: 'Wed October 7',
+        date: '10 7 2015',
         title: 'Numb/Encore',
         artist: 'Linkin Park Ft. Jay Z',
         song : {
@@ -96,7 +96,7 @@ module.exports = {
       },
       {
         id: 'p_7',
-        date: 'Wed October 7',
+        date: '10 7 2015',
         title: 'Breaking the Habit',
         artist: 'Linkin Park',
         song : {

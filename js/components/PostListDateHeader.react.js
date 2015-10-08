@@ -5,7 +5,7 @@ var ReactPropTypes = React.PropTypes;
 var PostListDateHeader = React.createClass({
 
   propTypes: {
-   date: ReactPropTypes.object
+   date: ReactPropTypes.string
   },
 
   getInitialState: function() {

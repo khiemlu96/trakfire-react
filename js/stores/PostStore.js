@@ -101,7 +101,9 @@ var PostStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function(action) {
 
   switch(action.type) {
-
+    //case "FILTER_POST_GENRE"
+      //console.log('filtering', action.genre);
+      //break;
     case "RECEIVE_RAW_POSTS":
       console.log('recieving', action.rawPosts);
       _addPosts(action.rawPosts);

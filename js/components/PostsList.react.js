@@ -15,15 +15,20 @@ var PostListDateHeader = require('./PostListDateHeader.react');
 
 function sortPostsByDate(posts) {
   var dates = {};
+  var dateKeys = [];
   for (var key in posts) {
-    if( !dates[ posts[key].date ] ) {
-      dates[ posts[key].date ] = {};
+    console.log(key);
+    if( !dates[ posts[key].date] ) {
+      dates[ posts[key].date] = {};
+      dateKeys.push(posts[key].date);
+      dates[posts[key].date][key] = posts[key];
     } 
     else {
       dates[posts[key].date][key] = posts[key];
     }
   }
-  return dates;
+  console.log(dates, dateKeys);
+  return [dateKeys, dates];
 }
 
 var PostsList = React.createClass({
@@ -44,13 +49,18 @@ var PostsList = React.createClass({
     }
 
     var allPosts = this.props.allPosts;
-    var postsByDate = sortPostsByDate(allPosts);
+    var processedPosts = sortPostsByDate(allPosts);
+    var postsByDate = processedPosts[1];
+    var sortRef = processedPosts[0].sort().reverse();
+    console.log(postsByDate[sortRef[0]]);
     var postListItems = [];
+    //use sort ref to sort the dates in DESC order
 
-    for (var date in postsByDate) {
-      postListItems.push(<PostListDateHeader date={date}/>);
-      for (var postKey in postsByDate[date]) {
-        postListItems.push(<PostListItem key={postKey} post={postsByDate[date][postKey]}/>);
+    for (var date in sortRef) {
+      postListItems.push(<PostListDateHeader date={sortRef[date].toString()}/>);
+      for (var postKey in postsByDate[sortRef[date]]) {
+        console.log(postKey);
+        postListItems.push(<PostListItem key={postKey} post={postsByDate[sortRef[date]][postKey]}/>);
       }
     }
     

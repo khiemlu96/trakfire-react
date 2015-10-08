@@ -6,7 +6,7 @@ module.exports = {
     return {
       id: rawPost.id,
       title: rawPost.title,
-      date: rawPost.date,
+      date: new Date(rawPost.date),
       artist: rawPost.artist,
       author: rawPost.user.id,
       author_img: rawPost.user.img,
