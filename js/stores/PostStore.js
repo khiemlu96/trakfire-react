@@ -18,6 +18,7 @@ var assign = require('object-assign');
 var CHANGE_EVENT = 'change';
 
 var _posts = {};
+var _postsG = {};
 
 function _addPosts(rawPosts) {
 
@@ -69,7 +70,13 @@ var PostStore = assign({}, EventEmitter.prototype, {
    * ex: by genre
    * @return {object}
    */
-  getAllOfType: function(){},
+  getAllOfGenre: function(genre){
+    for (var id in _posts ) {
+      if( _posts[id].genre == genre && !_postsG[_posts[id]]) {
+        _postsG[_posts[id]] = PostUtils.convertRawPost(_posts[id]);
+      }
+    }
+  },
 
   emitChange: function() {
     this.emit(CHANGE_EVENT);
