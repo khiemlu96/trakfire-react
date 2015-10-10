@@ -18,7 +18,7 @@ function getAppState() {
   return {
     allPosts: PostStore.getAll(),
     playlist: [],
-    currentSongIdx: 0,
+    currentSongIdx: -1,
     sort: "TOP",
     genre: "ALL",
     isPlaying: false,
@@ -49,11 +49,14 @@ var TrakfireApp = React.createClass({
       playlist.push(allPosts[id]);
     }
     var track = playlist[0];
-    var currentSongIdx = 0;
     this.setState({
-      currTrack: track,
-      currentSongIdx: currentSongIdx
+      currTrack: track
+      //currentSongIdx: currentSongIdx
     });
+    this.setState(function(previousState, currentProps) {
+      return {currentSongIdx: previousState.currentSongIdx + 1};
+    }, function(){console.log('UPDATED STATE FROM MOUNT ', this.state)});
+    //console.log('MOUNTED DAWG', this.state);
   },
 
   componentWillUnmount: function() {
@@ -62,6 +65,7 @@ var TrakfireApp = React.createClass({
 
   componentDidUpdate: function(prevProps, prevState, prevContext) {
     if (this.state.isPlaying && this.state.currentSongIdx != prevState.currentSongIdx) {
+      console.log('THE COMPONENT DID UPDATE');
       this.initSoundObject();
     }
   },
@@ -186,8 +190,11 @@ var TrakfireApp = React.createClass({
     this.clearSoundObject();
     this.setState({ isLoading: true });
 
-    var song = this.state.currTrack;
-    console.log(formatStreamUrl(song.stream_url));
+    var playlist = this.state.playlist;
+    var cIdx = this.state.currentSongIdx;
+    var song = playlist[cIdx];
+    this.setState({currTrack : song});
+
     this.howler = new Howl({
       src: formatStreamUrl(song.stream_url),
       urls: [formatStreamUrl(song.stream_url)],
@@ -197,23 +204,25 @@ var TrakfireApp = React.createClass({
       onloaderror: this.initLoadFailure,
       onend: this.playEnd
     });
-    //console.log(this.howler, this.state.isLoading);
+    console.log(this.howler, this.state.isLoading);
   },
 
   clearSoundObject: function() {
     if (this.howler) {
       this.howler.stop();
-      this.howler = null;
+      this.howler.unload();
     }
   },
+
   initLoadFailure: function(){
-    alert("FAILURE WITH SRC");
+    alert("FAILURE Loading track");
   },
+
   initSoundObjectCompleted: function() {
-    console.log('init initSoundObjectCompleted');
+    console.log('INIT COMPLETE WITH ', this.state);
     this._play();
     this.setState({ 
-      duration: this.howler.duration(),
+      duration: 0,
       isLoading: false
     });
   },
@@ -252,14 +261,20 @@ var TrakfireApp = React.createClass({
   },
 
   next: function() {
+    //console.log('UPDATING FROM NEXT', this.state.currentSongIdx + 1);
     this.updateSongIndex(this.state.currentSongIdx + 1);
   },
 
   updateSongIndex: function(index) {
-    this.setState({ 
-                    currentSongIdx: index,
-                    duration: 0
-                  });
+//    console.log("UPDATING", index);
+    /*this.setState({ 
+      currentSongIdx: index,
+      duration: 0
+    });*/
+    this.setState(function(previousState, currentProps) {
+      return {currentSongIdx: index};
+    }, function(){console.log('UPDATED STATE FROM updateSongIndex', this.state)});
+    //console.log("UPDATED STATE", this.state);
     if (this.state.isPaused) {
       this.stop();
       this.clearSoundObject();
@@ -269,7 +284,7 @@ var TrakfireApp = React.createClass({
   },
 
   updateCurrentDuration: function() {
-    this.setState({ seek: this.howler.pos() });
+    this.setState({ seek: this.howler.pos(0) });
   },
 
   stopUpdateCurrentDuration: function() {

@@ -22,7 +22,6 @@ var TrakfirePlayer = React.createClass({
         this.props.onNextClick();
     },      
 	render: function(){
-        console.log('RENDERED PLAYER WITH', this.props);
 		return (
             <div className="tf-player-wrap">
                 <a href="#!" onClick={this.handlePrevClick}>
