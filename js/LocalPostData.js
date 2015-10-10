@@ -94,7 +94,7 @@ module.exports = {
         date: '10 7 2015',
         title: 'Numb/Encore',
         artist: 'Linkin Park Ft. Jay Z',
-        genre: 'Hip Hop',
+        genre: 'Hip Hop / R&B',
         created_at: 4,
         song : {
           stream_url : "https://soundcloud.com/broderickbatts/wavey",

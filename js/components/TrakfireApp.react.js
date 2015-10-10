@@ -19,8 +19,8 @@ function getAppState() {
     allPosts: PostStore.getAll(),
     playlist: [],
     currentSongIdx: -1,
-    sort: "TOP",
-    genre: "ALL",
+    sort: "",
+    genre: "",
     isPlaying: false,
     isLoading: false,
     isPaused: true,
@@ -71,9 +71,9 @@ var TrakfireApp = React.createClass({
   },
 
   handleUserSelection: function(genre, sort) {
-    console.log('filter to '+genre+' sort by '+sort);
     var currGenre = this.state.genre;
     var currSort = this.state.sort;
+    console.log('filter to '+genre+' from '+currGenre+', sort by '+sort+' from '+currSort );
     this.setState({
       genre: genre ? genre : currGenre,
       sort: sort ? sort : currSort
@@ -86,7 +86,7 @@ var TrakfireApp = React.createClass({
   render: function() {
     //var audio = this.state.currTrack ? new Audio(this.state.currTrack.stream_url) : null; 
     var currTrack = this.state.currTrack;
-    console.log('rendering all');
+    //console.log('rendering all');
     return (
       <div>
         <div className="container">
@@ -116,7 +116,7 @@ var TrakfireApp = React.createClass({
   },
 
   loadSortedPlaylist: function(playlist, idx) {
-    this.setState({ playlist: playlist, currentSongIdx : idx);
+    this.setState({ playlist: playlist, currentSongIdx : idx});
     //show the playlist here
   },
 

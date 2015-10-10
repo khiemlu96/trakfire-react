@@ -9,23 +9,38 @@
 
 var React = require('react');
 var PostActions = require('../actions/PostActions');
+var ReactPropTypes = React.PropTypes;
 
 var FilterBar = React.createClass({
+
+  propTypes: {
+    onClick: ReactPropTypes.func.isRequired
+  },
+
+  componentDidMount: function() {
+    this.props.onClick("ALL", "TOP");
+  },
+
   handleAllClick: function() {
     this.props.onClick("ALL", null);
   },
+
   handleElectronicClick: function() {
     this.props.onClick("ELECTRONIC", null);
   },
+
   handleHipHopClick: function(){
     this.props.onClick("HIPHOP", null);
   },
+
   handleTopClick: function(){
     this.props.onClick(null, "TOP");
   },
+
   handleNewClick: function(){
     this.props.onClick(null, "NEW");
   },
+  
   /**
    * @return {object}
    */
