@@ -56,7 +56,6 @@ var PostsList = React.createClass({
     genre: ReactPropTypes.string,
     onPostListItemClick: ReactPropTypes.func,
     loadSortedPlaylist: ReactPropTypes.func,
-    didSort: ReactPropTypes.bool
   },
 
   componentDidMount: function() {
@@ -113,7 +112,8 @@ var PostsList = React.createClass({
   },
 
   shouldComponentUpdate: function(nextProps, nextState) {
-    return nextProps.didSort !== this.props.didSort;
+    //either the sort or genre prop is different we know that the list should reload
+    return nextProps.sort !== this.props.sort | nextProps.genre !== this.props.genre;
   },
 
   componentDidUpdate: function(prevProps, prevState, prevContext) {
