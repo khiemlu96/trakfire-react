@@ -13,7 +13,7 @@ module.exports = {
         created_at: 1,
         song : {
           stream_url : "https://api.soundcloud.com/tracks/49931/stream",
-          thumbnail_url : "https://images.rapgenius.com/06a364b985e9b788d00775c2fe6c13ba.1000x1000x1.jpg"
+          thumbnail_url : "http://hiphop-n-more.com/wp-content/uploads/2010/11/kanye-album-cover-2.jpg"
         },
         user: {
           id : 'u_1',
@@ -30,7 +30,7 @@ module.exports = {
         created_at: 1,
         song : {
           stream_url : "https://api.soundcloud.com/tracks/49931/stream",
-          thumbnail_url : "https://images.rapgenius.com/06a364b985e9b788d00775c2fe6c13ba.1000x1000x1.jpg"
+          thumbnail_url : "https://consequenceofsound.files.wordpress.com/2014/03/warondrugs_dream.jpg"
         },
         user: {
           id : 'u_2',
@@ -47,7 +47,7 @@ module.exports = {
         created_at: 7,
         song : {
           stream_url : "https://api.soundcloud.com/tracks/49931/stream",
-          thumbnail_url : "https://images.rapgenius.com/06a364b985e9b788d00775c2fe6c13ba.1000x1000x1.jpg"
+          thumbnail_url : "https://upload.wikimedia.org/wikipedia/en/3/39/DJKaskade_Strobelite.jpg"
         },
         user: {
           id : 'u_3',
@@ -81,7 +81,7 @@ module.exports = {
         created_at: 2,
         song : {
           stream_url : "https://soundcloud.com/broderickbatts/wavey",
-          thumbnail_url : "https://images.rapgenius.com/06a364b985e9b788d00775c2fe6c13ba.1000x1000x1.jpg"
+          thumbnail_url : "http://assets.rollingstone.com/assets/2015/media/193124/_original/1429566130/1035x1035-MI0003834381.jpg"
         },
         user: {
           id : 'u_5',
@@ -98,7 +98,7 @@ module.exports = {
         created_at: 4,
         song : {
           stream_url : "https://soundcloud.com/broderickbatts/wavey",
-          thumbnail_url : "https://images.rapgenius.com/06a364b985e9b788d00775c2fe6c13ba.1000x1000x1.jpg"
+          thumbnail_url : "https://upload.wikimedia.org/wikipedia/en/a/ac/Slave-Ambient.jpg"
         },
         user: {
           id : 'u_6',

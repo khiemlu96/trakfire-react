@@ -13,6 +13,7 @@ var PostActions = require('../actions/PostActions');
 var PostListItem = require('./PostListItem.react');
 var PostListDateHeader = require('./PostListDateHeader.react'); 
 var PostStore = require('../stores/PostStore');
+var _postListItems = null;
 
 function sortPostsByDate(posts) {
   var dates = {};
@@ -52,25 +53,20 @@ var PostsList = React.createClass({
   propTypes: {
     allPosts: ReactPropTypes.object.isRequired,
     sort: ReactPropTypes.string,
-    genre: ReactPropTypes.string
+    genre: ReactPropTypes.string,
+    onPostListItemClick: ReactPropTypes.func,
+    loadSortedPlaylist: ReactPropTypes.func
   },
-  /**
-   * @return {object}
-   */
-  render: function() {
-    console.log('render postslist');
-    /*if (Object.keys(this.props.allPosts).length < 1) {
-      return null;
-    }*/
 
+  componentDidMount: function() {
     var allPosts = this.props.allPosts;
     var processedPosts = sortPostsByDate(allPosts);
     var postsByDate = processedPosts[1];
     var sortRef = processedPosts[0].sort().reverse();
     //console.log(postsByDate[sortRef[0]]);
     var postListItems = [];
-    //use sort ref to sort the dates in DESC order
-
+    var playlist = [];
+    var count = 0;
     for (var date in sortRef) {
       postListItems.push(<PostListDateHeader key={'d_'+date} date={sortRef[date].toString()}/>);
       //sort the posts in that day by their score attribute or sort by create_at
@@ -83,22 +79,54 @@ var PostsList = React.createClass({
       //filter by genre held in state.genre
       for (var postKey in postsByDate[sortRef[date]]) {
         if(this.props.genre == "ALL"){
-          postListItems.push(<PostListItem key={postKey} post={postsByDate[sortRef[date]][postKey]}/>);
+          playlist.push(postsByDate[sortRef[date]][postKey]);
+          postListItems.push(<PostListItem 
+                                  key={postKey} 
+                                  post={postsByDate[sortRef[date]][postKey]} 
+                                  onClick={this.props.onPostListItemClick}
+                                  trackIdx={count} />);
         }
         else if(this.props.genre == "ELECTRONIC"){
           if(postsByDate[sortRef[date]][postKey].genre == "Electronic") 
-            postListItems.push(<PostListItem key={postKey} post={postsByDate[sortRef[date]][postKey]}/>);
+            playlist.push(postsByDate[sortRef[date]][postKey]);
+            postListItems.push(<PostListItem 
+                                  key={postKey} 
+                                  post={postsByDate[sortRef[date]][postKey]} 
+                                  onClick={this.props.onPostListItemClick}
+                                  trackIdx={count} />);
         }
         else if(this.props.genre == "HIPHOP"){
           if(postsByDate[sortRef[date]][postKey].genre == "Hip Hop / R&B") 
-            postListItems.push(<PostListItem key={postKey} post={postsByDate[sortRef[date]][postKey]}/>);         
+            playlist.push(postsByDate[sortRef[date]][postKey]);
+            postListItems.push(<PostListItem 
+                                  key={postKey} 
+                                  post={postsByDate[sortRef[date]][postKey]} 
+                                  onClick={this.props.onPostListItemClick}
+                                  trackIdx={count} />);        
         }
+        count += 1;
       }
     }
+    this.loadSortedPlaylist(playlist, playlist[0]);
+    _postListItems = postListItems;
+  },
 
+  loadSortedPlaylist: function(playlist) {
+    this.props.loadSortedPlaylist(playlist);
+  },
+  /**
+   * @return {object}
+   */
+  render: function() {
+    console.log('render postslist');
+    /*if (Object.keys(this.props.allPosts).length < 1) {
+      return null;
+    }*/
+
+    //use sort ref to sort the dates in DESC order
     return (
       <section id="main">
-        <ul id="Post-list" className="tf-post-list" >{postListItems}</ul>
+        <ul id="Post-list" className="tf-post-list" >{_postListItems}</ul>
       </section>
     );
   }

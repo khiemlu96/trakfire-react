@@ -89,29 +89,34 @@ var TrakfireApp = React.createClass({
     console.log('rendering all');
     return (
       <div>
-      <div className="container">
-        <FilterBar 
-          onClick={this.handleUserSelection}
+        <div className="container">
+          <FilterBar 
+            onClick={this.handleUserSelection}
+          />
+          <PostsList
+            allPosts={this.state.allPosts}
+            genre={this.state.genre}
+            sort={this.state.sort}
+            onPostListItemClick={this.onSongItemClick}
+            loadSortedPlaylist={this.loadSortedPlaylist}
+          />
+        </div>
+        <div>
+        <TrakfirePlayer 
+          currTrack={this.state.currTrack}
+          isPlaying={this.state.isPlaying}
+          scClientId={clientId}
+          onNextClick={this.onNextBtnClick}
+          onPrevClick={this.onPrevBtnClick}
+          onPlayPauseClick={this.onPlayBtnClick}
         />
-        <PostsList
-          allPosts={this.state.allPosts}
-          genre={this.state.genre}
-          sort={this.state.sort}
-        />
-      </div>
-      <div>
-      <TrakfirePlayer 
-        currTrack={this.state.currTrack}
-        isPlaying={this.state.isPlaying}
-        scClientId={clientId}
-        onNextClick={this.onNextBtnClick}
-        onPrevClick={this.onPrevBtnClick}
-        onPlayPauseClick={this.onPlayBtnClick}
-      />
-
-      </div>
+        </div>
       </div>
     );
+  },
+
+  loadSortedPlaylist: function(playlist, idx) {
+    this.setState({ playlist: playlist, currentSongIdx : idx });
   },
 
   onPlayBtnClick: function() {
@@ -130,9 +135,9 @@ var TrakfireApp = React.createClass({
   },
 
   onPauseBtnClick: function() {
-    var isPause = !this.state.isPaused;
+    var isPaused = !this.state.isPaused;
     this.setState({ isPause: isPause });
-    isPause ? this.pause() : this._play();
+    isPaused ? this.pause() : this._play();
   },
 
   onPrevBtnClick: function() {
@@ -143,15 +148,15 @@ var TrakfireApp = React.createClass({
     this.next();
   },
 
-  /*onSongItemClick: function(songIndex) {
+  onSongItemClick: function(songIndex) {
     // handle pause/playing state.
     if (this.state.currentSongIdx == songIndex) {
       if (this.state.isPaused) {
         this.onPauseBtnClick();
-        this.refs.songList.hideDropdownMenu();
+        //this.refs.songList.hideDropdownMenu();
       } else if (!this.state.isPlaying) {
         this.onPlayBtnClick();
-        this.refs.songList.hideDropdownMenu();
+        //this.refs.songList.hideDropdownMenu();
       }
       return;
     }
@@ -160,14 +165,13 @@ var TrakfireApp = React.createClass({
     this.stop();
     this.clearSoundObject();
     this.setState({ 
-                    currentSongIndex: songIndex,
+                    currentSongIdx: songIndex,
                     duration: 0,
                     isPlaying: true,
-                    isPause: false
+                    isPaused: false
                   });
-    this.refs.songList.hideDropdownMenu();
-
-  },*/
+   // this.refs.songList.hideDropdownMenu();
+  },
 
   play: function() {
     
@@ -193,6 +197,7 @@ var TrakfireApp = React.createClass({
     var playlist = this.state.playlist;
     var cIdx = this.state.currentSongIdx;
     var song = playlist[cIdx];
+
     this.setState({currTrack : song});
 
     this.howler = new Howl({

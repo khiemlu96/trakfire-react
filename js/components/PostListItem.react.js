@@ -17,7 +17,9 @@ var PostListItem = React.createClass({
 
   propTypes: {
    key: ReactPropTypes.string,
-   post: ReactPropTypes.object
+   post: ReactPropTypes.object,
+   trackIdx: ReactPropTypes.number,
+   onClick: ReactPropTypes.func
   },
 
   getInitialState: function() {
@@ -29,9 +31,10 @@ var PostListItem = React.createClass({
     this.PostActions.upvote(this.props.key);
   },
 
-  playTrack: function(e) {
+  playPauseTrack: function(e) {
     e.preventDefault();
-    //this.PostActions.playTrack(this.props.post.song.stream_url);
+    console.log(this.props.trackIdx);
+    this.props.onClick(this.props.trackIdx);
   },
   /**
    * @return {object}
@@ -45,7 +48,7 @@ var PostListItem = React.createClass({
         1
         </span>
         <span className="tf-post-item--img">
-          <a className="tf-post-play">
+          <a href="#!" className="tf-post-play" onClick={this.playPauseTrack}>
             <img className="tf-thumbnail" src={post.thumbnail_url}/>
           </a>
         </span>
