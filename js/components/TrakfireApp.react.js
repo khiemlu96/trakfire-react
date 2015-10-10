@@ -113,6 +113,8 @@ var TrakfireApp = React.createClass({
   onPlayBtnClick: function() {
     console.log('clicked play', this.state);
     if (this.state.isPlaying && !this.state.isPaused) {
+      var isPaused = !this.state.isPaused;
+      this.setState({ isPaused: isPaused, isPlaying : false });
       this.pause();
       //return;
     } 
@@ -165,12 +167,12 @@ var TrakfireApp = React.createClass({
 
   play: function() {
     
-    this.setState({ isPlaying: true, isPause: false });
+    this.setState({ isPlaying: true, isPaused: false });
 
     if (!this.howler) {
       this.initSoundObject();
     } else {
-      var songUrl = formatStreamurl(this.state.playlist[this.state.currentSongIdx].stream_url);
+      var songUrl = formatStreamUrl(this.state.playlist[this.state.currentSongIdx].stream_url);
       console.log("SONG URL", songUrl);
       if (songUrl != this.howler._src) {
         this.initSoundObject();
@@ -267,7 +269,7 @@ var TrakfireApp = React.createClass({
   },
 
   updateCurrentDuration: function() {
-    this.setState({ seek: this.howler.seek() });
+    this.setState({ seek: this.howler.pos() });
   },
 
   stopUpdateCurrentDuration: function() {
@@ -276,7 +278,7 @@ var TrakfireApp = React.createClass({
 
   seekTo: function(percent) {
     var seek = this.state.duration * percent;
-    this.howler.seek(seek);
+    this.howler.pos(seek);
     this.setState({ seek: seek });
   },
 
