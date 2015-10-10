@@ -188,6 +188,8 @@ var TrakfireApp = React.createClass({
     console.log(formatStreamUrl(song.stream_url));
     this.howler = new Howl({
       src: formatStreamUrl(song.stream_url),
+      urls: [formatStreamUrl(song.stream_url)],
+      format: 'mp3',
       volume: this.state.volume,
       onload: this.initSoundObjectCompleted,
       onloaderror: this.initLoadFailure,
@@ -203,7 +205,7 @@ var TrakfireApp = React.createClass({
     }
   },
   initLoadFailure: function(){
-    //console.log("FAILURE WITH SRC");
+    alert("FAILURE WITH SRC");
   },
   initSoundObjectCompleted: function() {
     console.log('init initSoundObjectCompleted');
@@ -256,7 +258,7 @@ var TrakfireApp = React.createClass({
                     currentSongIdx: index,
                     duration: 0
                   });
-    if (this.state.isPause) {
+    if (this.state.isPaused) {
       this.stop();
       this.clearSoundObject();
     } else {
