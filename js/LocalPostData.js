@@ -12,7 +12,7 @@ module.exports = {
         genre: 'Rock',
         created_at: 1,
         song : {
-          stream_url : "killersong.com",
+          stream_url : "https://api.soundcloud.com/tracks/49931/stream",
           thumbnail_url : "https://images.rapgenius.com/06a364b985e9b788d00775c2fe6c13ba.1000x1000x1.jpg"
         },
         user: {
@@ -29,7 +29,7 @@ module.exports = {
         genre: 'Rock',
         created_at: 1,
         song : {
-          stream_url : "killersong.com",
+          stream_url : "https://api.soundcloud.com/tracks/49931/stream",
           thumbnail_url : "https://images.rapgenius.com/06a364b985e9b788d00775c2fe6c13ba.1000x1000x1.jpg"
         },
         user: {
@@ -46,7 +46,7 @@ module.exports = {
         genre: 'Rock',
         created_at: 7,
         song : {
-          stream_url : "killersong.com",
+          stream_url : "https://api.soundcloud.com/tracks/49931/stream",
           thumbnail_url : "https://images.rapgenius.com/06a364b985e9b788d00775c2fe6c13ba.1000x1000x1.jpg"
         },
         user: {
@@ -63,7 +63,7 @@ module.exports = {
         genre: 'Rock',
         created_at: 1,
         song : {
-          stream_url : "killersong.com",
+          stream_url : "https://soundcloud.com/broderickbatts/wavey",
           thumbnail_url : "https://images.rapgenius.com/06a364b985e9b788d00775c2fe6c13ba.1000x1000x1.jpg"
         },
         user: {
@@ -80,7 +80,7 @@ module.exports = {
         genre: 'Rock',
         created_at: 2,
         song : {
-          stream_url : "killersong.com",
+          stream_url : "https://soundcloud.com/broderickbatts/wavey",
           thumbnail_url : "https://images.rapgenius.com/06a364b985e9b788d00775c2fe6c13ba.1000x1000x1.jpg"
         },
         user: {
@@ -97,7 +97,7 @@ module.exports = {
         genre: 'Hip Hop',
         created_at: 4,
         song : {
-          stream_url : "killersong.com",
+          stream_url : "https://soundcloud.com/broderickbatts/wavey",
           thumbnail_url : "https://images.rapgenius.com/06a364b985e9b788d00775c2fe6c13ba.1000x1000x1.jpg"
         },
         user: {
@@ -114,7 +114,7 @@ module.exports = {
         genre: 'Electronic',
         created_at: 2,
         song : {
-          stream_url : "killersong.com",
+          stream_url : "https://soundcloud.com/broderickbatts/wavey",
           thumbnail_url : "https://images.rapgenius.com/06a364b985e9b788d00775c2fe6c13ba.1000x1000x1.jpg"
         },
         user: {

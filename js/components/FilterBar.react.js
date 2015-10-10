@@ -11,7 +11,9 @@ var React = require('react');
 var PostActions = require('../actions/PostActions');
 
 var FilterBar = React.createClass({
-
+  handleAllClick: function() {
+    this.props.onClick("ALL", null);
+  },
   handleElectronicClick: function() {
     this.props.onClick("ELECTRONIC", null);
   },
@@ -32,12 +34,17 @@ var FilterBar = React.createClass({
       <div className="mxn1">
         <a href="#!" 
           className="btn button-narrow" 
+          onClick={this.handleAllClick}>
+          All
+        </a>
+        <a href="#!" 
+          className="btn button-narrow" 
           onClick={this.handleElectronicClick}>
           Electronic
         </a>
         <a href="#!" className="btn button-narrow" 
-        onClick={this.handleHipHopClick} >
-        Hip Hop
+          onClick={this.handleHipHopClick} >
+          Hip Hop
         </a>
       </div>
     );

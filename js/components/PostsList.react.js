@@ -75,9 +75,9 @@ var PostsList = React.createClass({
       postListItems.push(<PostListDateHeader key={'d_'+date} date={sortRef[date].toString()}/>);
       //sort the posts in that day by their score attribute or sort by create_at
       /*
-      if(sort)
+      if(this.props.sort == "TOP")
         postsByDate[sortRef[date]].sort(compareScore);
-      else
+      else if(this.props.sort == "NEW")
         postsByDate[sortRef[date]].sort(compareCreatedAt);
       */
       //filter by genre held in state.genre

@@ -12,6 +12,7 @@
     "react-soundplayer": "^0.2.2"
   },
   "devDependencies": {
+    "babelify": "^6.3.0",
     "browserify": "^6.2.0",
     "envify": "^3.0.0",
     "jest-cli": "^0.4.3",
