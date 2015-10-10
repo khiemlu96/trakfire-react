@@ -28,6 +28,7 @@ function getAppState() {
     volume: 0.75,
     duration: 0,
     currTrack: {},
+    didSort: false
   };
 }
 
@@ -99,6 +100,7 @@ var TrakfireApp = React.createClass({
             sort={this.state.sort}
             onPostListItemClick={this.onSongItemClick}
             loadSortedPlaylist={this.loadSortedPlaylist}
+            didSort={this.state.didSort}
           />
         </div>
         <div>
@@ -116,7 +118,8 @@ var TrakfireApp = React.createClass({
   },
 
   loadSortedPlaylist: function(playlist, idx) {
-    this.setState({ playlist: playlist, currentSongIdx : idx });
+    this.setState({ playlist: playlist, currentSongIdx : idx, didSort : true });
+    //show the playlist here
   },
 
   onPlayBtnClick: function() {

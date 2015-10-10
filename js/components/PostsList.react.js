@@ -55,7 +55,8 @@ var PostsList = React.createClass({
     sort: ReactPropTypes.string,
     genre: ReactPropTypes.string,
     onPostListItemClick: ReactPropTypes.func,
-    loadSortedPlaylist: ReactPropTypes.func
+    loadSortedPlaylist: ReactPropTypes.func,
+    didSort: ReactPropTypes.bool
   },
 
   componentDidMount: function() {
@@ -110,6 +111,63 @@ var PostsList = React.createClass({
     this.loadSortedPlaylist(playlist, playlist[0]);
     _postListItems = postListItems;
   },
+
+  shouldComponentUpdate: function(nextProps, nextState) {
+    return nextProps.didSort !== this.props.didSort;
+  },
+
+  componentDidUpdate: function(prevProps, prevState, prevContext) {
+    var allPosts = this.props.allPosts;
+    var processedPosts = sortPostsByDate(allPosts);
+    var postsByDate = processedPosts[1];
+    var sortRef = processedPosts[0].sort().reverse();
+    //console.log(postsByDate[sortRef[0]]);
+    var postListItems = [];
+    var playlist = [];
+    var count = 0;
+    for (var date in sortRef) {
+      postListItems.push(<PostListDateHeader key={'d_'+date} date={sortRef[date].toString()}/>);
+      //sort the posts in that day by their score attribute or sort by create_at
+      /*
+      if(this.props.sort == "TOP")
+        postsByDate[sortRef[date]].sort(compareScore);
+      else if(this.props.sort == "NEW")
+        postsByDate[sortRef[date]].sort(compareCreatedAt);
+      */
+      //filter by genre held in state.genre
+      for (var postKey in postsByDate[sortRef[date]]) {
+        if(this.props.genre == "ALL"){
+          playlist.push(postsByDate[sortRef[date]][postKey]);
+          postListItems.push(<PostListItem 
+                                  key={postKey} 
+                                  post={postsByDate[sortRef[date]][postKey]} 
+                                  onClick={this.props.onPostListItemClick}
+                                  trackIdx={count} />);
+        }
+        else if(this.props.genre == "ELECTRONIC"){
+          if(postsByDate[sortRef[date]][postKey].genre == "Electronic") 
+            playlist.push(postsByDate[sortRef[date]][postKey]);
+            postListItems.push(<PostListItem 
+                                  key={postKey} 
+                                  post={postsByDate[sortRef[date]][postKey]} 
+                                  onClick={this.props.onPostListItemClick}
+                                  trackIdx={count} />);
+        }
+        else if(this.props.genre == "HIPHOP"){
+          if(postsByDate[sortRef[date]][postKey].genre == "Hip Hop / R&B") 
+            playlist.push(postsByDate[sortRef[date]][postKey]);
+            postListItems.push(<PostListItem 
+                                  key={postKey} 
+                                  post={postsByDate[sortRef[date]][postKey]} 
+                                  onClick={this.props.onPostListItemClick}
+                                  trackIdx={count} />);        
+        }
+        count += 1;
+      }
+    }
+    this.loadSortedPlaylist(playlist, playlist[0]);
+    _postListItems = postListItems;   
+  }, 
 
   loadSortedPlaylist: function(playlist) {
     this.props.loadSortedPlaylist(playlist);
