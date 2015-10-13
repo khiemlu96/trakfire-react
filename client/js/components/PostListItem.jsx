@@ -43,8 +43,8 @@ var PostListItem = React.createClass({
     var post = this.props.post;
 
     return (
-      <li className="tf-post-item">
-        <span className="tf-post-item--votes col-xs-1">
+      <li className="post-background">
+        <span className="post-upvote-count">
         1
         </span>
         <span className="tf-post-item--img">
@@ -52,10 +52,10 @@ var PostListItem = React.createClass({
             <img className="tf-thumbnail" src={post.thumbnail_url}/>
           </a>
         </span>
-        <span className="tf-post-item--rank">1</span>
+        <span className="post-rank">1</span>
         <span className="tf-post-item--info">
-          <h5> { post.title } </h5>
-          <small> {post.artist } </small>
+          <div className="post-title"> {post.title} </div>
+          <div className="post-artist"> {post.artist} </div>
         </span>
 
       </li>
