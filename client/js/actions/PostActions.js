@@ -51,6 +51,16 @@ var PostActions = {
     TfAPI.getCurrentUser(origin);
   },
 
+  /*getPostsForUsers: function() {
+    console.log("POSTING POST to "+origin+" WITH "+data);
+    AppDispatcher.dispatch({
+      actionType: PostConstants.WRITE_POST,
+      data: data
+    });
+
+    TfAPI.writePost(origin, data);
+  },*/
+
   writePost: function(origin, data) {
     console.log("POSTING POST to "+origin+" WITH "+data);
     AppDispatcher.dispatch({

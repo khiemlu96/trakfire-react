@@ -13,7 +13,7 @@ var PostActions = require('../actions/PostActions');
 
 var classNames = require('classnames');
 
-var PostListItem = React.createClass({
+var PostGridItem = React.createClass({
 
   propTypes: {
    key: ReactPropTypes.string,
@@ -64,6 +64,6 @@ var PostListItem = React.createClass({
 
 });
 
-module.exports = PostListItem;
+module.exports = PostGridItem;
 
 

@@ -13,9 +13,9 @@ var TrakfirePlayer = require('./TrakfirePlayer.jsx');
 var PostForm = require('./PostForm.jsx');
 var PostStore = require('../stores/PostStore');
 var PostActions = require('../actions/PostActions');
+var PostsGrid = require('./PostGrid.jsx');
 var Howl = require('howler').Howl;
 var clientId = "9999309763ba9d5f60b28660a5813440";
-
 /**
  * Retrieve the current post and user data from the PostStore
  */
@@ -183,7 +183,7 @@ var TrakfireApp = React.createClass({
           <FilterBar 
             onClick={this.handleUserSelection}
           />
-          <PostsList
+          <PostsGrid
             allPosts={this.state.allPosts}
             genre={this.state.genre}
             sort={this.state.sort}
