@@ -1,8 +1,8 @@
 //TrakfireApp.js
 
 var React = require('react');
-var Router = require('react-router');
-var RouteHandler = Router.RouteHandler;
+//var Router = require('react-router');
+//var RouteHandler = Router.RouteHandler;
 var Uri = require('jsuri');
 var ReactPropTypes = React.PropTypes;
 
@@ -136,18 +136,18 @@ var TrakfireApp = React.createClass({
   },
 
   readPostsFromApi: function(){
-    console.log('FETCHING POST BATCH');
-    PostActions.getPostBatch('http://localhost:3000/posts');
+    console.log('FETCHING POST BATCH', this.props.origin);
+    PostActions.getPostBatch(this.props.origin+'/posts');
   },
 
   currentUserFromAPI: function() {
     console.log('GET CURRENT USER');
-    PostActions.getCurrentUser('http://localhost:3000/current_user');
+    PostActions.getCurrentUser(this.props.origin+'/current_user');
   },
 
   writePostsToApi: function(data){
     console.log('WRITING POSTS TO THE API');
-    PostActions.writePost('http://localhost:3000/posts', data);
+    PostActions.writePost(this.props.origin+'/posts', data);
   },
 
   handleUserSelection: function(genre, sort) {

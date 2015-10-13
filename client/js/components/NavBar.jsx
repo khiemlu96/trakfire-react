@@ -8,8 +8,8 @@
  */
 
 var React = require('react');
-var Router = require('react-router');
-var Link = Router.Link;
+//var Router = require('react-router');
+//var Link = Router.Link;
 var PostActions = require('../actions/PostActions');
 var ReactPropTypes = React.PropTypes;
 

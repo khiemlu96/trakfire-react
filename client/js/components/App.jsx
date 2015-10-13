@@ -1,4 +1,4 @@
-var TF = require('./TrakfireApp.jsx');
+/*var TF = require('./TrakfireApp.jsx');
 var NavBar = require('./NavBar.jsx');
 var React = require('react');
 var Router = require('react-router');
@@ -36,4 +36,4 @@ module.exports = React.createClass({
       </div>
     );
   }
-});
+});*/

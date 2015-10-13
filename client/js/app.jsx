@@ -17,16 +17,16 @@ var LocalPostData = require('./LocalPostData');
 var PostUtils = require('./utils/PostUtils');
 var TrakfireWebApiUtils = require('./utils/TrakfireWebApiUtils');
 var PostActions = require('./actions/PostActions');
-var Router = require('react-router');
-var routes = require('../config/routes.jsx');
+//var Router = require('react-router');
+//var routes = require('../config/routes.jsx');
 //LocalPostData.init();
 //TrakfireWebApiUtils.();
 
-/*React.render(
+React.render(
   <TrakfireApp />,
   document.getElementById('trakfireapp')
-);*/
+);
 
-Router.run(routes, Router.HistoryLocation, function(Handler) {
+/*Router.run(routes, Router.HistoryLocation, function(Handler) {
   React.render(<Handler/>, document.getElementById('trakfireapp'));
-});
+});*/
