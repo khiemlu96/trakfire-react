@@ -37,7 +37,7 @@ var NavBar = React.createClass({
       var signinLink = <a href="#!" onClick={this.handleSignOut} className="btn py2 m0"> Sign Out </a>
       var postLink = <button type="button" className="btn py2 m0" onClick={this.showModal}>Post</button>
     } else {
-      var signinLink = <a href={ 'http://localhost:3000/request_token'} className="btn py2 m0"> Sign In </a>
+      var signinLink = <a href={ this.props.origin+'/request_token'} className="btn py2 m0"> Sign In </a>
       var postLink = '';
     }
     return (
