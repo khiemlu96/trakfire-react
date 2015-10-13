@@ -33,8 +33,14 @@ function sortPostsByDate(posts) {
       dates[dstr][key] = posts[key];
     }
   }
-  //console.log(dates, dateKeys);
+  console.log(dates, dateKeys);
   return [dateKeys, dates];
+}
+
+function sortDate(a, b) {
+  if(new Date(a) < new Date(b)) { return 1; }
+  if(new Date(a) > new Date(b)) { return -1; }
+  return 0;
 }
 
 function compareScore(a, b) {
@@ -74,7 +80,10 @@ var PostsList = React.createClass({
     var allPosts = this.props.allPosts;
     var processedPosts = sortPostsByDate(allPosts);
     var postsByDate = processedPosts[1];
-    var sortRef = processedPosts[0].sort().reverse();
+    //var sortRef = processedPosts[0].sort().reverse();
+    var sortRef = processedPosts[0].sort(sortDate);
+    
+    console.log("SORTED DATES TO ", sortRef, processedPosts[0]);
     //console.log(postsByDate[sortRef[0]]);
     var postListItems = [];
     var playlist = [];
@@ -143,8 +152,13 @@ var PostsList = React.createClass({
     var allPosts = this.props.allPosts;
     var processedPosts = sortPostsByDate(allPosts);
     var postsByDate = processedPosts[1];
-    var sortRef = processedPosts[0].sort().reverse();
-    //console.log(postsByDate[sortRef[0]]);
+    //var sortRef = processedPosts[0].sort().reverse();
+    var sortRef = processedPosts[0].sort(sortDate);
+
+    var sortRef = processedPosts[0].sort(sortDate);
+    
+    console.log("SORTED DATES TO ", sortRef, processedPosts[0]);
+
     var postListItems = [];
     var playlist = [];
     var count = 0;
