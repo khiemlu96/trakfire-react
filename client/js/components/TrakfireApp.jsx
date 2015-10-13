@@ -126,9 +126,10 @@ var TrakfireApp = React.createClass({
     var s = this.state.playlist !== nextState.playlist;
     var i = this.state.currentSongIdx != nextState.currentSongIdx;
     var m = this.state.showModal != nextState.showModal;
+    var c = this.state.genre != nextState.genre || this.state.sort != nextState.sort;
     //var t = !this.state.isPlaying;
-    console.log('ROOT SHOULD UPDATE', s+i+m);
-    return s+i+m;
+    console.log('ROOT SHOULD UPDATE', s+i+m+c);
+    return s+i+m+c;
   }, 
 
   handleUserNavigation: function() {
