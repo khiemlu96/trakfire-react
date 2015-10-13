@@ -4,7 +4,7 @@ p.each do |pp|
   if pp.song_id
 	  song = Song.find(pp.song_id)
 	  pp.artist = song.artist
-	  pp.waveform_url = song.waveform_url
+	  pp.waveform_url = song.wav_url
 	  pp.img_url = song.thumb_url
 	  pp.title = song.title
 	  pp.stream_url = song.stream_url
