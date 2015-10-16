@@ -3,6 +3,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var PostConstants = require('../constants/PostConstants');
 var TfAPI = require('../utils/TrakfireWebApiUtils');
 var PostActions = {
+
   create: function(text) {
     AppDispatcher.dispatch({
       actionType: PostConstants.POST_CREATE,
@@ -10,12 +11,13 @@ var PostActions = {
     });
   },
 
-  upvote: function(id, user_id) {
+  upvote: function(origin, post_id) {
+    //console.log('UPVOTING');
     AppDispatcher.dispatch({
-      actionType: PostConstants.POST_UPVOTE,
-      id: id,
-      user_id: userid
+      actionType: PostConstants.UPVOTE_POST
     });
+    console.log('UPVOTING');
+    TfAPI.upvotePostFromUser(origin, post_id);
   },
 
   sort: function(method) {
@@ -51,15 +53,14 @@ var PostActions = {
     TfAPI.getCurrentUser(origin);
   },
 
-  /*getPostsForUsers: function() {
-    console.log("POSTING POST to "+origin+" WITH "+data);
+  getPostsForUser: function(origin) {
+    console.log("GETTING POSTS FOR USER ", userid);
     AppDispatcher.dispatch({
-      actionType: PostConstants.WRITE_POST,
-      data: data
+      actionType: PostConstants.GET_USER_POSTS
     });
 
-    TfAPI.writePost(origin, data);
-  },*/
+    TfAPI.getPostsForUser(origin);
+  },
 
   writePost: function(origin, data) {
     console.log("POSTING POST to "+origin+" WITH "+data);

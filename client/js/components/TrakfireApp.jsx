@@ -16,6 +16,7 @@ var PostActions = require('../actions/PostActions');
 var PostsGrid = require('./PostGrid.jsx');
 var Howl = require('howler').Howl;
 var clientId = "9999309763ba9d5f60b28660a5813440";
+var upvoted = false;
 /**
  * Retrieve the current post and user data from the PostStore
  */
@@ -95,6 +96,7 @@ var TrakfireApp = React.createClass({
     console.log('UPDATE');
     console.log(this.state.playlist, prevState.playlist);
     console.log('DIFF', this.state.playlist !== prevState.playlist);
+    if(this.state.isLoggedIn && !upvoted){ this.writeVoteToApi(19); upvoted = true; }
     if(this.state.playlist !== prevState.playlist) {
       var allPosts = this.state.allPosts;
       var playlist = this.state.playlist;
@@ -151,6 +153,14 @@ var TrakfireApp = React.createClass({
     PostActions.writePost(this.props.origin+'/posts', data);
   },
 
+  getUserPostsFromApi: function(userid) {
+    PostActions.getPostsForUser(this.props.origin+'/users/'+userid+'/posts');
+  },
+
+  writeVoteToApi: function(postid) {
+    PostActions.upvote(this.props.origin+'/votes', postid);
+  }, 
+
   handleUserSelection: function(genre, sort) {
     var currGenre = this.state.genre;
     var currSort = this.state.sort;
@@ -183,7 +193,7 @@ var TrakfireApp = React.createClass({
           <FilterBar 
             onClick={this.handleUserSelection}
           />
-          <PostsGrid
+          <PostsList
             allPosts={this.state.allPosts}
             genre={this.state.genre}
             sort={this.state.sort}

@@ -13,7 +13,8 @@ module.exports = {
       author_img: rawPost.user.img,
       stream_url: rawPost.stream_url,
       thumbnail_url: rawPost.img_url, 
-      duration: rawPost.duration
+      duration: rawPost.duration,
+      votes: 0
     };
   }
 

@@ -94,10 +94,10 @@
 
 /* background: */
 .post-background{
-	/*width: 1180px;*/
+	width: 1180px;
 	height: 100px;
 	margin-bottom: 10px;
-	width: 100%;
+	/*width: 100%;*/
 	background: #1C1C1C;
 	border: 1px solid #2B2B2B;
 }

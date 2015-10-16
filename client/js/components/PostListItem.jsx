@@ -44,8 +44,8 @@ var PostListItem = React.createClass({
 
     return (
       <li className="post-background">
-        <span className="post-upvote-count">
-        1
+        <span className="post-upvote-circle">
+          <span className="post-upvote-count">1</span>
         </span>
         <span className="tf-post-item--img">
           <a href="#!" className="tf-post-play" onClick={this.playPauseTrack}>

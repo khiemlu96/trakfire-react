@@ -20,6 +20,7 @@ var CHANGE_EVENT = 'change';
 var _posts = {};
 var _postsG = {};
 var _user = null;
+var _uposts = {};
 
 function _addPosts(rawPosts) {
   console.log("ADDING POSTS", rawPosts);
@@ -39,19 +40,15 @@ function _addPost(rawPost) {
 function _addUser(user) {
   _user = user;
 }
-/**
- * Create a TODO item.
- * @param  {string} text The content of the TODO
- */
-function create(text) {}
 
-/**
- * Update a TODO item.
- * @param  {string} id
- * @param {object} updates An object literal containing only the data to be
- *     updated.
- */
-function upvote(id, user_id) {}
+function _addPostsToUser(userPosts) {
+  _uposts['upvoted'] = userPosts.upvoted;
+  _uposts['posted'] = userPosts.posted;
+}
+
+function _addVoteToPost(post_id) {
+  _posts[post_id].votes+=1;
+}
 
 /**
  * Update all of the TODO items with the same object.
@@ -100,6 +97,11 @@ var PostStore = assign({}, EventEmitter.prototype, {
     return _user ? true : false;
   },
 
+  getCurrentUserPosts: function() {
+    console.log('GETTING THE USERS POSTS');
+    return _uposts;
+  }, 
+
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },
@@ -134,6 +136,9 @@ AppDispatcher.register(function(action) {
       _addUser(action.response);
       PostStore.emitChange();
       break;
+    case PostConstants.GET_USER_POSTS:
+      console.log('Getting a users posts');
+      break;
     case PostConstants.RECIEVE_RAW_POSTS:
       console.log('recieving', action.rawPosts);
       _addPosts(action.rawPosts);
@@ -142,9 +147,22 @@ AppDispatcher.register(function(action) {
     case PostConstants.WRITE_POST:
       console.log('WROTE A POST');
       break;
+    case PostConstants.UPVOTE_POST:
+      console.log('UPVOTING A POST');
+      break;
     case PostConstants.RECIEVE_NEW_POST:
       console.log('wrote a post ', action.response);
       _addPost(action.response);
+      PostStore.emitChange();
+      break;
+    case PostConstants.RECIEVE_USER_POSTS:
+      console.log('recieving user posts ', action.response);
+      _addPostsToUser(action.response);
+      PostStore.emitChange();
+      break;
+    case PostConstants.RECIEVE_NEW_VOTE:
+      console.log('recieving a new vote', action.reponse);
+      _addVoteToPost(action.post_id);
       PostStore.emitChange();
       break;
     default:

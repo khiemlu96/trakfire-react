@@ -13,11 +13,6 @@
 var PostServerActionCreators = require('../actions/PostServerActionCreators');
 var Reqwest = require('reqwest');
 
-function buildUrl(slug) {
-	var origin = ''
-	return origin + slug;
-}
-
 module.exports = {
   //example dat loaded from localStorage
   getAllPosts: function() {
@@ -86,6 +81,48 @@ module.exports = {
         //location = '/';
       }
     });
+  },
+
+  getPostsForUser: function(url, userid) {
+    console.log("POSTS FOR USER GETTING");
+    Reqwest({
+      url: url,
+      type: 'json',
+      method: 'get',
+      contentType: 'application/json',
+      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      success: function(resp) { 
+        console.log("SERVER RESPONSE FOR USER", resp);
+        userPosts = resp;
+        PostServerActionCreators.recieveUserPosts(userPosts); 
+      },
+      error: function(error) {
+        console.error(url, error);
+        //console.error(url, error['response']);
+        //location = '/';
+      }
+    });    
+  }, 
+
+  upvotePostFromUser: function(url, post_id) {
+    console.log('UPVOTING POST '+post_id+' BY CURR USER');
+    Reqwest({
+      url: url,
+      data: { post_id: post_id },
+      type: 'json',
+      method: 'POST',
+      contentType: 'application/json',
+      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      success: function(resp) {
+        console.log("SERVER RESPONSE", resp);
+        newVote = resp;
+        PostServerActionCreators.recieveNewVote(newVote); 
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+        //location = '/';
+      }
+    });  
   }
 
 };

@@ -45,6 +45,23 @@ module.exports = {
       actionType: PostConstants.RECIEVE_NEW_POST,
       response: response
     });    
+  }, 
+
+  recieveUserPosts: function(response) {
+    console.log("RECIEVING THE USERS POSTS", response);
+    AppDispatcher.dispatch({
+      actionType: PostConstants.RECIEVE_USER_POSTS,
+      response: response
+    });     
+  }, 
+
+  recieveNewVote: function(response) {
+    console.log("RECIEVING A NEW VOTE", response);
+    AppDispatcher.dispatch({
+      actionType: PostConstants.RECIEVE_NEW_VOTE,
+      response: response,
+      post_id: response.post_id
+    });    
   }
   
 };

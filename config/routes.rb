@@ -7,7 +7,12 @@ Rails.application.routes.draw do
   get 'access_token', to: 'tokens#access_token'
 
   resources :posts, only: [:index, :create, :show]
-
+  resources :votes, only: [:create]
+  resources :users, only: [] do
+    member do
+      get :posts
+    end
+  end
   
   match '*all', to: 'application#index', via: [:get]
 end
