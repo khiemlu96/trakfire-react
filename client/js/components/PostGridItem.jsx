@@ -43,21 +43,43 @@ var PostGridItem = React.createClass({
     var post = this.props.post;
 
     return (
-      <li className="tf-post-item">
-        <span className="tf-post-item--votes col-xs-1">
-        1
-        </span>
-        <span className="tf-post-item--img">
-          <a href="#!" className="tf-post-play" onClick={this.playPauseTrack}>
-            <img className="tf-thumbnail" src={post.thumbnail_url}/>
-          </a>
-        </span>
-        <span className="tf-post-item--rank">1</span>
-        <span className="tf-post-item--info">
-          <h5> { post.title } </h5>
-          <small> {post.artist } </small>
-        </span>
+      <li className="tf-post-grid">
+        <div className="tf-post-item-content">
+          <div className="tf-post-item--votes">
+          1
+          </div>
 
+          <div className="tf-post-item--img"> 
+            <a href="#!" className="tf-post-play" onClick={this.playPauseTrack}>
+              <img className="tf-thumbnail" src={post.thumbnail_url}/>
+            </a>
+            <div className="tf-overlay" onClick={this.playPauseTrack}> 
+            </div> 
+            <div className="tpf-play-button" onClick={this.playPauseTrack}> 
+              <img src={'assets/img/player-play-white.svg'} /> 
+            </div> 
+            <div className="tpf-pause-button" onClick={this.playPauseTrack}> 
+              <img src={'assets/img/player-pause-white.svg'} /> 
+            </div> 
+
+
+          </div>
+
+          <div className="tf-post-item--rank">1</div>
+          <div className="tf-post-item--info">
+            <h5> { post.title } </h5>
+            <small> {post.artist } </small>
+          </div>
+          <div className="tf-post-item--tags">
+            <div className="tf-tag"> 
+              HIP-HOP
+            </div> 
+            <div className="tf-tag"> 
+              REMIX
+            </div> 
+
+          </div>
+        </div>
       </li>
     );
   }

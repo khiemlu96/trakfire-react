@@ -14,9 +14,9 @@ var PostForm = require('./PostForm.jsx');
 var PostStore = require('../stores/PostStore');
 var PostActions = require('../actions/PostActions');
 var PostsGrid = require('./PostGrid.jsx');
+var PostContainer = require('./PostContainer.jsx');
 var Howl = require('howler').Howl;
 var clientId = "9999309763ba9d5f60b28660a5813440";
-var upvoted = false;
 /**
  * Retrieve the current post and user data from the PostStore
  */
@@ -25,10 +25,11 @@ function getAppState() {
     allPosts: PostStore.getAll(),
     currentUser: PostStore.getCurrentUser(),
     isLoggedIn: PostStore.isSignedIn(),
+    isAdmin: PostStore.isAdmin(),
     playlist: [],
     currentSongIdx: -1,
-    sort: "",
-    genre: "",
+    sort: "TOP",
+    genre: "ALL",
     isPlaying: false,
     isLoading: false,
     isPaused: true,
@@ -96,7 +97,6 @@ var TrakfireApp = React.createClass({
     console.log('UPDATE');
     console.log(this.state.playlist, prevState.playlist);
     console.log('DIFF', this.state.playlist !== prevState.playlist);
-    if(this.state.isLoggedIn && !upvoted){ this.writeVoteToApi(19); upvoted = true; }
     if(this.state.playlist !== prevState.playlist) {
       var allPosts = this.state.allPosts;
       var playlist = this.state.playlist;
@@ -171,9 +171,15 @@ var TrakfireApp = React.createClass({
     }); 
   },
 
+  scrollToTop: function() {
+      console.log('scrolling');
+      window.scrollTo(0,-252);
+  },
+
   showModal: function(isOpen) {
     this.setState({showModal: isOpen});
   },
+
 
   /**
    * @return {object}
@@ -184,39 +190,46 @@ var TrakfireApp = React.createClass({
     console.log('rendering all', this.state.allPosts);
     return (
       <div>
-        <div className="container">
           <NavBar 
             isLoggedIn={this.state.isLoggedIn}
             origin={this.props.origin}
-            showModal={this.showModal}
+            isAdmin={this.state.isAdmin}
           />
           <FilterBar 
             onClick={this.handleUserSelection}
+            genre={this.state.genre}
+            sort={this.state.sort}
+            scrollToTop={this.scrollToTop}
           />
-          <PostsList
+          <PostContainer
+            posts={this.state.allPosts}
+            genre={this.state.genre}
+            sort={this.state.sort}
+            onPostListItemClick={this.onSongItemClick}
+          />
+          {/*<PostsList
             allPosts={this.state.allPosts}
             genre={this.state.genre}
             sort={this.state.sort}
             onPostListItemClick={this.onSongItemClick}
             loadSortedPlaylist={this.loadSortedPlaylist}
             playlist={this.state.playlist}
-          />
-        </div>
+          />*/}
         <div>
-        <TrakfirePlayer 
+        {/*<TrakfirePlayer 
           currTrack={this.state.currTrack}
           isPlaying={this.state.isPlaying}
           scClientId={clientId}
           onNextClick={this.onNextBtnClick}
           onPrevClick={this.onPrevBtnClick}
           onPlayPauseClick={this.onPlayBtnClick}
-        />
-        <PostForm
+        />*/}
+        {/*<PostForm
           isSignedIn={this.state.isLoggedIn}
           onSubmit={this.writePostsToApi}
           closeModal={this.showModal}
           showModal={this.state.showModal}
-        />
+        />*/}
         </div>
       </div>
     );

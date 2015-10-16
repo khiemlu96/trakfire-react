@@ -18,7 +18,7 @@ var NavBar = React.createClass({
   propTypes: {
     isLoggedIn: ReactPropTypes.bool,
     origin: ReactPropTypes.string,
-    openModal: ReactPropTypes.func,
+    isAdmin: ReactPropTypes.bool
   },
 
   handleSignOut: function() {
@@ -34,26 +34,33 @@ var NavBar = React.createClass({
    */
   render: function() {
     if(this.props.isLoggedIn) {
-      var signinLink = <a href="#!" onClick={this.handleSignOut} className="btn py2 m0"> Sign Out </a>
-      var postLink = <button type="button" className="btn py2 m0" onClick={this.showModal}>Post</button>
+      var signinLink = <a href="#!" onClick={this.handleSignOut}> SIGN OUT </a>
+      if(this.props.isAdmin) { 
+        var postLink = <a href="#!">POST</a> 
+      } else {
+        var postLink = "";
+      }
     } else {
-      var signinLink = <a href={ this.props.origin+'/request_token'} className="btn py2 m0"> Sign In </a>
+      var signinLink = <a href={ this.props.origin+'/request_token'}> SIGN IN </a>
       var postLink = '';
     }
     return (
-      <div className="clearfix mb2 white bg-red">
-        <div className="left">
-          <a href="#!" class="btn py2 m0">Trakfire</a>
-        </div>
-        <div className="right">
-          {postLink}
-          {signinLink}
-        </div>
-        <div className="clearfix sm-hide"></div>
-        <div className="overflow-hidden px2 py1">
-          <input type="text" className="right fit field white bg-darken-1" placeholder="Search"/>
-        </div>
-      </div>
+      <div className="tf-navbar" role="navigation"> 
+        
+        <div className="tf-navbar-inner container">   
+          <div className="tf-logo"> 
+            <img src={"assets/img/logo.svg"}/> 
+          </div> 
+          
+          <div className="right"> 
+            {postLink}
+            {/*<a>             
+              <img src={'assets/img/search.svg'}/> 
+            </a>*/}
+            {signinLink}
+          </div>
+        </div> 
+      </div> 
       );
   }
 

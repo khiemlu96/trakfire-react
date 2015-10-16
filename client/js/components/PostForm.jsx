@@ -64,7 +64,8 @@ var PostForm = React.createClass({
 		  						stream_url: track.stream_url,
 		  						duration: track.duration,
 		  						waveform_url: track.waveform_url,
-		  						genre: genre
+		  						genre: genre,
+		  						vote_count: 1
 	  						}
 	  					}
 

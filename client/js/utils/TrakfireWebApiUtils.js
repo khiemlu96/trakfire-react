@@ -106,9 +106,11 @@ module.exports = {
 
   upvotePostFromUser: function(url, post_id) {
     console.log('UPVOTING POST '+post_id+' BY CURR USER');
+    var data = { vote : {post_id : post_id} };
+    console.log(data);
     Reqwest({
       url: url,
-      data: { post_id: post_id },
+      data: JSON.stringify(data),
       type: 'json',
       method: 'POST',
       contentType: 'application/json',

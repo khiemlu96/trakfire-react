@@ -205,12 +205,12 @@ var PostsList = React.createClass({
         count += 1;
       }
     }
-    this.loadSortedPlaylist(playlist);
+    //this.loadSortedPlaylist(playlist);
     _postListItems = postListItems; 
   }, 
 
   loadSortedPlaylist: function(playlist) {
-    this.props.loadSortedPlaylist(playlist, playlist[0]);
+    //this.props.loadSortedPlaylist(playlist, playlist[0]);
   },
   
   /**

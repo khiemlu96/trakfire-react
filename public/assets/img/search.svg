@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="21px" height="21px" viewBox="0 0 21 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12081) - http://www.bohemiancoding.com/sketch -->
+    <title>search</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="search" sketch:type="MSArtboardGroup">
+            <g id="Imported-Layers" sketch:type="MSLayerGroup">
+                <path d="M8.324,3.19 C10.986,3.19 13.152,5.356 13.152,8.018 C13.152,10.68 10.986,12.846 8.324,12.846 C5.662,12.846 3.496,10.68 3.496,8.018 C3.496,5.356 5.662,3.19 8.324,3.19 M8.324,0.19 C4.001,0.19 0.496,3.695 0.496,8.018 C0.496,12.341 4.001,15.846 8.324,15.846 C12.647,15.846 16.152,12.341 16.152,8.018 C16.152,3.695 12.647,0.19 8.324,0.19" id="Fill-1" fill="#FF0D55" sketch:type="MSShapeGroup"></path>
+                <path d="M13.736,13.431 L20.066,19.76" id="Stroke-3" stroke="#FF0D55" stroke-width="3" sketch:type="MSShapeGroup"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -43,21 +43,41 @@ var PostListItem = React.createClass({
     var post = this.props.post;
 
     return (
-      <li className="post-background">
-        <span className="post-upvote-circle">
-          <span className="post-upvote-count">1</span>
-        </span>
-        <span className="tf-post-item--img">
-          <a href="#!" className="tf-post-play" onClick={this.playPauseTrack}>
-            <img className="tf-thumbnail" src={post.thumbnail_url}/>
-          </a>
-        </span>
-        <span className="post-rank">1</span>
-        <span className="tf-post-item--info">
-          <div className="post-title"> {post.title} </div>
-          <div className="post-artist"> {post.artist} </div>
-        </span>
+      <li className="tf-post-item">
+        <div className="tf-post-item-content">
+          <div className="tf-post-item--votes">
+          { post.vote_count ? post.vote_count : 1 }
+          </div>
+          <div className="tf-post-item--img"> 
+            <a href="#!" className="tf-post-play" onClick={this.playPauseTrack}>
+              <img className="tf-thumbnail" src={post.thumbnail_url}/>
+            </a>
+            <div className="tf-overlay" onClick={this.playPauseTrack}> 
+            </div> 
+            <div className="tpf-play-button" onClick={this.playPauseTrack}> 
+              <img src={'assets/img/player-play-white.svg'} /> 
+            </div> 
+            <div className="tpf-pause-button" onClick={this.playPauseTrack}> 
+              <img src={'assets/img/player-pause-white.svg'} /> 
+            </div> 
 
+
+          </div>
+          <div className="tf-post-item--rank">1</div>
+          <div className="tf-post-item--info">
+            <h5> { post.title } </h5>
+            <small> {post.artist } </small>
+          </div>
+          <div className="tf-post-item--tags">
+            <div className="tf-tag"> 
+              HIP-HOP
+            </div> 
+            <div className="tf-tag"> 
+              REMIX
+            </div> 
+
+          </div>
+        </div>
       </li>
     );
   }

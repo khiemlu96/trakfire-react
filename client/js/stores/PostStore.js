@@ -97,6 +97,12 @@ var PostStore = assign({}, EventEmitter.prototype, {
     return _user ? true : false;
   },
 
+  isAdmin: function() {
+    if(this.isSignedIn()) { var isAdmin = !!_user.isAdmin ? _user.isAdmin : false }
+    console.log('USER ISADMIN? ', isAdmin);
+    return isAdmin;
+  },
+
   getCurrentUserPosts: function() {
     console.log('GETTING THE USERS POSTS');
     return _uposts;

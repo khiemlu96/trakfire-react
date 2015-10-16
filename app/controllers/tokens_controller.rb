@@ -11,7 +11,17 @@ class TokensController < ApplicationController
     if oauth.present?
       request_token = OAuth::RequestToken.new(TWITTER, oauth.token, oauth.secret)
       access_token = request_token.get_access_token(oauth_verifier: params[:oauth_verifier])
-      user = User.find_or_create_by(uid: access_token.params[:user_id]) { |u| u.handle = access_token.params[:screen_name] }
+      user_data = access_token.request(:get, "https://api.twitter.com/1.1/account/verify_credentials.json")
+      j_user = JSON.parse(user_data.body)
+      logger.info "USER DATA"
+      logger.info j_user
+      user = User.find_or_create_by(uid: access_token.params[:user_id]) do |u| 
+        u.handle = access_token.params[:screen_name] 
+        u.username = j_user[:name]
+        u.img = j_user[:img]
+        u.tbio = j_user[:description]
+        u.location = j_user[:location]
+      end
       jwt = JWT.encode({uid: user.uid, exp: 1.day.from_now.to_i}, Rails.application.secrets.secret_key_base)
       redirect_to ENV['ORIGIN'] + "?jwt=#{jwt}"
     else

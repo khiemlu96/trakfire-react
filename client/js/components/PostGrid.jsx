@@ -10,7 +10,7 @@
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var PostActions = require('../actions/PostActions');
-var PostListItem = require('./PostListItem.jsx');
+var PostGridItem = require('./PostListItem.jsx');
 var PostListDateHeader = require('./PostListDateHeader.jsx'); 
 var PostStore = require('../stores/PostStore');
 
@@ -107,7 +107,7 @@ var PostsGrid = React.createClass({
       playlist.push(post);
     }
 
-    this.loadSortedPlaylist(playlist);
+    //this.loadSortedPlaylist(playlist);
     _postGridItems = postGridItems;
   },
 
@@ -137,7 +137,7 @@ var PostsGrid = React.createClass({
       playlist.push(post);
     }
 
-    this.loadSortedPlaylist(playlist);
+    //this.loadSortedPlaylist(playlist);
     _postGridItems = postGridItems; 
   }, 
 
@@ -153,11 +153,25 @@ var PostsGrid = React.createClass({
     /*if (Object.keys(this.props.allPosts).length < 1) {
       return null;
     }*/
+    _postGridItems = [];
+    console.log("UPDATING THE POSTGrid ", allPosts);
+    var allPosts = this.props.allPosts;
+    var sortedPosts = toArray(allPosts);//.sort(sortNew);
+    var postGridItems = [];
+    //var playlist = [];
+    console.log("Sorted Posts ", sortedPosts);
+    for(var i = 0; i < sortedPosts.length; i++) {
+      var post = sortedPosts[i];
+      var item = <PostGridItem onClick={this.props.onPostListItemClick} key={post.key} trackIdx={i} post={post}/>
+      postGridItems.push(item);
+      //playlist.push(post);
+    }
 
-    //use sort ref to sort the dates in DESC order
+    //this.loadSortedPlaylist(playlist);
+    _postGridItems = postGridItems;
     return (
       <section id="main">
-        <ul id="Post-grid" className="tf-post-grid" >{_postGridItems}</ul>
+        <ul id="post-grid" >{_postGridItems}</ul>
       </section>
     );
   }
