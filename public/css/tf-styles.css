@@ -43,7 +43,7 @@
 	height: 30px;
 	top: -4px;
 	margin-right: 4px;
-	z-index: 1001;
+	z-index: 1000;
 }
 
 .tf-player-backward {

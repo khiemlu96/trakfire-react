@@ -12,7 +12,7 @@ var PostActions = {
   },
 
   upvote: function(origin, post_id) {
-    //console.log('UPVOTING');
+    console.log('UPVOTING ', origin, post_id);
     AppDispatcher.dispatch({
       actionType: PostConstants.UPVOTE_POST
     });

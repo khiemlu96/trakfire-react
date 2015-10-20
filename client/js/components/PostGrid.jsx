@@ -91,6 +91,7 @@ var PostsGrid = React.createClass({
     genre: ReactPropTypes.string,
     onPostListItemClick: ReactPropTypes.func,
     loadSortedPlaylist: ReactPropTypes.func,
+    onPostUpvote:ReactPropTypes.func
   },
 
   componentDidMount: function() {

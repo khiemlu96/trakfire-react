@@ -1,8 +1,6 @@
 //TrakfireApp.js
 
-var React = require('react');
-//var Router = require('react-router');
-//var RouteHandler = Router.RouteHandler;
+var React = require('react/addons');
 var Uri = require('jsuri');
 var ReactPropTypes = React.PropTypes;
 
@@ -10,24 +8,25 @@ var NavBar = require('./NavBar.jsx');
 var FilterBar = require('./FilterBar.jsx');
 var PostsList = require('./PostsList.jsx');
 var TrakfirePlayer = require('./TrakfirePlayer.jsx');
-var PostForm = require('./PostForm.jsx');
 var PostStore = require('../stores/PostStore');
 var PostActions = require('../actions/PostActions');
 var PostsGrid = require('./PostGrid.jsx');
 var PostContainer = require('./PostContainer.jsx');
-var Howl = require('howler').Howl;
-var clientId = "9999309763ba9d5f60b28660a5813440";
+var PostsPage = require('./PostsPage.jsx');
+var ProfilePage = require('./ProfilePage.jsx');
+var UserStore = require('../stores/UserStore.js');
+var UserActions = require('../actions/UserActions.js');
+var SoundCloudAudio = require('soundcloud-audio');
+var scPlayer = new SoundCloudAudio('9999309763ba9d5f60b28660a5813440');
 /**
  * Retrieve the current post and user data from the PostStore
  */
 function getAppState() {
   return {
     allPosts: PostStore.getAll(),
-    currentUser: PostStore.getCurrentUser(),
-    isLoggedIn: PostStore.isSignedIn(),
-    isAdmin: PostStore.isAdmin(),
-    playlist: [],
-    currentSongIdx: -1,
+    currentUser: UserStore.getCurrentUser(),
+    isLoggedIn: UserStore.isSignedIn(),
+    isAdmin: UserStore.isAdmin(),
     sort: "TOP",
     genre: "ALL",
     isPlaying: false,
@@ -36,8 +35,8 @@ function getAppState() {
     seek: 0,
     volume: 1.0,
     duration: 0,
-    currTrack: {},
-    showModal: false
+    currTrack: null,
+    currStreamUrl: null
   };
 }
 
@@ -62,77 +61,21 @@ var TrakfireApp = React.createClass({
       console.log('SET SESSION W JWT');
       sessionStorage.setItem('jwt', jwt);
     }
+    this.readPostsFromApi();
   },
 
   componentDidMount: function() {
     PostStore.addChangeListener(this._onChange);
-    this.readPostsFromApi();
+    UserStore.addChangeListener(this._onChange);
     if (!!sessionStorage.getItem('jwt')) {
       console.log('FETCHING USER');
       this.currentUserFromAPI();
     }
-    var allPosts = this.state.allPosts;
-    var playlist = this.state.playlist;
-    for (var id in allPosts) {
-      playlist.push(allPosts[id]);
-    }
-    console.log(playlist)
-    i = 0;
-    if(playlist.length > 0) {
-      if(playlist[i].stream_url) var track = playlist[i];
-      else while( !playlist[i].stream_url && i < playlist.length ){i++;}
-    }
-
-    this.setState({currTrack: track});
-    this.setState(function(previousState, currentProps) {
-      return { currentSongIdx: previousState.currentSongIdx + 1 };
-    }, function(){console.log('UPDATED STATE FROM MOUNT ', this.state)});
   },
-
   componentWillUnmount: function() {
     PostStore.removeChangeListener(this._onChange);
+    UserStore.removeChangeListener(this._onChange);
   },
-
-  componentDidUpdate: function(prevProps, prevState, prevContext) {
-    console.log('UPDATE');
-    console.log(this.state.playlist, prevState.playlist);
-    console.log('DIFF', this.state.playlist !== prevState.playlist);
-    if(this.state.playlist !== prevState.playlist) {
-      var allPosts = this.state.allPosts;
-      var playlist = this.state.playlist;
-      for (var id in allPosts) {
-        playlist.push(allPosts[id]);
-      }
-      console.log(playlist)
-      i = 0;
-      if(playlist.length > 0) {
-        if(playlist[i].stream_url) var track = playlist[i];
-        else while( !playlist[i].stream_url && i < playlist.length ){i++;}
-      }
-      console.log("DID UPDATE WITH NEW LIST ", playlist);
-      this.setState({currTrack: track});
-      this.setState(function(previousState, currentProps) {
-        return { currentSongIdx: previousState.currentSongIdx + 1 };
-      }, function(){console.log('UPDATED STATE FROM MOUNT ', this.state)});
-
-      this.forceUpdate();
-    }
-
-    if (this.state.isPlaying && this.state.currentSongIdx != prevState.currentSongIdx) {
-      console.log('THE COMPONENT DID UPDATE');
-      this.initSoundObject();
-    }
-  },
-
-  shouldComponentUpdate: function(nextProps, nextState) {
-    var s = this.state.playlist !== nextState.playlist;
-    var i = this.state.currentSongIdx != nextState.currentSongIdx;
-    var m = this.state.showModal != nextState.showModal;
-    var c = this.state.genre != nextState.genre || this.state.sort != nextState.sort;
-    //var t = !this.state.isPlaying;
-    console.log('ROOT SHOULD UPDATE', s+i+m+c);
-    return s+i+m+c;
-  }, 
 
   handleUserNavigation: function() {
     //irrelevant rn
@@ -145,7 +88,7 @@ var TrakfireApp = React.createClass({
 
   currentUserFromAPI: function() {
     console.log('GET CURRENT USER');
-    PostActions.getCurrentUser(this.props.origin+'/current_user');
+    UserActions.getCurrentUser(this.props.origin+'/current_user');
   },
 
   writePostsToApi: function(data){
@@ -176,271 +119,92 @@ var TrakfireApp = React.createClass({
       window.scrollTo(0,-252);
   },
 
-  showModal: function(isOpen) {
-    this.setState({showModal: isOpen});
-  },
-
-
   /**
    * @return {object}
    */
   render: function() {
-    //var audio = this.state.currTrack ? new Audio(this.state.currTrack.stream_url) : null; 
     var currTrack = this.state.currTrack;
-    console.log('rendering all', this.state.allPosts);
+    console.log(this.route);
+    var tfPlayer =  <TrakfirePlayer 
+                      currTrack={currTrack}
+                      isPlaying={this.state.isPlaying}
+                      onPlayPauseClick={this.onPlayCtrlClick}
+                    />
     return (
       <div>
-          <NavBar 
-            isLoggedIn={this.state.isLoggedIn}
-            origin={this.props.origin}
-            isAdmin={this.state.isAdmin}
-          />
-          <FilterBar 
-            onClick={this.handleUserSelection}
-            genre={this.state.genre}
-            sort={this.state.sort}
-            scrollToTop={this.scrollToTop}
-          />
-          <PostContainer
-            posts={this.state.allPosts}
-            genre={this.state.genre}
-            sort={this.state.sort}
-            onPostListItemClick={this.onSongItemClick}
-          />
-          {/*<PostsList
-            allPosts={this.state.allPosts}
-            genre={this.state.genre}
-            sort={this.state.sort}
-            onPostListItemClick={this.onSongItemClick}
-            loadSortedPlaylist={this.loadSortedPlaylist}
-            playlist={this.state.playlist}
-          />*/}
         <div>
-        {/*<TrakfirePlayer 
-          currTrack={this.state.currTrack}
-          isPlaying={this.state.isPlaying}
-          scClientId={clientId}
-          onNextClick={this.onNextBtnClick}
-          onPrevClick={this.onPrevBtnClick}
-          onPlayPauseClick={this.onPlayBtnClick}
-        />*/}
-        {/*<PostForm
-          isSignedIn={this.state.isLoggedIn}
-          onSubmit={this.writePostsToApi}
-          closeModal={this.showModal}
-          showModal={this.state.showModal}
-        />*/}
-        </div>
+            <NavBar 
+              isLoggedIn={this.state.isLoggedIn}
+              origin={this.props.origin}
+              isAdmin={this.state.isAdmin}
+            />
+          </div>
+          <div>
+          {/*<PostsPage sort={this.state.sort}
+            genre={this.state.genre} 
+            posts={this.state.allPosts} 
+            togglePlay={this.onPlayBtnClick} 
+            filterPosts={this.handleUserSelection}
+            onPostItemClick={this.onPlayBtnClick}
+            user={this.state.currentUser}/>*/}
+           { React.cloneElement(this.props.children, 
+              { 
+                sort: this.state.sort,
+                genre: this.state.genre,
+                posts: this.state.allPosts,
+                togglePlay: this.onPlayBtnClick,
+                upvote: this.writeVoteToApi,
+                filterPosts: this.handleUserSelection,
+                onPostItemClick: this.onPlayBtnClick,
+                user: this.currentUser
+              }) }
+          </div>
+          <div>
+          {currTrack ? tfPlayer : ''}
+          </div>
       </div>
     );
   },
 
-  loadSortedPlaylist: function(playlist, idx) {
-    this.setState({ playlist: playlist, currentSongIdx : idx});
+  /* Function triggered by item thumbnail click */
+  onPlayBtnClick: function(stream_url, track) {
+    var isPlaying = this.state.isPlaying;
+    var isPaused = this.state.isPaused;
+    if(this.state.currTrack == null) {
+      console.log("Curr Track", track);
+      this.setState({currTrack : track});
+    }
+    if(!isPlaying) {
+      console.log('playing '+stream_url);
+      scPlayer.play({streamUrl: stream_url});
+      isPlaying = true;
+      this.setState({isPlaying : isPlaying, isPaused : isPaused, currStreamUrl : stream_url});
+    } else if(isPlaying && stream_url == this.state.currStreamUrl) {
+        console.log('pausing');
+        scPlayer.pause();
+        isPlaying = false;
+        isPaused = true;
+        this.setState({isPlaying : isPlaying, isPaused : isPaused});     
+    }
   },
 
-  onPlayBtnClick: function() {
-    console.log('clicked play', this.state);
-    if (this.state.isPlaying && !this.state.isPaused) {
-      var isPaused = !this.state.isPaused;
-      this.setState({ isPaused: isPaused, isPlaying : false });
-      this.pause();
-      //return;
-    } 
-    else if(this.state.isPaused && !this.state.isPlaying){
+  onPlayCtrlClick: function() {
+    var isPlaying = this.state.isPlaying;
+    var isPaused = this.state.isPaused;
+    var stream_url = this.state.currStreamUrl;
+    if(!isPlaying) {
       console.log('playing');
-      this.play();
-    }
-    else {return;}
-  },
-
-  onPauseBtnClick: function() {
-    var isPaused = !this.state.isPaused;
-    this.setState({ isPaused: isPaused });
-    isPaused ? this.pause() : this._play();
-  },
-
-  onPrevBtnClick: function() {
-    this.prev();
-  },
-
-  onNextBtnClick: function() {
-    this.next();
-  },
-
-  onSongItemClick: function(songIndex) {
-    // handle pause/playing state.
-    console.log(songIndex, this.state.currentSongIdx);
-    if (this.state.currentSongIdx == songIndex) {
-      if (this.state.isPaused) {
-        this.onPauseBtnClick();
-        //this.refs.songList.hideDropdownMenu();
-      } else if (!this.state.isPlaying) {
-        this.onPlayBtnClick();
-        //this.refs.songList.hideDropdownMenu();
-      }
-      return;
-    }
-
-    // handle index change state, it must change to play.
-    //this.stop();
-    this.clearSoundObject();
-    this.setState({ 
-                    currentSongIdx: songIndex,
-                    duration: 0,
-                    isPlaying: true,
-                    isPaused: false
-                  });
-   // this.refs.songList.hideDropdownMenu();
-  },
-
-  play: function() {
-    
-    this.setState({ isPlaying: true, isPaused: false });
-
-    if (!this.howler) {
-      this.initSoundObject();
-    } else {
-      var songUrl = formatStreamUrl(this.state.playlist[this.state.currentSongIdx].stream_url);
-      console.log("SONG URL", songUrl);
-      if (songUrl != this.howler._src) {
-        this.initSoundObject();
-      } else {
-        this._play();
-      }
-    }
-  },
-
-  initSoundObject: function() {
-    console.log('INIT');
-    this.clearSoundObject();
-    this.setState({ isLoading: true });
-
-    var playlist = this.state.playlist;
-    var cIdx = this.state.currentSongIdx;
-    var song = playlist[cIdx];
-
-    this.setState({currTrack : song});
-
-    this.howler = new Howl({
-      src: formatStreamUrl(song.stream_url),
-      urls: [formatStreamUrl(song.stream_url)],
-      format: 'mp3',
-      volume: this.state.volume,
-      onload: this.initSoundObjectCompleted,
-      onloaderror: this.initLoadFailure,
-      onend: this.playEnd
-    });
-    console.log(this.howler, this.state.isLoading);
-  },
-
-  clearSoundObject: function() {
-    if (this.howler) {
-      this.howler.stop();
-      this.howler.unload();
-    }
-  },
-
-  initLoadFailure: function(){
-    alert("FAILURE Loading track");
-  },
-
-  initSoundObjectCompleted: function() {
-    console.log('INIT COMPLETE WITH ', this.state);
-    this._play();
-    this.setState({ 
-      duration: 0,
-      isLoading: false
-    });
-  },
-
-  _play: function() {
-    this.howler.play();
-    this.stopUpdateCurrentDuration();
-    this.updateCurrentDuration();
-    this.interval = setInterval(this.updateCurrentDuration, 1000);
-  },
-
-  playEnd: function() {
-    if(this.state.currentSongIdx == this.state.playlist.length - 1) {
-      this.stop();
-    } else {
-      this.next();
-    }
-  },
-
-  stop: function() {
-    this.stopUpdateCurrentDuration();
-    this.setState({ seek: 0, isPlaying: false });
-  },
-
-  pause: function() {
-    this.howler.pause();
-    this.stopUpdateCurrentDuration();
-  },
-
-  prev: function() {
-    if (this.state.seek > 1 || this.state.currentSongIdx == 0) {
-      this.seekTo(0);
-    } else {
-      this.updateSongIndex(this.state.currentSongIdx - 1);
-    }
-  },
-
-  next: function() {
-    //console.log('UPDATING FROM NEXT', this.state.currentSongIdx + 1);
-    this.updateSongIndex(this.state.currentSongIdx + 1);
-  },
-
-  updateSongIndex: function(index) {
-//    console.log("UPDATING", index);
-    /*this.setState({ 
-      currentSongIdx: index,
-      duration: 0
-    });*/
-    this.setState(function(previousState, currentProps) {
-      return {currentSongIdx: index};
-    }, function(){console.log('UPDATED STATE FROM updateSongIndex', this.state)});
-    //console.log("UPDATED STATE", this.state);
-    if (this.state.isPaused) {
-      this.stop();
-      this.clearSoundObject();
-    } else {
-      this.stopUpdateCurrentDuration();
-    }
-  },
-
-  updateCurrentDuration: function() {
-    //this.setState({ seek: this.howler.pos(0) });
-  },
-
-  stopUpdateCurrentDuration: function() {
-    clearInterval(this.interval);
-  },
-
-  seekTo: function(percent) {
-    var seek = this.state.duration * percent;
-    this.howler.pos(seek);
-    this.setState({ seek: seek });
-  },
-
-  adjustVolumeTo: function(percent) {
-    this.setState({ volume: percent });
-    if (this.howler) {
-      this.howler.volume(percent);
-    }
-  },
-
-  songCount: function() {
-    return this.state.playlist ? this.state.playlist.length : 0;
-  },
-
-  getCurrentSongName: function() {
-    if (this.state.currentSongIdx < 0) {
-      return "";
-    }
-    var song = this.state.playlist[this.state.currentSongIdx];
-    return song.title;
+      scPlayer.play({streamUrl: stream_url});
+      isPlaying = true;
+      isPaused = false;
+      this.setState({isPlaying : isPlaying, isPaused : isPaused});
+    } else if(isPlaying && !isPaused) {
+      console.log('pausing');
+      scPlayer.pause();
+      isPlaying = false;
+      isPaused = true;
+      this.setState({isPlaying : isPlaying, isPaused : isPaused});
+    }    
   },
 
   /**

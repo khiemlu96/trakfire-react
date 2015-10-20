@@ -8,9 +8,10 @@
  */
 
 var React = require('react');
-//var Router = require('react-router');
-//var Link = Router.Link;
-var PostActions = require('../actions/PostActions');
+
+var Router = require('react-router');
+var Link = Router.Link;
+
 var ReactPropTypes = React.PropTypes;
 
 var NavBar = React.createClass({
@@ -35,6 +36,7 @@ var NavBar = React.createClass({
   render: function() {
     if(this.props.isLoggedIn) {
       var signinLink = <a href="#!" onClick={this.handleSignOut}> SIGN OUT </a>
+      var profileLink = <Link to='/profile'>Profile</Link>;
       if(this.props.isAdmin) { 
         var postLink = <a href="#!">POST</a> 
       } else {
@@ -42,6 +44,7 @@ var NavBar = React.createClass({
       }
     } else {
       var signinLink = <a href={ this.props.origin+'/request_token'}> SIGN IN </a>
+      var profileLink = "";
       var postLink = '';
     }
     return (
@@ -54,6 +57,7 @@ var NavBar = React.createClass({
           
           <div className="right"> 
             {postLink}
+            {profileLink}
             {/*<a>             
               <img src={'assets/img/search.svg'}/> 
             </a>*/}

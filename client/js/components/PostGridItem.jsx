@@ -51,7 +51,7 @@ var PostGridItem = React.createClass({
 
           <div className="tf-post-item--img"> 
             <a href="#!" className="tf-post-play" onClick={this.playPauseTrack}>
-              <img className="tf-thumbnail" src={post.thumbnail_url}/>
+              <img className="tf-thumbnail" src={post.img_url}/>
             </a>
             <div className="tf-overlay" onClick={this.playPauseTrack}> 
             </div> 

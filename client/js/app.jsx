@@ -6,27 +6,26 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
-require('../css/app.css');
 require('../css/tf-styles.css');
-require('basscss');
-require('bootstrap');
 
 var React = require('react');
+
+var ReactRouter = require('react-router');
+var Router = ReactRouter.Router;
+var Route = ReactRouter.Route;
+var Link = ReactRouter.Link;
+var IndexRoute = ReactRouter.IndexRoute;;
+var createBrowserHistory = require('history/lib/createBrowserHistory');
 var TrakfireApp = require('./components/TrakfireApp.jsx');
-var LocalPostData = require('./LocalPostData');
-var PostUtils = require('./utils/PostUtils');
-var TrakfireWebApiUtils = require('./utils/TrakfireWebApiUtils');
-var PostActions = require('./actions/PostActions');
-//var Router = require('react-router');
-//var routes = require('../config/routes.jsx');
-//LocalPostData.init();
-//TrakfireWebApiUtils.();
+var PostsPage = require('./components/PostsPage.jsx');
+var ProfilePage = require('./components/ProfilePage.jsx');
 
 React.render(
-  <TrakfireApp />,
+<Router history={createBrowserHistory()}>
+    <Route path='/' component={TrakfireApp}>
+      <IndexRoute component={PostsPage}/>
+      <Route path='/profile' component={ProfilePage} />
+    </Route>
+  </Router>,
   document.getElementById('trakfireapp')
 );
-
-/*Router.run(routes, Router.HistoryLocation, function(Handler) {
-  React.render(<Handler/>, document.getElementById('trakfireapp'));
-});*/

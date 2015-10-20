@@ -18,7 +18,8 @@ var PostContainer = React.createClass({
     sort: ReactPropTypes.string,
     genre: ReactPropTypes.string,
     posts: ReactPropTypes.object,
-    onSongItemClick: ReactPropTypes.func
+    onSongItemClick: ReactPropTypes.func,
+    onPostUpvoteClick: ReactPropTypes.func
   },
 
   /**
@@ -27,9 +28,17 @@ var PostContainer = React.createClass({
   render: function() {
     console.log('RENDER THE POST CONTAINER ', this.props.posts, this.props.sort);
     if( this.props.sort == "TOP" ) { 
-      var postView = <PostList ref="pcontainer" allPosts={this.props.posts} genre={this.props.genre} sort={this.props.sort} onPostListItemClick={this.onSongItemClick}/>;
+      var postView = <PostList ref="pcontainer" allPosts={this.props.posts} 
+      genre={this.props.genre} 
+      sort={this.props.sort} 
+      onPostListItemClick={this.onSongItemClick}
+      onPostUpvote={this.props.onPostUpvoteClick} />;
     } else if (this.props.sort == "NEW") {
-      var postView = <PostGrid ref="pcontainer" allPosts={this.props.posts} genre={this.props.genre} sort={this.props.sort} onPostListItemClick={this.onSongItemClick}/>;
+      var postView = <PostGrid ref="pcontainer" allPosts={this.props.posts} 
+      genre={this.props.genre} 
+      sort={this.props.sort} 
+      onPostListItemClick={this.onSongItemClick}
+      onPostUpvote={this.props.onPostUpvoteClick} />;
     }
     return (
       <div className="container tf-content-container" > {postView} </div>

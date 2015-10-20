@@ -16,41 +16,45 @@ var classNames = require('classnames');
 var PostListItem = React.createClass({
 
   propTypes: {
-   key: ReactPropTypes.string,
+   key: ReactPropTypes.string.isRequired,
    post: ReactPropTypes.object,
    trackIdx: ReactPropTypes.number.isRequired,
-   onClick: ReactPropTypes.func
+   onClick: ReactPropTypes.func,
+   onUpvote: ReactPropTypes.func,
   },
 
-  getInitialState: function() {
-    return {};
-  },
+  componentDidMount: function() {
+    console.log("POST LIST ITEM ", this.props);
+  } ,
 
   upvote: function(e) {
     e.preventDefault();
-    this.PostActions.upvote(this.props.key);
+    //console.log('upvoting '+this.props.key);
+    //PostActions.upvote('http://localhost:3000'+'/votes', this.props.post.id);
+    this.props.onUpvote(this.props.post.id);
   },
 
   playPauseTrack: function(e) {
     e.preventDefault();
     console.log("TRACK", this.props.trackIdx);
-    this.props.onClick(this.props.trackIdx);
+    this.props.onClick(this.props.post.stream_url, this.props.post);
   },
   /**
    * @return {object}
    */
   render: function() {
     var post = this.props.post;
-
+    var key = this.props.key;
+    console.log(key);
     return (
       <li className="tf-post-item">
         <div className="tf-post-item-content">
-          <div className="tf-post-item--votes">
-          { post.vote_count ? post.vote_count : 1 }
+          <div className="tf-post-item--votes" onClick={this.upvote}>
+          { post.votes ? post.votes : 1 }
           </div>
           <div className="tf-post-item--img"> 
             <a href="#!" className="tf-post-play" onClick={this.playPauseTrack}>
-              <img className="tf-thumbnail" src={post.thumbnail_url}/>
+              <img className="tf-thumbnail" src={post.img_url}/>
             </a>
             <div className="tf-overlay" onClick={this.playPauseTrack}> 
             </div> 
@@ -63,12 +67,12 @@ var PostListItem = React.createClass({
 
 
           </div>
-          <div className="tf-post-item--rank">1</div>
+          <div className="tf-post-item--rank">{" "}</div>
           <div className="tf-post-item--info">
             <h5> { post.title } </h5>
             <small> {post.artist } </small>
           </div>
-          <div className="tf-post-item--tags">
+          {/*<div className="tf-post-item--tags">
             <div className="tf-tag"> 
               HIP-HOP
             </div> 
@@ -76,7 +80,7 @@ var PostListItem = React.createClass({
               REMIX
             </div> 
 
-          </div>
+          </div>*/}
         </div>
       </li>
     );

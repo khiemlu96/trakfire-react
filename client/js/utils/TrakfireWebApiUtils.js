@@ -11,6 +11,7 @@
  */
 
 var PostServerActionCreators = require('../actions/PostServerActionCreators');
+var UserServerActionCreators = require('../actions/UserServerActions');
 var Reqwest = require('reqwest');
 
 module.exports = {
@@ -53,7 +54,7 @@ module.exports = {
       success: function(resp) { 
         console.log("SERVER RESPONSE", resp);
         user = resp;
-        PostServerActionCreators.recieveCurrentUser(user); 
+        UserServerActionCreators.recieveCurrentUser(user); 
       },
       error: function(error) {
         console.error(url, error);

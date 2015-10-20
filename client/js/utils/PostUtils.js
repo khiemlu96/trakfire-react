@@ -3,6 +3,8 @@
 module.exports = {
 
   convertRawPost: function(rawPost) {
+    console.log("vote_count",rawPost.vote_count);
+    console.log("user", rawPost.user);
     return {
       id: rawPost.id,
       title: rawPost.title,
@@ -12,9 +14,9 @@ module.exports = {
       author: rawPost.user.handle,
       author_img: rawPost.user.img,
       stream_url: rawPost.stream_url,
-      thumbnail_url: rawPost.img_url, 
+      img_url: rawPost.img_url, 
       duration: rawPost.duration,
-      votes: 0
+      votes: rawPost.vote_count
     };
   }
 

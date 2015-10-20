@@ -19,8 +19,6 @@ var CHANGE_EVENT = 'change';
 
 var _posts = {};
 var _postsG = {};
-var _user = null;
-var _uposts = {};
 
 function _addPosts(rawPosts) {
   console.log("ADDING POSTS", rawPosts);
@@ -88,26 +86,6 @@ var PostStore = assign({}, EventEmitter.prototype, {
     return postsOfGenre;
   },
 
-  getCurrentUser: function() {
-    return _user;
-  },
-
-  isSignedIn: function() {
-    console.log('USER IS SIGNED IN?', _user ? true : false);
-    return _user ? true : false;
-  },
-
-  isAdmin: function() {
-    if(this.isSignedIn()) { var isAdmin = !!_user.isAdmin ? _user.isAdmin : false }
-    console.log('USER ISADMIN? ', isAdmin);
-    return isAdmin;
-  },
-
-  getCurrentUserPosts: function() {
-    console.log('GETTING THE USERS POSTS');
-    return _uposts;
-  }, 
-
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },
@@ -131,43 +109,29 @@ var PostStore = assign({}, EventEmitter.prototype, {
 AppDispatcher.register(function(action) {
   switch(action.actionType) {
     case PostConstants.GET_POST_BATCH:
-      console.log(action.response);
-      console.log('recieving post batch from api', action.response);
+      console.log('GET_POST_BATCH', action.response);
       if(action.response)
         _addPosts(action.response);
       PostStore.emitChange();
       break;
-    case PostConstants.GET_CURRENT_USER:
-      console.log('recieving the current user for session', action.response);
-      _addUser(action.response);
-      PostStore.emitChange();
-      break;
-    case PostConstants.GET_USER_POSTS:
-      console.log('Getting a users posts');
-      break;
     case PostConstants.RECIEVE_RAW_POSTS:
-      console.log('recieving', action.rawPosts);
+      console.log('RECIEVE_RAW_POSTS', action.rawPosts);
       _addPosts(action.rawPosts);
       PostStore.emitChange();
       break;
     case PostConstants.WRITE_POST:
-      console.log('WROTE A POST');
+      console.log('WRITE_POST');
       break;
     case PostConstants.UPVOTE_POST:
-      console.log('UPVOTING A POST');
+      console.log('UPVOTE POST');
       break;
     case PostConstants.RECIEVE_NEW_POST:
-      console.log('wrote a post ', action.response);
+      console.log('RECIEVE_NEW_POST ', action.response);
       _addPost(action.response);
       PostStore.emitChange();
       break;
-    case PostConstants.RECIEVE_USER_POSTS:
-      console.log('recieving user posts ', action.response);
-      _addPostsToUser(action.response);
-      PostStore.emitChange();
-      break;
     case PostConstants.RECIEVE_NEW_VOTE:
-      console.log('recieving a new vote', action.reponse);
+      console.log('RECIEVE_NEW_VOTE', action.reponse);
       _addVoteToPost(action.post_id);
       PostStore.emitChange();
       break;

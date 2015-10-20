@@ -7,7 +7,10 @@ class ApplicationController < ActionController::API
   end
 
   def current_user
-    render json: @current_user, only: [:handle]
+    logger.info "Current User Requested"
+    logger.info @current_user
+    logger.info @current_user.posts
+    render json: @current_user, include: { posts: { except: [] }}
   end
 
   def index

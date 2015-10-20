@@ -3,6 +3,8 @@ class UsersController < ApplicationController
   	@user = User.find(params[:id])
   	logger.info 'FOUND A USER'
   	logger.info @user.posts
-  	render json: @user, include: { posts: { except: [] } }
+  	logger.info @user.votes.posts
+  	render json: @user, include: { posts: { except: [] }}
   end
+
 end

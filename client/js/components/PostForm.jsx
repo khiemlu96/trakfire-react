@@ -4,7 +4,6 @@ var React = require('react');
 var PostActions = require('../actions/PostActions');
 var ReactPropTypes = React.PropTypes;
 var SoundCloudAudio = require('soundcloud-audio');
-var Modal = require('react-bootstrap/lib/Modal');
 var _submit = false;
 var _data = {};
 
@@ -84,7 +83,7 @@ var PostForm = React.createClass({
   render: function() {
   	return (
   	  	<div>
-  	<Modal show={this.props.showModal} onHide={this.closeModal}>
+  	{/*<Modal show={this.props.showModal} onHide={this.closeModal}>
 	  <Modal.Header closeButton>
 	    <Modal.Title>Post some flame</Modal.Title>
 	  </Modal.Header>
@@ -114,7 +113,7 @@ var PostForm = React.createClass({
 	  	<button onClick={this.handleClick} ref="submit_btn">Continue</button>
 	    <button onClick={this.closeModal}>Close</button>
 	  </Modal.Footer>
-	</Modal>
+	</Modal>*/}
 	</div>
   	);
   }
