@@ -13,6 +13,7 @@ var TrakfirePlayer = React.createClass({
     },
 
     handlePlayPauseClick: function() {
+        console.log("Pausing");
         this.props.onPlayPauseClick();
     },
 
@@ -27,17 +28,20 @@ var TrakfirePlayer = React.createClass({
 
 	render: function(){
         var currTrack = this.props.currTrack;
+        var play = <a className="tf-player-play" href="#!" onClick={this.handlePlayPauseClick}></a>;
+        var pause = <a className="tf-player-pause" href="#!" onClick={this.handlePlayPauseClick}></a>;
         return (
             <div className="tf-player-wrap">
                 <div className="tf-player-wrap-inner container">
                     <div className="tf-player-wrap-inner-votes">
                     { currTrack.votes ? currTrack.votes : 1 }
                     </div>
-                    <div>
+                    <div className="tf-player-inline">
                     <a className="tf-player-backward" href="#!" onClick={this.handlePrevClick}>
                     </a>
-                    <a className="tf-player-play" href="#!" onClick={this.handlePlayPauseClick}>
-                    </a>
+                    {/*<a className="tf-player-play" href="#!" onClick={this.handlePlayPauseClick}>*/}
+                    {!this.props.isPlaying ? play : pause}
+                    
                     <a className="tf-player-forward" href="#!" onClick={this.handleNextClick}>
                     </a>
                     </div>

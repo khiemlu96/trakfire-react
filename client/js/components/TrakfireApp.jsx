@@ -189,6 +189,7 @@ var TrakfireApp = React.createClass({
   },
 
   onPlayCtrlClick: function() {
+    console.log("onPlayCtrlClick", this.state.isPlaying);
     var isPlaying = this.state.isPlaying;
     var isPaused = this.state.isPaused;
     var stream_url = this.state.currStreamUrl;
@@ -198,7 +199,7 @@ var TrakfireApp = React.createClass({
       isPlaying = true;
       isPaused = false;
       this.setState({isPlaying : isPlaying, isPaused : isPaused});
-    } else if(isPlaying && !isPaused) {
+    } else if(isPlaying && !isPaused || isPlaying) {
       console.log('pausing');
       scPlayer.pause();
       isPlaying = false;
