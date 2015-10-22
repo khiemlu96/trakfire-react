@@ -32,9 +32,15 @@
 	letter-spacing: 0.07em;
     cursor: pointer;
 }
-.tf-player-inline {
+
+.tf-player-controls-wrap {
 	display: inline-block;
+	vertical-align: middle;
+	top: -10px;
+	left: -4px;
+	position: relative;
 }
+
 .tf-player-backward,
 .tf-player-play,
 .tf-player-pause,
@@ -45,7 +51,6 @@
 	height: 30px;
 	top: -4px;
 	margin-right: 4px;
-	z-index: 1000;
 }
 
 .tf-player-backward {
@@ -104,13 +109,13 @@
 .tf-tags {
 	/*background-color: #ed2653;
 	color: #fff;*/
-	text-align: center;	
+	text-align: center;
 }
 
 .tf-user-avatar {
 	display: block;
     margin-left: auto;
-    margin-right: auto;	
+    margin-right: auto;
     margin-bottom: 5px;
     margin-top: 10px;
 }
@@ -130,7 +135,7 @@
 	width: 50%;
 	height: 100%;
 	float: left;
-	background-color: #404040;	
+	background-color: #404040;
 }
 .info img {
 	max-height: 45px;
@@ -197,7 +202,7 @@ th.upvote-col {
 
 .tf-thumbnail {
 	max-width: 100px;
-} 
+}
 
 .tf-post-list {
 	list-style: none;
@@ -301,23 +306,24 @@ th.upvote-col {
 	position: absolute;
 	    top: 22px;
 	    display: none;
-	    left: 104px;
+	    left: 82px;
 	    cursor: pointer;
 	    border-radius: 33px;
 	    padding-top: 13px;
 	    padding-right: 11px;
 	    padding-left: 15px;
 	    padding-bottom: 13px;
+	    overflow: visible!important;
 	    border: 4px solid #FF0d55;
 	    z-index: 2;
 }
 
 .tf-post-item .tf-overlay {
 	background-color: rgba(0,0,0,0.6);
-	position: absolute; 
+	position: absolute;
 	height: 98px;
 	width: 98px;
-	left: 85px;
+	left: 61px;
 	top: 0px;
 	z-index: 1;
 	display: none;
@@ -327,7 +333,7 @@ th.upvote-col {
 	position: absolute;
 	    top: 22px;
 	    display: none;
-	    left: 104px;
+	    left: 82px;
 	    cursor: pointer;
 	    border-radius: 33px;
 	    padding: 13px;
@@ -375,7 +381,7 @@ th.upvote-col {
 
 .tf-post-grid .tf-overlay {
 	background-color: rgba(0,0,0,0.6);
-	position: absolute; 
+	position: absolute;
 	height: 160px;
 	width: 160px;
 	left: 0px;
@@ -413,7 +419,7 @@ th.upvote-col {
 
 .tf-thumbnail {
 	position: relative;
-	margin-left: 60px;
+	margin-left: 36px;
     max-width: 100px;
     height: 98px;
     overflow-y: hidden;
@@ -477,11 +483,167 @@ th.upvote-col {
 	margin-right: -1px;
 }
 
+/* first list item */
 
-/* navbar */ 
+.tf-post-item--first {
+	width: 680px;
+	height: 340px;
+	background: #1C1C1C;
+	border: 1px solid #2B2B2B;
+	position: relative;
+}
+
+.tf-post-item--first .tf-post-item--img {
+	width: 340px!important;
+	height: 340px;
+}
+
+.tf-post-item--first .tf-thumbnail {
+	max-width: 340px;
+	height: 340px;
+	margin-left: 0px;
+}
+
+
+.tf-post-item--first .tf-post-item--tags .tf-tag{
+	font-size: 9px;
+}
+
+.tf-post-item--first .tf-post-item-content {
+    background-color: #1C1C1C;
+    border: none!important;
+    height: auto!important;
+    padding: 0px;
+    top: 0px;
+    left: 340px;
+    width: auto!important;
+    position: absolute;
+}
+
+.tf-post-item--first .tf-post-item--rank {
+	font-family: "Benton Sans RE", sans-serif;
+	font-size: 50px;
+	color: #FFFFFF;
+}
+
+.tf-post-item--first .tf-post-item--info {
+	padding-top: 18px;
+
+}
+
+.tf-post-item--first .tf-post-item--votes {
+	width: 80px;
+	height: 80px;
+	background: #1C1C1C url("../assets/img/votes-arrow.svg") no-repeat center 20px;
+	padding-top: 35px;
+	font-size: 16px;
+	z-index: 2;
+	left: 325px;
+	position: absolute;
+	bottom: 12px;
+
+}
+
+.tf-post-item--first .tf-post-item--info h5 {
+	font-size: 20px;
+	color: #FFFFFF;
+	letter-spacing: 1px;
+	margin-bottom: 5px;
+
+}
+
+.tf-post-item--first .tf-post-item--info small {
+	font-size: 16px;
+	color: #B5B5B5;
+	display: block;
+	width: 210px;
+}
+
+.tf-post-item--first .tf-post-item--rank {
+	width: 60px;
+	padding-top: 10px;
+}
+
+/* second and third */
+
+.relative {
+	position: relative;
+}
+
+.tf-second-wrap {
+	width: 450px;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+
+.tf-second-wrap .tf-post-item--first {
+	width: 450px;
+	height: 160px;
+
+}
+
+.tf-second-wrap .tf-post-item--first .tf-post-item--img {
+	width: 160px!important;
+	height: 160px;
+}
+
+.tf-second-wrap .tf-post-item--first .tf-thumbnail {
+	max-width: 160px;
+	height: 160px;
+	margin-left: 0px;
+}
+
+.tf-second-wrap .tf-post-item--first .tf-post-item--votes {
+		border: 2px solid #ff0d55;
+		width: 60px;
+		color: #fff;
+		background: #1C1C1C url("../assets/img/votes-arrow.svg") no-repeat center 15px!important;
+		height: 60px;
+		border-radius: 50%;
+		margin-left: -25px;
+		font-size: 11px;
+	    padding-top: 25px;
+	    text-align: center;
+	    font-size: 11px;
+	    letter-spacing: 0.07em;
+	    padding-left: 1px;
+	    position: absolute;
+	    left: 160px;
+	    cursor: pointer;
+
+}
+
+.tf-post-item--first:nth-of-type(2) {
+	margin-top: 20px;
+}
+
+.tf-second-wrap .tf-post-item--first .tf-post-item-content {
+	left: 160px;
+}
+
+
+.tf-second-wrap .tf-post-item--first .tf-post-item-content h5 {
+	width: 200px
+}
+
+.tf-second-wrap .tf-post-item--first .tf-post-item-content small {
+	width: 200px
+}
+
+
+.tf-second-wrap .tf-post-item--first .tf-post-item--rank {
+	font-size: 30px;
+	width: 60px;
+	margin-top: 0px;
+	margin-left: 0px;
+	padding-top: 2p	x;
+}
+
+/* navbar */
 .tf-navbar {
 	background-color: #1C1C1C;
-	width: 100%; 
+	width: 100%;
 	height: 46px;
 	border-bottom: 1px solid #2B2B2B;
 	position: fixed;
@@ -491,6 +653,11 @@ th.upvote-col {
 
 .tf-logo {
 	margin-top: 10px;
+	float: left;
+}
+
+.tf-logo-footer {
+	padding-right: 40px;
 	float: left;
 }
 
@@ -508,11 +675,31 @@ th.upvote-col {
 
 .right {
 	float: right;
-	text-align: right; 
+	text-align: right;
 }
 
+.tf-footer {
+	background: #161616;
+	margin-top: 20px;
+	width: 100%;
+	height: 60px;
+	border-bottom: 1px solid #2B2B2B;
+	bottom: 0px;
+	z-index: 10;
+	padding-top: 20px;
+}
 
-/* filter bar */ 
+.tf-footer-inner {
+}
+
+.tf-footer-inner a{
+	padding-left: 10px;
+	font-size: 12px;
+	padding-right: 10px;
+	color: #ff0d55!important;
+}
+
+/* filter bar */
 .tf-filter-bar {
 	height: 60px;
 	padding-top: 16px;
@@ -534,7 +721,7 @@ th.upvote-col {
 	margin-right: 20px;
 }
 
-/* grid post item */ 
+/* grid post item */
 
 .tf-post-grid {
 	width: 228px;
@@ -546,7 +733,7 @@ th.upvote-col {
 }
 
 .tf-post-grid .tf-thumbnail {
-     margin-left: 0px; 
+     margin-left: 0px;
     max-width: 100%;
     height: 160px;
     width: 160px;
@@ -564,7 +751,7 @@ th.upvote-col {
 
 .tf-post-grid .tf-post-item--votes {
 	position: absolute;
-	z-index: 2;
+	z-index: 10;
 	left: 0px;
 	top: 101px;
 }
@@ -582,6 +769,7 @@ th.upvote-col {
 .tf-post-grid .tf-post-item--info small{
 	font-size: 12px;
 }
+
 
 .tf-post-grid .tf-post-item--rank {
 	display: none;
@@ -604,7 +792,7 @@ th.upvote-col {
 
 }
 
-/* links */ 
+/* links */
 .is-active {
 	color: #ff0d55!important;
 	text-decoration: underline;
@@ -612,7 +800,7 @@ th.upvote-col {
 
 /* content container */
 .tf-content-container {
-	/* margin-top to position under nav and filter bar 
+	/* margin-top to position under nav and filter bar
 	 * .tf-navbar and .tf-filter-bar are position: fixed
 	 * this.margin-top: height(navbar) + height(filterbar) + maxHeight(dayheader) + padding (optional)
 	 * 46 + 60 + 30 + 10 = 146;
@@ -621,14 +809,13 @@ th.upvote-col {
 	margin-top: 146px;
 }
 
-/* PROFILE */ 
+/* PROFILE */
 
 .tf-profile-wrapper {
 	background-color: #171717;
 	text-align: center;
 	padding-top: 24px;
 	padding-bottom: 22px;
-	margin-top: 106px;
 }
 
 .tf-profile-image {
@@ -657,9 +844,8 @@ th.upvote-col {
 
 .tf-bio a {
 	color: #ff0d55;
-	text-decoration: underline; 
+	text-decoration: underline;
 }
-
 .tf-social-icons {
 	margin-top: 10px;
 }
@@ -669,15 +855,7 @@ th.upvote-col {
 	margin-right: 4px;
 }
 
-.tf-posted-tracks {
-	background-color: #171717;
-}
-
-.tf-upvoted-tracks {
-	background-color: #2f2f2f;
-}
-
-/* NEW/POST/CREATE TRACK */ 
+/* NEW/POST/CREATE TRACK */
 
 .nipple {
 	width: 20px;
@@ -701,7 +879,7 @@ th.upvote-col {
 
 	margin: auto;
 
-	text-align: center; 
+	text-align: center;
 }
 
 .tf-newtrack-title {
@@ -809,7 +987,7 @@ input[type=text], textarea{
 	opacity: 1.0;
 }
 
-.button--add {  
+.button--add {
 	width: 60px!important;
 	right: 71px;
 	padding-top: 6px;
@@ -861,7 +1039,7 @@ input[type=checkbox].tf-checkbox {
 
 input[type=checkbox].tf-checkbox + label.tf-checkbox-label {
 	padding-left:60px;
-	height:40px; 
+	height:40px;
 	display:inline-block;
 	line-height:40px;
 	background-repeat:no-repeat;
@@ -911,7 +1089,7 @@ input[type=checkbox].ownsong-checkbox {
 
 input[type=checkbox].ownsong-checkbox + label.ownsong-label {
 	padding-left:60px;
-	height:40px; 
+	height:40px;
 	display:inline-block;
 	line-height:40px;
 	background-repeat:no-repeat;
@@ -957,7 +1135,7 @@ label.ownsong-label {
 	float: left;
 }
 
-/* Login */ 
+/* Login */
 .tf-login-wrapper {
 	width: 500px!important;
 	padding-left: 26px;
@@ -1005,5 +1183,91 @@ label.ownsong-label {
 	height: 127px;
 }
 
-.tf-newtrack-img:hover .button--change {
-/*display: block;}*/
+/* FIST VISIT */
+.tf-first-visit-wrapper {
+	text-align: center;
+	height: 800px;
+}
+
+.tf-first-visit {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+
+}
+
+.tf-first-visit .tf-logo {
+	width: 220px;
+	margin: auto;
+	float: none!important;
+
+}
+
+.tf-first-visit p {
+	font-family: "Benton Sans Black", sans-serif;
+	font-size: 17px;
+	color: #FFFFFF;
+	line-height: 23px;
+	display: block;
+	margin: auto;
+	margin-bottom: 50px;
+
+}
+
+.tf-first-image-wrapper {
+	margin-top: 32px;
+	width: 680px;
+	border: 1px solid #FF0d55;
+	margin: auto;
+
+
+}
+.tf-first-image {
+	border: 1px solid #FF0d55;
+	width: 222px;
+	height: 222px;
+	display: inline-block;
+	position: relative;
+	cursor: pointer;
+
+}
+
+.tf-first-image img {
+	width: 220px;
+	height: 220px;
+	z-index: 0;
+}
+
+.tf-first-image:nth-of-type(1) {
+	margin-right: -6px;
+}
+
+
+.tf-first-image:nth-of-type(3) {
+	margin-left: -6px;
+}
+
+.tf-first-image .title {
+	position: absolute;
+    top: 90px;
+    left: 0px;
+    z-index: 2;
+    font-family: "Benton Sans Black", sans-serif;
+    font-size: 32px;
+    color: #F24957;
+    line-height: 44px;
+    width: 220px;
+}
+
+
+.tf-first-image .title:hover {
+	text-decoration: underline;
+}
+
+.tf-progress-bar {
+	width: 100%;
+}
+
+.tf-player-info-img {
+	max-height: 47px;
+}

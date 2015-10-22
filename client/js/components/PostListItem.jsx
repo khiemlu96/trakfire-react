@@ -13,6 +13,11 @@ var PostActions = require('../actions/PostActions');
 
 var classNames = require('classnames');
 
+var isPlaying = classNames("tf-post-item is-playing");
+var isNotPlaying = classNames("tf-post-item");
+var isUpvoted = classNames("tf-post-item--votes is-upvoted");
+var isNotUpvoted = classNames("tf-post-item--votes");
+
 var PostListItem = React.createClass({
 
   propTypes: {
@@ -22,6 +27,9 @@ var PostListItem = React.createClass({
    onClick: ReactPropTypes.func,
    onUpvote: ReactPropTypes.func,
   },
+  getInitialState: function() {
+    return {isPlaying:false, isUpvoted:false};
+  }, 
 
   componentDidMount: function() {
     console.log("POST LIST ITEM ", this.props);
@@ -32,12 +40,24 @@ var PostListItem = React.createClass({
     //console.log('upvoting '+this.props.key);
     //PostActions.upvote('http://localhost:3000'+'/votes', this.props.post.id);
     this.props.onUpvote(this.props.post.id);
+    this.setState({isUpvoted:true});
+    console.log("UPVOTE", this.refs.upvotes);
   },
 
   playPauseTrack: function(e) {
     e.preventDefault();
     console.log("TRACK", this.props.trackIdx);
     this.props.onClick(this.props.post.stream_url, this.props.post);
+
+    if(!this.state.isPlaying) {
+      //this.refs.post.className += " is-playing";
+      this.setState({isPlaying : true});
+    }
+    else {
+      //this.refs.post.className = isNotPlaying;
+      this.setState({isPlaying : false});
+    }
+    console.log("POST", this.state.isPlaying, this.refs.post);
   },
   /**
    * @return {object}
@@ -47,9 +67,9 @@ var PostListItem = React.createClass({
     var key = this.props.key;
     console.log(key);
     return (
-      <li className="tf-post-item">
+      <li className={this.state.isPlaying ? isPlaying : isNotPlaying} ref="post">
         <div className="tf-post-item-content">
-          <div className="tf-post-item--votes" onClick={this.upvote}>
+          <div className={this.state.isUpvoted ? isUpvoted : isNotUpvoted} ref="upvotes" onClick={this.upvote}>
           { post.votes ? post.votes : 1 }
           </div>
           <div className="tf-post-item--img"> 

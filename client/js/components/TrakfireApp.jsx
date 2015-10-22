@@ -5,6 +5,7 @@ var Uri = require('jsuri');
 var ReactPropTypes = React.PropTypes;
 
 var NavBar = require('./NavBar.jsx');
+var Footer = require('./Footer.jsx');
 var FilterBar = require('./FilterBar.jsx');
 var PostsList = require('./PostsList.jsx');
 var TrakfirePlayer = require('./TrakfirePlayer.jsx');
@@ -140,13 +141,6 @@ var TrakfireApp = React.createClass({
             />
           </div>
           <div>
-          {/*<PostsPage sort={this.state.sort}
-            genre={this.state.genre} 
-            posts={this.state.allPosts} 
-            togglePlay={this.onPlayBtnClick} 
-            filterPosts={this.handleUserSelection}
-            onPostItemClick={this.onPlayBtnClick}
-            user={this.state.currentUser}/>*/}
            { React.cloneElement(this.props.children, 
               { 
                 sort: this.state.sort,
@@ -159,6 +153,7 @@ var TrakfireApp = React.createClass({
                 user: this.currentUser
               }) }
           </div>
+          <Footer/>
           <div>
           {currTrack ? tfPlayer : ''}
           </div>

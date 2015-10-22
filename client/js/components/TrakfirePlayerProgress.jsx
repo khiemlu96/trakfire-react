@@ -28,8 +28,7 @@ var TrakfirePlayerProgress = React.createClass({
    */
   render: function() {
     return (
-      <div className="tf-player-inline"><div id="marker"></div> 
-      <progress value="0" min="0" max="100"></progress></div>
+      <progress value="0" min="0" max="100"></progress>
     );
   },
 

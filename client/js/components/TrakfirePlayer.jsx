@@ -36,7 +36,7 @@ var TrakfirePlayer = React.createClass({
                     <div className="tf-player-wrap-inner-votes">
                     { currTrack.votes ? currTrack.votes : 1 }
                     </div>
-                    <div className="tf-player-inline">
+                    <div className="tf-player-controls-wrap">
                     <a className="tf-player-backward" href="#!" onClick={this.handlePrevClick}>
                     </a>
                     {/*<a className="tf-player-play" href="#!" onClick={this.handlePlayPauseClick}>*/}
@@ -45,14 +45,19 @@ var TrakfirePlayer = React.createClass({
                     <a className="tf-player-forward" href="#!" onClick={this.handleNextClick}>
                     </a>
                     </div>
-                    <TrakfirePlayerProgress
-                        duration={currTrack.duration}
-                    />
+                    <div className="tf-player-controls-wrap">
+                        <TrakfirePlayerProgress
+                            duration={currTrack.duration}
+                        />
+                    </div>
+                    <div className="tf-player-controls-wrap">
                     <TrakfirePlayerInfo
-                        img={currTrack.thumb_url}
+                        img={currTrack.img_url}
                         artist={currTrack.artist}
                         title={currTrack.title}
                     />
+                    </div>
+
                 </div>
             </div>
 		);
