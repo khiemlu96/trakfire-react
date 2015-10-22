@@ -30,6 +30,7 @@ class VotesController < ApplicationController
 			render json: "Destroy complete"
 		else 
 			@vote_to_destory.errors
+		end
 	end
 
 private
