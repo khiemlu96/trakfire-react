@@ -154,7 +154,7 @@ var TrakfireApp = React.createClass({
                 filterPosts: this.handleUserSelection,
                 onPostItemClick: this.onPlayBtnClick,
                 user: this.currentUser,
-                origin: this.props.origin
+                origin: this.props.origin,
               }) }
           </div>
           <Footer/>

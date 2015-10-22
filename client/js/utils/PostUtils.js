@@ -24,7 +24,9 @@ module.exports = {
   getUserIds: function(voteObj) {
     var ids = [];
     for(idx in voteObj) {
-      ids.push(voteObj[idx]);
+      console.log()
+      var voter = voteObj[idx].user_id;
+      ids.push(voter);
     }
     return ids;
   }

@@ -17,31 +17,44 @@ var isPlaying = classNames("tf-post-item is-playing");
 var isNotPlaying = classNames("tf-post-item");
 var isUpvoted = classNames("tf-post-item--votes is-upvoted");
 var isNotUpvoted = classNames("tf-post-item--votes");
+var _localVoteCount = 0;
 
 var PostListItem = React.createClass({
 
   propTypes: {
-   key: ReactPropTypes.string.isRequired,
+   key: ReactPropTypes.string,
    post: ReactPropTypes.object,
-   trackIdx: ReactPropTypes.number.isRequired,
+   trackIdx: ReactPropTypes.number,
    onClick: ReactPropTypes.func,
    onUpvote: ReactPropTypes.func,
+   isLoggedIn: ReactPropTypes.bool, 
+   userId: ReactPropTypes.number,
+   isUpvoted: ReactPropTypes.bool,
+   rank: ReactPropTypes.number
   },
   getInitialState: function() {
-    return {isPlaying:false, isUpvoted:false};
+    return {isPlaying:false, isUpvoted:false, hasUpvoted:false};
   }, 
 
   componentDidMount: function() {
     console.log("POST LIST ITEM ", this.props);
-  } ,
+    
+  },
+
+  componentWillMount: function() {
+    //this.hasUpvoted("WILL MOUNT", this.props.post);
+
+  }, 
 
   upvote: function(e) {
     e.preventDefault();
     //console.log('upvoting '+this.props.key);
     //PostActions.upvote('http://localhost:3000'+'/votes', this.props.post.id);
-    this.props.onUpvote(this.props.post.id);
-    this.setState({isUpvoted:true});
-    console.log("UPVOTE", this.refs.upvotes);
+    if(this.props.isLoggedIn && !this.props.isUpvoted){
+      this.props.onUpvote(this.props.post.id);
+      this.setState({isUpvoted:true});
+      console.log("UPVOTE", this.refs.upvotes);
+    }
   },
 
   playPauseTrack: function(e) {
@@ -59,18 +72,36 @@ var PostListItem = React.createClass({
     }
     console.log("POST", this.state.isPlaying, this.refs.post);
   },
+
+  hasUpvoted: function(post) {
+    if(this.props.isLoggedIn){
+      console.log(post);
+      var exists = post.voters.indexOf(this.props.userId);
+      console.log(post.id, exists);
+      if(exists != -1) {
+        //then we voted the thing
+        this.setState({hasUpvoted:true});
+      }
+      //return (exists != -1) ? true : false;
+    }
+  }, 
+
   /**
    * @return {object}
    */
   render: function() {
     var post = this.props.post;
     var key = this.props.key;
-    console.log(key);
+
+    console.log("HAS UPVOTED", this.props.isUpvoted);
+    var upvoted = (this.state.isUpvoted || this.props.isUpvoted);
+    var localUpvote = this.state.isUpvoted; //pre refresh we upvoted this
+    _localVoteCount = post.vote_count + 1;
     return (
       <li className={this.state.isPlaying ? isPlaying : isNotPlaying} ref="post">
         <div className="tf-post-item-content">
-          <div className={this.state.isUpvoted ? isUpvoted : isNotUpvoted} ref="upvotes" onClick={this.upvote}>
-          { post.vote_count ? post.vote_count : 1 }
+          <div className={ upvoted ? isUpvoted : isNotUpvoted} ref="upvotes" onClick={this.upvote}>
+          { localUpvote ? _localVoteCount : post.vote_count }
           </div>
           <div className="tf-post-item--img"> 
             <a href="#!" className="tf-post-play" onClick={this.playPauseTrack}>
@@ -87,7 +118,7 @@ var PostListItem = React.createClass({
 
 
           </div>
-          <div className="tf-post-item--rank">{" "}</div>
+          <div className="tf-post-item--rank">{parseInt(this.props.rank) + 1}</div>
           <div className="tf-post-item--info">
             <h5> { post.title } </h5>
             <small> {post.artist } </small>

@@ -13,7 +13,7 @@ var PostActions = require('../actions/PostActions');
 var PostListItem = require('./PostListItem.jsx');
 var PostListDateHeader = require('./PostListDateHeader.jsx'); 
 var PostStore = require('../stores/PostStore');
-
+var UserStore = require('../stores/UserStore');
 var _postListItems = [];
 var _dayCount = 0; 
 var _init = false;
@@ -65,6 +65,21 @@ function getLength(a) {
   return i;
 }
 
+function toArray(obj) {
+  var array = [];
+  for(key in obj) {
+    array.push(obj[key]);
+  }
+  return array.sort(compareCreatedAt);
+}
+
+function getComponentState() {
+  return {
+    isLoggedIn : UserStore.isSignedIn(), 
+    currentUser : UserStore.getCurrentUser()
+  };
+}
+
 var PostsList = React.createClass({
 
   propTypes: {
@@ -73,15 +88,29 @@ var PostsList = React.createClass({
     genre: ReactPropTypes.string,
     onPostListItemClick: ReactPropTypes.func,
     loadSortedPlaylist: ReactPropTypes.func,
-    onPostUpvote:ReactPropTypes.func
+    onPostUpvote:ReactPropTypes.func,
+    isLoggedIn: ReactPropTypes.bool,
+    userId: ReactPropTypes.number
   },
+
+  getInitialState: function() {
+    return getComponentState();
+  }, 
 
   componentDidMount: function() {
+
     var posts = this.props.posts;
+    console.log("POST LIST", this.props);
     //console.log('Posts to be displayed ', posts);
     //console.log("PROPS PASSED ", this.props)
+     UserStore.addChangeListener(this._onChange);
 
   },
+
+  componentWillUnmount: function() {
+    UserStore.removeChangeListener(this._onChange);
+  },
+
   componentWillMount: function() {
     var posts = this.props.posts;
     //console.log('Posts to be displayed ', posts);
@@ -94,20 +123,39 @@ var PostsList = React.createClass({
     this.props.onPostListItemClick(stream_url, track);
   },
 
+  hasUpvoted: function(post) {
+    if(this.props.isLoggedIn){
+      //console.log(post);
+      var exists = post.voters.indexOf(this.state.currentUser);
+      //console.log(post.id, exists);
+      return (exists != -1) ? true : false;
+    }
+  },
+
   renderPostsByDate: function(dates, posts) {
     console.log(posts, dates);
+    console.log("USER", UserStore.isSignedIn());
+    var isLoggedIn = UserStore.isSignedIn();
+    var user = UserStore.getCurrentUser();
     var container = [];
     for(date in dates) {
         var dateHeader = <PostListDateHeader key={'d_'+date} date={dates[date].toString()}/>
         container.push(dateHeader);
         //console.log(posts[dates[date]]);
-        for(key in posts[dates[date]]) {
+        //var p = posts[dates[date]];
+        //console.log("POSTS", p);
+        var array = toArray(posts[dates[date]]);
+        for(key in array) {
           //console.log(key);
           var post = <PostListItem 
-                        key={"p_"+key} 
-                        post={posts[dates[date]][key]}
+                        key={"p_"+array[key].id} 
+                        post={array[key]}
                         onUpvote={this.upvote}
-                        onClick={this.playPauseItem} />
+                        onClick={this.playPauseItem} 
+                        isLoggedIn={isLoggedIn}
+                        userId={user ? user.id : null}
+                        isUpvoted={false}
+                        rank={key}/>
           container.push(post);           
         }
       }
@@ -133,6 +181,10 @@ var PostsList = React.createClass({
       </section>
       </div>
     );
+  },
+
+  _onChange: function() {
+    return getComponentState();
   }
 
 });

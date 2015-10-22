@@ -9,6 +9,7 @@ class PostsController < ApplicationController
 	def create
 	  @post = @current_user.posts.build(post_params)
 	  @post.date = Date.today
+	  @post.vote_count = 1
 	  if @post.save
 	    render json: @post, include: { user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :created_at, :duration, :genre, :vote_count], status: :created, location: post_url(@post, format: :json)
 	  else
