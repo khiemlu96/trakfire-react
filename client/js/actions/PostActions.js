@@ -36,11 +36,12 @@ var PostActions = {
     });
   },
 
-  filterPosts: function(genre) {
-    console.log(genre);
+  filterPosts: function(genre, sort) {
+    console.log(genre, sort);
     AppDispatcher.dispatch({
       actionType: PostConstants.FILTER_POSTS,
-      genre: genre
+      genre: genre,
+      sort: sort
     });
   },
 

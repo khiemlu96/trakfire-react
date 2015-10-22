@@ -19,12 +19,13 @@ var createBrowserHistory = require('history/lib/createBrowserHistory');
 var TrakfireApp = require('./components/TrakfireApp.jsx');
 var PostsPage = require('./components/PostsPage.jsx');
 var ProfilePage = require('./components/ProfilePage.jsx');
-
+var PostForm = require('./components/PostForm.jsx');
 React.render(
 <Router history={createBrowserHistory()}>
     <Route path='/' component={TrakfireApp}>
       <IndexRoute component={PostsPage}/>
       <Route path='/profile' component={ProfilePage} />
+      <Route path='/post' component={PostForm} />
     </Route>
   </Router>,
   document.getElementById('trakfireapp')

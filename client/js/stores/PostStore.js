@@ -20,6 +20,7 @@ var CHANGE_EVENT = 'change';
 var _posts = {};
 var _postsG = {};
 var _genre = "ALL";
+var _sort = "TOP";
 
 function _addPosts(rawPosts) {
   console.log("ADDING POSTS", rawPosts);
@@ -67,7 +68,7 @@ var PostStore = assign({}, EventEmitter.prototype, {
    * @return {object}
    */
   getAll: function() {
-    console.log('IN POSTSTORE GETTING ALL of type ', _genre);
+    console.log('IN POST STORE GETTING '+ _sort+'ALL of type ', _genre);
     var posts;
     switch(_genre) {
       case "ALL":

@@ -11,6 +11,7 @@ module.exports = {
       img: rawUser.img,
       bio: rawUser.tbio,
       twturl: rawUser.twitterUrl,
+      isAdmin: rawUser.isAdmin,
       canPost: rawUser.canPost,
       posts: rawUser.posts
     };

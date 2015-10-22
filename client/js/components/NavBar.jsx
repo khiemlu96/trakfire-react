@@ -39,7 +39,7 @@ var NavBar = React.createClass({
       var signinLink = <a href="#!" onClick={this.handleSignOut}> SIGN OUT </a>
       var profileLink = <Link to='/profile' className="tf-uppercase">{this.props.user.handle}</Link>;
       if(this.props.isAdmin) { 
-        var postLink = <a href="#!">POST</a> 
+        var postLink = <Link to='/post'>POST</Link> 
       } else {
         var postLink = "";
       }

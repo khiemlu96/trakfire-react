@@ -1,104 +1,90 @@
 //PostForm
 
 var React = require('react');
+var Link = require('react-router').Link;
 var PostActions = require('../actions/PostActions');
 var ReactPropTypes = React.PropTypes;
-var PostFormFirst = require('./PostFormFirst.jsx');
-var PostFormSecond = require('./PostFormSecond.jsx');;
-var PostFormLast = require('./PostFormLast.jsx');
-var SoundCloudAudio = require('soundcloud-audio');
-var _submit = false;
-var _data = {};
 
-var PostForm = React.createClass({
+var PostFormSecond = React.createClass({
 
   propTypes: {
     onSubmit: ReactPropTypes.func,
     isSignedIn: ReactPropTypes.bool,
-    closeModal: ReactPropTypes.func,
-    showModal: ReactPropTypes.bool
-  },
+    advanceStep: ReactPropTypes.func,
+    updateData: ReactPropTypes.func,
+    data: ReactPropTypes.object,
+    goBack: ReactPropTypes.func, 
+    submit: ReactPropTypes.func
+  }, 
 
   getInitialState: function() {
-  	return { step : 1 };
-  }, 
-
-  getDefaultProps: function() {
-    return {data:{}};
-  }, 
-
-  advanceStep: function() {
-    console.log("advancing step");
-  	var currStep = this.state.step;
-  	var nextStep;
-  	if(currStep == 2) {
-  		nextStep = 1;
-  	} else {
-  		nextStep = currStep+=1;
-  	}
-  	this.setState({step : nextStep})
+    return {hasGenre:false};
   }, 
 
   goBack: function() {
-    console.log("regressing step");
-    var currStep = this.state.step;
-    var nextStep;
-    if(currStep == 1) {
-      nextStep = 1;
-    } else {
-      nextStep = currStep-=1;
-    }
-    this.setState({step : nextStep})    
+    this.props.goBack();
   }, 
 
-  updateData: function(data) {
-    console.log("update data", data);
-    this.props.data = data;
+  addGenre: function() {
+    var data = this.props.data.post;
+    var e = this.refs.electronic.getDOMNode();
+    var h = this.refs.hiphop.getDOMNode();
+    var genre = h.checked ? h.value : e.value;
+
+    data['genre'] = genre;
+    console.log("add genre to data", data);
+    this.setState({hasGenre:true});
   }, 
 
-  submit: function(data) {
-    console.log("submitting");
-    PostActions.writePost(this.props.origin+'/posts', data);
-    this.props.history.pushState(null, '/');
+  submit: function() {
+    console.log("invoke callback to submit");
+    var data = this.props.data;
+    console.log("POST DATA TO SUBMIT", data);
+    this.props.submit(JSON.stringify(data));
   }, 
 
   render: function() {
-  	var postStep;
-  	var step = this.state.step;
-    console.log(this.props.data);
-  	switch(this.state.step) {
-  		case 1:
-  			postStep = <PostFormFirst 
-                      advanceStep={this.advanceStep}
-                      updateData={this.updateData}
-                      data={this.props.data}/>
-  		break;
-   		case 2:
-  			postStep = <PostFormSecond 
-                      advanceStep={this.advanceStep}
-                      updateData={this.updateData}
-                      goBack={this.goBack}
-                      data={this.props.data}
-                      submit={this.submit}/>
-  		break;
-   		case 3:
-  			postStep = <PostFormLast 
-                      advanceStep={this.advanceStep}
-                      updateData={this.updateData}
-                      data={_data}/>
-  		break;
-  		default:
-  	}
-
+    var data = this.props.data.post;
+    console.log(data);
+    var disabled = "button button--big is-disabled";
+    var enabled = "button button--big";
   	return (
-  	  <div>
-  	  	{postStep}
-	   </div>
+    <div className="tf-newtrack-wrapper"> 
+      <img src="/assets/img/nipple.png" className="nipple"></img>
+            <div className="tf-newtrack-title tf-newtrack-title--details"> ADD DETAILS </div>
+        
+              <div className="align-left"> 
+                <div className="tf-newtrack-img tf-newtrack-img--small"> 
+                  <img src={data.img_url}></img>
+                </div>
+                <div className="tf-newtrack-form"> 
+                  <div className="title"> 
+                    {data.title}
+                  </div>
+                  <div className="artist"> 
+                    {data.artist}
+                  </div>
+                </div>
+                <div className="button button--edit" onClick={this.goBack}> 
+                  EDIT 
+                </div> 
+            </div>
+            <div className="align-left"> 
+              <div className="form-title"> GENRE </div>
+              <input type="checkbox" ref="hiphop" className="tf-checkbox" name="hiphop" id="hiphop" value="hiphop"></input>
+              <label className="tf-checkbox-label" htmlFor="hiphop">Hip-hop</label>
+              <input type="checkbox" ref="edm" className="tf-checkbox" id="edm" name="edm" value="edm"></input>
+              <label className="tf-checkbox-label" htmlFor="edm" >Eelectronic</label> <br></br> <br></br> <br></br>
+              {/*<input type="checkbox" className="ownsong-checkbox" id="ownsong" name="ownsong" value="ownsong"></input> 
+              <label className="ownsong-label" for="ownsong" >This is my own song</label>*/}
+            </div>
+            <div className={this.state.hasGenre ? enabled : disabled} onClick={this.submit}> POST SONG </div>
+        </div>
   	);
   }
 });
 
-module.exports = PostForm;
+module.exports = PostFormSecond;
 
 
 

@@ -114,7 +114,7 @@ var TrakfireApp = React.createClass({
       genre: genre ? genre : currGenre,
       sort: sort ? sort : currSort
     }); 
-    PostActions.filterPosts(genre);
+    PostActions.filterPosts(genre, sort);
   },
 
   scrollToTop: function() {
@@ -153,7 +153,8 @@ var TrakfireApp = React.createClass({
                 upvote: this.writeVoteToApi,
                 filterPosts: this.handleUserSelection,
                 onPostItemClick: this.onPlayBtnClick,
-                user: this.currentUser
+                user: this.currentUser,
+                origin: this.props.origin
               }) }
           </div>
           <Footer/>
