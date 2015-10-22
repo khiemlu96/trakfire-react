@@ -27,10 +27,10 @@ var PostActions = {
     });
   },
 
-  filterByGenre: function(genre) {
+  filterPosts: function(genre) {
     console.log(genre);
     AppDispatcher.dispatch({
-      actionType: PostConstants.FILTER_BY_GENRE,
+      actionType: PostConstants.FILTER_POSTS,
       genre: genre
     });
   },

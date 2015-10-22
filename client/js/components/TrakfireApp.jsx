@@ -72,6 +72,7 @@ var TrakfireApp = React.createClass({
       console.log('FETCHING USER');
       this.currentUserFromAPI();
     }
+    console.log("POSTS RECIEVED", this.props.allPosts);
   },
   componentWillUnmount: function() {
     PostStore.removeChangeListener(this._onChange);
@@ -113,6 +114,7 @@ var TrakfireApp = React.createClass({
       genre: genre ? genre : currGenre,
       sort: sort ? sort : currSort
     }); 
+    PostActions.filterPosts(genre);
   },
 
   scrollToTop: function() {

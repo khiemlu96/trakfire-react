@@ -19,6 +19,7 @@ var CHANGE_EVENT = 'change';
 
 var _posts = {};
 var _postsG = {};
+var _genre = "ALL";
 
 function _addPosts(rawPosts) {
   console.log("ADDING POSTS", rawPosts);
@@ -66,8 +67,21 @@ var PostStore = assign({}, EventEmitter.prototype, {
    * @return {object}
    */
   getAll: function() {
-    console.log('GETTING ALL');
-    return _posts;
+    console.log('IN POSTSTORE GETTING ALL of type ', _genre);
+    var posts;
+    switch(_genre) {
+      case "ALL":
+        posts = _posts;
+      break;
+      case "ELECTRONIC":
+        posts = this.getAllOfGenre("electronic");
+      break;
+      case "HIPHOP":
+        posts = this.getAllOfGenre("Hip Hop / R&B");
+      break;
+      default:
+    }
+    return posts;
   },
 
   /**
@@ -135,6 +149,10 @@ AppDispatcher.register(function(action) {
       _addVoteToPost(action.post_id);
       PostStore.emitChange();
       break;
+    case PostConstants.FILTER_POSTS:
+      console.log("FILTER_POSTS");
+      _genre = action.genre;
+      PostStore.emitChange();
     default:
       // no op
   }

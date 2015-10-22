@@ -41,7 +41,7 @@ var FilterBar = React.createClass({
     _genre = "ALL";
     _sort = this.props.sort;
     this.props.onClick("ALL", null);
-    this.props.scrollToTop();
+    //this.props.scrollToTop();
   },
 
   handleElectronicClick: function() {
@@ -49,7 +49,7 @@ var FilterBar = React.createClass({
     _genre = "ELECTRONIC";
     _sort = this.props.sort;
     this.props.onClick("ELECTRONIC", null);
-    this.props.scrollToTop();
+    //this.props.scrollToTop();
   },
 
   handleHipHopClick: function(){
@@ -57,7 +57,7 @@ var FilterBar = React.createClass({
     _genre = "HIPHOP";
     _sort = this.props.sort;
     this.props.onClick("HIPHOP", null);
-    this.props.scrollToTop();
+    //this.props.scrollToTop();
   },
 
   handleTopClick: function(){
@@ -76,7 +76,7 @@ var FilterBar = React.createClass({
     _genre = this.props.genre;
     _sort = "NEW";
     this.props.onClick(null, "NEW");
-    this.props.scrollToTop();
+    //this.props.scrollToTop();
   },
   
   /**
