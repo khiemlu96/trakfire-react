@@ -66,7 +66,7 @@ var PostFormSecond = React.createClass({
                   </div>
                 </div>
                 <div className="button button--edit" onClick={this.goBack}> 
-                  EDIT 
+                  BACK 
                 </div> 
             </div>
             <div className="align-left"> 
