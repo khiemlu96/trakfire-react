@@ -28,7 +28,7 @@ var TrakfirePlayerProgress = React.createClass({
    */
   render: function() {
     return (
-      <progress value="0" min="0" max="100"></progress>
+      <progress className="tf-progress-bar" value="0" min="0" max="100"></progress>
     );
   },
 

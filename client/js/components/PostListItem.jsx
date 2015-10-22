@@ -70,7 +70,7 @@ var PostListItem = React.createClass({
       <li className={this.state.isPlaying ? isPlaying : isNotPlaying} ref="post">
         <div className="tf-post-item-content">
           <div className={this.state.isUpvoted ? isUpvoted : isNotUpvoted} ref="upvotes" onClick={this.upvote}>
-          { post.votes ? post.votes : 1 }
+          { post.vote_count ? post.vote_count : 1 }
           </div>
           <div className="tf-post-item--img"> 
             <a href="#!" className="tf-post-play" onClick={this.playPauseTrack}>

@@ -1266,7 +1266,7 @@ label.ownsong-label {
 }
 
 .tf-progress-bar {
-	width: 100%;
+	min-width: 500px;
 }
 
 .tf-player-info-img {
