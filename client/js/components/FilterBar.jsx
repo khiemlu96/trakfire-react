@@ -37,7 +37,7 @@ var FilterBar = React.createClass({
   handleAllClick: function() {
     //Find the old .is-active before calling the onClick func
     //That way we have access to the old genre 
-    this.mutexClassName('all', _genre.toLowerCase());
+    //this.mutexClassName('all', _genre.toLowerCase());
     _genre = "ALL";
     _sort = this.props.sort;
     this.props.onClick("ALL", null);
@@ -45,7 +45,7 @@ var FilterBar = React.createClass({
   },
 
   handleElectronicClick: function() {
-    this.mutexClassName('electronic', _genre.toLowerCase());
+    //this.mutexClassName('electronic', _genre.toLowerCase());
     _genre = "ELECTRONIC";
     _sort = this.props.sort;
     this.props.onClick("ELECTRONIC", null);
@@ -53,7 +53,7 @@ var FilterBar = React.createClass({
   },
 
   handleHipHopClick: function(){
-    this.mutexClassName('hiphop', _genre.toLowerCase());
+    //this.mutexClassName('hiphop', _genre.toLowerCase());
     _genre = "HIPHOP";
     _sort = this.props.sort;
     this.props.onClick("HIPHOP", null);
@@ -61,7 +61,7 @@ var FilterBar = React.createClass({
   },
 
   handleTopClick: function(){
-    this.mutexClassName("top", _sort.toLowerCase());
+    //this.mutexClassName("top", _sort.toLowerCase());
     _genre = this.props.genre;
     _sort = "TOP";
     this.props.onClick(null, "TOP");
@@ -72,7 +72,7 @@ var FilterBar = React.createClass({
    * additionally the method must switch the view to a grid and reorder by created_at
    */
   handleNewClick: function(){
-    this.mutexClassName("new", _sort.toLowerCase());
+    //this.mutexClassName("new", _sort.toLowerCase());
     _genre = this.props.genre;
     _sort = "NEW";
     this.props.onClick(null, "NEW");
@@ -88,17 +88,17 @@ var FilterBar = React.createClass({
         <div className="container"> 
           <a href="#!"
             ref="all" 
-            className="is-active" 
+            className={(_genre == "ALL") ? "is-active" : "" }
             onClick={this.handleAllClick}>
             All
           </a>
           <a href="#!" 
             ref="electronic" 
-            className="" 
+            className={(_genre == "ELECTRONIC") ? "is-active" : "" } 
             onClick={this.handleElectronicClick}>
             Electronic
           </a>
-          <a href="#!" ref="hiphop" className="" 
+          <a href="#!" ref="hiphop" className={(_genre == "HIPHOP") ? "is-active" : "" } 
             onClick={this.handleHipHopClick} >
             Hip-Hop
           </a>
