@@ -20,6 +20,15 @@ var PostActions = {
     TfAPI.upvotePostFromUser(origin, post_id);
   },
 
+  unvote: function(origin, post_id) {
+    console.log('REMOVING VOTE', origin, post_id);
+    AppDispatcher.dispatch({
+      actionType: PostConstants.UNVOTE_POST
+    });
+    console.log('UNVOTING');
+    TfAPI.unvotePostFromUser(origin, post_id);
+  }, 
+
   sort: function(method) {
     AppDispatcher.dispatch({
       actionType: PostConstants.SORT_POSTS,

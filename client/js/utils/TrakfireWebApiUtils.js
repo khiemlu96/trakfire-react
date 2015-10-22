@@ -126,6 +126,29 @@ module.exports = {
         //location = '/';
       }
     });  
+  },
+
+  unvotePostFromUser: function(url, post_id) {
+    console.log('UNVOTING POST '+post_id+' BY CURR USER');
+    var data = { vote : {post_id : post_id} };
+    console.log(data);
+    Reqwest({
+      url: url,
+      data: JSON.stringify(data),
+      type: 'json',
+      method: 'POST',
+      contentType: 'application/json',
+      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      success: function(resp) {
+        console.log("SERVER RESPONSE", resp);
+        //newVote = resp;
+        //PostServerActionCreators.recieveNewVote(newVote); 
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+        //location = '/';
+      }
+    });    
   }
 
 };

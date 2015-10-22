@@ -1,5 +1,5 @@
 class VotesController < ApplicationController
-	before_action :authenticate_request, only: [:create]
+	before_action :authenticate_request, only: [:create, :destroy]
 	def create
 	  logger.info "PARAMS VOTE "
 	  logger.info params
@@ -21,6 +21,15 @@ class VotesController < ApplicationController
 	  else
 		render json: @vote.errors, status: :unprocessable_entity
 	  end
+	end
+
+	def destroy
+		post_id = vote_params[:post_id]
+		@vote_to_destory = Vote.where(post_id: post_id, user_id: @current_user.id)
+		if @vote_to_destory.destroy
+			render json: "Destroy complete"
+		else 
+			@vote_to_destory.errors
 	end
 
 private
