@@ -1,5 +1,4 @@
 //PostUtils
-
 module.exports = {
 
   convertRawPost: function(rawPost) {
@@ -17,8 +16,17 @@ module.exports = {
       stream_url: rawPost.stream_url,
       img_url: rawPost.img_url, 
       duration: rawPost.duration,
-      votes: rawPost.vote_count
+      vote_count: rawPost.vote_count,
+      voters: getUserIds(rawPost.votes);
     };
-  }
+  },
 
+  getUserIds: function(voteObj) {
+    var ids = [];
+    for(idx in voteObj) {
+      ids.push(voteObj[idx]);
+    }
+    return ids;
+  }
 };
+

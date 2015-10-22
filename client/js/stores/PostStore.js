@@ -68,7 +68,7 @@ var PostStore = assign({}, EventEmitter.prototype, {
    * @return {object}
    */
   getAll: function() {
-    console.log('IN POST STORE GETTING '+ _sort+'ALL of type ', _genre);
+    console.log('IN POST STORE GETTING '+_sort+' of type ', _genre);
     var posts;
     switch(_genre) {
       case "ALL":

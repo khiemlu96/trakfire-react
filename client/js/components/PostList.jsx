@@ -65,26 +65,6 @@ function getLength(a) {
   return i;
 }
 
-function renderPostsByDate(dates, posts) {
-  console.log(posts, dates);
-  var container = [];
-  for(date in dates) {
-    var dateHeader = <PostListDateHeader key={'d_'+date} date={dates[date].toString()}/>
-    container.push(dateHeader);
-    //console.log(posts[dates[date]]);
-    for(key in posts[dates[date]]) {
-      //console.log(key);
-      var post = <PostListItem 
-                    key={"p_"+key} 
-                    post={posts[dates[date]][key]}
-                    onUpvote={this.upvote}
-                    onClick={this.playPauseItem} />
-      container.push(post);           
-    }
-  }
-  return container;
-}
-
 var PostsList = React.createClass({
 
   propTypes: {
@@ -114,6 +94,26 @@ var PostsList = React.createClass({
     this.props.onPostListItemClick(stream_url, track);
   },
 
+  renderPostsByDate: function(dates, posts) {
+    console.log(posts, dates);
+    var container = [];
+    for(date in dates) {
+        var dateHeader = <PostListDateHeader key={'d_'+date} date={dates[date].toString()}/>
+        container.push(dateHeader);
+        //console.log(posts[dates[date]]);
+        for(key in posts[dates[date]]) {
+          //console.log(key);
+          var post = <PostListItem 
+                        key={"p_"+key} 
+                        post={posts[dates[date]][key]}
+                        onUpvote={this.upvote}
+                        onClick={this.playPauseItem} />
+          container.push(post);           
+        }
+      }
+    return container;
+  },
+
   /**
    * @return {object}
    */
@@ -124,7 +124,7 @@ var PostsList = React.createClass({
     var posts = postsByDate[1]; //date keyed dict
 
     _postListItems = [];
-    _postListItems = renderPostsByDate(dates, posts); // return a list of <PostListDateHeader/> <PostListItems/>
+    _postListItems = this.renderPostsByDate(dates, posts); // return a list of <PostListDateHeader/> <PostListItems/>
 
     return (
       <div className="container tf-content-container" >
