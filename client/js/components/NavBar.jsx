@@ -19,7 +19,8 @@ var NavBar = React.createClass({
   propTypes: {
     isLoggedIn: ReactPropTypes.bool,
     origin: ReactPropTypes.string,
-    isAdmin: ReactPropTypes.bool
+    isAdmin: ReactPropTypes.bool,
+    user: ReactPropTypes.object
   },
 
   handleSignOut: function() {
@@ -36,14 +37,14 @@ var NavBar = React.createClass({
   render: function() {
     if(this.props.isLoggedIn) {
       var signinLink = <a href="#!" onClick={this.handleSignOut}> SIGN OUT </a>
-      var profileLink = <Link to='/profile'>Profile</Link>;
+      var profileLink = <Link to='/profile' className="tf-uppercase">{this.props.user.handle}</Link>;
       if(this.props.isAdmin) { 
         var postLink = <a href="#!">POST</a> 
       } else {
         var postLink = "";
       }
     } else {
-      var signinLink = <a href={ this.props.origin+'/request_token'}> SIGN IN </a>
+      var signinLink = <a href={this.props.origin+'/request_token'}> SIGN IN </a>
       var profileLink = "";
       var postLink = '';
     }

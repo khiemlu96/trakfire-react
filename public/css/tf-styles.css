@@ -679,6 +679,7 @@ th.upvote-col {
 }
 
 .tf-footer {
+	font-family: "Benton Sans Black", sans-serif;
 	background: #161616;
 	margin-top: 20px;
 	width: 100%;
@@ -1270,4 +1271,9 @@ label.ownsong-label {
 
 .tf-player-info-img {
 	max-height: 47px;
+}
+
+/* utils */
+.tf-uppercase {
+	text-transform: uppercase;
 }

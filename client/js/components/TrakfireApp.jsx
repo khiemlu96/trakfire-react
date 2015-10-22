@@ -138,6 +138,7 @@ var TrakfireApp = React.createClass({
               isLoggedIn={this.state.isLoggedIn}
               origin={this.props.origin}
               isAdmin={this.state.isAdmin}
+              user={this.state.currentUser}
             />
           </div>
           <div>
