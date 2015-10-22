@@ -136,7 +136,7 @@ module.exports = {
       url: url,
       data: JSON.stringify(data),
       type: 'json',
-      method: 'POST',
+      method: 'DELETE',
       contentType: 'application/json',
       headers: {'Authorization': sessionStorage.getItem('jwt')},
       success: function(resp) {

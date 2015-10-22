@@ -65,6 +65,26 @@ function getLength(a) {
   return i;
 }
 
+function renderPostsByDate(dates, posts) {
+  console.log(posts, dates);
+  var container = [];
+  for(date in dates) {
+    var dateHeader = <PostListDateHeader key={'d_'+date} date={dates[date].toString()}/>
+    container.push(dateHeader);
+    //console.log(posts[dates[date]]);
+    for(key in posts[dates[date]]) {
+      //console.log(key);
+      var post = <PostListItem 
+                    key={"p_"+key} 
+                    post={posts[dates[date]][key]}
+                    onUpvote={this.upvote}
+                    onClick={this.playPauseItem} />
+      container.push(post);           
+    }
+  }
+  return container;
+}
+
 var PostsList = React.createClass({
 
   propTypes: {
@@ -79,7 +99,8 @@ var PostsList = React.createClass({
   componentDidMount: function() {
     var posts = this.props.posts;
     //console.log('Posts to be displayed ', posts);
-    console.log("PROPS PASSED ", this.props)
+    //console.log("PROPS PASSED ", this.props)
+
   },
   componentWillMount: function() {
     var posts = this.props.posts;
@@ -92,20 +113,19 @@ var PostsList = React.createClass({
   playPauseItem: function(stream_url, track) {
     this.props.onPostListItemClick(stream_url, track);
   },
+
   /**
    * @return {object}
    */
   render: function() {
     var posts = this.props.posts;
+    var postsByDate = sortPostsByDate(posts); //sort posts into date keyed dict + array of date str for the headers
+    var dates = postsByDate[0].sort(sortDate); //sort dates in decending order
+    var posts = postsByDate[1]; //date keyed dict
+
     _postListItems = [];
-    for(key in posts) {
-          _postListItems.push(<PostListItem 
-                                  key={"p_"+key} 
-                                  post={posts[key]}
-                                  onUpvote={this.upvote}
-                                  onClick={this.playPauseItem}
-                                   />);
-    }
+    _postListItems = renderPostsByDate(dates, posts); // return a list of <PostListDateHeader/> <PostListItems/>
+
     return (
       <div className="container tf-content-container" >
       <section id="main">
