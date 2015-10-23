@@ -16,7 +16,9 @@ var ProfilePage = React.createClass({
     onPostListItemClick: ReactPropTypes.func//Playability
   }, 
 
-  componentDidMount: function() {},
+  componentDidMount: function() {
+    mixpanel.track("Arrived on profile page");
+  },
 
   onPostListItemClick:function(pid) {
     this.props.onPostListItemClick(pid);

@@ -21,7 +21,9 @@ var PostFormFirst = React.createClass({
   getInitialState: function() {
     return {dataDidLoad:false, isLoading:false};
   }, 
-
+  componentDidMount: function() {
+    mixpanel.track("PostForm step 1");
+  },
   handleClick: function() {
   	console.log('handling a users click!');
   	if(!_submit) {

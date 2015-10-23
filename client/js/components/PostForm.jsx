@@ -27,7 +27,9 @@ var PostForm = React.createClass({
   getDefaultProps: function() {
     return {data:{}};
   }, 
-
+  componentDidMount: function() {
+    mixpanel.track("Arrived at PostForm");
+  },
   advanceStep: function() {
     console.log("advancing step");
   	var currStep = this.state.step;

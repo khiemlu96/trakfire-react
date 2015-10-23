@@ -67,10 +67,12 @@ var PostListItem = React.createClass({
     if(!this.state.isPlaying) {
       //this.refs.post.className += " is-playing";
       this.setState({isPlaying : true});
+      mixpanel.track("Track Play");
     }
     else {
       //this.refs.post.className = isNotPlaying;
       this.setState({isPlaying : false});
+      mixpanel.track("Track Pause");
     }
     console.log("POST", this.state.isPlaying, this.refs.post);
   },

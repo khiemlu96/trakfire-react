@@ -13,8 +13,8 @@ var TrakfirePlayer = React.createClass({
     },
 
     handlePlayPauseClick: function() {
-        console.log("Pausing");
         this.props.onPlayPauseClick();
+        mixpanel.track("Toggle play from player");
     },
 
     handlePrevClick: function() {

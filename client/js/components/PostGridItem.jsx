@@ -46,7 +46,7 @@ var PostGridItem = React.createClass({
       <li className="tf-post-grid">
         <div className="tf-post-item-content">
           <div className="tf-post-item--votes">
-          1
+          {post.vote_count}
           </div>
 
           <div className="tf-post-item--img"> 

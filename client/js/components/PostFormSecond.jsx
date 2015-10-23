@@ -20,7 +20,9 @@ var PostFormSecond = React.createClass({
   getInitialState: function() {
     return {hasGenre:false};
   }, 
-
+  componentDidMount: function() {
+    mixpanel.track("PostForm step 2");
+  },
   goBack: function() {
     this.props.goBack();
   }, 
@@ -41,6 +43,7 @@ var PostFormSecond = React.createClass({
     var data = this.props.data;
     console.log("POST DATA TO SUBMIT", data);
     this.props.submit(JSON.stringify(data));
+    mixpanel.track('Complete PostForm');
   }, 
 
   render: function() {
