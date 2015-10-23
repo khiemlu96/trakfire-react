@@ -129,7 +129,7 @@ var TrakfireApp = React.createClass({
     var currTrack = this.state.currTrack;
     console.log(this.route);
     var tfPlayer =  <TrakfirePlayer 
-                      currTrack={currTrack}
+                      currTrack={this.state.currTrack}
                       isPlaying={this.state.isPlaying}
                       onPlayPauseClick={this.onPlayCtrlClick}
                     />
@@ -155,7 +155,8 @@ var TrakfireApp = React.createClass({
                 onPostItemClick: this.onPlayBtnClick,
                 user: this.currentUser,
                 origin: this.props.origin,
-                value: scPlayer.audio.currentTime
+                value: scPlayer.audio.currentTime, 
+                currStreamUrl: this.state.currStreamUrl
               }) }
           </div>
           <Footer/>
@@ -178,13 +179,19 @@ var TrakfireApp = React.createClass({
       console.log('playing '+stream_url);
       scPlayer.play({streamUrl: stream_url});
       isPlaying = true;
-      this.setState({isPlaying : isPlaying, isPaused : isPaused, currStreamUrl : stream_url});
+      this.setState({isPlaying : isPlaying, isPaused : isPaused, currStreamUrl : stream_url, currTrack : track});
     } else if(isPlaying && stream_url == this.state.currStreamUrl) {
         console.log('pausing');
         scPlayer.pause();
         isPlaying = false;
         isPaused = true;
         this.setState({isPlaying : isPlaying, isPaused : isPaused});     
+    } else if(isPlaying && stream_url != this.state.currStreamUrl) {
+        scPlayer.pause();
+        scPlayer.play({streamUrl : stream_url});
+        isPlaying = true;
+        isPaused = false;  
+        this.setState({isPlaying : isPlaying, isPaused : isPaused, currStreamUrl : stream_url, currTrack : track});     
     }
   },
 

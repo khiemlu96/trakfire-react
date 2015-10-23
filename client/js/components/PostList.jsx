@@ -76,7 +76,8 @@ function toArray(obj) {
 function getComponentState() {
   return {
     isLoggedIn : UserStore.isSignedIn(), 
-    currentUser : UserStore.getCurrentUser()
+    currentUser : UserStore.getCurrentUser(),
+    currentTrack : null
   };
 }
 
@@ -90,7 +91,8 @@ var PostsList = React.createClass({
     loadSortedPlaylist: ReactPropTypes.func,
     onPostUpvote:ReactPropTypes.func,
     isLoggedIn: ReactPropTypes.bool,
-    userId: ReactPropTypes.number
+    userId: ReactPropTypes.number, 
+    currStreamUrl: ReactPropTypes.string
   },
 
   getInitialState: function() {
@@ -120,6 +122,13 @@ var PostsList = React.createClass({
   },
 
   playPauseItem: function(stream_url, track) {
+    if(this.state.currentTrack != null) {
+      var prevPli = this.state.currentTrack;
+      var pli = this.refs[prevPli].getDOMNode();
+      console.log(pli);
+      pli.className = "tf-post-item";
+    }
+    this.state.currentTrack = track.id;
     this.props.onPostListItemClick(stream_url, track);
   },
 
@@ -141,21 +150,19 @@ var PostsList = React.createClass({
     for(date in dates) {
         var dateHeader = <PostListDateHeader key={'d_'+date} date={dates[date].toString()}/>
         container.push(dateHeader);
-        //console.log(posts[dates[date]]);
-        //var p = posts[dates[date]];
-        //console.log("POSTS", p);
         var array = toArray(posts[dates[date]]);
         for(key in array) {
-          //console.log(key);
           var post = <PostListItem 
                         key={"p_"+array[key].id} 
+                        ref={array[key].id}
                         post={array[key]}
                         onUpvote={this.upvote}
                         onClick={this.playPauseItem} 
                         isLoggedIn={isLoggedIn}
                         userId={user ? user.id : null}
                         isUpvoted={false}
-                        rank={key}/>
+                        rank={key}
+                        currStreamUrl={this.props.currStreamUrl}/>
           container.push(post);           
         }
       }

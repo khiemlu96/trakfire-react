@@ -30,7 +30,8 @@ var PostListItem = React.createClass({
    isLoggedIn: ReactPropTypes.bool, 
    userId: ReactPropTypes.number,
    isUpvoted: ReactPropTypes.bool,
-   rank: ReactPropTypes.number
+   rank: ReactPropTypes.number,
+   currStreamUrl: ReactPropTypes.string
   },
   getInitialState: function() {
     return {isPlaying:false, isUpvoted:false, hasUpvoted:false};
@@ -61,7 +62,6 @@ var PostListItem = React.createClass({
     e.preventDefault();
     console.log("TRACK", this.props.trackIdx);
     this.props.onClick(this.props.post.stream_url, this.props.post);
-
     if(!this.state.isPlaying) {
       //this.refs.post.className += " is-playing";
       this.setState({isPlaying : true});
@@ -92,13 +92,13 @@ var PostListItem = React.createClass({
   render: function() {
     var post = this.props.post;
     var key = this.props.key;
-
-    console.log("HAS UPVOTED", this.props.isUpvoted);
+    var thisPlaying = (this.props.currStreamUrl == null || this.props.currStreamUrl == this.props.post.stream_url);
+    console.log("THIS IS PLAYING", thisPlaying);
     var upvoted = (this.state.isUpvoted || this.props.isUpvoted);
     var localUpvote = this.state.isUpvoted; //pre refresh we upvoted this
     _localVoteCount = post.vote_count + 1;
     return (
-      <li className={this.state.isPlaying ? isPlaying : isNotPlaying} ref="post">
+      <li className={(this.state.isPlaying && thisPlaying)? isPlaying : isNotPlaying} ref="post">
         <div className="tf-post-item-content">
           <div className={ upvoted ? isUpvoted : isNotUpvoted} ref="upvotes" onClick={this.upvote}>
           { localUpvote ? _localVoteCount : post.vote_count }
