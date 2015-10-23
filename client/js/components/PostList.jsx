@@ -92,7 +92,8 @@ var PostsList = React.createClass({
     onPostUpvote:ReactPropTypes.func,
     isLoggedIn: ReactPropTypes.bool,
     userId: ReactPropTypes.number, 
-    currStreamUrl: ReactPropTypes.string
+    currStreamUrl: ReactPropTypes.string,
+    currUser: ReactPropTypes.object
   },
 
   getInitialState: function() {
@@ -100,13 +101,10 @@ var PostsList = React.createClass({
   }, 
 
   componentDidMount: function() {
-
-    var posts = this.props.posts;
-    console.log("POST LIST", this.props);
+    console.log("POST LIST PROPS", this.props);
     //console.log('Posts to be displayed ', posts);
     //console.log("PROPS PASSED ", this.props)
-     UserStore.addChangeListener(this._onChange);
-
+    console.log("STATE OF PLAY", this.state);
   },
 
   componentWillUnmount: function() {
@@ -115,6 +113,7 @@ var PostsList = React.createClass({
 
   componentWillMount: function() {
     var posts = this.props.posts;
+    UserStore.addChangeListener(this._onChange);
     //console.log('Posts to be displayed ', posts);
   },
   upvote: function(postid) {
@@ -132,18 +131,16 @@ var PostsList = React.createClass({
     this.props.onPostListItemClick(stream_url, track);
   },
 
-  hasUpvoted: function(post) {
-    if(this.props.isLoggedIn){
+  hasUpvoted: function(post, userid) {
       //console.log(post);
-      var exists = post.voters.indexOf(this.state.currentUser);
+      var exists = post.voters.indexOf(userid);
       //console.log(post.id, exists);
       return (exists != -1) ? true : false;
-    }
   },
 
   renderPostsByDate: function(dates, posts) {
     console.log(posts, dates);
-    console.log("USER", UserStore.isSignedIn());
+    //console.log("USER", UserStore.isSignedIn(), UserStore.getCurrentUser());
     var isLoggedIn = UserStore.isSignedIn();
     var user = UserStore.getCurrentUser();
     var container = [];
@@ -152,6 +149,11 @@ var PostsList = React.createClass({
         container.push(dateHeader);
         var array = toArray(posts[dates[date]]);
         for(key in array) {
+          if(isLoggedIn){
+            var isUpvotedByUser = this.hasUpvoted(array[key], user.id);
+            console.log("IS UPVOTED BY USER", isUpvotedByUser);
+          }
+
           var post = <PostListItem 
                         key={"p_"+array[key].id} 
                         ref={array[key].id}
@@ -159,8 +161,8 @@ var PostsList = React.createClass({
                         onUpvote={this.upvote}
                         onClick={this.playPauseItem} 
                         isLoggedIn={isLoggedIn}
-                        userId={user ? user.id : null}
-                        isUpvoted={false}
+                        userId={ user.id }
+                        isUpvoted={isUpvotedByUser}
                         rank={key}
                         currStreamUrl={this.props.currStreamUrl}/>
           container.push(post);           
@@ -191,6 +193,7 @@ var PostsList = React.createClass({
   },
 
   _onChange: function() {
+    console.log("A CHANGE OCCURED");
     return getComponentState();
   }
 

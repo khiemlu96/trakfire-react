@@ -10,13 +10,15 @@
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var PostStore = require('../stores/PostStore.js');
+var UserStore = require('../stores/UserStore.js');
 var PostList = require('./PostList.jsx');
 var FilterBar = require('./FilterBar.jsx');
 var PostActions = require('../actions/PostActions');
 
 function getAppState() {
   return {
-    posts: PostStore.getAll()
+    posts: PostStore.getAll(),
+    currUser: UserStore.getCurrentUser()
   };
 }
 
@@ -28,7 +30,8 @@ var PostsPage = React.createClass({
     posts : ReactPropTypes.object,
     togglePlay : ReactPropTypes.func,
     upvote: ReactPropTypes.func,
-    filterPosts : ReactPropTypes.func
+    filterPosts : ReactPropTypes.func,
+    currUser: ReactPropTypes.object 
   }, 
 
   getInitialState: function() {
@@ -48,12 +51,14 @@ var PostsPage = React.createClass({
 
   componentDidMount: function() {
     PostStore.addChangeListener(this._onChange);
+    UserStore.addChangeListener(this._onChange);
     console.log("STATE", this.state);
     //console.log("POSTPAGE MOUNT ", this.state.posts);
   },
 
   componentWillUnmount: function() {
     PostStore.removeChangeListener(this._onChange);
+    UserStore.removeChangeListener(this._onChange);
   }, 
 
   upvote: function(postid) {
@@ -85,6 +90,7 @@ var PostsPage = React.createClass({
           genre={this.props.genre}
           onPostListItemClick={this.togglePlay}
           onPostUpvote={this.upvote}
+          currUser={this.props.currUser}
         />
       </div>
     );

@@ -33,13 +33,14 @@ var PostListItem = React.createClass({
    rank: ReactPropTypes.number,
    currStreamUrl: ReactPropTypes.string
   },
+
   getInitialState: function() {
     return {isPlaying:false, isUpvoted:false, hasUpvoted:false};
   }, 
 
   componentDidMount: function() {
     console.log("POST LIST ITEM ", this.props);
-    
+    this.state.isUpvoted = this.props.isUpvoted;
   },
 
   componentWillMount: function() {
@@ -51,9 +52,10 @@ var PostListItem = React.createClass({
     e.preventDefault();
     //console.log('upvoting '+this.props.key);
     //PostActions.upvote('http://localhost:3000'+'/votes', this.props.post.id);
-    if(this.props.isLoggedIn && !this.props.isUpvoted){
+
+    if(this.props.isLoggedIn && !this.hasUpvoted(this.props.post)){
       this.props.onUpvote(this.props.post.id);
-      this.setState({isUpvoted:true});
+      this.setState({hasUpvoted:true});
       console.log("UPVOTE", this.refs.upvotes);
     }
   },
@@ -75,14 +77,10 @@ var PostListItem = React.createClass({
 
   hasUpvoted: function(post) {
     if(this.props.isLoggedIn){
-      console.log(post);
+      console.log("POST TO UPVOTE", post);
       var exists = post.voters.indexOf(this.props.userId);
       console.log(post.id, exists);
-      if(exists != -1) {
-        //then we voted the thing
-        this.setState({hasUpvoted:true});
-      }
-      //return (exists != -1) ? true : false;
+      return (exists != -1) ? true : false;
     }
   }, 
 
@@ -94,8 +92,8 @@ var PostListItem = React.createClass({
     var key = this.props.key;
     var thisPlaying = (this.props.currStreamUrl == null || this.props.currStreamUrl == this.props.post.stream_url);
     console.log("THIS IS PLAYING", thisPlaying);
-    var upvoted = (this.state.isUpvoted || this.props.isUpvoted);
-    var localUpvote = this.state.isUpvoted; //pre refresh we upvoted this
+    var upvoted = (this.state.isUpvoted || this.props.isUpvoted || this.state.hasUpvoted);
+    var localUpvote = this.state.hasUpvoted; //pre refresh we upvoted this
     _localVoteCount = post.vote_count + 1;
     return (
       <li className={(this.state.isPlaying && thisPlaying)? isPlaying : isNotPlaying} ref="post">

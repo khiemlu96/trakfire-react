@@ -10,7 +10,12 @@ class PostsController < ApplicationController
 	  @post = @current_user.posts.build(post_params)
 	  @post.date = Date.today
 	  @post.vote_count = 1
+
 	  if @post.save
+	  	@vote = Vote.new()
+	  	@vote.user_id = @current_user.id
+	  	@vote.post_id = @post.id
+	  	@vote.save
 	    render json: @post, include: { user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :created_at, :duration, :genre, :vote_count], status: :created, location: post_url(@post, format: :json)
 	  else
 	    render json: @post.errors, status: :unprocessable_entity

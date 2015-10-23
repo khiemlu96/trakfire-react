@@ -56,22 +56,22 @@ var TrakfireApp = React.createClass({
   },
 
   componentWillMount: function() {
+    PostStore.addChangeListener(this._onChange);
+    UserStore.addChangeListener(this._onChange);
     var jwt = new Uri(location.search).getQueryParamValue('jwt');
     console.log('JWT: ', jwt, !!jwt);
     if (!!jwt) {
       console.log('SET SESSION W JWT');
       sessionStorage.setItem('jwt', jwt);
     }
-    this.readPostsFromApi();
   },
 
   componentDidMount: function() {
-    PostStore.addChangeListener(this._onChange);
-    UserStore.addChangeListener(this._onChange);
     if (!!sessionStorage.getItem('jwt')) {
       console.log('FETCHING USER');
       this.currentUserFromAPI();
     }
+    this.readPostsFromApi();
     console.log("POSTS RECIEVED", this.props.allPosts);
   },
   componentWillUnmount: function() {
@@ -153,7 +153,7 @@ var TrakfireApp = React.createClass({
                 upvote: this.writeVoteToApi,
                 filterPosts: this.handleUserSelection,
                 onPostItemClick: this.onPlayBtnClick,
-                user: this.currentUser,
+                currUser: this.state.currentUser,
                 origin: this.props.origin,
                 value: scPlayer.audio.currentTime, 
                 currStreamUrl: this.state.currStreamUrl
