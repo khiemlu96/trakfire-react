@@ -161,7 +161,7 @@ var PostsList = React.createClass({
                         onUpvote={this.upvote}
                         onClick={this.playPauseItem} 
                         isLoggedIn={isLoggedIn}
-                        userId={ user.id }
+                        userId={ user != null ? user.id : null }
                         isUpvoted={isUpvotedByUser}
                         rank={key}
                         currStreamUrl={this.props.currStreamUrl}/>
