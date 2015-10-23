@@ -104,14 +104,14 @@ var FilterBar = React.createClass({
           </a>
           
           <div className="right">
-            <a href="#!" ref="top" className="is-active" 
+            {/*<a href="#!" ref="top" className="is-active" 
               onClick={this.handleTopClick} >
               POPULAR
             </a>
             <a href="#!" ref="new" className="" 
               onClick={this.handleNewClick} >
               NEW
-            </a>
+            </a>*/}
           </div>
         </div>
       </div>
