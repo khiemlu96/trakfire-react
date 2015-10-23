@@ -14,11 +14,13 @@ var ReactPropTypes = React.PropTypes;
 var TrakfirePlayerProgress = React.createClass({
 
   propTypes: {
+    value: ReactPropTypes.number,
     duration: ReactPropTypes.number
   },
 
   componentDidMount: function() {},
   
+
   /**
    * @return {object}
    * NOTE: Im not 100% sure how the progress bar will work with the slider
@@ -27,10 +29,15 @@ var TrakfirePlayerProgress = React.createClass({
    * You may even just replace the <progress> with a regular <div> with a background
    */
   render: function() {
+    var value = this.props.value;
+    var dur = this.props.duration;
+    var style = {width: `${value}%`};
     return (
-      <progress className="tf-progress-bar" value="0" min="0" max="100"></progress>
+      <div className="tf-progress-container">
+        <div className="tf-progress-inner" style={style} />
+      </div>
     );
-  },
+  }
 
 
 });

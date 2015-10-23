@@ -155,6 +155,7 @@ var TrakfireApp = React.createClass({
                 onPostItemClick: this.onPlayBtnClick,
                 user: this.currentUser,
                 origin: this.props.origin,
+                value: scPlayer.audio.currentTime
               }) }
           </div>
           <Footer/>

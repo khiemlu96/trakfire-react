@@ -6,6 +6,7 @@ var ReactPropTypes = React.PropTypes;
 var PostFormFirst = require('./PostFormFirst.jsx');
 var PostFormSecond = require('./PostFormSecond.jsx');;
 var PostFormLast = require('./PostFormLast.jsx');
+var BackBar = require('./ProfileBar.jsx');
 var SoundCloudAudio = require('soundcloud-audio');
 var _submit = false;
 var _data = {};
@@ -92,7 +93,10 @@ var PostForm = React.createClass({
 
   	return (
   	  <div>
-  	  	{postStep}
+        <BackBar/>
+        <div className="tf-nav-buffer">
+  	  	  {postStep}
+        </div>
 	   </div>
   	);
   }

@@ -48,9 +48,10 @@ var TrakfirePlayer = React.createClass({
                     <div className="tf-player-controls-wrap">
                         <TrakfirePlayerProgress
                             duration={currTrack.duration}
+                            value={this.props.value}
                         />
                     </div>
-                    <div className="tf-player-controls-wrap">
+                    <div className="tf-player-controls-wrap-info">
                     <TrakfirePlayerInfo
                         img={currTrack.img_url}
                         artist={currTrack.artist}

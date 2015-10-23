@@ -40,7 +40,14 @@
 	left: -4px;
 	position: relative;
 }
-
+.tf-player-controls-wrap-info {
+	display: inline-block;
+	vertical-align: middle;
+	top: 0px;
+	left: -4px;
+	position: relative;
+	float: right;
+}
 .tf-player-backward,
 .tf-player-play,
 .tf-player-pause,
@@ -85,6 +92,8 @@
 .tf-day-header {
 	color: #fff;
 	max-height: 30px;
+	font-family: "Benton Sans RE", sans-serif;
+	text-align: center;
 }
 
 .tf-player-info {
@@ -990,11 +999,11 @@ input[type=text], textarea{
 
 .button--add {
 	width: 60px!important;
-	right: 71px;
+	right: 67px;
 	padding-top: 6px;
 	position: absolute;
-	top: 83px;
-	height: 29px;
+	top: 81px;
+	height: 25px;
 }
 
 .button--edit {
@@ -1265,15 +1274,51 @@ label.ownsong-label {
 	text-decoration: underline;
 }
 
-.tf-progress-bar {
-	min-width: 500px;
+.tf-progress-container {
+    background-color: #DDD;
+    width: 100%;
+    height: 10px;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.tf-progress-inner {
+    background-color: #FC561E;
+    height: 100%;
+    -webkit-transition: width .2s ease-in;
+            transition: width .2s ease-in;
+}
+
+.tf-player-info {
+	display: inline-block;
+	font-family: "Benton Sans RE", sans-serif;
+}
+
+.tf-player-info-text {
+	display: inline-block;
+	vertical-align: middle;
+}
+.tf-player-info-text p {
+	display: block;
+	line-height: 1em;
+	margin-bottom: 5px;
 }
 
 .tf-player-info-img {
-	max-height: 47px;
+	max-height: 50px;
+	display: inline-block;
+	margin-right: 10px;
 }
 
 /* utils */
 .tf-uppercase {
 	text-transform: uppercase;
+}
+
+.tf-nav-buffer {
+	margin-top:110px;
+}
+
+.tf-hide {
+	display: none;
 }

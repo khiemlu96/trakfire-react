@@ -31,7 +31,7 @@ var PostFormLast = React.createClass({
              </div>
              <div className="tf-post-item--img">
                <a href="#!" className="tf-post-play" onClick={this.playPauseTrack}>
-                 <img className="tf-thumbnail" src="https://upload.wikimedia.org/wikipedia/en/f/f0/My_Beautiful_Dark_Twisted_Fantasy.jpg" />
+                 <img className="tf-thumbnail" src="/assets/img/trakfire_black_icon.png" />
                </a>
              </div>
              <div className="tf-post-item--rank">1</div>

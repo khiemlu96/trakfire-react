@@ -53,7 +53,7 @@ var NavBar = React.createClass({
         
         <div className="tf-navbar-inner container">   
           <div className="tf-logo"> 
-            <img src={"assets/img/logo.svg"}/> 
+            <Link to="/"><img src={"assets/img/logo.svg"}/></Link>
           </div> 
           
           <div className="right"> 

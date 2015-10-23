@@ -74,7 +74,7 @@ var PostFormSecond = React.createClass({
               <input type="checkbox" ref="hiphop" className="tf-checkbox" name="hiphop" id="hiphop" value="hiphop"></input>
               <label className="tf-checkbox-label" htmlFor="hiphop">Hip-hop</label>
               <input type="checkbox" ref="edm" className="tf-checkbox" id="edm" name="edm" value="edm"></input>
-              <label className="tf-checkbox-label" htmlFor="edm" >Eelectronic</label> <br></br> <br></br> <br></br>
+              <label className="tf-checkbox-label" htmlFor="edm" >Electronic</label> <br></br> <br></br> <br></br>
               {/*<input type="checkbox" className="ownsong-checkbox" id="ownsong" name="ownsong" value="ownsong"></input> 
               <label className="ownsong-label" for="ownsong" >This is my own song</label>*/}
             </div>

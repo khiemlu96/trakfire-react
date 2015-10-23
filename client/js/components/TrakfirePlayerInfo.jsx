@@ -15,12 +15,16 @@ var TrakfirePlayerInfo = React.createClass({
    * the this.props pieces are for passing in data remove {this.props.} and replace with static data if need be
    */
   render: function() {
-    console.log('RENDER TRACK INFO', this.props.img);
+    console.log('RENDER TRACK INFO', this.props );
     return (
       <div className="tf-player-info">
         <img className="tf-player-info-img" src={this.props.img}></img>
-        <p className="tf-player-info-artist">{this.props.artist}</p>
-        <p classname="tf-player-info-title">{this.props.title}</p>
+        <div className="tf-player-info-text">
+          <div>
+            <p>{this.props.title}</p>
+            <p>{this.props.artist}</p>
+          </div>
+        </div>
       </div>
     );
   },

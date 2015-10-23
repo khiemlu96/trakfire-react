@@ -11,12 +11,12 @@ var ProfileBar = React.createClass({
     return (
       <div className="tf-filter-bar">
         <div className="container"> 
-          <Link to="/">BACK</Link>
+          <Link className="is-active" to="/">BACK</Link>
           
-          <div className="right">
+          {/*<div className="right">
             <a href="#!" className="is-active" 
               onClick={this.handleTopClick}> EDIT </a>
-          </div>
+          </div>*/}
         </div>
       </div>
     );
