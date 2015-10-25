@@ -697,6 +697,8 @@ th.upvote-col {
 	bottom: 0px;
 	z-index: 10;
 	padding-top: 20px;
+	position: relative;
+	bottom: 0px;
 }
 
 .tf-footer-inner {

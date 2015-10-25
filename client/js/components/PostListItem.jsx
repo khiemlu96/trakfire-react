@@ -30,7 +30,7 @@ var PostListItem = React.createClass({
    isLoggedIn: ReactPropTypes.bool, 
    userId: ReactPropTypes.number,
    isUpvoted: ReactPropTypes.bool,
-   rank: ReactPropTypes.number,
+   rank: ReactPropTypes.string,
    currStreamUrl: ReactPropTypes.string
   },
 

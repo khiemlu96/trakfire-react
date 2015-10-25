@@ -43,7 +43,7 @@ function sortDate(a, b) {
   return 0;
 }
 
-function compareScore(a, b) {
+function sortScore(a, b) {
   if(a.score < b.score) return -1;
   else if(a.score > b.score) return 1;
   else if(a.score == b.score) return 1;
@@ -147,7 +147,8 @@ var PostsList = React.createClass({
     for(date in dates) {
         var dateHeader = <PostListDateHeader key={'d_'+date} date={dates[date].toString()}/>
         container.push(dateHeader);
-        var array = toArray(posts[dates[date]]);
+        var array = toArray(posts[dates[date]]).sort(sortScore);
+        console.log("RANKED BY SCORE", array);
         for(key in array) {
           if(isLoggedIn){
             var isUpvotedByUser = this.hasUpvoted(array[key], user.id);
@@ -178,7 +179,8 @@ var PostsList = React.createClass({
     var posts = this.props.posts;
     var postsByDate = sortPostsByDate(posts); //sort posts into date keyed dict + array of date str for the headers
     var dates = postsByDate[0].sort(sortDate); //sort dates in decending order
-    var posts = postsByDate[1]; //date keyed dict
+  
+    var posts = postsByDate[1] //date keyed dict
 
     _postListItems = [];
     _postListItems = this.renderPostsByDate(dates, posts); // return a list of <PostListDateHeader/> <PostListItems/>

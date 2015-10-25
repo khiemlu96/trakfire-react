@@ -17,7 +17,8 @@ module.exports = {
       img_url: rawPost.img_url, 
       duration: rawPost.duration,
       vote_count: rawPost.vote_count,
-      voters: this.getUserIds(rawPost.votes)
+      voters: this.getUserIds(rawPost.votes),
+      score: rawPost.hot_score
     };
   },
 
