@@ -657,7 +657,7 @@ th.upvote-col {
 	border-bottom: 1px solid #2B2B2B;
 	position: fixed;
 	top: 0px;
-	z-index: 10;
+	z-index: 100;
 }
 
 .tf-logo {
@@ -720,7 +720,7 @@ th.upvote-col {
 	position: fixed;
 	top: 46px;
 	/*margin-top: 46px;*/
-	z-index: 10;
+	z-index: 100;
 }
 
 .tf-filter-bar a{
@@ -828,6 +828,7 @@ th.upvote-col {
 	text-align: center;
 	padding-top: 24px;
 	padding-bottom: 22px;
+	margin-top: 106px;
 }
 
 .tf-profile-image {

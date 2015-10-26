@@ -148,7 +148,7 @@ var PostsList = React.createClass({
         var dateHeader = <PostListDateHeader key={'d_'+date} date={dates[date].toString()}/>
         container.push(dateHeader);
         var array = toArray(posts[dates[date]]).sort(sortScore);
-        console.log("RANKED BY SCORE", array);
+
         for(key in array) {
           if(isLoggedIn){
             var isUpvotedByUser = this.hasUpvoted(array[key], user.id);

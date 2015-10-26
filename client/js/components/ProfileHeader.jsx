@@ -12,20 +12,17 @@ var ReactPropTypes = React.PropTypes;
 
 var ProfileHeader = React.createClass({
 
-    propTypes: {
-      userName: ReactPropTypes.string.isRequired,
-      userTwitterLink: ReactPropTypes.string,
-      userBio: ReactPropTypes.string,
-      userFacebookLink: ReactPropTypes.string,
-      userImg: ReactPropTypes.string
-    },
-  /*getDefaultProps: function(){
-    return {
-      userName : "DIPLO", 
-      userBio : "Random white dude, DJ & Producer. Label owner of MAD DECENT <a> www.maddecent.com </a>",
-      userImg : "https://pbs.twimg.com/profile_images/618481497159417856/mqVVw79M.jpg"
-    }
-  },*/
+  propTypes: {
+    userName: ReactPropTypes.string,
+    userTwitterLink: ReactPropTypes.string,
+    userBio: ReactPropTypes.string,
+    userFacebookLink: ReactPropTypes.string,
+    userImg: ReactPropTypes.string
+  },
+
+  componentDidMount: function() {
+    //console.log(this.props);
+  }, 
   /**
    * @return {object}
    */
@@ -39,8 +36,10 @@ var ProfileHeader = React.createClass({
         <p className="tf-bio">{this.props.userBio}</p>
 
         <div className="tf-social-icons"> 
-          <img src="assets/img/facebook_share.svg"></img>
-          <img src="assets/img/twitter_share.svg"></img>
+          {/*<img src="assets/img/facebook_share.svg"></img>*/}
+          <a href={this.props.userTwitterLink}>
+            <img src="assets/img/twitter_share.svg"></img>
+          </a>
         </div>
 
       </div>

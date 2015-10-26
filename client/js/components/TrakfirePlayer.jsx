@@ -34,7 +34,7 @@ var TrakfirePlayer = React.createClass({
             <div className="tf-player-wrap">
                 <div className="tf-player-wrap-inner container">
                     <div className="tf-player-wrap-inner-votes">
-                    { currTrack.votes ? currTrack.votes : 1 }
+                    { currTrack.vote_count ? currTrack.vote_count : 1 }
                     </div>
                     <div className="tf-player-controls-wrap">
                     {/*<a className="tf-player-backward" href="#!" onClick={this.handlePrevClick}></a>*/}

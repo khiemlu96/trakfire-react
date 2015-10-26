@@ -27,7 +27,7 @@ var UserPostsGrid = React.createClass({
   propTypes: {
     upvotedTracks: ReactPropTypes.array,
     postedTracks: ReactPropTypes.array,
-    onPostListItemClick: ReactPropTypes.func
+    onPostItemClick: ReactPropTypes.func
   },
 
   /**
@@ -42,17 +42,17 @@ var UserPostsGrid = React.createClass({
     var i = 0;
     for(key in upvoted) {
       var post = upvoted[key];
-      var item = <PostGridItem onClick={null} key={post.key} trackIdx={i} post={post}/>
+      var item = <PostGridItem onClick={this.props.onPostItemClick} key={post.key} trackIdx={i} post={post} currStreamUrl={this.props.currStreamUrl}/>
       upvotedPosts.push(item);
       i+=1;
     }
     i = 0;
     for(key in posted) {
       var post = posted[key];
-      var item = <PostGridItem onClick={null} key={post.key} trackIdx={i} post={post}/>
+      var item = <PostGridItem onClick={this.props.onPostItemClick} key={post.key} trackIdx={i} post={post} currStreamUrl={this.props.currStreamUrl}/>
       postedPosts.push(item);
     } 
-    console.log("USER'S POSTS ", postedPosts, upvotedPosts);
+    //console.log("USER'S POSTS ", postedPosts, upvotedPosts);
     return (
       <div>
       <section id="user-posts">
