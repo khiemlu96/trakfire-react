@@ -56,7 +56,7 @@ var UserPostsGrid = React.createClass({
     return (
       <div>
       <section id="user-posts">
-        <h1 className="tf-name">Posted Tracks</h1>
+        <h1 className="tf-header">Posted Tracks</h1>
         <ul id="post-grid" >{postedPosts}</ul>
       </section>
       {/*<section id="user-upvotes">

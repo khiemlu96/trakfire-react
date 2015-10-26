@@ -1325,3 +1325,10 @@ label.ownsong-label {
 .tf-hide {
 	display: none;
 }
+
+.tf-header {
+	text-align: center;
+	width: 100%;
+	font-size: 20px;
+	font-family: "Benton Sans RE", sans-serif;
+}

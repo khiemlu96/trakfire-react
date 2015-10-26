@@ -9,6 +9,7 @@
 
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
+var Moment = require('moment');
 var PostActions = require('../actions/PostActions');
 var PostListItem = require('./PostListItem.jsx');
 var PostListDateHeader = require('./PostListDateHeader.jsx'); 
@@ -144,8 +145,20 @@ var PostsList = React.createClass({
     var isLoggedIn = UserStore.isSignedIn();
     var user = UserStore.getCurrentUser();
     var container = [];
+    var count = 0;
     for(date in dates) {
-        var dateHeader = <PostListDateHeader key={'d_'+date} date={dates[date].toString()}/>
+
+        var d;
+        if(count == 0) {
+          d = "Today";
+          count+=1;
+        } else if(count == 1) {
+          d = "Yesterday";
+          count+=1;
+        } else {
+          d = dates[date].toString();
+        }
+        var dateHeader = <PostListDateHeader key={'d_'+date} date={d}/>
         container.push(dateHeader);
         var array = toArray(posts[dates[date]]).sort(sortScore);
 
