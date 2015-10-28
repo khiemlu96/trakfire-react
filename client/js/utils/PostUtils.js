@@ -4,8 +4,8 @@ module.exports = {
   convertRawPost: function(rawPost) {
     //console.log("vote_count",rawPost.vote_count);
     //console.log("user", rawPost.user);
-    //console.log("RAWPOST", rawPost);
-    console.log("TAGS", rawPost.tags);
+    console.log("RAWPOST", rawPost);
+    //console.log("TAGS", rawPost.tags);
     return {
       id: rawPost.id,
       title: rawPost.title,
