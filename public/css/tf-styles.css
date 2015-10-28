@@ -1,6 +1,7 @@
 #trakfireapp {
 	height: 100%;
 }
+
 .tf-player-wrap {
 	width: 100%;
 	height: 50px;
@@ -270,8 +271,6 @@ th.upvote-col {
 	padding: 0px;
 	width: 100%;
 	position: relative;
-
-
 }
 
 /* votes */
@@ -1314,6 +1313,20 @@ label.ownsong-label {
 .tf-player-info-img {
 	max-height: 50px;
 	display: inline-block;
+	margin-right: 10px;
+}
+
+.tf-post-item--author {
+	position: absolute;
+	right: 150px;
+	top: 30px;
+	color: #ff0d55;
+}
+
+.tf-author-img {
+	height: 30px;
+	width: 30px;
+	border-radius: 50%; 
 	margin-right: 10px;
 }
 

@@ -97,6 +97,13 @@ var PostListItem = React.createClass({
     return tags;
   },
 
+  renderAuthor: function() {
+    var aImg = this.props.post.author_img;
+    var aName = this.props.post.author;
+
+    return <div><img className="tf-author-img" src={aImg}></img><span className="tf-author-name">{aName}</span></div>;
+  }, 
+
   /**
    * @return {object}
    */
@@ -133,6 +140,9 @@ var PostListItem = React.createClass({
           <div className="tf-post-item--info">
             <h5> { post.title } </h5>
             <small> {post.artist } </small>
+          </div>
+          <div className="tf-post-item--author">
+            {this.renderAuthor()}
           </div>
           <div className="tf-post-item--tags">
             {this.renderTags()}
