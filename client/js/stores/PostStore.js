@@ -75,7 +75,7 @@ var PostStore = assign({}, EventEmitter.prototype, {
         posts = _posts;
       break;
       case "ELECTRONIC":
-        posts = this.getAllOfGenre("electronic");
+        posts = this.getAllOfGenre("Electronic");
       break;
       case "HIPHOP":
         posts = this.getAllOfGenre("Hip Hop / R&B");
