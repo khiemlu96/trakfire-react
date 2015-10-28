@@ -149,10 +149,16 @@ var PostsList = React.createClass({
     for(date in dates) {
 
         var d;
-        if(count == 0) {
+        var today = new Date();
+        var yesterday = new Date();
+        yesterday.setDate(today.getDate()-1);
+
+        console.log("TODAY IS", today.toDateString(), "YESTERDAY IS", yesterday.toDateString());
+
+        if(count == 0 && dates[date] == today.toDateString()) {
           d = "Today";
           count+=1;
-        } else if(count == 1) {
+        } else if(count == 1 && dates[date] == yesterday.toDateString()) {
           d = "Yesterday";
           count+=1;
         } else {

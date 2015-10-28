@@ -29,7 +29,7 @@ var PostFormSecond = React.createClass({
 
   addGenre: function() {
     var data = this.props.data.post;
-    var e = this.refs.electronic.getDOMNode();
+    var e = this.refs.edm.getDOMNode();
     var h = this.refs.hiphop.getDOMNode();
     var genre = h.checked ? h.value : e.value;
 
@@ -40,6 +40,7 @@ var PostFormSecond = React.createClass({
 
   submit: function() {
     console.log("invoke callback to submit");
+    this.addGenre();
     var data = this.props.data;
     console.log("POST DATA TO SUBMIT", data);
     this.props.submit(JSON.stringify(data));
@@ -74,9 +75,9 @@ var PostFormSecond = React.createClass({
             </div>
             <div className="align-left"> 
               <div className="form-title"> GENRE </div>
-              <input type="checkbox" ref="hiphop" className="tf-checkbox" name="hiphop" id="hiphop" value="hiphop"></input>
+              <input type="checkbox" ref="hiphop" className="tf-checkbox" name="hiphop" id="hiphop" value="Hip Hop / R&B"></input>
               <label className="tf-checkbox-label" htmlFor="hiphop">Hip-hop</label>
-              <input type="checkbox" ref="edm" className="tf-checkbox" id="edm" name="edm" value="edm"></input>
+              <input type="checkbox" ref="edm" className="tf-checkbox" id="edm" name="edm" value="electronic"></input>
               <label className="tf-checkbox-label" htmlFor="edm" >Electronic</label> <br></br> <br></br> <br></br>
               {/*<input type="checkbox" className="ownsong-checkbox" id="ownsong" name="ownsong" value="ownsong"></input> 
               <label className="ownsong-label" for="ownsong" >This is my own song</label>*/}
