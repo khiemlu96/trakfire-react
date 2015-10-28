@@ -33,8 +33,13 @@ var PostFormSecond = React.createClass({
     var data = this.props.data.post;
     var e = this.refs.edm.getDOMNode();
     var h = this.refs.hiphop.getDOMNode();
-    var genre = h.checked ? h.value : e.value;
+    if(h.checked && e.checked) {
+      var genre = h.value + " " + e.value;
+    } else {
+      var genre = h.checked ? h.value : e.value;
+    }
     var tags = this.refs.tags.getDOMNode().value;
+
     console.log(tags);
 
     data["all_tags"] = tags;
