@@ -20,27 +20,37 @@ var PostFormSecond = React.createClass({
   getInitialState: function() {
     return {hasGenre:false};
   }, 
+
   componentDidMount: function() {
     mixpanel.track("PostForm step 2");
   },
+
   goBack: function() {
     this.props.goBack();
   }, 
 
-  addGenre: function() {
+  addTagsAndGenre: function() {
     var data = this.props.data.post;
     var e = this.refs.edm.getDOMNode();
     var h = this.refs.hiphop.getDOMNode();
     var genre = h.checked ? h.value : e.value;
+    var tags = this.refs.tags.getDOMNode().value;
+    console.log(tags);
 
+    data["all_tags"] = tags;
     data['genre'] = genre;
-    console.log("add genre to data", data);
-    this.setState({hasGenre:true});
+    console.log("add genre to data", data, "add tags", data.tags);
+
+    //this.setState({hasGenre:true});
   }, 
+
+  setGenre: function() {
+    this.setState({hasGenre:true});
+  },
 
   submit: function() {
     console.log("invoke callback to submit");
-    this.addGenre();
+    this.addTagsAndGenre();
     var data = this.props.data;
     console.log("POST DATA TO SUBMIT", data);
     this.props.submit(JSON.stringify(data));
@@ -76,13 +86,15 @@ var PostFormSecond = React.createClass({
             <div className="align-left"> 
               <div className="form-title"> GENRE </div>
               <input type="checkbox" ref="hiphop" className="tf-checkbox" name="hiphop" id="hiphop" value="Hip Hop / R&B"></input>
-              <label className="tf-checkbox-label" htmlFor="hiphop">Hip-hop</label>
-              <input type="checkbox" ref="edm" className="tf-checkbox" id="edm" name="edm" value="electronic"></input>
+              <label className="tf-checkbox-label" htmlFor="hiphop" onClick={this.setGenre}>Hip-hop</label>
+              <input type="checkbox" ref="edm" className="tf-checkbox" id="edm" name="edm" value="electronic" onClick={this.setGenre}></input>
               <label className="tf-checkbox-label" htmlFor="edm" >Electronic</label> <br></br> <br></br> <br></br>
               {/*<input type="checkbox" className="ownsong-checkbox" id="ownsong" name="ownsong" value="ownsong"></input> 
               <label className="ownsong-label" for="ownsong" >This is my own song</label>*/}
+              <label htmlFor="tags">#TAGS (comma seperated)</label>
+              <input type="text" name="tags" ref="tags"></input>
             </div>
-            <div className={this.state.hasGenre ? enabled : disabled} onClick={this.submit}> POST SONG </div>
+            <div className={this.state.hasGenre ? enabled : disabled} ref="continue" onClick={this.submit}> POST SONG </div>
         </div>
   	);
   }

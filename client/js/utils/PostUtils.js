@@ -2,9 +2,10 @@
 module.exports = {
 
   convertRawPost: function(rawPost) {
-    console.log("vote_count",rawPost.vote_count);
-    console.log("user", rawPost.user);
-    console.log("RAWPOST", rawPost);
+    //console.log("vote_count",rawPost.vote_count);
+    //console.log("user", rawPost.user);
+    //console.log("RAWPOST", rawPost);
+    console.log("TAGS", rawPost.tags);
     return {
       id: rawPost.id,
       title: rawPost.title,
@@ -18,7 +19,8 @@ module.exports = {
       duration: rawPost.duration,
       vote_count: rawPost.vote_count,
       voters: this.getUserIds(rawPost.votes),
-      score: rawPost.hot_score
+      score: rawPost.hot_score, 
+      tags: rawPost.tags
     };
   },
 

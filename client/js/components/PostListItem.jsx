@@ -86,6 +86,17 @@ var PostListItem = React.createClass({
     }
   }, 
 
+  renderTags: function() {
+    t = this.props.post.tags;
+    tags = [];
+    for(tag in t) {
+      var tag = <div className="tf-tag tf-uppercase"> {t[tag].name} </div> 
+      tags.push(tag);
+    }
+
+    return tags;
+  },
+
   /**
    * @return {object}
    */
@@ -123,15 +134,9 @@ var PostListItem = React.createClass({
             <h5> { post.title } </h5>
             <small> {post.artist } </small>
           </div>
-          {/*<div className="tf-post-item--tags">
-            <div className="tf-tag"> 
-              HIP-HOP
-            </div> 
-            <div className="tf-tag"> 
-              REMIX
-            </div> 
-
-          </div>*/}
+          <div className="tf-post-item--tags">
+            {this.renderTags()}
+          </div>
         </div>
       </li>
     );

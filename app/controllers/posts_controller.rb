@@ -3,7 +3,7 @@ class PostsController < ApplicationController
 
 	def index
 	  @posts = Post.all.order(date: :desc).limit(50)
-      render json: @posts, include: { votes:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :date, :created_at, :duration, :genre, :vote_count, :hot_score] 
+      render json: @posts, include: { tags:{}, votes:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :date, :created_at, :duration, :genre, :vote_count, :hot_score] 
 	end
 	
 	def create
@@ -24,6 +24,6 @@ class PostsController < ApplicationController
 
 	private
   	  def post_params
-    	params.require(:post).permit(:url, :user_id, :img_url, :stream_url, :waveform_url, :artist, :title, :duration, :genre, :votes, :vote_count)
+    	params.require(:post).permit(:url, :user_id, :img_url, :stream_url, :waveform_url, :artist, :title, :duration, :genre, :votes, :vote_count, :all_tags)
   	  end
 end
