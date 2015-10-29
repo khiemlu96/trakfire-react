@@ -153,7 +153,7 @@ var PostsList = React.createClass({
         var yesterday = new Date();
         yesterday.setDate(today.getDate()-1);
 
-        console.log("TODAY IS", today.toDateString(), "YESTERDAY IS", yesterday.toDateString());
+        //console.log("TODAY IS", today.toDateString(), "YESTERDAY IS", yesterday.toDateString());
 
         if(dates[date] == today.toDateString()) {
           d = "Today";
@@ -167,11 +167,11 @@ var PostsList = React.createClass({
         var dateHeader = <PostListDateHeader key={'d_'+date} date={d}/>
         container.push(dateHeader);
         var array = toArray(posts[dates[date]]).sort(sortScore);
-        console.log("THE ARRAY", array);
+        //console.log("THE ARRAY", array);
         for(key in array) {
           if(isLoggedIn){
             var isUpvotedByUser = this.hasUpvoted(array[key], user.id);
-            console.log("IS UPVOTED BY USER", isUpvotedByUser);
+            //console.log("IS UPVOTED BY USER", isUpvotedByUser);
           }
 
           var post = <PostListItem 

@@ -20,6 +20,8 @@ var TrakfireApp = require('./components/TrakfireApp.jsx');
 var PostsPage = require('./components/PostsPage.jsx');
 var ProfilePage = require('./components/ProfilePage.jsx');
 var PostForm = require('./components/PostForm.jsx');
+var EmailAcquirePage = require('./components/EmailAcquirePage.jsx');
+
 React.render(
 <Router history={createBrowserHistory()}>
     <Route path='/' component={TrakfireApp}>
@@ -27,6 +29,8 @@ React.render(
       <Route path='/profile' component={ProfilePage} />
       <Route path='/post' component={PostForm} />
     </Route>
+    <Route path='/email' component={EmailAcquirePage} />
   </Router>,
+
   document.getElementById('trakfireapp')
 );

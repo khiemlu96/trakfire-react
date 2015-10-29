@@ -56,28 +56,25 @@ var PostListItem = React.createClass({
     if(this.props.isLoggedIn && !this.hasUpvoted(this.props.post)){
       this.props.onUpvote(this.props.post.id);
       this.setState({hasUpvoted:true});
-      console.log("UPVOTE", this.refs.upvotes);
     }
   },
 
   playPauseTrack: function(e) {
     e.preventDefault();
-    console.log("TRACK", this.props.trackIdx);
     this.props.onClick(this.props.post.stream_url, this.props.post);
+    var post = this.refs.post.getDOMNode();
     if(!this.state.isPlaying) {
-      //this.refs.post.className += " is-playing";
-      this.setState({isPlaying : true});
+      post.className = isPlaying;
     }
     else {
-      //this.refs.post.className = isNotPlaying;
-      this.setState({isPlaying : false});
+      post.className = isNotPlaying;
     }
-    console.log("POST", this.state.isPlaying, this.refs.post);
+    console.log("POST STATUS", this.props.rank, this.state.isPlaying);
   },
 
   hasUpvoted: function(post) {
     if(this.props.isLoggedIn){
-      console.log("POST TO UPVOTE", post);
+      //console.log("POST TO UPVOTE", post);
       var exists = post.voters.indexOf(this.props.userId);
       console.log(post.id, exists);
       return (exists != -1) ? true : false;
@@ -108,13 +105,12 @@ var PostListItem = React.createClass({
   render: function() {
     var post = this.props.post;
     var key = this.props.key;
-    var thisPlaying = (this.props.currStreamUrl == null || this.props.currStreamUrl == this.props.post.stream_url);
-    console.log("THIS IS PLAYING", thisPlaying);
     var upvoted = (this.state.isUpvoted || this.props.isUpvoted || this.state.hasUpvoted);
     var localUpvote = this.state.hasUpvoted; //pre refresh we upvoted this
     _localVoteCount = post.vote_count + 1;
+    console.log("TRACK "+this.props.rank+" is playing?", (this.state.isPlaying && thisPlaying));
     return (
-      <li className={(this.state.isPlaying && thisPlaying)? isPlaying : isNotPlaying} ref="post">
+      <li className={isNotPlaying} ref="post">
         <div className="tf-post-item-content">
           <div className={ upvoted ? isUpvoted : isNotUpvoted} ref="upvotes" onClick={this.upvote}>
           { localUpvote ? _localVoteCount : post.vote_count }
