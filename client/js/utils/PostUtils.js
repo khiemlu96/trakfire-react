@@ -14,6 +14,7 @@ module.exports = {
       genre: rawPost.genre,
       author: rawPost.user.handle,
       author_img: rawPost.user.img,
+      author_name: rawPost.user.username,
       stream_url: rawPost.stream_url,
       img_url: rawPost.img_url, 
       duration: rawPost.duration,

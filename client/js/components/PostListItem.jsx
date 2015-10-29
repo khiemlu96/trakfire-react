@@ -99,7 +99,7 @@ var PostListItem = React.createClass({
 
   renderAuthor: function() {
     var aImg = this.props.post.author_img;
-    var aName = this.props.post.author;
+    var aName = this.props.post.author_name;
 
     return <div><img className="tf-author-img" src={aImg}></img><span className="tf-author-name">{aName}</span></div>;
   }, 
