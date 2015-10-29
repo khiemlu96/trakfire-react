@@ -23,6 +23,7 @@ var ProfilePage = React.createClass({
 
   componentDidMount: function() {
     mixpanel.track("Arrived on profile page");
+    mixpanel.alias(this.state.user.username);
   },
 
   onPostListItemClick:function(pid) {

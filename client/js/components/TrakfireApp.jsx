@@ -193,6 +193,20 @@ var TrakfireApp = React.createClass({
         isPaused = false;  
         this.setState({isPlaying : isPlaying, isPaused : isPaused, currStreamUrl : stream_url, currTrack : track});     
     }
+    
+    if(isPlaying){
+      mixpanel.track('Playing track', {
+      'title': track.title,
+      'id': track.id,
+      'artist' : track.artist
+      });
+    } else if(isPaused) {
+      mixpanel.track('Paused track', {
+      'title': track.title,
+      'id': track.id,
+      'artist' : track.artist
+      });      
+    }
   },
 
   onPlayCtrlClick: function() {

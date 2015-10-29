@@ -42,6 +42,10 @@ var FilterBar = React.createClass({
     _sort = this.props.sort;
     this.props.onClick("ALL", null);
     //this.props.scrollToTop();
+    mixpanel.track('Filter', {
+    'genre': 'All',
+    'sort': _sort
+    });
   },
 
   handleElectronicClick: function() {
@@ -50,6 +54,10 @@ var FilterBar = React.createClass({
     _sort = this.props.sort;
     this.props.onClick("ELECTRONIC", null);
     //this.props.scrollToTop();
+    mixpanel.track('Filter', {
+    'genre': 'Electronic',
+    'sort': _sort
+    });
   },
 
   handleHipHopClick: function(){
@@ -58,6 +66,10 @@ var FilterBar = React.createClass({
     _sort = this.props.sort;
     this.props.onClick("HIPHOP", null);
     //this.props.scrollToTop();
+    mixpanel.track('Filter', {
+    'genre': 'Hip Hop',
+    'sort': _sort
+    });
   },
 
   handleTopClick: function(){
@@ -65,6 +77,10 @@ var FilterBar = React.createClass({
     _genre = this.props.genre;
     _sort = "TOP";
     this.props.onClick(null, "TOP");
+    mixpanel.track('Filter', {
+    'genre': _genre,
+    'sort': "Top"
+    });
   },
 
   /*
