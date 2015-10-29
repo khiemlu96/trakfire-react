@@ -12,6 +12,7 @@ var _posts = null;
 
 function _addUser(user) {
   _user = UserUtils.convertRawUser(user);
+  mixpanel.identify(_user.id);
   mixpanel.people.set({
   '$handle' : _user.handle,
   '$name': _user.name,
