@@ -33,7 +33,7 @@ var EmailAcquirePage = React.createClass({
       UserActions.updateEmail(this.props.origin+'/users/'+this.state.user.id, email);
       mixpanel.identify(this.state.user.id);
       mixpanel.track("Updated email");
-      mixpanel.people.set({
+      mixpanel.people.set_once({
           '$email': email
       });
       this.props.history.pushState(null, '/');
