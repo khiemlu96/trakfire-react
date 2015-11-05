@@ -13,8 +13,9 @@ var _posts = null;
 
 function _addCurrentUser(user) {
   _cUser = UserUtils.convertRawUser(user);
+  console.log("CURR USER NAME",_cUser.name);
   mixpanel.identify(_cUser.id);
-  mixpanel.people.set({
+  mixpanel.people.set_once({
   '$handle' : _cUser.handle,
   '$name': _cUser.name,
   '$created': new Date()
@@ -23,12 +24,6 @@ function _addCurrentUser(user) {
 
 function _addUser(user) {
   _user = UserUtils.convertRawUser(user);
-  mixpanel.identify(_user.id);
-  mixpanel.people.set({
-  '$handle' : _user.handle,
-  '$name': _user.name,
-  '$created': new Date()
-  });  
 } 
 
 function _addPostsToUser(userPosts) {
