@@ -25,6 +25,8 @@ class TokensController < ApplicationController
         u.img = j_user['profile_image_url_https']
         u.tbio = j_user['description']
         u.location = j_user['location']
+        logger.info 'THE NEW USER'
+        logger.info u
         new_user = true
       end
       jwt = JWT.encode({uid: user.uid, exp: 1.day.from_now.to_i}, Rails.application.secrets.secret_key_base)
