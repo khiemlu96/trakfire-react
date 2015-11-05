@@ -1,12 +1,15 @@
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
+var Uri = require('jsuri');
 var Link = require("react-router").Link;
 var UserStore = require('../stores/UserStore.js');
 var UserActions = require('../actions/UserActions.js');
 
 function getAppState() {
   return {
-    user: UserStore.getCurrentUser()
+    user: UserStore.getCurrentUser(), 
+    userid: new Uri(location.search).getQueryParamValue('id'),
+    username: new Uri(location.search).getQueryParamValue('uname')
   };
 }
 
@@ -30,11 +33,12 @@ var EmailAcquirePage = React.createClass({
     //console.log("EMAIL TO VALIDATE IS", email);
     if(validateEmail(email)){
       //console.log('GOT THE EMAIL DOE');
-      UserActions.updateEmail(this.props.origin+'/users/'+this.state.user.id, email);
-      mixpanel.identify(this.state.user.id);
-      mixpanel.track("Updated email");
+      UserActions.updateEmail(this.props.origin+'/users/'+this.state.userid, email);
+      mixpanel.identify(this.state.userid);
+      mixpanel.track("Updated email and name");
       mixpanel.people.set_once({
-          '$email': email
+          '$email': email,
+          '$name': this.state.username
       });
       this.props.history.pushState(null, '/');
     } else {
@@ -44,9 +48,11 @@ var EmailAcquirePage = React.createClass({
   }, 
 
   componentDidMount: function() {
-    mixpanel.identify(this.state.user.id);
+    var id = this.state.userid;
+    console.log(id);
+    mixpanel.identify(id);
     mixpanel.track("User arrived on email acquisition page");
-    mixpanel.alias(this.state.user.username);
+    //mixpanel.alias(this.state.user.username);
   },
 
   /**

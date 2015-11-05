@@ -18,7 +18,8 @@ function _addCurrentUser(user) {
   mixpanel.people.set_once({
   '$handle' : _cUser.handle,
   '$name': _cUser.name,
-  '$created': new Date(), 
+  '$created': new Date(),
+  '$id': _cUser.id  
   });
 }
 
