@@ -38,7 +38,7 @@ var ProfileHeader = React.createClass({
         <div className="tf-social-icons"> 
           {/*<img src="assets/img/facebook_share.svg"></img>*/}
           <a href={this.props.userTwitterLink}>
-            <img src="assets/img/twitter_share.svg"></img>
+            <img src="../assets/img/twitter_share.svg"></img>
           </a>
         </div>
 

@@ -1,6 +1,5 @@
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
-var Uri = require('jsuri');
 var UserActions = require('../actions/UserActions.js');
 var UserStore = require('../stores/UserStore.js');
 var UserPostGrid = require('./UserPostGrid.jsx');

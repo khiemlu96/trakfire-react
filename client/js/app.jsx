@@ -26,7 +26,7 @@ React.render(
 <Router history={createBrowserHistory()}>
     <Route path='/' component={TrakfireApp}>
       <IndexRoute component={PostsPage}/>
-      <Route path='/profile/:id' component={ProfilePage} />
+      <Route path='/profile/(:id)' component={ProfilePage} />
       <Route path='/post' component={PostForm} />
       <Route path='/email' component={EmailAcquirePage} />
     </Route>

@@ -72,10 +72,10 @@ var PostGridItem = React.createClass({
             <div className="tf-overlay" onClick={this.playPauseTrack}> 
             </div> 
             <div className="tpf-play-button" onClick={this.playPauseTrack}> 
-              <img src={'assets/img/player-play-white.svg'} /> 
+              <img src={'../assets/img/player-play-white.svg'} /> 
             </div> 
             <div className="tpf-pause-button" onClick={this.playPauseTrack}> 
-              <img src={'assets/img/player-pause-white.svg'} /> 
+              <img src={'../assets/img/player-pause-white.svg'} /> 
             </div> 
 
 
