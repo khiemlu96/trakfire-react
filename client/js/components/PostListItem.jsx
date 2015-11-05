@@ -11,6 +11,8 @@ var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var PostActions = require('../actions/PostActions');
 
+var Link = require('react-router').Link;
+
 var classNames = require('classnames');
 
 var isPlaying = classNames("tf-post-item is-playing");
@@ -39,7 +41,7 @@ var PostListItem = React.createClass({
   }, 
 
   componentDidMount: function() {
-    console.log("POST LIST ITEM ", this.props);
+    //console.log("POST LIST ITEM ", this.props);
     this.state.isUpvoted = this.props.isUpvoted;
   },
 
@@ -69,14 +71,14 @@ var PostListItem = React.createClass({
     else {
       post.className = isNotPlaying;
     }
-    console.log("POST STATUS", this.props.rank, this.state.isPlaying);
+    //console.log("POST STATUS", this.props.rank, this.state.isPlaying);
   },
 
   hasUpvoted: function(post) {
     if(this.props.isLoggedIn){
       //console.log("POST TO UPVOTE", post);
       var exists = post.voters.indexOf(this.props.userId);
-      console.log(post.id, exists);
+      //console.log(post.id, exists);
       return (exists != -1) ? true : false;
     }
   }, 
@@ -93,10 +95,11 @@ var PostListItem = React.createClass({
   },
 
   renderAuthor: function() {
+    var aId = this.props.post.author_id;
     var aImg = this.props.post.author_img;
     var aName = this.props.post.author_name;
 
-    return <div><img className="tf-author-img" src={aImg}></img><span className="tf-author-name">{aName}</span></div>;
+    return <div><img className="tf-author-img" src={aImg}></img><Link to={'/profile/'+aId} className="tf-link">{aName}</Link></div>;
   }, 
 
   /**
@@ -108,7 +111,7 @@ var PostListItem = React.createClass({
     var upvoted = (this.state.isUpvoted || this.props.isUpvoted || this.state.hasUpvoted);
     var localUpvote = this.state.hasUpvoted; //pre refresh we upvoted this
     _localVoteCount = post.vote_count + 1;
-    console.log("TRACK "+this.props.rank+" is playing?", (this.state.isPlaying && thisPlaying));
+    //console.log("TRACK "+this.props.rank+" is playing?", (this.state.isPlaying && thisPlaying));
     return (
       <li className={isNotPlaying} ref="post">
         <div className="tf-post-item-content">

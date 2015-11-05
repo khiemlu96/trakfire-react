@@ -37,7 +37,8 @@ var NavBar = React.createClass({
   render: function() {
     if(this.props.isLoggedIn) {
       var signinLink = <a href="#!" onClick={this.handleSignOut}> SIGN OUT </a>
-      var profileLink = <Link to='/profile' className="tf-uppercase">{this.props.user.handle}</Link>;
+      var profileLink = <Link to={'/profile/'+user.id} className="tf-uppercase">{this.props.user.handle}</Link>;
+      //var emailLink = <Link to='/email'>EMAIL</Link>;
       if(this.props.isAdmin || this.props.user.canPost) { 
         var postLink = <Link to='/post'>POST</Link> 
       } else {
@@ -47,6 +48,7 @@ var NavBar = React.createClass({
       var signinLink = <a href={this.props.origin+'/request_token'}> SIGN IN </a>
       var profileLink = "";
       var postLink = '';
+      //var emailLink = <Link to='/email'>EMAIL</Link>;
     }
     return (
       <div className="tf-navbar" role="navigation"> 

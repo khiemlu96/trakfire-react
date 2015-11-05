@@ -1,3 +1,7 @@
+html, body {
+    height: 100%;
+}
+
 #trakfireapp {
 	height: 100%;
 }
@@ -1330,9 +1334,20 @@ label.ownsong-label {
 	margin-right: 10px;
 }
 
+.tf-email-acquire {
+	margin-top: 106px;
+	width: 100%;
+	text-align: center;
+	height: 100%;
+}
+
 /* utils */
 .tf-uppercase {
 	text-transform: uppercase;
+}
+
+.tf-full-height{
+	height: 100%;
 }
 
 .tf-nav-buffer {
@@ -1348,4 +1363,12 @@ label.ownsong-label {
 	width: 100%;
 	font-size: 20px;
 	font-family: "Benton Sans RE", sans-serif;
+}
+
+.tf-email-input {
+	color: black;
+}
+
+.tf-link {
+	color: #ff0d55 !important;
 }

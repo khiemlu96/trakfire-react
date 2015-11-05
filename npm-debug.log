@@ -1,0 +1,1765 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node',
+1 verbose cli   '/usr/local/bin/npm',
+1 verbose cli   'install',
+1 verbose cli   'react-modal' ]
+2 info using npm@2.14.2
+3 info using node@v4.0.0
+4 verbose install initial load of /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/package.json
+5 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/basscss/package.json
+6 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/bootstrap/package.json
+7 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/classnames/package.json
+8 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/css-loader/package.json
+9 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/flux/package.json
+10 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/history/package.json
+11 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/howler/package.json
+12 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/jquery/package.json
+13 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/jsuri/package.json
+14 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/jsx-loader/package.json
+15 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/keymirror/package.json
+16 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/moment/package.json
+17 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/object-assign/package.json
+18 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react/package.json
+19 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-bootstrap/package.json
+20 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-dom/package.json
+21 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-router/package.json
+22 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/reqwest/package.json
+23 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/soundcloud-audio/package.json
+24 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/style-loader/package.json
+25 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/webpack/package.json
+26 verbose installManyTop reading scoped package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/webpack-dev-server/package.json
+27 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/package.json
+28 silly cache add args [ 'react-modal', null ]
+29 verbose cache add spec react-modal
+30 silly cache add parsed spec Result {
+30 silly cache add   raw: 'react-modal',
+30 silly cache add   scope: null,
+30 silly cache add   name: 'react-modal',
+30 silly cache add   rawSpec: '',
+30 silly cache add   spec: '*',
+30 silly cache add   type: 'range' }
+31 silly addNamed react-modal@*
+32 verbose addNamed "*" is a valid semver range for react-modal
+33 silly addNameRange { name: 'react-modal', range: '*', hasData: false }
+34 silly mapToRegistry name react-modal
+35 silly mapToRegistry using default registry
+36 silly mapToRegistry registry https://registry.npmjs.org/
+37 silly mapToRegistry uri https://registry.npmjs.org/react-modal
+38 verbose addNameRange registry:https://registry.npmjs.org/react-modal not in flight; fetching
+39 verbose request uri https://registry.npmjs.org/react-modal
+40 verbose request no auth needed
+41 info attempt registry request try #1 at 5:23:09 PM
+42 verbose request id 339156b81bad40b0
+43 verbose etag "ENFCOQPSLM9ZJPQK6LF68UMY3"
+44 http request GET https://registry.npmjs.org/react-modal
+45 http 200 https://registry.npmjs.org/react-modal
+46 silly get cb [ 200,
+46 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+46 silly get     etag: '"BO13AM0QQBOUHGOJ1HDZN376"',
+46 silly get     'content-type': 'application/json',
+46 silly get     'cache-control': 'max-age=60',
+46 silly get     'content-length': '28696',
+46 silly get     'accept-ranges': 'bytes',
+46 silly get     date: 'Fri, 30 Oct 2015 00:23:10 GMT',
+46 silly get     via: '1.1 varnish',
+46 silly get     age: '0',
+46 silly get     connection: 'keep-alive',
+46 silly get     'x-served-by': 'cache-sjc3133-SJC',
+46 silly get     'x-cache': 'HIT',
+46 silly get     'x-cache-hits': '1',
+46 silly get     'x-timer': 'S1446164590.225384,VS0,VE38',
+46 silly get     vary: 'Accept' } ]
+47 verbose get saving react-modal to /Users/grantcollins/.npm/registry.npmjs.org/react-modal/.cache.json
+48 silly addNameRange number 2 { name: 'react-modal', range: '*', hasData: true }
+49 silly addNameRange versions [ 'react-modal',
+49 silly addNameRange   [ '0.0.0',
+49 silly addNameRange     '0.0.1',
+49 silly addNameRange     '0.0.2',
+49 silly addNameRange     '0.0.3',
+49 silly addNameRange     '0.0.4',
+49 silly addNameRange     '0.0.5',
+49 silly addNameRange     '0.0.6',
+49 silly addNameRange     '0.0.7',
+49 silly addNameRange     '0.1.0',
+49 silly addNameRange     '0.1.1',
+49 silly addNameRange     '0.2.0',
+49 silly addNameRange     '0.3.0',
+49 silly addNameRange     '0.5.0',
+49 silly addNameRange     '0.6.0',
+49 silly addNameRange     '0.6.1' ] ]
+50 silly addNamed react-modal@0.6.1
+51 verbose addNamed "0.6.1" is a plain semver version for react-modal
+52 silly mapToRegistry name react-modal
+53 silly mapToRegistry using default registry
+54 silly mapToRegistry registry https://registry.npmjs.org/
+55 silly mapToRegistry uri https://registry.npmjs.org/react-modal
+56 verbose addRemoteTarball https://registry.npmjs.org/react-modal/-/react-modal-0.6.1.tgz not in flight; adding
+57 verbose addRemoteTarball [ 'https://registry.npmjs.org/react-modal/-/react-modal-0.6.1.tgz',
+57 verbose addRemoteTarball   '286444d80f3ae8a0aceba970371c9c73aa812849' ]
+58 info retry fetch attempt 1 at 5:23:10 PM
+59 info attempt registry request try #1 at 5:23:10 PM
+60 http fetch GET https://registry.npmjs.org/react-modal/-/react-modal-0.6.1.tgz
+61 http fetch 200 https://registry.npmjs.org/react-modal/-/react-modal-0.6.1.tgz
+62 silly fetchAndShaCheck shasum 286444d80f3ae8a0aceba970371c9c73aa812849
+63 verbose addTmpTarball /var/folders/v9/7y5c414n471bdsd75vhf1tc00000gn/T/npm-10860-94d552ab/registry.npmjs.org/react-modal/-/react-modal-0.6.1.tgz not in flight; adding
+64 verbose addTmpTarball already have metadata; skipping unpack for react-modal@0.6.1
+65 silly cache afterAdd react-modal@0.6.1
+66 verbose afterAdd /Users/grantcollins/.npm/react-modal/0.6.1/package/package.json not in flight; writing
+67 verbose afterAdd /Users/grantcollins/.npm/react-modal/0.6.1/package/package.json written
+68 silly install resolved [ { name: 'react-modal',
+68 silly install resolved     version: '0.6.1',
+68 silly install resolved     description: 'Accessible modal dialog component for React.JS',
+68 silly install resolved     main: './lib/index',
+68 silly install resolved     repository:
+68 silly install resolved      { type: 'git',
+68 silly install resolved        url: 'git+https://github.com/rackt/react-modal.git' },
+68 silly install resolved     homepage: 'https://github.com/rackt/react-modal',
+68 silly install resolved     bugs: { url: 'https://github.com/rackt/react-modal/issues' },
+68 silly install resolved     directories: { example: 'examples' },
+68 silly install resolved     scripts:
+68 silly install resolved      { test: 'scripts/test --browsers Firefox --single-run',
+68 silly install resolved        start: 'scripts/dev-examples' },
+68 silly install resolved     authors: [ 'Ryan Florence' ],
+68 silly install resolved     license: 'MIT',
+68 silly install resolved     devDependencies:
+68 silly install resolved      { browserify: '11.1.0',
+68 silly install resolved        'browserify-shim': '3.8.10',
+68 silly install resolved        envify: '3.4.0',
+68 silly install resolved        expect: '1.10.0',
+68 silly install resolved        'jsx-loader': '0.13.2',
+68 silly install resolved        karma: '0.13.10',
+68 silly install resolved        'karma-browserify': '^4.2.1',
+68 silly install resolved        'karma-chrome-launcher': '0.2.0',
+68 silly install resolved        'karma-cli': '0.1.0',
+68 silly install resolved        'karma-firefox-launcher': '0.1.6',
+68 silly install resolved        'karma-mocha': '0.2.0',
+68 silly install resolved        'karma-safari-launcher': '^0.1.1',
+68 silly install resolved        mocha: '2.3.3',
+68 silly install resolved        'react-addons-test-utils': '^0.14.0',
+68 silly install resolved        'react-dom': '^0.14.0',
+68 silly install resolved        react: '^0.14.0',
+68 silly install resolved        reactify: '^1.1.1',
+68 silly install resolved        'rf-release': '0.4.0',
+68 silly install resolved        'uglify-js': '2.4.24',
+68 silly install resolved        'webpack-dev-server': '1.11.0' },
+68 silly install resolved     dependencies:
+68 silly install resolved      { 'element-class': '^0.2.0',
+68 silly install resolved        exenv: '1.2.0',
+68 silly install resolved        'lodash.assign': '^3.2.0' },
+68 silly install resolved     peerDependencies: { react: '^0.14.0' },
+68 silly install resolved     tags: [ 'react', 'modal', 'dialog' ],
+68 silly install resolved     keywords: [ 'react', 'react-component', 'modal', 'dialog' ],
+68 silly install resolved     'browserify-shim': { react: 'global:React', 'react-dom': 'global:ReactDOM' },
+68 silly install resolved     gitHead: '1a0a069a7f91aa660433bdfa410636d4e3d81fcf',
+68 silly install resolved     _id: 'react-modal@0.6.1',
+68 silly install resolved     _shasum: '286444d80f3ae8a0aceba970371c9c73aa812849',
+68 silly install resolved     _from: 'react-modal@*',
+68 silly install resolved     _npmVersion: '2.14.3',
+68 silly install resolved     _nodeVersion: '3.3.1',
+68 silly install resolved     _npmUser: { name: 'mzabriskie', email: 'mzabriskie@gmail.com' },
+68 silly install resolved     maintainers: [ [Object], [Object] ],
+68 silly install resolved     dist:
+68 silly install resolved      { shasum: '286444d80f3ae8a0aceba970371c9c73aa812849',
+68 silly install resolved        tarball: 'http://registry.npmjs.org/react-modal/-/react-modal-0.6.1.tgz' },
+68 silly install resolved     _resolved: 'https://registry.npmjs.org/react-modal/-/react-modal-0.6.1.tgz' } ]
+69 info install react-modal@0.6.1 into /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api
+70 info installOne react-modal@0.6.1
+71 verbose installOne of react-modal to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api not in flight; installing
+72 verbose lock using /Users/grantcollins/.npm/_locks/react-modal-66750ecc825c7e04.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal
+73 silly install write writing react-modal 0.6.1 to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal
+74 verbose unbuild node_modules/react-modal
+75 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal is being purged from base /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api
+76 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal
+77 verbose tar unpack /Users/grantcollins/.npm/react-modal/0.6.1/package.tgz
+78 verbose tar unpacking to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal
+79 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal is being purged
+80 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal
+81 silly gunzTarPerm modes [ '755', '644' ]
+82 silly gunzTarPerm extractEntry package.json
+83 silly gunzTarPerm extractEntry .npmignore
+84 silly gunzTarPerm extractEntry README.md
+85 silly gunzTarPerm extractEntry LICENSE
+86 silly gunzTarPerm extractEntry webpack.config.js
+87 silly gunzTarPerm extractEntry .travis.yml
+88 silly gunzTarPerm extractEntry UPGRADE_GUIDE.md
+89 silly gunzTarPerm extractEntry CHANGELOG.md
+90 silly gunzTarPerm extractEntry eslint.json
+91 silly gunzTarPerm extractEntry lib/index.js
+92 silly gunzTarPerm extractEntry lib/components/Modal.js
+93 silly gunzTarPerm extractEntry lib/components/ModalPortal.js
+94 silly gunzTarPerm extractEntry lib/helpers/ariaAppHider.js
+95 silly gunzTarPerm extractEntry lib/helpers/defaultStyles.js
+96 silly gunzTarPerm extractEntry lib/helpers/focusManager.js
+97 silly gunzTarPerm extractEntry lib/helpers/scopeTab.js
+98 silly gunzTarPerm extractEntry lib/helpers/tabbable.js
+99 silly gunzTarPerm extractEntry scripts/build
+100 silly gunzTarPerm extractEntry scripts/dev-examples
+101 silly gunzTarPerm extractEntry scripts/preview-release
+102 silly gunzTarPerm extractEntry scripts/release
+103 silly gunzTarPerm extractEntry scripts/test
+104 silly gunzTarPerm extractEntry dist/react-modal.js
+105 silly gunzTarPerm extractEntry dist/react-modal.min.js
+106 verbose write writing to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/package.json
+107 info preinstall react-modal@0.6.1
+108 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/package.json
+109 silly prepareForInstallMany adding element-class@^0.2.0 from react-modal dependencies
+110 silly prepareForInstallMany adding exenv@1.2.0 from react-modal dependencies
+111 silly prepareForInstallMany adding lodash.assign@^3.2.0 from react-modal dependencies
+112 silly prepareForInstallMany adding react@^0.14.0 from react-modal peerDependencies
+113 warn peerDependencies The peer dependency react@^0.14.0 included from react-modal will no
+114 warn peerDependencies longer be automatically installed to fulfill the peerDependency
+115 warn peerDependencies in npm 3+. Your application will need to depend on it explicitly.
+116 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/package.json
+117 silly cache add args [ 'element-class@^0.2.0', null ]
+118 verbose cache add spec element-class@^0.2.0
+119 silly cache add args [ 'exenv@1.2.0', null ]
+120 verbose cache add spec exenv@1.2.0
+121 silly cache add parsed spec Result {
+121 silly cache add   raw: 'element-class@^0.2.0',
+121 silly cache add   scope: null,
+121 silly cache add   name: 'element-class',
+121 silly cache add   rawSpec: '^0.2.0',
+121 silly cache add   spec: '>=0.2.0 <0.3.0',
+121 silly cache add   type: 'range' }
+122 silly addNamed element-class@>=0.2.0 <0.3.0
+123 verbose addNamed ">=0.2.0 <0.3.0" is a valid semver range for element-class
+124 silly addNameRange { name: 'element-class',
+124 silly addNameRange   range: '>=0.2.0 <0.3.0',
+124 silly addNameRange   hasData: false }
+125 silly mapToRegistry name element-class
+126 silly mapToRegistry using default registry
+127 silly mapToRegistry registry https://registry.npmjs.org/
+128 silly mapToRegistry uri https://registry.npmjs.org/element-class
+129 verbose addNameRange registry:https://registry.npmjs.org/element-class not in flight; fetching
+130 silly cache add parsed spec Result {
+130 silly cache add   raw: 'exenv@1.2.0',
+130 silly cache add   scope: null,
+130 silly cache add   name: 'exenv',
+130 silly cache add   rawSpec: '1.2.0',
+130 silly cache add   spec: '1.2.0',
+130 silly cache add   type: 'version' }
+131 silly addNamed exenv@1.2.0
+132 verbose addNamed "1.2.0" is a plain semver version for exenv
+133 silly mapToRegistry name exenv
+134 silly mapToRegistry using default registry
+135 silly mapToRegistry registry https://registry.npmjs.org/
+136 silly mapToRegistry uri https://registry.npmjs.org/exenv
+137 verbose addNameVersion registry:https://registry.npmjs.org/exenv not in flight; fetching
+138 silly cache add args [ 'lodash.assign@^3.2.0', null ]
+139 verbose cache add spec lodash.assign@^3.2.0
+140 silly cache add parsed spec Result {
+140 silly cache add   raw: 'lodash.assign@^3.2.0',
+140 silly cache add   scope: null,
+140 silly cache add   name: 'lodash.assign',
+140 silly cache add   rawSpec: '^3.2.0',
+140 silly cache add   spec: '>=3.2.0 <4.0.0',
+140 silly cache add   type: 'range' }
+141 silly addNamed lodash.assign@>=3.2.0 <4.0.0
+142 verbose addNamed ">=3.2.0 <4.0.0" is a valid semver range for lodash.assign
+143 silly addNameRange { name: 'lodash.assign',
+143 silly addNameRange   range: '>=3.2.0 <4.0.0',
+143 silly addNameRange   hasData: false }
+144 silly mapToRegistry name lodash.assign
+145 silly mapToRegistry using default registry
+146 silly mapToRegistry registry https://registry.npmjs.org/
+147 silly mapToRegistry uri https://registry.npmjs.org/lodash.assign
+148 verbose addNameRange registry:https://registry.npmjs.org/lodash.assign not in flight; fetching
+149 verbose request uri https://registry.npmjs.org/exenv
+150 verbose request no auth needed
+151 info attempt registry request try #1 at 5:23:10 PM
+152 http request GET https://registry.npmjs.org/exenv
+153 verbose request uri https://registry.npmjs.org/lodash.assign
+154 verbose request no auth needed
+155 info attempt registry request try #1 at 5:23:11 PM
+156 verbose etag "27VSB51I0ODU2KNPSZ4C5WZPN"
+157 http request GET https://registry.npmjs.org/lodash.assign
+158 verbose request uri https://registry.npmjs.org/element-class
+159 verbose request no auth needed
+160 info attempt registry request try #1 at 5:23:11 PM
+161 verbose etag "32XXNR2Z4PRL428AJSJW6TXXH"
+162 http request GET https://registry.npmjs.org/element-class
+163 http 304 https://registry.npmjs.org/lodash.assign
+164 silly get cb [ 304,
+164 silly get   { date: 'Fri, 30 Oct 2015 00:23:11 GMT',
+164 silly get     via: '1.1 varnish',
+164 silly get     'cache-control': 'max-age=60',
+164 silly get     etag: '"27VSB51I0ODU2KNPSZ4C5WZPN"',
+164 silly get     age: '20',
+164 silly get     connection: 'keep-alive',
+164 silly get     'x-served-by': 'cache-sjc3125-SJC',
+164 silly get     'x-cache': 'HIT',
+164 silly get     'x-cache-hits': '1',
+164 silly get     'x-timer': 'S1446164591.117569,VS0,VE0',
+164 silly get     vary: 'Accept' } ]
+165 verbose etag https://registry.npmjs.org/lodash.assign from cache
+166 verbose get saving lodash.assign to /Users/grantcollins/.npm/registry.npmjs.org/lodash.assign/.cache.json
+167 silly addNameRange number 2 { name: 'lodash.assign', range: '>=3.2.0 <4.0.0', hasData: true }
+168 silly addNameRange versions [ 'lodash.assign',
+168 silly addNameRange   [ '2.0.0',
+168 silly addNameRange     '2.1.0',
+168 silly addNameRange     '2.2.0',
+168 silly addNameRange     '2.2.1',
+168 silly addNameRange     '2.3.0',
+168 silly addNameRange     '2.4.0',
+168 silly addNameRange     '2.4.1',
+168 silly addNameRange     '3.0.0',
+168 silly addNameRange     '3.1.0',
+168 silly addNameRange     '3.2.0' ] ]
+169 silly addNamed lodash.assign@3.2.0
+170 verbose addNamed "3.2.0" is a plain semver version for lodash.assign
+171 http 200 https://registry.npmjs.org/exenv
+172 silly get cb [ 200,
+172 silly get   { server: 'CouchDB/1.5.0 (Erlang OTP/R16B03)',
+172 silly get     etag: '"CNPE45OXJHXZ5UFAHR36P9FVP"',
+172 silly get     'content-type': 'application/json',
+172 silly get     'cache-control': 'max-age=60',
+172 silly get     'content-length': '5178',
+172 silly get     'accept-ranges': 'bytes',
+172 silly get     date: 'Fri, 30 Oct 2015 00:23:11 GMT',
+172 silly get     via: '1.1 varnish',
+172 silly get     age: '0',
+172 silly get     connection: 'keep-alive',
+172 silly get     'x-served-by': 'cache-sjc3127-SJC',
+172 silly get     'x-cache': 'HIT',
+172 silly get     'x-cache-hits': '1',
+172 silly get     'x-timer': 'S1446164591.056510,VS0,VE85',
+172 silly get     vary: 'Accept' } ]
+173 verbose get saving exenv to /Users/grantcollins/.npm/registry.npmjs.org/exenv/.cache.json
+174 http 304 https://registry.npmjs.org/element-class
+175 silly get cb [ 304,
+175 silly get   { date: 'Fri, 30 Oct 2015 00:23:11 GMT',
+175 silly get     via: '1.1 varnish',
+175 silly get     'cache-control': 'max-age=60',
+175 silly get     etag: '"32XXNR2Z4PRL428AJSJW6TXXH"',
+175 silly get     age: '0',
+175 silly get     connection: 'keep-alive',
+175 silly get     'x-served-by': 'cache-sjc3120-SJC',
+175 silly get     'x-cache': 'HIT',
+175 silly get     'x-cache-hits': '1',
+175 silly get     'x-timer': 'S1446164591.117752,VS0,VE37',
+175 silly get     vary: 'Accept' } ]
+176 verbose etag https://registry.npmjs.org/element-class from cache
+177 verbose get saving element-class to /Users/grantcollins/.npm/registry.npmjs.org/element-class/.cache.json
+178 silly mapToRegistry name exenv
+179 silly mapToRegistry using default registry
+180 silly mapToRegistry registry https://registry.npmjs.org/
+181 silly mapToRegistry uri https://registry.npmjs.org/exenv
+182 verbose addRemoteTarball https://registry.npmjs.org/exenv/-/exenv-1.2.0.tgz not in flight; adding
+183 verbose addRemoteTarball [ 'https://registry.npmjs.org/exenv/-/exenv-1.2.0.tgz',
+183 verbose addRemoteTarball   '3835f127abf075bfe082d0aed4484057c78e3c89' ]
+184 silly addNameRange number 2 { name: 'element-class', range: '>=0.2.0 <0.3.0', hasData: true }
+185 silly addNameRange versions [ 'element-class',
+185 silly addNameRange   [ '0.0.1', '0.0.2', '0.1.0', '0.1.1', '0.2.0', '0.2.1', '0.2.2' ] ]
+186 silly addNamed element-class@0.2.2
+187 verbose addNamed "0.2.2" is a plain semver version for element-class
+188 info retry fetch attempt 1 at 5:23:11 PM
+189 info attempt registry request try #1 at 5:23:11 PM
+190 http fetch GET https://registry.npmjs.org/exenv/-/exenv-1.2.0.tgz
+191 silly cache afterAdd lodash.assign@3.2.0
+192 verbose afterAdd /Users/grantcollins/.npm/lodash.assign/3.2.0/package/package.json not in flight; writing
+193 verbose afterAdd /Users/grantcollins/.npm/lodash.assign/3.2.0/package/package.json written
+194 silly cache afterAdd element-class@0.2.2
+195 verbose afterAdd /Users/grantcollins/.npm/element-class/0.2.2/package/package.json not in flight; writing
+196 verbose afterAdd /Users/grantcollins/.npm/element-class/0.2.2/package/package.json written
+197 http fetch 200 https://registry.npmjs.org/exenv/-/exenv-1.2.0.tgz
+198 silly fetchAndShaCheck shasum 3835f127abf075bfe082d0aed4484057c78e3c89
+199 verbose addTmpTarball /var/folders/v9/7y5c414n471bdsd75vhf1tc00000gn/T/npm-10860-94d552ab/registry.npmjs.org/exenv/-/exenv-1.2.0.tgz not in flight; adding
+200 verbose addTmpTarball already have metadata; skipping unpack for exenv@1.2.0
+201 silly cache afterAdd exenv@1.2.0
+202 verbose afterAdd /Users/grantcollins/.npm/exenv/1.2.0/package/package.json not in flight; writing
+203 verbose afterAdd /Users/grantcollins/.npm/exenv/1.2.0/package/package.json written
+204 silly install resolved [ { name: 'lodash.assign',
+204 silly install resolved     version: '3.2.0',
+204 silly install resolved     description: 'The modern build of lodash’s `_.assign` as a module.',
+204 silly install resolved     homepage: 'https://lodash.com/',
+204 silly install resolved     icon: 'https://lodash.com/icon.svg',
+204 silly install resolved     license: 'MIT',
+204 silly install resolved     keywords: [ 'lodash', 'lodash-modularized', 'stdlib', 'util' ],
+204 silly install resolved     author:
+204 silly install resolved      { name: 'John-David Dalton',
+204 silly install resolved        email: 'john.david.dalton@gmail.com',
+204 silly install resolved        url: 'http://allyoucanleet.com/' },
+204 silly install resolved     contributors: [ [Object], [Object], [Object], [Object], [Object] ],
+204 silly install resolved     repository: { type: 'git', url: 'git+https://github.com/lodash/lodash.git' },
+204 silly install resolved     scripts: { test: 'echo "See https://travis-ci.org/lodash/lodash-cli for testing details."' },
+204 silly install resolved     dependencies:
+204 silly install resolved      { 'lodash._baseassign': '^3.0.0',
+204 silly install resolved        'lodash._createassigner': '^3.0.0',
+204 silly install resolved        'lodash.keys': '^3.0.0' },
+204 silly install resolved     bugs: { url: 'https://github.com/lodash/lodash/issues' },
+204 silly install resolved     _id: 'lodash.assign@3.2.0',
+204 silly install resolved     _shasum: '3ce9f0234b4b2223e296b8fa0ac1fee8ebca64fa',
+204 silly install resolved     _from: 'lodash.assign@>=3.2.0 <4.0.0',
+204 silly install resolved     _npmVersion: '2.10.0',
+204 silly install resolved     _nodeVersion: '0.12.3',
+204 silly install resolved     _npmUser: { name: 'jdalton', email: 'john.david.dalton@gmail.com' },
+204 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object], [Object] ],
+204 silly install resolved     dist:
+204 silly install resolved      { shasum: '3ce9f0234b4b2223e296b8fa0ac1fee8ebca64fa',
+204 silly install resolved        tarball: 'http://registry.npmjs.org/lodash.assign/-/lodash.assign-3.2.0.tgz' },
+204 silly install resolved     directories: {},
+204 silly install resolved     _resolved: 'https://registry.npmjs.org/lodash.assign/-/lodash.assign-3.2.0.tgz',
+204 silly install resolved     readme: 'ERROR: No README data found!' },
+204 silly install resolved   { name: 'element-class',
+204 silly install resolved     description: 'add and remove classes from dom elements',
+204 silly install resolved     author: { name: 'Max Ogden', email: 'max@maxogden.com' },
+204 silly install resolved     repository:
+204 silly install resolved      { type: 'git',
+204 silly install resolved        url: 'git+ssh://git@github.com/maxogden/element-class.git' },
+204 silly install resolved     version: '0.2.2',
+204 silly install resolved     bugs: { url: 'https://github.com/maxogden/element-class/issues' },
+204 silly install resolved     homepage: 'https://github.com/maxogden/element-class',
+204 silly install resolved     main: 'index.js',
+204 silly install resolved     devDependencies: { tape: '^4.2.0' },
+204 silly install resolved     scripts: { test: 'echo "Error: no test specified" && exit 1' },
+204 silly install resolved     license: 'ISC',
+204 silly install resolved     testling: { files: 'test.js', browsers: [Object] },
+204 silly install resolved     gitHead: 'e61e8f8950dcfffd8ccde4310972a80053f7b75d',
+204 silly install resolved     _id: 'element-class@0.2.2',
+204 silly install resolved     _shasum: '9d3bbd0767f9013ef8e1c8ebe722c1402a60050e',
+204 silly install resolved     _from: 'element-class@>=0.2.0 <0.3.0',
+204 silly install resolved     _npmVersion: '2.11.3',
+204 silly install resolved     _nodeVersion: '0.12.7',
+204 silly install resolved     _npmUser: { name: 'maxogden', email: 'max@maxogden.com' },
+204 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object] ],
+204 silly install resolved     dist:
+204 silly install resolved      { shasum: '9d3bbd0767f9013ef8e1c8ebe722c1402a60050e',
+204 silly install resolved        tarball: 'http://registry.npmjs.org/element-class/-/element-class-0.2.2.tgz' },
+204 silly install resolved     directories: {},
+204 silly install resolved     _resolved: 'https://registry.npmjs.org/element-class/-/element-class-0.2.2.tgz',
+204 silly install resolved     readme: 'ERROR: No README data found!' },
+204 silly install resolved   { name: 'exenv',
+204 silly install resolved     version: '1.2.0',
+204 silly install resolved     description: 'React\'s ExecutionEnvironment module extracted for use in other packages & components',
+204 silly install resolved     main: 'index.js',
+204 silly install resolved     scripts: { test: 'echo "See React tests" && exit 0' },
+204 silly install resolved     repository: { type: 'git', url: 'https://github.com/JedWatson/exenv.git' },
+204 silly install resolved     keywords:
+204 silly install resolved      [ 'react',
+204 silly install resolved        'browser',
+204 silly install resolved        'server',
+204 silly install resolved        'environment',
+204 silly install resolved        'env',
+204 silly install resolved        'execution',
+204 silly install resolved        'executionenvironment' ],
+204 silly install resolved     author: { name: 'Jed Watson' },
+204 silly install resolved     license: 'BSD',
+204 silly install resolved     bugs: { url: 'https://github.com/JedWatson/exenv/issues' },
+204 silly install resolved     homepage: 'https://github.com/JedWatson/exenv',
+204 silly install resolved     gitHead: 'bf84d0a7782fd824a1d94ed612067b1e0d080d2e',
+204 silly install resolved     _id: 'exenv@1.2.0',
+204 silly install resolved     _shasum: '3835f127abf075bfe082d0aed4484057c78e3c89',
+204 silly install resolved     _from: 'exenv@1.2.0',
+204 silly install resolved     _npmVersion: '2.7.5',
+204 silly install resolved     _nodeVersion: '0.12.2',
+204 silly install resolved     _npmUser: { name: 'jedwatson', email: 'jed.watson@me.com' },
+204 silly install resolved     dist:
+204 silly install resolved      { shasum: '3835f127abf075bfe082d0aed4484057c78e3c89',
+204 silly install resolved        tarball: 'http://registry.npmjs.org/exenv/-/exenv-1.2.0.tgz' },
+204 silly install resolved     maintainers: [ [Object] ],
+204 silly install resolved     directories: {},
+204 silly install resolved     _resolved: 'https://registry.npmjs.org/exenv/-/exenv-1.2.0.tgz' } ]
+205 info install lodash.assign@3.2.0 into /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal
+206 info install element-class@0.2.2 into /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal
+207 info install exenv@1.2.0 into /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal
+208 info installOne lodash.assign@3.2.0
+209 verbose installOne of lodash.assign to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal not in flight; installing
+210 info installOne element-class@0.2.2
+211 verbose installOne of element-class to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal not in flight; installing
+212 info installOne exenv@1.2.0
+213 verbose installOne of exenv to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal not in flight; installing
+214 verbose lock using /Users/grantcollins/.npm/_locks/element-class-ee08efbd15e18a55.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/element-class
+215 verbose lock using /Users/grantcollins/.npm/_locks/lodash-assign-ef52d464780daf88.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign
+216 silly install write writing element-class 0.2.2 to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/element-class
+217 verbose lock using /Users/grantcollins/.npm/_locks/exenv-0ffc804fc881bcfa.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/exenv
+218 silly install write writing lodash.assign 3.2.0 to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign
+219 silly install write writing exenv 1.2.0 to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/exenv
+220 verbose unbuild node_modules/react-modal/node_modules/element-class
+221 verbose unbuild node_modules/react-modal/node_modules/lodash.assign
+222 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/element-class is being purged from base /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api
+223 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/element-class
+224 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign is being purged from base /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api
+225 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign
+226 verbose tar unpack /Users/grantcollins/.npm/element-class/0.2.2/package.tgz
+227 verbose tar unpacking to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/element-class
+228 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/element-class is being purged
+229 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/element-class
+230 verbose tar unpack /Users/grantcollins/.npm/lodash.assign/3.2.0/package.tgz
+231 verbose tar unpacking to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign
+232 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign is being purged
+233 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign
+234 silly gunzTarPerm modes [ '755', '644' ]
+235 silly gunzTarPerm modes [ '755', '644' ]
+236 silly gunzTarPerm extractEntry package.json
+237 silly gunzTarPerm extractEntry package.json
+238 silly gunzTarPerm extractEntry .npmignore
+239 silly gunzTarPerm extractEntry index.js
+240 silly gunzTarPerm extractEntry README.md
+241 silly gunzTarPerm extractEntry index.js
+242 silly gunzTarPerm extractEntry test.js
+243 silly gunzTarPerm extractEntry collaborators.md
+244 silly gunzTarPerm extractEntry LICENSE.txt
+245 silly gunzTarPerm extractEntry readme.md
+246 verbose unbuild node_modules/react-modal/node_modules/exenv
+247 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/exenv is being purged from base /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api
+248 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/exenv
+249 verbose tar unpack /Users/grantcollins/.npm/exenv/1.2.0/package.tgz
+250 verbose tar unpacking to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/exenv
+251 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/exenv is being purged
+252 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/exenv
+253 silly gunzTarPerm modes [ '755', '644' ]
+254 silly gunzTarPerm extractEntry package.json
+255 silly gunzTarPerm extractEntry README.md
+256 silly gunzTarPerm extractEntry LICENSE
+257 silly gunzTarPerm extractEntry index.js
+258 verbose write writing to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/package.json
+259 verbose write writing to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/element-class/package.json
+260 verbose write writing to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/exenv/package.json
+261 info preinstall element-class@0.2.2
+262 info preinstall lodash.assign@3.2.0
+263 info preinstall exenv@1.2.0
+264 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/element-class/package.json
+265 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/package.json
+266 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/exenv/package.json
+267 silly prepareForInstallMany adding lodash._baseassign@^3.0.0 from lodash.assign dependencies
+268 silly prepareForInstallMany adding lodash._createassigner@^3.0.0 from lodash.assign dependencies
+269 silly prepareForInstallMany adding lodash.keys@^3.0.0 from lodash.assign dependencies
+270 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/package.json
+271 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/element-class/package.json
+272 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/exenv/package.json
+273 silly install resolved []
+274 verbose about to build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/element-class
+275 info build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/element-class
+276 silly cache add args [ 'lodash._baseassign@^3.0.0', null ]
+277 verbose cache add spec lodash._baseassign@^3.0.0
+278 silly cache add args [ 'lodash._createassigner@^3.0.0', null ]
+279 verbose cache add spec lodash._createassigner@^3.0.0
+280 silly cache add parsed spec Result {
+280 silly cache add   raw: 'lodash._baseassign@^3.0.0',
+280 silly cache add   scope: null,
+280 silly cache add   name: 'lodash._baseassign',
+280 silly cache add   rawSpec: '^3.0.0',
+280 silly cache add   spec: '>=3.0.0 <4.0.0',
+280 silly cache add   type: 'range' }
+281 silly addNamed lodash._baseassign@>=3.0.0 <4.0.0
+282 verbose addNamed ">=3.0.0 <4.0.0" is a valid semver range for lodash._baseassign
+283 silly addNameRange { name: 'lodash._baseassign',
+283 silly addNameRange   range: '>=3.0.0 <4.0.0',
+283 silly addNameRange   hasData: false }
+284 silly mapToRegistry name lodash._baseassign
+285 silly mapToRegistry using default registry
+286 silly mapToRegistry registry https://registry.npmjs.org/
+287 silly mapToRegistry uri https://registry.npmjs.org/lodash._baseassign
+288 verbose addNameRange registry:https://registry.npmjs.org/lodash._baseassign not in flight; fetching
+289 silly cache add parsed spec Result {
+289 silly cache add   raw: 'lodash._createassigner@^3.0.0',
+289 silly cache add   scope: null,
+289 silly cache add   name: 'lodash._createassigner',
+289 silly cache add   rawSpec: '^3.0.0',
+289 silly cache add   spec: '>=3.0.0 <4.0.0',
+289 silly cache add   type: 'range' }
+290 silly addNamed lodash._createassigner@>=3.0.0 <4.0.0
+291 verbose addNamed ">=3.0.0 <4.0.0" is a valid semver range for lodash._createassigner
+292 silly addNameRange { name: 'lodash._createassigner',
+292 silly addNameRange   range: '>=3.0.0 <4.0.0',
+292 silly addNameRange   hasData: false }
+293 silly mapToRegistry name lodash._createassigner
+294 silly mapToRegistry using default registry
+295 silly mapToRegistry registry https://registry.npmjs.org/
+296 silly mapToRegistry uri https://registry.npmjs.org/lodash._createassigner
+297 verbose addNameRange registry:https://registry.npmjs.org/lodash._createassigner not in flight; fetching
+298 silly cache add args [ 'lodash.keys@^3.0.0', null ]
+299 verbose cache add spec lodash.keys@^3.0.0
+300 silly cache add parsed spec Result {
+300 silly cache add   raw: 'lodash.keys@^3.0.0',
+300 silly cache add   scope: null,
+300 silly cache add   name: 'lodash.keys',
+300 silly cache add   rawSpec: '^3.0.0',
+300 silly cache add   spec: '>=3.0.0 <4.0.0',
+300 silly cache add   type: 'range' }
+301 silly addNamed lodash.keys@>=3.0.0 <4.0.0
+302 verbose addNamed ">=3.0.0 <4.0.0" is a valid semver range for lodash.keys
+303 silly addNameRange { name: 'lodash.keys', range: '>=3.0.0 <4.0.0', hasData: false }
+304 silly mapToRegistry name lodash.keys
+305 silly mapToRegistry using default registry
+306 silly mapToRegistry registry https://registry.npmjs.org/
+307 silly mapToRegistry uri https://registry.npmjs.org/lodash.keys
+308 verbose addNameRange registry:https://registry.npmjs.org/lodash.keys not in flight; fetching
+309 info linkStuff element-class@0.2.2
+310 silly linkStuff element-class@0.2.2 has /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules as its parent node_modules
+311 silly install resolved []
+312 verbose about to build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/exenv
+313 info build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/exenv
+314 verbose linkBins element-class@0.2.2
+315 verbose linkMans element-class@0.2.2
+316 verbose rebuildBundles element-class@0.2.2
+317 info install element-class@0.2.2
+318 info postinstall element-class@0.2.2
+319 info linkStuff exenv@1.2.0
+320 silly linkStuff exenv@1.2.0 has /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules as its parent node_modules
+321 verbose request uri https://registry.npmjs.org/lodash._baseassign
+322 verbose request no auth needed
+323 info attempt registry request try #1 at 5:23:11 PM
+324 verbose etag "7BL6B7FKZDZ47VD91B03KH2N1"
+325 http request GET https://registry.npmjs.org/lodash._baseassign
+326 verbose request uri https://registry.npmjs.org/lodash._createassigner
+327 verbose request no auth needed
+328 info attempt registry request try #1 at 5:23:11 PM
+329 verbose etag "CQWTFITE6W94GAS2PZVA3DD9Z"
+330 http request GET https://registry.npmjs.org/lodash._createassigner
+331 verbose unlock done using /Users/grantcollins/.npm/_locks/element-class-ee08efbd15e18a55.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/element-class
+332 verbose linkBins exenv@1.2.0
+333 verbose linkMans exenv@1.2.0
+334 verbose rebuildBundles exenv@1.2.0
+335 info install exenv@1.2.0
+336 info postinstall exenv@1.2.0
+337 verbose unlock done using /Users/grantcollins/.npm/_locks/exenv-0ffc804fc881bcfa.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/exenv
+338 verbose request uri https://registry.npmjs.org/lodash.keys
+339 verbose request no auth needed
+340 info attempt registry request try #1 at 5:23:11 PM
+341 verbose etag "BHWBXZX3O23JHL6WV9C090MR5"
+342 http request GET https://registry.npmjs.org/lodash.keys
+343 http 304 https://registry.npmjs.org/lodash._createassigner
+344 silly get cb [ 304,
+344 silly get   { date: 'Fri, 30 Oct 2015 00:23:12 GMT',
+344 silly get     via: '1.1 varnish',
+344 silly get     'cache-control': 'max-age=60',
+344 silly get     etag: '"CQWTFITE6W94GAS2PZVA3DD9Z"',
+344 silly get     age: '41',
+344 silly get     connection: 'keep-alive',
+344 silly get     'x-served-by': 'cache-sjc3122-SJC',
+344 silly get     'x-cache': 'HIT',
+344 silly get     'x-cache-hits': '1',
+344 silly get     'x-timer': 'S1446164592.015145,VS0,VE0',
+344 silly get     vary: 'Accept' } ]
+345 verbose etag https://registry.npmjs.org/lodash._createassigner from cache
+346 verbose get saving lodash._createassigner to /Users/grantcollins/.npm/registry.npmjs.org/lodash._createassigner/.cache.json
+347 http 304 https://registry.npmjs.org/lodash._baseassign
+348 silly get cb [ 304,
+348 silly get   { date: 'Fri, 30 Oct 2015 00:23:12 GMT',
+348 silly get     via: '1.1 varnish',
+348 silly get     'cache-control': 'max-age=60',
+348 silly get     etag: '"7BL6B7FKZDZ47VD91B03KH2N1"',
+348 silly get     age: '2',
+348 silly get     connection: 'keep-alive',
+348 silly get     'x-served-by': 'cache-sjc3124-SJC',
+348 silly get     'x-cache': 'HIT',
+348 silly get     'x-cache-hits': '1',
+348 silly get     'x-timer': 'S1446164592.015136,VS0,VE0',
+348 silly get     vary: 'Accept' } ]
+349 verbose etag https://registry.npmjs.org/lodash._baseassign from cache
+350 verbose get saving lodash._baseassign to /Users/grantcollins/.npm/registry.npmjs.org/lodash._baseassign/.cache.json
+351 silly addNameRange number 2 { name: 'lodash._createassigner',
+351 silly addNameRange   range: '>=3.0.0 <4.0.0',
+351 silly addNameRange   hasData: true }
+352 silly addNameRange versions [ 'lodash._createassigner',
+352 silly addNameRange   [ '3.0.0', '3.0.1', '3.1.0', '3.1.1' ] ]
+353 silly addNamed lodash._createassigner@3.1.1
+354 verbose addNamed "3.1.1" is a plain semver version for lodash._createassigner
+355 silly addNameRange number 2 { name: 'lodash._baseassign',
+355 silly addNameRange   range: '>=3.0.0 <4.0.0',
+355 silly addNameRange   hasData: true }
+356 silly addNameRange versions [ 'lodash._baseassign',
+356 silly addNameRange   [ '3.0.0', '3.0.1', '3.0.2', '3.1.0', '3.1.1', '3.2.0' ] ]
+357 silly addNamed lodash._baseassign@3.2.0
+358 verbose addNamed "3.2.0" is a plain semver version for lodash._baseassign
+359 silly cache afterAdd lodash._createassigner@3.1.1
+360 verbose afterAdd /Users/grantcollins/.npm/lodash._createassigner/3.1.1/package/package.json not in flight; writing
+361 silly cache afterAdd lodash._baseassign@3.2.0
+362 verbose afterAdd /Users/grantcollins/.npm/lodash._baseassign/3.2.0/package/package.json not in flight; writing
+363 http 304 https://registry.npmjs.org/lodash.keys
+364 silly get cb [ 304,
+364 silly get   { date: 'Fri, 30 Oct 2015 00:23:12 GMT',
+364 silly get     via: '1.1 varnish',
+364 silly get     'cache-control': 'max-age=60',
+364 silly get     etag: '"BHWBXZX3O23JHL6WV9C090MR5"',
+364 silly get     age: '57',
+364 silly get     connection: 'keep-alive',
+364 silly get     'x-served-by': 'cache-sjc3120-SJC',
+364 silly get     'x-cache': 'HIT',
+364 silly get     'x-cache-hits': '3',
+364 silly get     'x-timer': 'S1446164592.032755,VS0,VE0',
+364 silly get     vary: 'Accept' } ]
+365 verbose etag https://registry.npmjs.org/lodash.keys from cache
+366 verbose get saving lodash.keys to /Users/grantcollins/.npm/registry.npmjs.org/lodash.keys/.cache.json
+367 verbose afterAdd /Users/grantcollins/.npm/lodash._baseassign/3.2.0/package/package.json written
+368 verbose afterAdd /Users/grantcollins/.npm/lodash._createassigner/3.1.1/package/package.json written
+369 silly addNameRange number 2 { name: 'lodash.keys', range: '>=3.0.0 <4.0.0', hasData: true }
+370 silly addNameRange versions [ 'lodash.keys',
+370 silly addNameRange   [ '2.0.0',
+370 silly addNameRange     '2.1.0',
+370 silly addNameRange     '2.2.0',
+370 silly addNameRange     '2.2.1',
+370 silly addNameRange     '2.3.0',
+370 silly addNameRange     '2.4.0',
+370 silly addNameRange     '2.4.1',
+370 silly addNameRange     '3.0.0',
+370 silly addNameRange     '3.0.1',
+370 silly addNameRange     '3.0.2',
+370 silly addNameRange     '3.0.3',
+370 silly addNameRange     '3.0.4',
+370 silly addNameRange     '3.0.5',
+370 silly addNameRange     '3.0.6',
+370 silly addNameRange     '3.0.7',
+370 silly addNameRange     '3.1.0',
+370 silly addNameRange     '3.1.1',
+370 silly addNameRange     '3.1.2' ] ]
+371 silly addNamed lodash.keys@3.1.2
+372 verbose addNamed "3.1.2" is a plain semver version for lodash.keys
+373 silly cache afterAdd lodash.keys@3.1.2
+374 verbose afterAdd /Users/grantcollins/.npm/lodash.keys/3.1.2/package/package.json not in flight; writing
+375 verbose afterAdd /Users/grantcollins/.npm/lodash.keys/3.1.2/package/package.json written
+376 silly install resolved [ { name: 'lodash._baseassign',
+376 silly install resolved     version: '3.2.0',
+376 silly install resolved     description: 'The modern build of lodash’s internal `baseAssign` as a module.',
+376 silly install resolved     homepage: 'https://lodash.com/',
+376 silly install resolved     icon: 'https://lodash.com/icon.svg',
+376 silly install resolved     license: 'MIT',
+376 silly install resolved     author:
+376 silly install resolved      { name: 'John-David Dalton',
+376 silly install resolved        email: 'john.david.dalton@gmail.com',
+376 silly install resolved        url: 'http://allyoucanleet.com/' },
+376 silly install resolved     contributors: [ [Object], [Object], [Object], [Object], [Object] ],
+376 silly install resolved     repository: { type: 'git', url: 'git+https://github.com/lodash/lodash.git' },
+376 silly install resolved     scripts: { test: 'echo "See https://travis-ci.org/lodash/lodash-cli for testing details."' },
+376 silly install resolved     dependencies: { 'lodash._basecopy': '^3.0.0', 'lodash.keys': '^3.0.0' },
+376 silly install resolved     bugs: { url: 'https://github.com/lodash/lodash/issues' },
+376 silly install resolved     _id: 'lodash._baseassign@3.2.0',
+376 silly install resolved     _shasum: '8c38a099500f215ad09e59f1722fd0c52bfe0a4e',
+376 silly install resolved     _from: 'lodash._baseassign@>=3.0.0 <4.0.0',
+376 silly install resolved     _npmVersion: '2.10.0',
+376 silly install resolved     _nodeVersion: '0.12.3',
+376 silly install resolved     _npmUser: { name: 'jdalton', email: 'john.david.dalton@gmail.com' },
+376 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object], [Object] ],
+376 silly install resolved     dist:
+376 silly install resolved      { shasum: '8c38a099500f215ad09e59f1722fd0c52bfe0a4e',
+376 silly install resolved        tarball: 'http://registry.npmjs.org/lodash._baseassign/-/lodash._baseassign-3.2.0.tgz' },
+376 silly install resolved     directories: {},
+376 silly install resolved     _resolved: 'https://registry.npmjs.org/lodash._baseassign/-/lodash._baseassign-3.2.0.tgz',
+376 silly install resolved     readme: 'ERROR: No README data found!' },
+376 silly install resolved   { name: 'lodash._createassigner',
+376 silly install resolved     version: '3.1.1',
+376 silly install resolved     description: 'The modern build of lodash’s internal `createAssigner` as a module.',
+376 silly install resolved     homepage: 'https://lodash.com/',
+376 silly install resolved     icon: 'https://lodash.com/icon.svg',
+376 silly install resolved     license: 'MIT',
+376 silly install resolved     author:
+376 silly install resolved      { name: 'John-David Dalton',
+376 silly install resolved        email: 'john.david.dalton@gmail.com',
+376 silly install resolved        url: 'http://allyoucanleet.com/' },
+376 silly install resolved     contributors: [ [Object], [Object], [Object], [Object], [Object] ],
+376 silly install resolved     repository: { type: 'git', url: 'git+https://github.com/lodash/lodash.git' },
+376 silly install resolved     scripts: { test: 'echo "See https://travis-ci.org/lodash/lodash-cli for testing details."' },
+376 silly install resolved     dependencies:
+376 silly install resolved      { 'lodash._bindcallback': '^3.0.0',
+376 silly install resolved        'lodash._isiterateecall': '^3.0.0',
+376 silly install resolved        'lodash.restparam': '^3.0.0' },
+376 silly install resolved     bugs: { url: 'https://github.com/lodash/lodash/issues' },
+376 silly install resolved     _id: 'lodash._createassigner@3.1.1',
+376 silly install resolved     _shasum: '838a5bae2fdaca63ac22dee8e19fa4e6d6970b11',
+376 silly install resolved     _from: 'lodash._createassigner@>=3.0.0 <4.0.0',
+376 silly install resolved     _npmVersion: '2.10.0',
+376 silly install resolved     _nodeVersion: '0.12.3',
+376 silly install resolved     _npmUser: { name: 'jdalton', email: 'john.david.dalton@gmail.com' },
+376 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object], [Object] ],
+376 silly install resolved     dist:
+376 silly install resolved      { shasum: '838a5bae2fdaca63ac22dee8e19fa4e6d6970b11',
+376 silly install resolved        tarball: 'http://registry.npmjs.org/lodash._createassigner/-/lodash._createassigner-3.1.1.tgz' },
+376 silly install resolved     directories: {},
+376 silly install resolved     _resolved: 'https://registry.npmjs.org/lodash._createassigner/-/lodash._createassigner-3.1.1.tgz',
+376 silly install resolved     readme: 'ERROR: No README data found!' },
+376 silly install resolved   { name: 'lodash.keys',
+376 silly install resolved     version: '3.1.2',
+376 silly install resolved     description: 'The modern build of lodash’s `_.keys` as a module.',
+376 silly install resolved     homepage: 'https://lodash.com/',
+376 silly install resolved     icon: 'https://lodash.com/icon.svg',
+376 silly install resolved     license: 'MIT',
+376 silly install resolved     keywords: [ 'lodash', 'lodash-modularized', 'stdlib', 'util' ],
+376 silly install resolved     author:
+376 silly install resolved      { name: 'John-David Dalton',
+376 silly install resolved        email: 'john.david.dalton@gmail.com',
+376 silly install resolved        url: 'http://allyoucanleet.com/' },
+376 silly install resolved     contributors: [ [Object], [Object], [Object], [Object], [Object] ],
+376 silly install resolved     repository: { type: 'git', url: 'git+https://github.com/lodash/lodash.git' },
+376 silly install resolved     scripts: { test: 'echo "See https://travis-ci.org/lodash/lodash-cli for testing details."' },
+376 silly install resolved     dependencies:
+376 silly install resolved      { 'lodash._getnative': '^3.0.0',
+376 silly install resolved        'lodash.isarguments': '^3.0.0',
+376 silly install resolved        'lodash.isarray': '^3.0.0' },
+376 silly install resolved     bugs: { url: 'https://github.com/lodash/lodash/issues' },
+376 silly install resolved     _id: 'lodash.keys@3.1.2',
+376 silly install resolved     _shasum: '4dbc0472b156be50a0b286855d1bd0b0c656098a',
+376 silly install resolved     _from: 'lodash.keys@>=3.0.0 <4.0.0',
+376 silly install resolved     _npmVersion: '2.12.0',
+376 silly install resolved     _nodeVersion: '0.12.5',
+376 silly install resolved     _npmUser: { name: 'jdalton', email: 'john.david.dalton@gmail.com' },
+376 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object], [Object] ],
+376 silly install resolved     dist:
+376 silly install resolved      { shasum: '4dbc0472b156be50a0b286855d1bd0b0c656098a',
+376 silly install resolved        tarball: 'http://registry.npmjs.org/lodash.keys/-/lodash.keys-3.1.2.tgz' },
+376 silly install resolved     directories: {},
+376 silly install resolved     _resolved: 'https://registry.npmjs.org/lodash.keys/-/lodash.keys-3.1.2.tgz',
+376 silly install resolved     readme: 'ERROR: No README data found!' } ]
+377 info install lodash._baseassign@3.2.0 into /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign
+378 info install lodash._createassigner@3.1.1 into /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign
+379 info install lodash.keys@3.1.2 into /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign
+380 info installOne lodash._baseassign@3.2.0
+381 verbose installOne of lodash._baseassign to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign not in flight; installing
+382 info installOne lodash._createassigner@3.1.1
+383 verbose installOne of lodash._createassigner to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign not in flight; installing
+384 info installOne lodash.keys@3.1.2
+385 verbose installOne of lodash.keys to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign not in flight; installing
+386 verbose lock using /Users/grantcollins/.npm/_locks/lodash-baseassign-8657fafb7df455be.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign
+387 verbose lock using /Users/grantcollins/.npm/_locks/lodash-createassigner-2e11f01496df80de.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner
+388 silly install write writing lodash._baseassign 3.2.0 to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign
+389 silly install write writing lodash._createassigner 3.1.1 to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner
+390 verbose lock using /Users/grantcollins/.npm/_locks/lodash-keys-08ed7109281621cd.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys
+391 silly install write writing lodash.keys 3.1.2 to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys
+392 verbose unbuild node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner
+393 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner is being purged from base /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api
+394 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner
+395 verbose tar unpack /Users/grantcollins/.npm/lodash._createassigner/3.1.1/package.tgz
+396 verbose tar unpacking to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner
+397 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner is being purged
+398 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner
+399 silly gunzTarPerm modes [ '755', '644' ]
+400 silly gunzTarPerm extractEntry package.json
+401 silly gunzTarPerm extractEntry README.md
+402 silly gunzTarPerm extractEntry index.js
+403 silly gunzTarPerm extractEntry LICENSE.txt
+404 verbose unbuild node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign
+405 verbose unbuild node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys
+406 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign is being purged from base /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api
+407 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign
+408 verbose tar unpack /Users/grantcollins/.npm/lodash._baseassign/3.2.0/package.tgz
+409 verbose tar unpacking to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign
+410 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign is being purged
+411 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign
+412 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys is being purged from base /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api
+413 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys
+414 silly gunzTarPerm modes [ '755', '644' ]
+415 verbose tar unpack /Users/grantcollins/.npm/lodash.keys/3.1.2/package.tgz
+416 verbose tar unpacking to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys
+417 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys is being purged
+418 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys
+419 silly gunzTarPerm modes [ '755', '644' ]
+420 verbose write writing to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/package.json
+421 info preinstall lodash._createassigner@3.1.1
+422 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/package.json
+423 silly gunzTarPerm extractEntry package.json
+424 silly gunzTarPerm extractEntry README.md
+425 silly gunzTarPerm extractEntry index.js
+426 silly gunzTarPerm extractEntry LICENSE.txt
+427 silly gunzTarPerm extractEntry package.json
+428 silly gunzTarPerm extractEntry README.md
+429 silly gunzTarPerm extractEntry LICENSE
+430 silly gunzTarPerm extractEntry index.js
+431 silly prepareForInstallMany adding lodash._bindcallback@^3.0.0 from lodash._createassigner dependencies
+432 silly prepareForInstallMany adding lodash._isiterateecall@^3.0.0 from lodash._createassigner dependencies
+433 silly prepareForInstallMany adding lodash.restparam@^3.0.0 from lodash._createassigner dependencies
+434 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/package.json
+435 verbose write writing to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign/package.json
+436 verbose write writing to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/package.json
+437 silly cache add args [ 'lodash._bindcallback@^3.0.0', null ]
+438 verbose cache add spec lodash._bindcallback@^3.0.0
+439 silly cache add args [ 'lodash._isiterateecall@^3.0.0', null ]
+440 verbose cache add spec lodash._isiterateecall@^3.0.0
+441 silly cache add parsed spec Result {
+441 silly cache add   raw: 'lodash._bindcallback@^3.0.0',
+441 silly cache add   scope: null,
+441 silly cache add   name: 'lodash._bindcallback',
+441 silly cache add   rawSpec: '^3.0.0',
+441 silly cache add   spec: '>=3.0.0 <4.0.0',
+441 silly cache add   type: 'range' }
+442 silly addNamed lodash._bindcallback@>=3.0.0 <4.0.0
+443 verbose addNamed ">=3.0.0 <4.0.0" is a valid semver range for lodash._bindcallback
+444 silly addNameRange { name: 'lodash._bindcallback',
+444 silly addNameRange   range: '>=3.0.0 <4.0.0',
+444 silly addNameRange   hasData: false }
+445 silly mapToRegistry name lodash._bindcallback
+446 silly mapToRegistry using default registry
+447 silly mapToRegistry registry https://registry.npmjs.org/
+448 silly mapToRegistry uri https://registry.npmjs.org/lodash._bindcallback
+449 verbose addNameRange registry:https://registry.npmjs.org/lodash._bindcallback not in flight; fetching
+450 silly cache add parsed spec Result {
+450 silly cache add   raw: 'lodash._isiterateecall@^3.0.0',
+450 silly cache add   scope: null,
+450 silly cache add   name: 'lodash._isiterateecall',
+450 silly cache add   rawSpec: '^3.0.0',
+450 silly cache add   spec: '>=3.0.0 <4.0.0',
+450 silly cache add   type: 'range' }
+451 silly addNamed lodash._isiterateecall@>=3.0.0 <4.0.0
+452 verbose addNamed ">=3.0.0 <4.0.0" is a valid semver range for lodash._isiterateecall
+453 silly addNameRange { name: 'lodash._isiterateecall',
+453 silly addNameRange   range: '>=3.0.0 <4.0.0',
+453 silly addNameRange   hasData: false }
+454 silly mapToRegistry name lodash._isiterateecall
+455 silly mapToRegistry using default registry
+456 silly mapToRegistry registry https://registry.npmjs.org/
+457 silly mapToRegistry uri https://registry.npmjs.org/lodash._isiterateecall
+458 verbose addNameRange registry:https://registry.npmjs.org/lodash._isiterateecall not in flight; fetching
+459 silly cache add args [ 'lodash.restparam@^3.0.0', null ]
+460 verbose cache add spec lodash.restparam@^3.0.0
+461 silly cache add parsed spec Result {
+461 silly cache add   raw: 'lodash.restparam@^3.0.0',
+461 silly cache add   scope: null,
+461 silly cache add   name: 'lodash.restparam',
+461 silly cache add   rawSpec: '^3.0.0',
+461 silly cache add   spec: '>=3.0.0 <4.0.0',
+461 silly cache add   type: 'range' }
+462 silly addNamed lodash.restparam@>=3.0.0 <4.0.0
+463 verbose addNamed ">=3.0.0 <4.0.0" is a valid semver range for lodash.restparam
+464 silly addNameRange { name: 'lodash.restparam',
+464 silly addNameRange   range: '>=3.0.0 <4.0.0',
+464 silly addNameRange   hasData: false }
+465 silly mapToRegistry name lodash.restparam
+466 silly mapToRegistry using default registry
+467 silly mapToRegistry registry https://registry.npmjs.org/
+468 silly mapToRegistry uri https://registry.npmjs.org/lodash.restparam
+469 verbose addNameRange registry:https://registry.npmjs.org/lodash.restparam not in flight; fetching
+470 info preinstall lodash._baseassign@3.2.0
+471 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign/package.json
+472 verbose request uri https://registry.npmjs.org/lodash.restparam
+473 verbose request no auth needed
+474 info attempt registry request try #1 at 5:23:12 PM
+475 verbose etag "1659M1VRENH47KDVLN4NUNM18"
+476 http request GET https://registry.npmjs.org/lodash.restparam
+477 verbose request uri https://registry.npmjs.org/lodash._isiterateecall
+478 verbose request no auth needed
+479 info attempt registry request try #1 at 5:23:12 PM
+480 verbose etag "5T12YB3BV3DYI9G8QK957PADV"
+481 http request GET https://registry.npmjs.org/lodash._isiterateecall
+482 info preinstall lodash.keys@3.1.2
+483 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/package.json
+484 silly prepareForInstallMany adding lodash._basecopy@^3.0.0 from lodash._baseassign dependencies
+485 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign/package.json
+486 silly prepareForInstallMany adding lodash._getnative@^3.0.0 from lodash.keys dependencies
+487 silly prepareForInstallMany adding lodash.isarguments@^3.0.0 from lodash.keys dependencies
+488 silly prepareForInstallMany adding lodash.isarray@^3.0.0 from lodash.keys dependencies
+489 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/package.json
+490 silly cache add args [ 'lodash._basecopy@^3.0.0', null ]
+491 verbose cache add spec lodash._basecopy@^3.0.0
+492 silly cache add parsed spec Result {
+492 silly cache add   raw: 'lodash._basecopy@^3.0.0',
+492 silly cache add   scope: null,
+492 silly cache add   name: 'lodash._basecopy',
+492 silly cache add   rawSpec: '^3.0.0',
+492 silly cache add   spec: '>=3.0.0 <4.0.0',
+492 silly cache add   type: 'range' }
+493 silly addNamed lodash._basecopy@>=3.0.0 <4.0.0
+494 verbose addNamed ">=3.0.0 <4.0.0" is a valid semver range for lodash._basecopy
+495 silly addNameRange { name: 'lodash._basecopy',
+495 silly addNameRange   range: '>=3.0.0 <4.0.0',
+495 silly addNameRange   hasData: false }
+496 silly mapToRegistry name lodash._basecopy
+497 silly mapToRegistry using default registry
+498 silly mapToRegistry registry https://registry.npmjs.org/
+499 silly mapToRegistry uri https://registry.npmjs.org/lodash._basecopy
+500 verbose addNameRange registry:https://registry.npmjs.org/lodash._basecopy not in flight; fetching
+501 silly cache add args [ 'lodash._getnative@^3.0.0', null ]
+502 verbose cache add spec lodash._getnative@^3.0.0
+503 silly cache add args [ 'lodash.isarguments@^3.0.0', null ]
+504 verbose cache add spec lodash.isarguments@^3.0.0
+505 silly cache add parsed spec Result {
+505 silly cache add   raw: 'lodash._getnative@^3.0.0',
+505 silly cache add   scope: null,
+505 silly cache add   name: 'lodash._getnative',
+505 silly cache add   rawSpec: '^3.0.0',
+505 silly cache add   spec: '>=3.0.0 <4.0.0',
+505 silly cache add   type: 'range' }
+506 silly addNamed lodash._getnative@>=3.0.0 <4.0.0
+507 verbose addNamed ">=3.0.0 <4.0.0" is a valid semver range for lodash._getnative
+508 silly addNameRange { name: 'lodash._getnative',
+508 silly addNameRange   range: '>=3.0.0 <4.0.0',
+508 silly addNameRange   hasData: false }
+509 silly mapToRegistry name lodash._getnative
+510 silly mapToRegistry using default registry
+511 silly mapToRegistry registry https://registry.npmjs.org/
+512 silly mapToRegistry uri https://registry.npmjs.org/lodash._getnative
+513 verbose addNameRange registry:https://registry.npmjs.org/lodash._getnative not in flight; fetching
+514 silly cache add parsed spec Result {
+514 silly cache add   raw: 'lodash.isarguments@^3.0.0',
+514 silly cache add   scope: null,
+514 silly cache add   name: 'lodash.isarguments',
+514 silly cache add   rawSpec: '^3.0.0',
+514 silly cache add   spec: '>=3.0.0 <4.0.0',
+514 silly cache add   type: 'range' }
+515 silly addNamed lodash.isarguments@>=3.0.0 <4.0.0
+516 verbose addNamed ">=3.0.0 <4.0.0" is a valid semver range for lodash.isarguments
+517 silly addNameRange { name: 'lodash.isarguments',
+517 silly addNameRange   range: '>=3.0.0 <4.0.0',
+517 silly addNameRange   hasData: false }
+518 silly mapToRegistry name lodash.isarguments
+519 silly mapToRegistry using default registry
+520 silly mapToRegistry registry https://registry.npmjs.org/
+521 silly mapToRegistry uri https://registry.npmjs.org/lodash.isarguments
+522 verbose addNameRange registry:https://registry.npmjs.org/lodash.isarguments not in flight; fetching
+523 silly cache add args [ 'lodash.isarray@^3.0.0', null ]
+524 verbose cache add spec lodash.isarray@^3.0.0
+525 silly cache add parsed spec Result {
+525 silly cache add   raw: 'lodash.isarray@^3.0.0',
+525 silly cache add   scope: null,
+525 silly cache add   name: 'lodash.isarray',
+525 silly cache add   rawSpec: '^3.0.0',
+525 silly cache add   spec: '>=3.0.0 <4.0.0',
+525 silly cache add   type: 'range' }
+526 silly addNamed lodash.isarray@>=3.0.0 <4.0.0
+527 verbose addNamed ">=3.0.0 <4.0.0" is a valid semver range for lodash.isarray
+528 silly addNameRange { name: 'lodash.isarray',
+528 silly addNameRange   range: '>=3.0.0 <4.0.0',
+528 silly addNameRange   hasData: false }
+529 silly mapToRegistry name lodash.isarray
+530 silly mapToRegistry using default registry
+531 silly mapToRegistry registry https://registry.npmjs.org/
+532 silly mapToRegistry uri https://registry.npmjs.org/lodash.isarray
+533 verbose addNameRange registry:https://registry.npmjs.org/lodash.isarray not in flight; fetching
+534 http 304 https://registry.npmjs.org/lodash._isiterateecall
+535 silly get cb [ 304,
+535 silly get   { date: 'Fri, 30 Oct 2015 00:23:12 GMT',
+535 silly get     via: '1.1 varnish',
+535 silly get     'cache-control': 'max-age=60',
+535 silly get     etag: '"5T12YB3BV3DYI9G8QK957PADV"',
+535 silly get     age: '19',
+535 silly get     connection: 'keep-alive',
+535 silly get     'x-served-by': 'cache-sjc3125-SJC',
+535 silly get     'x-cache': 'HIT',
+535 silly get     'x-cache-hits': '1',
+535 silly get     'x-timer': 'S1446164592.530953,VS0,VE0',
+535 silly get     vary: 'Accept' } ]
+536 verbose etag https://registry.npmjs.org/lodash._isiterateecall from cache
+537 verbose get saving lodash._isiterateecall to /Users/grantcollins/.npm/registry.npmjs.org/lodash._isiterateecall/.cache.json
+538 http 304 https://registry.npmjs.org/lodash.restparam
+539 silly get cb [ 304,
+539 silly get   { date: 'Fri, 30 Oct 2015 00:23:12 GMT',
+539 silly get     via: '1.1 varnish',
+539 silly get     'cache-control': 'max-age=60',
+539 silly get     etag: '"1659M1VRENH47KDVLN4NUNM18"',
+539 silly get     age: '10',
+539 silly get     connection: 'keep-alive',
+539 silly get     'x-served-by': 'cache-sjc3122-SJC',
+539 silly get     'x-cache': 'HIT',
+539 silly get     'x-cache-hits': '4',
+539 silly get     'x-timer': 'S1446164592.531187,VS0,VE0',
+539 silly get     vary: 'Accept' } ]
+540 verbose etag https://registry.npmjs.org/lodash.restparam from cache
+541 verbose get saving lodash.restparam to /Users/grantcollins/.npm/registry.npmjs.org/lodash.restparam/.cache.json
+542 verbose request uri https://registry.npmjs.org/lodash._bindcallback
+543 verbose request no auth needed
+544 info attempt registry request try #1 at 5:23:12 PM
+545 verbose etag "4QCDH20MPKBVT8L2LY3OLQAXP"
+546 http request GET https://registry.npmjs.org/lodash._bindcallback
+547 verbose request uri https://registry.npmjs.org/lodash._basecopy
+548 verbose request no auth needed
+549 info attempt registry request try #1 at 5:23:12 PM
+550 verbose etag "9W88239PMDC1S83XDN4XKIKI"
+551 http request GET https://registry.npmjs.org/lodash._basecopy
+552 http 304 https://registry.npmjs.org/lodash._bindcallback
+553 silly get cb [ 304,
+553 silly get   { date: 'Fri, 30 Oct 2015 00:23:12 GMT',
+553 silly get     via: '1.1 varnish',
+553 silly get     'cache-control': 'max-age=60',
+553 silly get     etag: '"4QCDH20MPKBVT8L2LY3OLQAXP"',
+553 silly get     age: '41',
+553 silly get     connection: 'keep-alive',
+553 silly get     'x-served-by': 'cache-sjc3131-SJC',
+553 silly get     'x-cache': 'HIT',
+553 silly get     'x-cache-hits': '1',
+553 silly get     'x-timer': 'S1446164592.603159,VS0,VE0',
+553 silly get     vary: 'Accept' } ]
+554 verbose etag https://registry.npmjs.org/lodash._bindcallback from cache
+555 verbose get saving lodash._bindcallback to /Users/grantcollins/.npm/registry.npmjs.org/lodash._bindcallback/.cache.json
+556 http 304 https://registry.npmjs.org/lodash._basecopy
+557 silly get cb [ 304,
+557 silly get   { date: 'Fri, 30 Oct 2015 00:23:12 GMT',
+557 silly get     via: '1.1 varnish',
+557 silly get     'cache-control': 'max-age=60',
+557 silly get     etag: '"9W88239PMDC1S83XDN4XKIKI"',
+557 silly get     age: '56',
+557 silly get     connection: 'keep-alive',
+557 silly get     'x-served-by': 'cache-sjc3123-SJC',
+557 silly get     'x-cache': 'HIT',
+557 silly get     'x-cache-hits': '2',
+557 silly get     'x-timer': 'S1446164592.642217,VS0,VE0',
+557 silly get     vary: 'Accept' } ]
+558 verbose etag https://registry.npmjs.org/lodash._basecopy from cache
+559 verbose get saving lodash._basecopy to /Users/grantcollins/.npm/registry.npmjs.org/lodash._basecopy/.cache.json
+560 verbose request uri https://registry.npmjs.org/lodash.isarray
+561 verbose request no auth needed
+562 info attempt registry request try #1 at 5:23:12 PM
+563 verbose etag "C8AVM98J3SQHX6MF2JJH3SJIZ"
+564 http request GET https://registry.npmjs.org/lodash.isarray
+565 verbose request uri https://registry.npmjs.org/lodash.isarguments
+566 verbose request no auth needed
+567 info attempt registry request try #1 at 5:23:12 PM
+568 verbose etag "7BP9EN0G0JXGZMS3SMYJ5W6B6"
+569 http request GET https://registry.npmjs.org/lodash.isarguments
+570 verbose request uri https://registry.npmjs.org/lodash._getnative
+571 verbose request no auth needed
+572 info attempt registry request try #1 at 5:23:12 PM
+573 verbose etag "3SVNLKSR8B1QV2CE7Y4X2OE9J"
+574 http request GET https://registry.npmjs.org/lodash._getnative
+575 silly addNameRange number 2 { name: 'lodash._isiterateecall',
+575 silly addNameRange   range: '>=3.0.0 <4.0.0',
+575 silly addNameRange   hasData: true }
+576 silly addNameRange versions [ 'lodash._isiterateecall',
+576 silly addNameRange   [ '3.0.0',
+576 silly addNameRange     '3.0.1',
+576 silly addNameRange     '3.0.2',
+576 silly addNameRange     '3.0.3',
+576 silly addNameRange     '3.0.4',
+576 silly addNameRange     '3.0.5',
+576 silly addNameRange     '3.0.6',
+576 silly addNameRange     '3.0.7',
+576 silly addNameRange     '3.0.8',
+576 silly addNameRange     '3.0.9' ] ]
+577 silly addNamed lodash._isiterateecall@3.0.9
+578 verbose addNamed "3.0.9" is a plain semver version for lodash._isiterateecall
+579 silly addNameRange number 2 { name: 'lodash.restparam',
+579 silly addNameRange   range: '>=3.0.0 <4.0.0',
+579 silly addNameRange   hasData: true }
+580 silly addNameRange versions [ 'lodash.restparam', [ '3.6.0', '3.6.1' ] ]
+581 silly addNamed lodash.restparam@3.6.1
+582 verbose addNamed "3.6.1" is a plain semver version for lodash.restparam
+583 silly addNameRange number 2 { name: 'lodash._bindcallback',
+583 silly addNameRange   range: '>=3.0.0 <4.0.0',
+583 silly addNameRange   hasData: true }
+584 silly addNameRange versions [ 'lodash._bindcallback', [ '3.0.0', '3.0.1' ] ]
+585 silly addNamed lodash._bindcallback@3.0.1
+586 verbose addNamed "3.0.1" is a plain semver version for lodash._bindcallback
+587 http 304 https://registry.npmjs.org/lodash.isarguments
+588 silly get cb [ 304,
+588 silly get   { date: 'Fri, 30 Oct 2015 00:23:12 GMT',
+588 silly get     via: '1.1 varnish',
+588 silly get     'cache-control': 'max-age=60',
+588 silly get     etag: '"7BP9EN0G0JXGZMS3SMYJ5W6B6"',
+588 silly get     age: '37',
+588 silly get     connection: 'keep-alive',
+588 silly get     'x-served-by': 'cache-sjc3125-SJC',
+588 silly get     'x-cache': 'HIT',
+588 silly get     'x-cache-hits': '5',
+588 silly get     'x-timer': 'S1446164592.815306,VS0,VE0',
+588 silly get     vary: 'Accept' } ]
+589 verbose etag https://registry.npmjs.org/lodash.isarguments from cache
+590 verbose get saving lodash.isarguments to /Users/grantcollins/.npm/registry.npmjs.org/lodash.isarguments/.cache.json
+591 http 304 https://registry.npmjs.org/lodash._getnative
+592 silly get cb [ 304,
+592 silly get   { date: 'Fri, 30 Oct 2015 00:23:12 GMT',
+592 silly get     via: '1.1 varnish',
+592 silly get     'cache-control': 'max-age=60',
+592 silly get     etag: '"3SVNLKSR8B1QV2CE7Y4X2OE9J"',
+592 silly get     age: '24',
+592 silly get     connection: 'keep-alive',
+592 silly get     'x-served-by': 'cache-sjc3129-SJC',
+592 silly get     'x-cache': 'HIT',
+592 silly get     'x-cache-hits': '1',
+592 silly get     'x-timer': 'S1446164592.817124,VS0,VE0',
+592 silly get     vary: 'Accept' } ]
+593 verbose etag https://registry.npmjs.org/lodash._getnative from cache
+594 verbose get saving lodash._getnative to /Users/grantcollins/.npm/registry.npmjs.org/lodash._getnative/.cache.json
+595 http 304 https://registry.npmjs.org/lodash.isarray
+596 silly get cb [ 304,
+596 silly get   { date: 'Fri, 30 Oct 2015 00:23:12 GMT',
+596 silly get     via: '1.1 varnish',
+596 silly get     'cache-control': 'max-age=60',
+596 silly get     etag: '"C8AVM98J3SQHX6MF2JJH3SJIZ"',
+596 silly get     age: '37',
+596 silly get     connection: 'keep-alive',
+596 silly get     'x-served-by': 'cache-sjc3133-SJC',
+596 silly get     'x-cache': 'HIT',
+596 silly get     'x-cache-hits': '6',
+596 silly get     'x-timer': 'S1446164592.820099,VS0,VE0',
+596 silly get     vary: 'Accept' } ]
+597 verbose etag https://registry.npmjs.org/lodash.isarray from cache
+598 verbose get saving lodash.isarray to /Users/grantcollins/.npm/registry.npmjs.org/lodash.isarray/.cache.json
+599 silly addNameRange number 2 { name: 'lodash._basecopy',
+599 silly addNameRange   range: '>=3.0.0 <4.0.0',
+599 silly addNameRange   hasData: true }
+600 silly addNameRange versions [ 'lodash._basecopy', [ '3.0.0', '3.0.1' ] ]
+601 silly addNamed lodash._basecopy@3.0.1
+602 verbose addNamed "3.0.1" is a plain semver version for lodash._basecopy
+603 silly cache afterAdd lodash.restparam@3.6.1
+604 verbose afterAdd /Users/grantcollins/.npm/lodash.restparam/3.6.1/package/package.json not in flight; writing
+605 silly cache afterAdd lodash._isiterateecall@3.0.9
+606 verbose afterAdd /Users/grantcollins/.npm/lodash._isiterateecall/3.0.9/package/package.json not in flight; writing
+607 verbose afterAdd /Users/grantcollins/.npm/lodash.restparam/3.6.1/package/package.json written
+608 silly addNameRange number 2 { name: 'lodash.isarguments',
+608 silly addNameRange   range: '>=3.0.0 <4.0.0',
+608 silly addNameRange   hasData: true }
+609 silly addNameRange versions [ 'lodash.isarguments',
+609 silly addNameRange   [ '2.0.0',
+609 silly addNameRange     '2.1.0',
+609 silly addNameRange     '2.2.0',
+609 silly addNameRange     '2.2.1',
+609 silly addNameRange     '2.3.0',
+609 silly addNameRange     '2.4.0',
+609 silly addNameRange     '2.4.1',
+609 silly addNameRange     '3.0.0',
+609 silly addNameRange     '3.0.1',
+609 silly addNameRange     '3.0.2',
+609 silly addNameRange     '3.0.3',
+609 silly addNameRange     '3.0.4' ] ]
+610 silly addNamed lodash.isarguments@3.0.4
+611 verbose addNamed "3.0.4" is a plain semver version for lodash.isarguments
+612 silly addNameRange number 2 { name: 'lodash._getnative',
+612 silly addNameRange   range: '>=3.0.0 <4.0.0',
+612 silly addNameRange   hasData: true }
+613 silly addNameRange versions [ 'lodash._getnative', [ '3.9.0', '3.9.1' ] ]
+614 silly addNamed lodash._getnative@3.9.1
+615 verbose addNamed "3.9.1" is a plain semver version for lodash._getnative
+616 silly addNameRange number 2 { name: 'lodash.isarray',
+616 silly addNameRange   range: '>=3.0.0 <4.0.0',
+616 silly addNameRange   hasData: true }
+617 silly addNameRange versions [ 'lodash.isarray',
+617 silly addNameRange   [ '2.0.0',
+617 silly addNameRange     '2.1.0',
+617 silly addNameRange     '2.2.0',
+617 silly addNameRange     '2.2.1',
+617 silly addNameRange     '2.3.0',
+617 silly addNameRange     '2.4.0',
+617 silly addNameRange     '2.4.1',
+617 silly addNameRange     '3.0.0',
+617 silly addNameRange     '3.0.1',
+617 silly addNameRange     '3.0.2',
+617 silly addNameRange     '3.0.3',
+617 silly addNameRange     '3.0.4' ] ]
+618 silly addNamed lodash.isarray@3.0.4
+619 verbose addNamed "3.0.4" is a plain semver version for lodash.isarray
+620 verbose afterAdd /Users/grantcollins/.npm/lodash._isiterateecall/3.0.9/package/package.json written
+621 silly cache afterAdd lodash._basecopy@3.0.1
+622 verbose afterAdd /Users/grantcollins/.npm/lodash._basecopy/3.0.1/package/package.json not in flight; writing
+623 silly cache afterAdd lodash._bindcallback@3.0.1
+624 verbose afterAdd /Users/grantcollins/.npm/lodash._bindcallback/3.0.1/package/package.json not in flight; writing
+625 verbose afterAdd /Users/grantcollins/.npm/lodash._basecopy/3.0.1/package/package.json written
+626 silly install resolved [ { name: 'lodash._basecopy',
+626 silly install resolved     version: '3.0.1',
+626 silly install resolved     description: 'The modern build of lodash’s internal `baseCopy` as a module.',
+626 silly install resolved     homepage: 'https://lodash.com/',
+626 silly install resolved     icon: 'https://lodash.com/icon.svg',
+626 silly install resolved     license: 'MIT',
+626 silly install resolved     author:
+626 silly install resolved      { name: 'John-David Dalton',
+626 silly install resolved        email: 'john.david.dalton@gmail.com',
+626 silly install resolved        url: 'http://allyoucanleet.com/' },
+626 silly install resolved     contributors: [ [Object], [Object], [Object], [Object], [Object] ],
+626 silly install resolved     repository: { type: 'git', url: 'https://github.com/lodash/lodash' },
+626 silly install resolved     scripts: { test: 'echo "See https://travis-ci.org/lodash/lodash-cli for testing details."' },
+626 silly install resolved     bugs: { url: 'https://github.com/lodash/lodash/issues' },
+626 silly install resolved     _id: 'lodash._basecopy@3.0.1',
+626 silly install resolved     _shasum: '8da0e6a876cf344c0ad8a54882111dd3c5c7ca36',
+626 silly install resolved     _from: 'lodash._basecopy@>=3.0.0 <4.0.0',
+626 silly install resolved     _npmVersion: '2.7.6',
+626 silly install resolved     _nodeVersion: '0.12.2',
+626 silly install resolved     _npmUser: { name: 'jdalton', email: 'john.david.dalton@gmail.com' },
+626 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object], [Object] ],
+626 silly install resolved     dist:
+626 silly install resolved      { shasum: '8da0e6a876cf344c0ad8a54882111dd3c5c7ca36',
+626 silly install resolved        tarball: 'http://registry.npmjs.org/lodash._basecopy/-/lodash._basecopy-3.0.1.tgz' },
+626 silly install resolved     directories: {},
+626 silly install resolved     _resolved: 'https://registry.npmjs.org/lodash._basecopy/-/lodash._basecopy-3.0.1.tgz',
+626 silly install resolved     readme: 'ERROR: No README data found!' } ]
+627 info install lodash._basecopy@3.0.1 into /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign
+628 info installOne lodash._basecopy@3.0.1
+629 verbose installOne of lodash._basecopy to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign not in flight; installing
+630 verbose afterAdd /Users/grantcollins/.npm/lodash._bindcallback/3.0.1/package/package.json written
+631 silly install resolved [ { name: 'lodash.restparam',
+631 silly install resolved     version: '3.6.1',
+631 silly install resolved     description: 'The modern build of lodash’s `_.restParam` as a module.',
+631 silly install resolved     homepage: 'https://lodash.com/',
+631 silly install resolved     icon: 'https://lodash.com/icon.svg',
+631 silly install resolved     license: 'MIT',
+631 silly install resolved     keywords: [ 'lodash', 'lodash-modularized', 'stdlib', 'util' ],
+631 silly install resolved     author:
+631 silly install resolved      { name: 'John-David Dalton',
+631 silly install resolved        email: 'john.david.dalton@gmail.com',
+631 silly install resolved        url: 'http://allyoucanleet.com/' },
+631 silly install resolved     contributors: [ [Object], [Object], [Object], [Object], [Object] ],
+631 silly install resolved     repository: { type: 'git', url: 'https://github.com/lodash/lodash' },
+631 silly install resolved     scripts: { test: 'echo "See https://travis-ci.org/lodash/lodash-cli for testing details."' },
+631 silly install resolved     bugs: { url: 'https://github.com/lodash/lodash/issues' },
+631 silly install resolved     _id: 'lodash.restparam@3.6.1',
+631 silly install resolved     _shasum: '936a4e309ef330a7645ed4145986c85ae5b20805',
+631 silly install resolved     _from: 'lodash.restparam@>=3.0.0 <4.0.0',
+631 silly install resolved     _npmVersion: '2.7.6',
+631 silly install resolved     _nodeVersion: '0.12.2',
+631 silly install resolved     _npmUser: { name: 'jdalton', email: 'john.david.dalton@gmail.com' },
+631 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object], [Object] ],
+631 silly install resolved     dist:
+631 silly install resolved      { shasum: '936a4e309ef330a7645ed4145986c85ae5b20805',
+631 silly install resolved        tarball: 'http://registry.npmjs.org/lodash.restparam/-/lodash.restparam-3.6.1.tgz' },
+631 silly install resolved     directories: {},
+631 silly install resolved     _resolved: 'https://registry.npmjs.org/lodash.restparam/-/lodash.restparam-3.6.1.tgz',
+631 silly install resolved     readme: 'ERROR: No README data found!' },
+631 silly install resolved   { name: 'lodash._isiterateecall',
+631 silly install resolved     version: '3.0.9',
+631 silly install resolved     description: 'The modern build of lodash’s internal `isIterateeCall` as a module.',
+631 silly install resolved     homepage: 'https://lodash.com/',
+631 silly install resolved     icon: 'https://lodash.com/icon.svg',
+631 silly install resolved     license: 'MIT',
+631 silly install resolved     author:
+631 silly install resolved      { name: 'John-David Dalton',
+631 silly install resolved        email: 'john.david.dalton@gmail.com',
+631 silly install resolved        url: 'http://allyoucanleet.com/' },
+631 silly install resolved     contributors: [ [Object], [Object], [Object], [Object], [Object] ],
+631 silly install resolved     repository: { type: 'git', url: 'git+https://github.com/lodash/lodash.git' },
+631 silly install resolved     scripts: { test: 'echo "See https://travis-ci.org/lodash/lodash-cli for testing details."' },
+631 silly install resolved     bugs: { url: 'https://github.com/lodash/lodash/issues' },
+631 silly install resolved     _id: 'lodash._isiterateecall@3.0.9',
+631 silly install resolved     _shasum: '5203ad7ba425fae842460e696db9cf3e6aac057c',
+631 silly install resolved     _from: 'lodash._isiterateecall@>=3.0.0 <4.0.0',
+631 silly install resolved     _npmVersion: '2.10.1',
+631 silly install resolved     _nodeVersion: '2.0.2',
+631 silly install resolved     _npmUser: { name: 'jdalton', email: 'john.david.dalton@gmail.com' },
+631 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object], [Object] ],
+631 silly install resolved     dist:
+631 silly install resolved      { shasum: '5203ad7ba425fae842460e696db9cf3e6aac057c',
+631 silly install resolved        tarball: 'http://registry.npmjs.org/lodash._isiterateecall/-/lodash._isiterateecall-3.0.9.tgz' },
+631 silly install resolved     directories: {},
+631 silly install resolved     _resolved: 'https://registry.npmjs.org/lodash._isiterateecall/-/lodash._isiterateecall-3.0.9.tgz',
+631 silly install resolved     readme: 'ERROR: No README data found!' },
+631 silly install resolved   { name: 'lodash._bindcallback',
+631 silly install resolved     version: '3.0.1',
+631 silly install resolved     description: 'The modern build of lodash’s internal `bindCallback` as a module.',
+631 silly install resolved     homepage: 'https://lodash.com/',
+631 silly install resolved     icon: 'https://lodash.com/icon.svg',
+631 silly install resolved     license: 'MIT',
+631 silly install resolved     author:
+631 silly install resolved      { name: 'John-David Dalton',
+631 silly install resolved        email: 'john.david.dalton@gmail.com',
+631 silly install resolved        url: 'http://allyoucanleet.com/' },
+631 silly install resolved     contributors: [ [Object], [Object], [Object], [Object], [Object] ],
+631 silly install resolved     repository: { type: 'git', url: 'https://github.com/lodash/lodash' },
+631 silly install resolved     scripts: { test: 'echo "See https://travis-ci.org/lodash/lodash-cli for testing details."' },
+631 silly install resolved     bugs: { url: 'https://github.com/lodash/lodash/issues' },
+631 silly install resolved     _id: 'lodash._bindcallback@3.0.1',
+631 silly install resolved     _shasum: 'e531c27644cf8b57a99e17ed95b35c748789392e',
+631 silly install resolved     _from: 'lodash._bindcallback@>=3.0.0 <4.0.0',
+631 silly install resolved     _npmVersion: '2.7.6',
+631 silly install resolved     _nodeVersion: '0.12.2',
+631 silly install resolved     _npmUser: { name: 'jdalton', email: 'john.david.dalton@gmail.com' },
+631 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object], [Object] ],
+631 silly install resolved     dist:
+631 silly install resolved      { shasum: 'e531c27644cf8b57a99e17ed95b35c748789392e',
+631 silly install resolved        tarball: 'http://registry.npmjs.org/lodash._bindcallback/-/lodash._bindcallback-3.0.1.tgz' },
+631 silly install resolved     directories: {},
+631 silly install resolved     _resolved: 'https://registry.npmjs.org/lodash._bindcallback/-/lodash._bindcallback-3.0.1.tgz',
+631 silly install resolved     readme: 'ERROR: No README data found!' } ]
+632 info install lodash.restparam@3.6.1 into /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner
+633 info install lodash._isiterateecall@3.0.9 into /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner
+634 info install lodash._bindcallback@3.0.1 into /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner
+635 info installOne lodash.restparam@3.6.1
+636 verbose installOne of lodash.restparam to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner not in flight; installing
+637 info installOne lodash._isiterateecall@3.0.9
+638 verbose installOne of lodash._isiterateecall to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner not in flight; installing
+639 info installOne lodash._bindcallback@3.0.1
+640 verbose installOne of lodash._bindcallback to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner not in flight; installing
+641 verbose lock using /Users/grantcollins/.npm/_locks/lodash-basecopy-cd296670cf8457a7.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign/node_modules/lodash._basecopy
+642 verbose lock using /Users/grantcollins/.npm/_locks/lodash-restparam-878bbe224b0ec113.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash.restparam
+643 verbose lock using /Users/grantcollins/.npm/_locks/lodash-isiterateecall-03b83ecf608671ef.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._isiterateecall
+644 verbose lock using /Users/grantcollins/.npm/_locks/lodash-bindcallback-25a4a17c68f28fcd.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._bindcallback
+645 silly install write writing lodash._basecopy 3.0.1 to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign/node_modules/lodash._basecopy
+646 silly install write writing lodash.restparam 3.6.1 to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash.restparam
+647 silly install write writing lodash._isiterateecall 3.0.9 to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._isiterateecall
+648 silly install write writing lodash._bindcallback 3.0.1 to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._bindcallback
+649 silly cache afterAdd lodash._getnative@3.9.1
+650 verbose afterAdd /Users/grantcollins/.npm/lodash._getnative/3.9.1/package/package.json not in flight; writing
+651 verbose unbuild node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash.restparam
+652 verbose unbuild node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._isiterateecall
+653 silly cache afterAdd lodash.isarray@3.0.4
+654 verbose afterAdd /Users/grantcollins/.npm/lodash.isarray/3.0.4/package/package.json not in flight; writing
+655 silly cache afterAdd lodash.isarguments@3.0.4
+656 verbose afterAdd /Users/grantcollins/.npm/lodash.isarguments/3.0.4/package/package.json not in flight; writing
+657 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash.restparam is being purged from base /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api
+658 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash.restparam
+659 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._isiterateecall is being purged from base /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api
+660 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._isiterateecall
+661 verbose tar unpack /Users/grantcollins/.npm/lodash.restparam/3.6.1/package.tgz
+662 verbose tar unpacking to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash.restparam
+663 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash.restparam is being purged
+664 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash.restparam
+665 verbose tar unpack /Users/grantcollins/.npm/lodash._isiterateecall/3.0.9/package.tgz
+666 verbose tar unpacking to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._isiterateecall
+667 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._isiterateecall is being purged
+668 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._isiterateecall
+669 silly gunzTarPerm modes [ '755', '644' ]
+670 silly gunzTarPerm modes [ '755', '644' ]
+671 verbose afterAdd /Users/grantcollins/.npm/lodash._getnative/3.9.1/package/package.json written
+672 verbose afterAdd /Users/grantcollins/.npm/lodash.isarray/3.0.4/package/package.json written
+673 verbose afterAdd /Users/grantcollins/.npm/lodash.isarguments/3.0.4/package/package.json written
+674 silly install resolved [ { name: 'lodash._getnative',
+674 silly install resolved     version: '3.9.1',
+674 silly install resolved     description: 'The modern build of lodash’s internal `getNative` as a module.',
+674 silly install resolved     homepage: 'https://lodash.com/',
+674 silly install resolved     icon: 'https://lodash.com/icon.svg',
+674 silly install resolved     license: 'MIT',
+674 silly install resolved     author:
+674 silly install resolved      { name: 'John-David Dalton',
+674 silly install resolved        email: 'john.david.dalton@gmail.com',
+674 silly install resolved        url: 'http://allyoucanleet.com/' },
+674 silly install resolved     contributors: [ [Object], [Object], [Object], [Object], [Object] ],
+674 silly install resolved     repository: { type: 'git', url: 'git+https://github.com/lodash/lodash.git' },
+674 silly install resolved     scripts: { test: 'echo "See https://travis-ci.org/lodash/lodash-cli for testing details."' },
+674 silly install resolved     bugs: { url: 'https://github.com/lodash/lodash/issues' },
+674 silly install resolved     _id: 'lodash._getnative@3.9.1',
+674 silly install resolved     _shasum: '570bc7dede46d61cdcde687d65d3eecbaa3aaff5',
+674 silly install resolved     _from: 'lodash._getnative@>=3.0.0 <4.0.0',
+674 silly install resolved     _npmVersion: '2.12.0',
+674 silly install resolved     _nodeVersion: '0.12.5',
+674 silly install resolved     _npmUser: { name: 'jdalton', email: 'john.david.dalton@gmail.com' },
+674 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object] ],
+674 silly install resolved     dist:
+674 silly install resolved      { shasum: '570bc7dede46d61cdcde687d65d3eecbaa3aaff5',
+674 silly install resolved        tarball: 'http://registry.npmjs.org/lodash._getnative/-/lodash._getnative-3.9.1.tgz' },
+674 silly install resolved     directories: {},
+674 silly install resolved     _resolved: 'https://registry.npmjs.org/lodash._getnative/-/lodash._getnative-3.9.1.tgz',
+674 silly install resolved     readme: 'ERROR: No README data found!' },
+674 silly install resolved   { name: 'lodash.isarray',
+674 silly install resolved     version: '3.0.4',
+674 silly install resolved     description: 'The modern build of lodash’s `_.isArray` as a module.',
+674 silly install resolved     homepage: 'https://lodash.com/',
+674 silly install resolved     icon: 'https://lodash.com/icon.svg',
+674 silly install resolved     license: 'MIT',
+674 silly install resolved     keywords: [ 'lodash', 'lodash-modularized', 'stdlib', 'util' ],
+674 silly install resolved     author:
+674 silly install resolved      { name: 'John-David Dalton',
+674 silly install resolved        email: 'john.david.dalton@gmail.com',
+674 silly install resolved        url: 'http://allyoucanleet.com/' },
+674 silly install resolved     contributors: [ [Object], [Object], [Object], [Object], [Object] ],
+674 silly install resolved     repository: { type: 'git', url: 'git+https://github.com/lodash/lodash.git' },
+674 silly install resolved     scripts: { test: 'echo "See https://travis-ci.org/lodash/lodash-cli for testing details."' },
+674 silly install resolved     bugs: { url: 'https://github.com/lodash/lodash/issues' },
+674 silly install resolved     _id: 'lodash.isarray@3.0.4',
+674 silly install resolved     _shasum: '79e4eb88c36a8122af86f844aa9bcd851b5fbb55',
+674 silly install resolved     _from: 'lodash.isarray@>=3.0.0 <4.0.0',
+674 silly install resolved     _npmVersion: '2.12.0',
+674 silly install resolved     _nodeVersion: '0.12.5',
+674 silly install resolved     _npmUser: { name: 'jdalton', email: 'john.david.dalton@gmail.com' },
+674 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object], [Object] ],
+674 silly install resolved     dist:
+674 silly install resolved      { shasum: '79e4eb88c36a8122af86f844aa9bcd851b5fbb55',
+674 silly install resolved        tarball: 'http://registry.npmjs.org/lodash.isarray/-/lodash.isarray-3.0.4.tgz' },
+674 silly install resolved     directories: {},
+674 silly install resolved     _resolved: 'https://registry.npmjs.org/lodash.isarray/-/lodash.isarray-3.0.4.tgz',
+674 silly install resolved     readme: 'ERROR: No README data found!' },
+674 silly install resolved   { name: 'lodash.isarguments',
+674 silly install resolved     version: '3.0.4',
+674 silly install resolved     description: 'The modern build of lodash’s `_.isArguments` as a module.',
+674 silly install resolved     homepage: 'https://lodash.com/',
+674 silly install resolved     icon: 'https://lodash.com/icon.svg',
+674 silly install resolved     license: 'MIT',
+674 silly install resolved     keywords: [ 'lodash', 'lodash-modularized', 'stdlib', 'util' ],
+674 silly install resolved     author:
+674 silly install resolved      { name: 'John-David Dalton',
+674 silly install resolved        email: 'john.david.dalton@gmail.com',
+674 silly install resolved        url: 'http://allyoucanleet.com/' },
+674 silly install resolved     contributors: [ [Object], [Object], [Object], [Object], [Object] ],
+674 silly install resolved     repository: { type: 'git', url: 'git+https://github.com/lodash/lodash.git' },
+674 silly install resolved     scripts: { test: 'echo "See https://travis-ci.org/lodash/lodash-cli for testing details."' },
+674 silly install resolved     bugs: { url: 'https://github.com/lodash/lodash/issues' },
+674 silly install resolved     _id: 'lodash.isarguments@3.0.4',
+674 silly install resolved     _shasum: 'ebbb884c48d27366a44ea6fee57ed7b5a32a81e0',
+674 silly install resolved     _from: 'lodash.isarguments@>=3.0.0 <4.0.0',
+674 silly install resolved     _npmVersion: '2.12.0',
+674 silly install resolved     _nodeVersion: '0.12.5',
+674 silly install resolved     _npmUser: { name: 'jdalton', email: 'john.david.dalton@gmail.com' },
+674 silly install resolved     maintainers: [ [Object], [Object], [Object], [Object], [Object] ],
+674 silly install resolved     dist:
+674 silly install resolved      { shasum: 'ebbb884c48d27366a44ea6fee57ed7b5a32a81e0',
+674 silly install resolved        tarball: 'http://registry.npmjs.org/lodash.isarguments/-/lodash.isarguments-3.0.4.tgz' },
+674 silly install resolved     directories: {},
+674 silly install resolved     _resolved: 'https://registry.npmjs.org/lodash.isarguments/-/lodash.isarguments-3.0.4.tgz',
+674 silly install resolved     readme: 'ERROR: No README data found!' } ]
+675 info install lodash._getnative@3.9.1 into /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys
+676 info install lodash.isarray@3.0.4 into /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys
+677 info install lodash.isarguments@3.0.4 into /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys
+678 info installOne lodash._getnative@3.9.1
+679 verbose installOne of lodash._getnative to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys not in flight; installing
+680 info installOne lodash.isarray@3.0.4
+681 verbose installOne of lodash.isarray to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys not in flight; installing
+682 info installOne lodash.isarguments@3.0.4
+683 verbose installOne of lodash.isarguments to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys not in flight; installing
+684 verbose lock using /Users/grantcollins/.npm/_locks/lodash-getnative-7eddd31699dc70e9.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash._getnative
+685 verbose lock using /Users/grantcollins/.npm/_locks/lodash-isarguments-1055d05dcd59bbaf.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarguments
+686 silly gunzTarPerm extractEntry package.json
+687 verbose lock using /Users/grantcollins/.npm/_locks/lodash-isarray-9b46b227135d8dbc.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarray
+688 silly install write writing lodash._getnative 3.9.1 to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash._getnative
+689 silly install write writing lodash.isarguments 3.0.4 to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarguments
+690 silly install write writing lodash.isarray 3.0.4 to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarray
+691 silly gunzTarPerm extractEntry package.json
+692 silly gunzTarPerm extractEntry README.md
+693 silly gunzTarPerm extractEntry index.js
+694 silly gunzTarPerm extractEntry README.md
+695 silly gunzTarPerm extractEntry index.js
+696 verbose unbuild node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign/node_modules/lodash._basecopy
+697 verbose unbuild node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash._getnative
+698 verbose unbuild node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarray
+699 verbose unbuild node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._bindcallback
+700 verbose unbuild node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarguments
+701 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign/node_modules/lodash._basecopy is being purged from base /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api
+702 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign/node_modules/lodash._basecopy
+703 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash._getnative is being purged from base /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api
+704 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash._getnative
+705 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarray is being purged from base /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api
+706 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarray
+707 verbose tar unpack /Users/grantcollins/.npm/lodash._basecopy/3.0.1/package.tgz
+708 verbose tar unpacking to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign/node_modules/lodash._basecopy
+709 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign/node_modules/lodash._basecopy is being purged
+710 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign/node_modules/lodash._basecopy
+711 verbose tar unpack /Users/grantcollins/.npm/lodash._getnative/3.9.1/package.tgz
+712 verbose tar unpacking to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash._getnative
+713 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash._getnative is being purged
+714 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash._getnative
+715 verbose tar unpack /Users/grantcollins/.npm/lodash.isarray/3.0.4/package.tgz
+716 verbose tar unpacking to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarray
+717 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarray is being purged
+718 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarray
+719 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._bindcallback is being purged from base /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api
+720 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._bindcallback
+721 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarguments is being purged from base /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api
+722 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarguments
+723 silly gunzTarPerm modes [ '755', '644' ]
+724 silly gunzTarPerm modes [ '755', '644' ]
+725 silly gunzTarPerm modes [ '755', '644' ]
+726 verbose tar unpack /Users/grantcollins/.npm/lodash._bindcallback/3.0.1/package.tgz
+727 verbose tar unpacking to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._bindcallback
+728 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._bindcallback is being purged
+729 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._bindcallback
+730 verbose tar unpack /Users/grantcollins/.npm/lodash.isarguments/3.0.4/package.tgz
+731 verbose tar unpacking to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarguments
+732 silly gentlyRm /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarguments is being purged
+733 verbose gentlyRm don't care about contents; nuking /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarguments
+734 silly gunzTarPerm modes [ '755', '644' ]
+735 silly gunzTarPerm modes [ '755', '644' ]
+736 silly gunzTarPerm extractEntry LICENSE.txt
+737 silly gunzTarPerm extractEntry LICENSE.txt
+738 silly gunzTarPerm extractEntry package.json
+739 silly gunzTarPerm extractEntry package.json
+740 silly gunzTarPerm extractEntry README.md
+741 silly gunzTarPerm extractEntry index.js
+742 silly gunzTarPerm extractEntry README.md
+743 silly gunzTarPerm extractEntry index.js
+744 silly gunzTarPerm extractEntry LICENSE.txt
+745 silly gunzTarPerm extractEntry LICENSE.txt
+746 silly gunzTarPerm extractEntry package.json
+747 silly gunzTarPerm extractEntry package.json
+748 silly gunzTarPerm extractEntry package.json
+749 silly gunzTarPerm extractEntry README.md
+750 silly gunzTarPerm extractEntry LICENSE
+751 silly gunzTarPerm extractEntry README.md
+752 silly gunzTarPerm extractEntry LICENSE
+753 silly gunzTarPerm extractEntry README.md
+754 silly gunzTarPerm extractEntry LICENSE
+755 verbose write writing to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash.restparam/package.json
+756 silly gunzTarPerm extractEntry index.js
+757 verbose write writing to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._isiterateecall/package.json
+758 silly gunzTarPerm extractEntry index.js
+759 info preinstall lodash.restparam@3.6.1
+760 silly gunzTarPerm extractEntry index.js
+761 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash.restparam/package.json
+762 info preinstall lodash._isiterateecall@3.0.9
+763 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._isiterateecall/package.json
+764 verbose write writing to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign/node_modules/lodash._basecopy/package.json
+765 verbose write writing to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._bindcallback/package.json
+766 info preinstall lodash._basecopy@3.0.1
+767 info preinstall lodash._bindcallback@3.0.1
+768 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign/node_modules/lodash._basecopy/package.json
+769 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._bindcallback/package.json
+770 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash.restparam/package.json
+771 silly install resolved []
+772 verbose about to build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash.restparam
+773 info build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash.restparam
+774 info linkStuff lodash.restparam@3.6.1
+775 silly linkStuff lodash.restparam@3.6.1 has /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules as its parent node_modules
+776 verbose write writing to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash._getnative/package.json
+777 verbose write writing to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarguments/package.json
+778 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._isiterateecall/package.json
+779 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign/node_modules/lodash._basecopy/package.json
+780 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._bindcallback/package.json
+781 verbose write writing to /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarray/package.json
+782 verbose linkBins lodash.restparam@3.6.1
+783 verbose linkMans lodash.restparam@3.6.1
+784 verbose rebuildBundles lodash.restparam@3.6.1
+785 info install lodash.restparam@3.6.1
+786 silly install resolved []
+787 verbose about to build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._isiterateecall
+788 info build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._isiterateecall
+789 silly install resolved []
+790 verbose about to build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign/node_modules/lodash._basecopy
+791 info build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign/node_modules/lodash._basecopy
+792 silly install resolved []
+793 verbose about to build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._bindcallback
+794 info build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._bindcallback
+795 info postinstall lodash.restparam@3.6.1
+796 info linkStuff lodash._isiterateecall@3.0.9
+797 silly linkStuff lodash._isiterateecall@3.0.9 has /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules as its parent node_modules
+798 info linkStuff lodash._basecopy@3.0.1
+799 silly linkStuff lodash._basecopy@3.0.1 has /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign/node_modules as its parent node_modules
+800 verbose unlock done using /Users/grantcollins/.npm/_locks/lodash-restparam-878bbe224b0ec113.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash.restparam
+801 info linkStuff lodash._bindcallback@3.0.1
+802 silly linkStuff lodash._bindcallback@3.0.1 has /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules as its parent node_modules
+803 info preinstall lodash.isarguments@3.0.4
+804 info preinstall lodash._getnative@3.9.1
+805 info preinstall lodash.isarray@3.0.4
+806 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarguments/package.json
+807 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash._getnative/package.json
+808 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarray/package.json
+809 verbose linkBins lodash._isiterateecall@3.0.9
+810 verbose linkMans lodash._isiterateecall@3.0.9
+811 verbose rebuildBundles lodash._isiterateecall@3.0.9
+812 verbose linkBins lodash._basecopy@3.0.1
+813 verbose linkMans lodash._basecopy@3.0.1
+814 verbose rebuildBundles lodash._basecopy@3.0.1
+815 verbose linkBins lodash._bindcallback@3.0.1
+816 verbose linkMans lodash._bindcallback@3.0.1
+817 verbose rebuildBundles lodash._bindcallback@3.0.1
+818 info install lodash._isiterateecall@3.0.9
+819 info install lodash._basecopy@3.0.1
+820 info install lodash._bindcallback@3.0.1
+821 info postinstall lodash._isiterateecall@3.0.9
+822 info postinstall lodash._basecopy@3.0.1
+823 info postinstall lodash._bindcallback@3.0.1
+824 verbose unlock done using /Users/grantcollins/.npm/_locks/lodash-basecopy-cd296670cf8457a7.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign/node_modules/lodash._basecopy
+825 verbose about to build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign
+826 info build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign
+827 verbose unlock done using /Users/grantcollins/.npm/_locks/lodash-bindcallback-25a4a17c68f28fcd.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._bindcallback
+828 verbose unlock done using /Users/grantcollins/.npm/_locks/lodash-isiterateecall-03b83ecf608671ef.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner/node_modules/lodash._isiterateecall
+829 verbose about to build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner
+830 info build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner
+831 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarguments/package.json
+832 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash._getnative/package.json
+833 info linkStuff lodash._baseassign@3.2.0
+834 silly linkStuff lodash._baseassign@3.2.0 has /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules as its parent node_modules
+835 info linkStuff lodash._createassigner@3.1.1
+836 silly linkStuff lodash._createassigner@3.1.1 has /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules as its parent node_modules
+837 silly install resolved []
+838 verbose about to build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarguments
+839 info build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarguments
+840 silly install resolved []
+841 verbose about to build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash._getnative
+842 info build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash._getnative
+843 info linkStuff lodash.isarguments@3.0.4
+844 silly linkStuff lodash.isarguments@3.0.4 has /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules as its parent node_modules
+845 info linkStuff lodash._getnative@3.9.1
+846 silly linkStuff lodash._getnative@3.9.1 has /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules as its parent node_modules
+847 verbose linkBins lodash._baseassign@3.2.0
+848 verbose linkMans lodash._baseassign@3.2.0
+849 verbose rebuildBundles lodash._baseassign@3.2.0
+850 verbose linkBins lodash._createassigner@3.1.1
+851 verbose linkMans lodash._createassigner@3.1.1
+852 verbose rebuildBundles lodash._createassigner@3.1.1
+853 verbose rebuildBundles [ 'lodash._basecopy' ]
+854 info install lodash._baseassign@3.2.0
+855 verbose rebuildBundles [ 'lodash._bindcallback',
+855 verbose rebuildBundles   'lodash._isiterateecall',
+855 verbose rebuildBundles   'lodash.restparam' ]
+856 info install lodash._createassigner@3.1.1
+857 info postinstall lodash._baseassign@3.2.0
+858 info postinstall lodash._createassigner@3.1.1
+859 verbose unlock done using /Users/grantcollins/.npm/_locks/lodash-baseassign-8657fafb7df455be.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._baseassign
+860 verbose unlock done using /Users/grantcollins/.npm/_locks/lodash-createassigner-2e11f01496df80de.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash._createassigner
+861 verbose linkBins lodash.isarguments@3.0.4
+862 verbose linkMans lodash.isarguments@3.0.4
+863 verbose rebuildBundles lodash.isarguments@3.0.4
+864 verbose linkBins lodash._getnative@3.9.1
+865 verbose linkMans lodash._getnative@3.9.1
+866 verbose rebuildBundles lodash._getnative@3.9.1
+867 info install lodash.isarguments@3.0.4
+868 info install lodash._getnative@3.9.1
+869 info postinstall lodash.isarguments@3.0.4
+870 info postinstall lodash._getnative@3.9.1
+871 verbose unlock done using /Users/grantcollins/.npm/_locks/lodash-isarguments-1055d05dcd59bbaf.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarguments
+872 verbose unlock done using /Users/grantcollins/.npm/_locks/lodash-getnative-7eddd31699dc70e9.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash._getnative
+873 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarray/package.json
+874 silly install resolved []
+875 verbose about to build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarray
+876 info build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarray
+877 info linkStuff lodash.isarray@3.0.4
+878 silly linkStuff lodash.isarray@3.0.4 has /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules as its parent node_modules
+879 verbose linkBins lodash.isarray@3.0.4
+880 verbose linkMans lodash.isarray@3.0.4
+881 verbose rebuildBundles lodash.isarray@3.0.4
+882 info install lodash.isarray@3.0.4
+883 info postinstall lodash.isarray@3.0.4
+884 verbose unlock done using /Users/grantcollins/.npm/_locks/lodash-isarray-9b46b227135d8dbc.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys/node_modules/lodash.isarray
+885 verbose about to build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys
+886 info build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys
+887 info linkStuff lodash.keys@3.1.2
+888 silly linkStuff lodash.keys@3.1.2 has /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules as its parent node_modules
+889 verbose linkBins lodash.keys@3.1.2
+890 verbose linkMans lodash.keys@3.1.2
+891 verbose rebuildBundles lodash.keys@3.1.2
+892 verbose rebuildBundles [ 'lodash._getnative', 'lodash.isarguments', 'lodash.isarray' ]
+893 info install lodash.keys@3.1.2
+894 info postinstall lodash.keys@3.1.2
+895 verbose unlock done using /Users/grantcollins/.npm/_locks/lodash-keys-08ed7109281621cd.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign/node_modules/lodash.keys
+896 verbose about to build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign
+897 info build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign
+898 info linkStuff lodash.assign@3.2.0
+899 silly linkStuff lodash.assign@3.2.0 has /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules as its parent node_modules
+900 verbose linkBins lodash.assign@3.2.0
+901 verbose linkMans lodash.assign@3.2.0
+902 verbose rebuildBundles lodash.assign@3.2.0
+903 verbose rebuildBundles [ 'lodash._baseassign', 'lodash._createassigner', 'lodash.keys' ]
+904 info install lodash.assign@3.2.0
+905 info postinstall lodash.assign@3.2.0
+906 verbose unlock done using /Users/grantcollins/.npm/_locks/lodash-assign-ef52d464780daf88.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/node_modules/lodash.assign
+907 verbose about to build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal
+908 info build /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal
+909 info linkStuff react-modal@0.6.1
+910 silly linkStuff react-modal@0.6.1 has /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules as its parent node_modules
+911 verbose linkBins react-modal@0.6.1
+912 verbose linkMans react-modal@0.6.1
+913 verbose rebuildBundles react-modal@0.6.1
+914 verbose rebuildBundles [ 'element-class', 'exenv', 'lodash.assign' ]
+915 info install react-modal@0.6.1
+916 info postinstall react-modal@0.6.1
+917 verbose readDependencies loading dependencies from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/package.json
+918 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/basscss/package.json
+919 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/bootstrap/package.json
+920 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/classnames/package.json
+921 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/css-loader/package.json
+922 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/flux/package.json
+923 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/history/package.json
+924 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/howler/package.json
+925 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/jquery/package.json
+926 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/jsuri/package.json
+927 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/jsx-loader/package.json
+928 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/keymirror/package.json
+929 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/moment/package.json
+930 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/object-assign/package.json
+931 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react/package.json
+932 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-bootstrap/package.json
+933 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-dom/package.json
+934 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal/package.json
+935 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-router/package.json
+936 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/reqwest/package.json
+937 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/soundcloud-audio/package.json
+938 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/style-loader/package.json
+939 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/webpack/package.json
+940 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/webpack-dev-server/package.json
+941 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/.bin/webpack/package.json
+942 verbose targetResolver reading package data from /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/.bin/webpack-dev-server/package.json
+943 verbose already installed skipping react@^0.14.0 /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api
+944 silly install resolved []
+945 verbose unlock done using /Users/grantcollins/.npm/_locks/react-modal-66750ecc825c7e04.lock for /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/node_modules/react-modal
+946 verbose validateInstall loading /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api/package.json for validation
+947 verbose stack Error: The package react@0.13.3 does not satisfy its siblings' peerDependencies requirements!
+947 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:125:32
+947 verbose stack     at /usr/local/lib/node_modules/npm/lib/install.js:268:7
+947 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:142:5
+947 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+947 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+947 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+947 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+947 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+947 verbose stack     at cb (/usr/local/lib/node_modules/npm/node_modules/slide/lib/async-map.js:47:24)
+947 verbose stack     at /usr/local/lib/node_modules/npm/node_modules/read-installed/read-installed.js:263:14
+948 verbose cwd /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api
+949 error Darwin 14.0.0
+950 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "install" "react-modal"
+951 error node v4.0.0
+952 error npm  v2.14.2
+953 error code EPEERINVALID
+954 error peerinvalid The package react@0.13.3 does not satisfy its siblings' peerDependencies requirements!
+954 error peerinvalid Peer react-bootstrap@0.26.4 wants react@^0.13
+954 error peerinvalid Peer react-modal@0.6.1 wants react@^0.14.0
+955 verbose exit [ 1, true ]

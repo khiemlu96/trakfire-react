@@ -8,6 +8,7 @@ class TokensController < ApplicationController
 
   def access_token
     oauth = Oauth.find_by(token: params[:oauth_token])
+    new_user = false
     if oauth.present?
       request_token = OAuth::RequestToken.new(TWITTER, oauth.token, oauth.secret)
       access_token = request_token.get_access_token(oauth_verifier: params[:oauth_verifier])
@@ -21,9 +22,14 @@ class TokensController < ApplicationController
         u.img = j_user[:img]
         u.tbio = j_user[:description]
         u.location = j_user[:location]
+        new_user = true
       end
       jwt = JWT.encode({uid: user.uid, exp: 1.day.from_now.to_i}, Rails.application.secrets.secret_key_base)
-      redirect_to ENV['ORIGIN'] + "?jwt=#{jwt}"
+      if new_user
+        redirect_to ENV['ORIGIN'] + "/email?jwt=#{jwt}"
+      else 
+        redirect_to ENV['ORIGIN'] + "?jwt=#{jwt}"
+      end
     else
       redirect_to ENV['ORIGIN']
     end

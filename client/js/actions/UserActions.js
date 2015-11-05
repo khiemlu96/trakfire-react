@@ -20,6 +20,24 @@ var UserActions = {
     });
 
     TfAPI.getPostsForUser(origin);
+  }, 
+
+  updateEmail: function(origin,email) {
+    console.log("SETTING EMAIL FOR USER ", email);
+    AppDispatcher.dispatch({
+      actionType: UserConstants.UPDATE_EMAIL
+    });
+
+    TfAPI.updateUserWithEmail(origin, email);    
+  }, 
+
+  getUser: function(origin, userid) {
+    console.log("GETTING USER ", userid);
+    AppDispatcher.dispatch({
+      actionType: UserConstants.GET_USER
+    });
+
+    TfAPI.getUser(origin, userid);    
   }
 
 };

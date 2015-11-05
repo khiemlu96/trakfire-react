@@ -30,6 +30,14 @@ module.exports = {
       actionType: UserConstants.RECIEVE_USER_POSTS,
       response: response
     });     
+  }, 
+
+  recieveNewUser: function(response) {
+    console.log("RECIEVING USER", response);
+    AppDispatcher.dispatch({
+      actionType: UserConstants.RECIEVE_USER,
+      response: response
+    });      
   }
   
 };

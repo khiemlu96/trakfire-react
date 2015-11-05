@@ -15,6 +15,7 @@ var PostsGrid = require('./PostGrid.jsx');
 var PostContainer = require('./PostContainer.jsx');
 var PostsPage = require('./PostsPage.jsx');
 var ProfilePage = require('./ProfilePage.jsx');
+var EmailAcquirePage = require('./EmailAcquirePage.jsx');
 var UserStore = require('../stores/UserStore.js');
 var UserActions = require('../actions/UserActions.js');
 var SoundCloudAudio = require('soundcloud-audio');
@@ -37,7 +38,7 @@ function getAppState() {
     volume: 1.0,
     duration: 0,
     currTrack: null,
-    currStreamUrl: null
+    currStreamUrl: null,
   };
 }
 
@@ -59,42 +60,38 @@ var TrakfireApp = React.createClass({
     PostStore.addChangeListener(this._onChange);
     UserStore.addChangeListener(this._onChange);
     var jwt = new Uri(location.search).getQueryParamValue('jwt');
-    console.log('JWT: ', jwt, !!jwt);
+    //console.log('JWT: ', jwt, !!jwt);
     if (!!jwt) {
-      console.log('SET SESSION W JWT');
+      //console.log('SET SESSION W JWT');
       sessionStorage.setItem('jwt', jwt);
     }
   },
 
   componentDidMount: function() {
     if (!!sessionStorage.getItem('jwt')) {
-      console.log('FETCHING USER');
+      //console.log('FETCHING USER');
       this.currentUserFromAPI();
     }
     this.readPostsFromApi();
-    console.log("POSTS RECIEVED", this.props.allPosts);
+    //console.log("POSTS RECIEVED", this.props.allPosts);
   },
   componentWillUnmount: function() {
     PostStore.removeChangeListener(this._onChange);
     UserStore.removeChangeListener(this._onChange);
   },
 
-  handleUserNavigation: function() {
-    //irrelevant rn
-  },
-
   readPostsFromApi: function(){
-    console.log('FETCHING POST BATCH', this.props.origin);
+    //console.log('FETCHING POST BATCH', this.props.origin);
     PostActions.getPostBatch(this.props.origin+'/posts');
   },
 
   currentUserFromAPI: function() {
-    console.log('GET CURRENT USER');
+    //console.log('GET CURRENT USER');
     UserActions.getCurrentUser(this.props.origin+'/current_user');
   },
 
   writePostsToApi: function(data){
-    console.log('WRITING POSTS TO THE API');
+    //console.log('WRITING POSTS TO THE API');
     PostActions.writePost(this.props.origin+'/posts', data);
   },
 
@@ -105,6 +102,10 @@ var TrakfireApp = React.createClass({
   writeVoteToApi: function(postid) {
     PostActions.upvote(this.props.origin+'/votes', postid);
   }, 
+
+  updateUserWithEmail: function(email) {
+    UserActions.updateEmail(this.props.origin+'/users/'+userid, email);
+  },
 
   handleUserSelection: function(genre, sort) {
     var currGenre = this.state.genre;
@@ -127,23 +128,12 @@ var TrakfireApp = React.createClass({
    */
   render: function() {
     var currTrack = this.state.currTrack;
-    console.log(this.route);
     var tfPlayer =  <TrakfirePlayer 
                       currTrack={this.state.currTrack}
                       isPlaying={this.state.isPlaying}
-                      onPlayPauseClick={this.onPlayCtrlClick}
-                    />
-    return (
-      <div>
-        <div>
-            <NavBar 
-              isLoggedIn={this.state.isLoggedIn}
-              origin={this.props.origin}
-              isAdmin={this.state.isAdmin}
-              user={this.state.currentUser}
-            />
-          </div>
-          <div>
+                      onPlayPauseClick={this.onPlayCtrlClick}/>;
+    //var tfEmailAcq = <EmailAcquirePage updateUserWithEmail={this.updateUserWithEmail}/>;
+    var Routes =  <div>
            { React.cloneElement(this.props.children, 
               { 
                 sort: this.state.sort,
@@ -157,8 +147,19 @@ var TrakfireApp = React.createClass({
                 origin: this.props.origin,
                 value: scPlayer.audio.currentTime, 
                 currStreamUrl: this.state.currStreamUrl
-              }) }
+              }) }</div>;
+
+    return (
+      <div>
+        <div>
+            <NavBar 
+              isLoggedIn={this.state.isLoggedIn}
+              origin={this.props.origin}
+              isAdmin={this.state.isAdmin}
+              user={this.state.currentUser}
+            />
           </div>
+          {Routes}
           <Footer/>
           <div>
           {currTrack ? tfPlayer : ''}
@@ -172,16 +173,16 @@ var TrakfireApp = React.createClass({
     var isPlaying = this.state.isPlaying;
     var isPaused = this.state.isPaused;
     if(this.state.currTrack == null) {
-      console.log("Curr Track", track);
+      //console.log("Curr Track", track);
       this.setState({currTrack : track});
     }
     if(!isPlaying) {
-      console.log('playing '+stream_url);
+      //console.log('playing '+stream_url);
       scPlayer.play({streamUrl: stream_url});
       isPlaying = true;
       this.setState({isPlaying : isPlaying, isPaused : isPaused, currStreamUrl : stream_url, currTrack : track});
     } else if(isPlaying && stream_url == this.state.currStreamUrl) {
-        console.log('pausing');
+        //console.log('pausing');
         scPlayer.pause();
         isPlaying = false;
         isPaused = true;
@@ -198,30 +199,34 @@ var TrakfireApp = React.createClass({
       mixpanel.track('Playing track', {
       'title': track.title,
       'id': track.id,
-      'artist' : track.artist
+      'artist' : track.artist, 
+      'filter' : this.state.genre,
+      'sort' : this.state.sort
       });
     } else if(isPaused) {
       mixpanel.track('Paused track', {
       'title': track.title,
       'id': track.id,
-      'artist' : track.artist
+      'artist' : track.artist, 
+      'filter' : this.state.genre, 
+      'sort' : this.state.sort 
       });      
     }
   },
 
   onPlayCtrlClick: function() {
-    console.log("onPlayCtrlClick", this.state.isPlaying);
+    //console.log("onPlayCtrlClick", this.state.isPlaying);
     var isPlaying = this.state.isPlaying;
     var isPaused = this.state.isPaused;
     var stream_url = this.state.currStreamUrl;
     if(!isPlaying) {
-      console.log('playing');
+      //console.log('playing');
       scPlayer.play({streamUrl: stream_url});
       isPlaying = true;
       isPaused = false;
       this.setState({isPlaying : isPlaying, isPaused : isPaused});
     } else if(isPlaying && !isPaused || isPlaying) {
-      console.log('pausing');
+      //console.log('pausing');
       scPlayer.pause();
       isPlaying = false;
       isPaused = true;

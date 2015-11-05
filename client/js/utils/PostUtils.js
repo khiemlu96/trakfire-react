@@ -4,7 +4,7 @@ module.exports = {
   convertRawPost: function(rawPost) {
     //console.log("vote_count",rawPost.vote_count);
     //console.log("user", rawPost.user);
-    console.log("RAWPOST", rawPost);
+    //console.log("RAWPOST USER", rawPost.user);
     //console.log("TAGS", rawPost.tags);
     return {
       id: rawPost.id,
@@ -13,6 +13,7 @@ module.exports = {
       artist: rawPost.artist,
       genre: rawPost.genre,
       author: rawPost.user.handle,
+      author_id: rawPost.user.id,
       author_img: rawPost.user.img,
       author_name: rawPost.user.username,
       stream_url: rawPost.stream_url,

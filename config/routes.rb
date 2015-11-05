@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :posts, only: [:index, :create, :show]
   resources :votes, only: [:create, :destroy]
-  resources :users, only: [] do
+  resources :users, only: [:update, :show] do
     member do
       get :posts
     end

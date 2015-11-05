@@ -1,5 +1,7 @@
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
+var Uri = require('jsuri');
+var UserActions = require('../actions/UserActions.js');
 var UserStore = require('../stores/UserStore.js');
 var UserPostGrid = require('./UserPostGrid.jsx');
 var ProfileHeader = require('./ProfileHeader.jsx');
@@ -7,14 +9,15 @@ var ProfileBar = require('./ProfileBar.jsx');
 
 function getAppState() {
   return {
-    user: UserStore.getCurrentUser()
+    user: UserStore.getUser()
   };
 }
 var ProfilePage = React.createClass({
 
   propTypes : {
     onPostItemClick: ReactPropTypes.func, //Playability
-    currStreamUrl: ReactPropTypes.string
+    currStreamUrl: ReactPropTypes.string, 
+    origin: ReactPropTypes.string
   }, 
 
   getInitialState: function() {
@@ -22,10 +25,21 @@ var ProfilePage = React.createClass({
   }, 
 
   componentDidMount: function() {
-    mixpanel.identify(this.state.user.id);
+    UserStore.addChangeListener(this._onChange);
+    var userid = this.props.params.id;
+    console.log("THE GIVEN USER ID IS ", userid);
+    this.getUser(userid);
+    mixpanel.identify(userid);
     mixpanel.track("Arrived on profile page");
-    mixpanel.alias(this.state.user.username);
   },
+
+  componentDidUnmount: function() {
+    UserStore.removeChangeListener(this._onChange);
+  }, 
+
+  getUser: function(userid) {
+    UserActions.getUser(this.props.origin+'/users/'+userid+'/', userid);
+  }, 
 
   onPostListItemClick:function(pid) {
     this.props.onPostItemClick(pid);
@@ -36,6 +50,7 @@ var ProfilePage = React.createClass({
   render: function() {
     console.log("USER TO RENDER", this.state.user)
     var user = this.state.user;
+    if(!user) { return (<div> Loading </div>); }
     return (
       <div>
       <ProfileBar/>
@@ -57,6 +72,9 @@ var ProfilePage = React.createClass({
     );
   },
 
+  _onChange: function() {
+    this.setState(getAppState());
+  }
 
 });
 

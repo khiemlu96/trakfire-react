@@ -34,7 +34,7 @@ function sortPostsByDate(posts) {
       dates[dstr][key] = posts[key];
     }
   }
-  console.log(dates, dateKeys);
+  //console.log(dates, dateKeys);
   return [dateKeys, dates];
 }
 
@@ -102,10 +102,10 @@ var PostsList = React.createClass({
   }, 
 
   componentDidMount: function() {
-    console.log("POST LIST PROPS", this.props);
+    //console.log("POST LIST PROPS", this.props);
     //console.log('Posts to be displayed ', posts);
     //console.log("PROPS PASSED ", this.props)
-    console.log("STATE OF PLAY", this.state);
+    //console.log("STATE OF PLAY", this.state);
   },
 
   componentWillUnmount: function() {
@@ -125,7 +125,7 @@ var PostsList = React.createClass({
     if(this.state.currentTrack != null) {
       var prevPli = this.state.currentTrack;
       var pli = this.refs[prevPli].getDOMNode();
-      console.log(pli);
+      //console.log(pli);
       pli.className = "tf-post-item";
     }
     this.state.currentTrack = track.id;
@@ -140,7 +140,7 @@ var PostsList = React.createClass({
   },
 
   renderPostsByDate: function(dates, posts) {
-    console.log(posts, dates);
+    //console.log(posts, dates);
     //console.log("USER", UserStore.isSignedIn(), UserStore.getCurrentUser());
     var isLoggedIn = UserStore.isSignedIn();
     var user = UserStore.getCurrentUser();
