@@ -45,9 +45,11 @@ function sortDate(a, b) {
 }
 
 function sortScore(a, b) {
-  if(a.score < b.score) return -1;
-  else if(a.score > b.score) return 1;
-  else if(a.score == b.score) return 1;
+  if(a.score > b.score) return -1;
+  else if(a.score < b.score) return 1;
+  else if(a.score == b.score){
+    return sortDate(a, b);
+  }
   return 0;
 }
 
