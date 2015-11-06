@@ -96,7 +96,7 @@ var PostFormSecond = React.createClass({
               <label className="tf-checkbox-label" htmlFor="edm" >Electronic</label> <br></br> <br></br> <br></br>
               {/*<input type="checkbox" className="ownsong-checkbox" id="ownsong" name="ownsong" value="ownsong"></input> 
               <label className="ownsong-label" for="ownsong" >This is my own song</label>*/}
-              <label htmlFor="tags">#TAGS (comma seperated)</label>
+              <label htmlFor="tags">#TAGS (optional - comma separated)</label>
               <input type="text" name="tags" ref="tags"></input>
             </div>
             <div className={this.state.hasGenre ? enabled : disabled} ref="continue" onClick={this.submit}> POST SONG </div>

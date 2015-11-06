@@ -27,9 +27,9 @@ var ProfilePage = React.createClass({
     UserStore.addChangeListener(this._onChange);
     var userid = this.props.params.id;
     console.log("THE GIVEN USER ID IS ", userid);
-    this.getUser(userid);
+    var user = this.getUser(userid);
     mixpanel.identify(userid);
-    mixpanel.track("Arrived on profile page");
+    mixpanel.track("Arrived on profile "+user.handle+"'s page {"+userid+"}");
   },
 
   componentDidUnmount: function() {
