@@ -61,7 +61,6 @@ var NavBar = React.createClass({
           <div className="right"> 
             {postLink}
             {profileLink}
-            //{emailLink}
             {/*<a>             
               <img src={'assets/img/search.svg'}/> 
             </a>*/}
