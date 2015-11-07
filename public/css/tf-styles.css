@@ -347,14 +347,14 @@ th.upvote-col {
 
 .tf-post-item .tpf-pause-button img {
 	position: absolute;
-	    top: 22px;
-	    display: none;
-	    left: 82px;
-	    cursor: pointer;
-	    border-radius: 33px;
-	    padding: 13px;
-	    border: 4px solid #FF0d55;
-	    z-index: 2;
+    top: 22px;
+    display: none;
+    left: 82px;
+    cursor: pointer;
+    border-radius: 33px;
+    padding: 13px;
+    border: 4px solid #FF0d55;
+    z-index: 2;
 }
 
 
@@ -366,7 +366,7 @@ th.upvote-col {
 	display: block!important;
 }
 
-.is-playing .tpf-pause-button img{
+.is-playing .tpf-pause-button img {
 	display: block!important;
 }
 
@@ -375,25 +375,25 @@ th.upvote-col {
 }
 
 
-.is-playing .tf-post-item--img:hover .tpf-play-button img{
+.is-playing .tf-post-item:hover .tf-post-item--img:hover .tpf-play-button img{
 	display: none!important;
 }
 
 
 .tf-post-grid .tpf-play-button img {
-		position: absolute;
-		top: 54px;
-		display: none;
-		left: 47px;
-	    cursor: pointer;
-	    border-radius: 33px;
-	    padding-top: 13px;
-	    padding-right: 11px;
-	    padding-left: 15px;
-	    padding-bottom: 13px;
-	    border: 4px solid #FF0d55;
-	    z-index: 2;
-	}
+	position: absolute;
+	top: 54px;
+	display: none;
+	left: 47px;
+    cursor: pointer;
+    border-radius: 33px;
+    padding-top: 13px;
+    padding-right: 11px;
+    padding-left: 15px;
+    padding-bottom: 13px;
+    border: 4px solid #FF0d55;
+    z-index: 2;
+}
 
 .tf-post-grid .tf-overlay {
 	background-color: rgba(0,0,0,0.6);
