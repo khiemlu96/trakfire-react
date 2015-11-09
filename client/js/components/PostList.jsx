@@ -124,11 +124,13 @@ var PostsList = React.createClass({
   },
 
   playPauseItem: function(stream_url, track) {
+    //console.log("CURRENT TRACK ", this.state.currentTrack, "REFS ", this.refs);
     if(this.state.currentTrack != null) {
       var prevPli = this.state.currentTrack;
-      var pli = this.refs[prevPli].getDOMNode();
-      //console.log(pli);
-      pli.className = "tf-post-item";
+      var pli = this.refs[prevPli];
+      if(pli != null){ 
+        pli.getDOMNode().className = "tf-post-item";
+      } 
     }
     this.state.currentTrack = track.id;
     this.props.onPostListItemClick(stream_url, track);
@@ -175,7 +177,7 @@ var PostsList = React.createClass({
             var isUpvotedByUser = this.hasUpvoted(array[key], user.id);
             //console.log("IS UPVOTED BY USER", isUpvotedByUser);
           }
-
+          console.log("ID: ", array[key].id);
           var post = <PostListItem 
                         key={"p_"+array[key].id} 
                         ref={array[key].id}
