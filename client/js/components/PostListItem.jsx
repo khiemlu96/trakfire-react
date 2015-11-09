@@ -52,9 +52,16 @@ var PostListItem = React.createClass({
 
   upvote: function(e) {
     e.preventDefault();
+    var post = this.props.post;
     //console.log('upvoting '+this.props.key);
     //PostActions.upvote('http://localhost:3000'+'/votes', this.props.post.id);
-
+    mixpanel.identify(this.props.userid);
+    mixpanel.track("Upvote", {
+      "Title" : post.title,
+      "id" : post.id,
+      "artist" : post.artist,
+      "vote count" : post.vote_count
+    });
     if(this.props.isLoggedIn && !this.hasUpvoted(this.props.post)){
       this.props.onUpvote(this.props.post.id);
       this.setState({hasUpvoted:true});
