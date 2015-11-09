@@ -42,7 +42,7 @@ var NavBar = React.createClass({
       if(this.props.isAdmin || this.props.user.canPost) { 
         var postLink = <Link to='/post'>POST</Link> 
       } else {
-        var postLink = "";
+        var postLink = <a href="" className="tf-inactive">POST</a>;
       }
     } else {
       var signinLink = <a href={this.props.origin+'/request_token'}> SIGN IN </a>
