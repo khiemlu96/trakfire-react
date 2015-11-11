@@ -82,9 +82,9 @@ var TrakfireApp = React.createClass({
 
   shouldComponentUpdate: function(nextProps, nextState) {
     console.log("NEXT: ", nextState, "CURR: ", this.state);
-    if(nextState.currStreamUrl == null && this.state.currStreamUrl) { return false; }
+    /*if(nextState.currStreamUrl == null && this.state.currStreamUrl) { return false; }
     if(nextState.currStreamUrl && this.state.currStreamUrl == null && this.state.isPlaying) { return false; }
-    if(nextState.currStreamUrl == this.state.currStreamUrl) { return false; }
+    if(nextState.currStreamUrl == this.state.currStreamUrl) { return false; }*/
       return true;
   }, 
 
