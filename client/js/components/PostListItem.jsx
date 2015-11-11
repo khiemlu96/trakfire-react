@@ -137,8 +137,6 @@ var PostListItem = React.createClass({
             <div className="tpf-pause-button" onClick={this.playPauseTrack}> 
               <img src={'assets/img/player-pause-white.svg'} /> 
             </div> 
-
-
           </div>
           <div className="tf-post-item--rank">{parseInt(this.props.rank) + 1}</div>
           <div className="tf-post-item--info">

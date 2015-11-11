@@ -81,16 +81,10 @@ var TrakfireApp = React.createClass({
   },
 
   shouldComponentUpdate: function(nextProps, nextState) {
-    /*console.log("SCU ", (nextState.genre == this.state.genre || 
-        nextState.sort  == this.state.sort) && 
-        this.state.currTrack === nextState.currTrack );
-    if( (nextState.genre == this.state.genre || 
-        nextState.sort  == this.state.sort) && 
-        this.state.currTrack === nextState.currTrack ) 
-      {
-        console.log("skip render");
-        return false;
-      }*/
+    console.log("NEXT: ", nextState, "CURR: ", this.state);
+    if(nextState.currStreamUrl == null && this.state.currStreamUrl) { return false; }
+    if(nextState.currStreamUrl && this.state.currStreamUrl == null && this.state.isPlaying) { return false; }
+    if(nextState.currStreamUrl == this.state.currStreamUrl) { return false; }
       return true;
   }, 
 
@@ -188,16 +182,13 @@ var TrakfireApp = React.createClass({
     var isPlaying = this.state.isPlaying;
     var isPaused = this.state.isPaused;
     if(this.state.currTrack == null) {
-      //console.log("Curr Track", track);
       this.setState({currTrack : track});
     }
     if(!isPlaying) {
-      //console.log('playing '+stream_url);
       scPlayer.play({streamUrl: stream_url});
       isPlaying = true;
       this.setState({isPlaying : isPlaying, isPaused : isPaused, currStreamUrl : stream_url, currTrack : track});
     } else if(isPlaying && stream_url == this.state.currStreamUrl) {
-        //console.log('pausing');
         scPlayer.pause();
         isPlaying = false;
         isPaused = true;
