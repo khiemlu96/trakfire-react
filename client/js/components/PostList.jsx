@@ -80,7 +80,8 @@ function getComponentState() {
   return {
     isLoggedIn : UserStore.isSignedIn(), 
     currentUser : UserStore.getCurrentUser(),
-    currentTrack : null
+    currentTrack : null,
+    posts : PostStore.getAll()
   };
 }
 
@@ -108,15 +109,17 @@ var PostsList = React.createClass({
     //console.log('Posts to be displayed ', posts);
     //console.log("PROPS PASSED ", this.props)
     //console.log("STATE OF PLAY", this.state);
+    PostStore.addChangeListener(this._onChange);
   },
 
   componentWillUnmount: function() {
+    PostStore.removeChangeListener(this._onChange);
     UserStore.removeChangeListener(this._onChange);
   },
 
   componentWillMount: function() {
-    var posts = this.props.posts;
     UserStore.addChangeListener(this._onChange);
+    PostStore.addChangeListener(this._onChange);
     //console.log('Posts to be displayed ', posts);
   },
   upvote: function(postid) {
@@ -199,7 +202,7 @@ var PostsList = React.createClass({
    * @return {object}
    */
   render: function() {
-    var posts = this.props.posts;
+    var posts = this.state.posts;
     var postsByDate = sortPostsByDate(posts); //sort posts into date keyed dict + array of date str for the headers
     var dates = postsByDate[0].sort(sortDate); //sort dates in decending order
   
@@ -218,8 +221,7 @@ var PostsList = React.createClass({
   },
 
   _onChange: function() {
-    console.log("A CHANGE OCCURED");
-    return getComponentState();
+    this.setState(getComponentState());
   }
 
 });

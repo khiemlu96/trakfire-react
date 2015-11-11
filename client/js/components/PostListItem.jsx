@@ -127,7 +127,7 @@ var PostListItem = React.createClass({
           </div>
           <div className="tf-post-item--img"> 
             <a href="#!" className="tf-post-play" onClick={this.playPauseTrack}>
-              <img className="tf-thumbnail" src={post.img_url}/>
+              <img className="tf-thumbnail" src={ post.img_url ? post.img_url : "assets/img/tf_placeholder.png" }/>
             </a>
             <div className="tf-overlay" onClick={this.playPauseTrack}> 
             </div> 

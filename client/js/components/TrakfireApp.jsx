@@ -25,7 +25,7 @@ var scPlayer = new SoundCloudAudio('9999309763ba9d5f60b28660a5813440');
  */
 function getAppState() {
   return {
-    allPosts: PostStore.getAll(),
+    //allPosts: PostStore.getAll(),
     currentUser: UserStore.getCurrentUser(),
     isLoggedIn: UserStore.isSignedIn(),
     isAdmin: UserStore.isAdmin(),
@@ -80,6 +80,20 @@ var TrakfireApp = React.createClass({
     UserStore.removeChangeListener(this._onChange);
   },
 
+  shouldComponentUpdate: function(nextProps, nextState) {
+    /*console.log("SCU ", (nextState.genre == this.state.genre || 
+        nextState.sort  == this.state.sort) && 
+        this.state.currTrack === nextState.currTrack );
+    if( (nextState.genre == this.state.genre || 
+        nextState.sort  == this.state.sort) && 
+        this.state.currTrack === nextState.currTrack ) 
+      {
+        console.log("skip render");
+        return false;
+      }*/
+      return true;
+  }, 
+
   readPostsFromApi: function(){
     //console.log('FETCHING POST BATCH', this.props.origin);
     PostActions.getPostBatch(this.props.origin+'/posts');
@@ -127,18 +141,19 @@ var TrakfireApp = React.createClass({
    * @return {object}
    */
   render: function() {
+    var playing = this.state.isPlaying;
     var currTrack = this.state.currTrack;
     var tfPlayer =  <TrakfirePlayer 
                       currTrack={this.state.currTrack}
                       isPlaying={this.state.isPlaying}
-                      onPlayPauseClick={this.onPlayCtrlClick}/>;
+                      onPlayPauseClick={this.onPlayCtrlClick} />;
     //var tfEmailAcq = <EmailAcquirePage updateUserWithEmail={this.updateUserWithEmail}/>;
     var Routes =  <div>
            { React.cloneElement(this.props.children, 
               { 
                 sort: this.state.sort,
                 genre: this.state.genre,
-                posts: this.state.allPosts,
+                posts: {},
                 togglePlay: this.onPlayBtnClick,
                 upvote: this.writeVoteToApi,
                 filterPosts: this.handleUserSelection,
@@ -160,10 +175,10 @@ var TrakfireApp = React.createClass({
             />
           </div>
           {Routes}
-          <Footer/>
           <div>
-          {currTrack ? tfPlayer : ''}
+          {!!playing ? tfPlayer : ''}
           </div>
+          <Footer/>
       </div>
     );
   },
@@ -238,6 +253,7 @@ var TrakfireApp = React.createClass({
    * Event handler for 'change' events coming from the PostStore
    */
   _onChange: function() {
+    console.log("APP STATE", getAppState());
     this.setState(getAppState());
   }
 
