@@ -106,7 +106,7 @@ var PostListItem = React.createClass({
     var aImg = this.props.post.author_img;
     var aName = this.props.post.author_name;
 
-    return <div><img className="tf-author-img" src={aImg}></img><Link to={'/profile/'+aId} className="tf-link">{aName}</Link></div>;
+    return <div><Link to={'/profile/'+aId} className="tf-link"><img className="tf-author-img" src={aImg}></img></Link></div>;
   }, 
 
   /**
