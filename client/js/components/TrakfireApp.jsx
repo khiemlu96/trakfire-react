@@ -9,17 +9,23 @@ var Footer = require('./Footer.jsx');
 var FilterBar = require('./FilterBar.jsx');
 var PostsList = require('./PostsList.jsx');
 var TrakfirePlayer = require('./TrakfirePlayer.jsx');
+
 var PostStore = require('../stores/PostStore');
 var PostActions = require('../actions/PostActions');
+var SongStore = require('../stores/SongStore');
+var SongActions = require('../actions/SongActions');
+var UserStore = require('../stores/UserStore.js');
+var UserActions = require('../actions/UserActions.js');
+
 var PostsGrid = require('./PostGrid.jsx');
 var PostContainer = require('./PostContainer.jsx');
 var PostsPage = require('./PostsPage.jsx');
 var ProfilePage = require('./ProfilePage.jsx');
 var EmailAcquirePage = require('./EmailAcquirePage.jsx');
-var UserStore = require('../stores/UserStore.js');
-var UserActions = require('../actions/UserActions.js');
 var SoundCloudAudio = require('soundcloud-audio');
 var scPlayer = new SoundCloudAudio('9999309763ba9d5f60b28660a5813440');
+var _persist = false;
+console.log(SongStore); 
 /**
  * Retrieve the current post and user data from the PostStore
  */
@@ -29,17 +35,14 @@ function getAppState() {
     currentUser: UserStore.getCurrentUser(),
     isLoggedIn: UserStore.isSignedIn(),
     isAdmin: UserStore.isAdmin(),
-    sort: "TOP",
-    genre: "ALL",
-    isPlaying: false,
-    isLoading: false,
-    isPaused: true,
-    seek: 0,
-    volume: 1.0,
-    duration: 0,
-    currTrack: null,
-    currStreamUrl: null,
   };
+}
+
+function mergeState(s, o) {
+  var g = {};
+  for (var attrname in s) { g[attrname] = s[attrname]; }
+  for (var attrname in o) { g[attrname] = o[attrname]; }
+  return g; 
 }
 
 function formatStreamUrl(url) {
@@ -49,7 +52,22 @@ function formatStreamUrl(url) {
 var TrakfireApp = React.createClass({
 
   getInitialState: function() {
-    return getAppState();
+    var storeState = getAppState();
+    var ownedState = {
+        sort: "TOP",
+        genre: "ALL",
+        isPlaying: false,
+        isLoading: false,
+        isPaused: true,
+        isActive: false,
+        seek: 0,
+        volume: 1.0,
+        duration: 0,
+        currTrack: null,
+        currStreamUrl: null,      
+    }
+
+    return mergeState(storeState, ownedState);
   },
 
   getDefaultProps: function() {
@@ -79,6 +97,12 @@ var TrakfireApp = React.createClass({
     PostStore.removeChangeListener(this._onChange);
     UserStore.removeChangeListener(this._onChange);
   },
+
+  componentWillUpdate: function() {
+    if(this.state.isPlaying && !_persist) {
+      _persist = true;
+    }
+  }, 
 
   shouldComponentUpdate: function(nextProps, nextState) {
     console.log("NEXT: ", nextState, "CURR: ", this.state);
@@ -135,6 +159,8 @@ var TrakfireApp = React.createClass({
    * @return {object}
    */
   render: function() {
+    var active = this.state.isActive;
+    console.log("IS ACTIVE? ", active);
     var playing = this.state.isPlaying;
     var currTrack = this.state.currTrack;
     var tfPlayer =  <TrakfirePlayer 
@@ -170,7 +196,7 @@ var TrakfireApp = React.createClass({
           </div>
           {Routes}
           <div>
-          {!!playing ? tfPlayer : ''}
+          {active ? tfPlayer : ''}
           </div>
           <Footer/>
       </div>
@@ -181,23 +207,27 @@ var TrakfireApp = React.createClass({
   onPlayBtnClick: function(stream_url, track) {
     var isPlaying = this.state.isPlaying;
     var isPaused = this.state.isPaused;
+    if(!this.state.isActive) { this.setState({isActive:true}); }
     if(this.state.currTrack == null) {
       this.setState({currTrack : track});
     }
     if(!isPlaying) {
       scPlayer.play({streamUrl: stream_url});
       isPlaying = true;
+      SongActions.play();
       this.setState({isPlaying : isPlaying, isPaused : isPaused, currStreamUrl : stream_url, currTrack : track});
     } else if(isPlaying && stream_url == this.state.currStreamUrl) {
         scPlayer.pause();
         isPlaying = false;
         isPaused = true;
+        SongActions.pause();
         this.setState({isPlaying : isPlaying, isPaused : isPaused});     
     } else if(isPlaying && stream_url != this.state.currStreamUrl) {
         scPlayer.pause();
         scPlayer.play({streamUrl : stream_url});
         isPlaying = true;
         isPaused = false;  
+        SongActions.play();
         this.setState({isPlaying : isPlaying, isPaused : isPaused, currStreamUrl : stream_url, currTrack : track});     
     }
     

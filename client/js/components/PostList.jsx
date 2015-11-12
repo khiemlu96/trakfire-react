@@ -180,7 +180,7 @@ var PostsList = React.createClass({
             var isUpvotedByUser = this.hasUpvoted(array[key], user.id);
             //console.log("IS UPVOTED BY USER", isUpvotedByUser);
           }
-          console.log("ID: ", array[key].id);
+         // console.log("ID: ", array[key].id);
           var post = <PostListItem 
                         key={"p_"+array[key].id} 
                         ref={array[key].id}
