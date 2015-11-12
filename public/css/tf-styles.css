@@ -1285,15 +1285,18 @@ label.ownsong-label {
 }
 
 .tf-progress-container {
-    background-color: #DDD;
-    width: 100%;
-    height: 10px;
+	display: block;
+    background-color: #2B2B2B;
+    width: 500px;
+    height: 5px;
+    padding-top:1px;
+    padding-bottom: 1px;
     overflow: hidden;
     cursor: pointer;
 }
 
 .tf-progress-inner {
-    background-color: #FC561E;
+    background-color: #ff0d55;
     height: 100%;
     -webkit-transition: width .2s ease-in;
             transition: width .2s ease-in;

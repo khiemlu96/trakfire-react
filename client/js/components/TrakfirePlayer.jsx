@@ -45,8 +45,8 @@ var TrakfirePlayer = React.createClass({
                     </div>
                     <div className="tf-player-controls-wrap">
                         <TrakfirePlayerProgress
-                            duration={ currTrack ? currTrack.duration : 0 }
-                            value={this.props.value}
+                            duration={ currTrack ? parseInt(currTrack.duration) : 0 }
+                            isPlaying={this.props.isPlaying}
                         />
                     </div>
                     <div className="tf-player-controls-wrap-info">
