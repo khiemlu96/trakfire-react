@@ -21,23 +21,36 @@ var TrakfirePlayerProgress = React.createClass({
   propTypes: {
     isPlaying: ReactPropTypes.bool,
     duration: ReactPropTypes.number,
-    handleClickAtPos: ReactPropTypes.func
+    onProgressClick: ReactPropTypes.func,
+    toggle: ReactPropTypes.bool
   },
 
   componentDidMount: function() {
     this.timer = setInterval(this.advancePos, 1000);
+   // console.log("0", this.timer);
   }, 
 
   componentWillUpdate: function(nextProps, nextState){
     var isPlaying = nextProps.isPlaying;
-    if(!isPlaying) { 
+    console.log("PLAYING OR TOGGLE", isPlaying, this.props.toggle);
+    if(!isPlaying || (!this.props.toggle && nextProps.toggle)) { 
       //if the track is not playing in nextState it will be paused
       //clear the timer
+      console.log("1", this.timer);
+      //console.log("PAUSED BRUH");
       clearInterval(this.timer);
-    } else if(nextProps.isPlaying && !this.props.isPlaying) {
+
+    } else if(nextProps.isPlaying && !this.props.isPlaying ) {
       //else if the track is paused in nextProps and is paused currently 
       //restart the timer
+      //console.log("PAUSED H BRUH");
       this.timer = setInterval(this.advancePos, 1000);
+      console.log("2",this.timer);
+    } else if(nextProps.toggle != this.props.toggle) {
+      //console.log("KILLER BRUH");
+      this.setState({currPos:0});
+      this.timer = setInterval(this.advancePos, 1000);
+      console.log("3",this.timer);
     }
   }, 
 
@@ -50,8 +63,17 @@ var TrakfirePlayerProgress = React.createClass({
   }, 
 
   handleClickAtPos: function() {
+    var el = this.refs.progressbar.getDOMNode();
+    var rect = el.getBoundingClientRect();
+    var left = rect.left;
+    var nextPos = event.clientX - left;
+    var w = rect.width;
+    var p = nextPos/w;
+    var milliPos = this.props.duration * p.toFixed(2);
+    console.log(w, nextPos, milliPos, p);
     var pos = this.state.currPos;
-    this.props.handleClickAtPos(pos);
+    this.setState({currPos:Math.round(milliPos)});
+    this.props.onProgressClick(milliPos);
   }, 
 
   advancePos: function() {
@@ -76,7 +98,7 @@ var TrakfirePlayerProgress = React.createClass({
     };
 
     return (
-      <div className="tf-progress-container" >
+      <div className="tf-progress-container" ref="progressbar" onClick={this.handleClickAtPos}>
         <div className="tf-progress-inner" style={style}></div>
       </div>
     );

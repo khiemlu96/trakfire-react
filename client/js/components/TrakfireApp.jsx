@@ -166,7 +166,8 @@ var TrakfireApp = React.createClass({
     var tfPlayer =  <TrakfirePlayer 
                       currTrack={this.state.currTrack}
                       isPlaying={this.state.isPlaying}
-                      onPlayPauseClick={this.onPlayCtrlClick} />;
+                      onPlayPauseClick={this.onPlayCtrlClick} 
+                      onProgressClick={this.onProgressClick} />;
     //var tfEmailAcq = <EmailAcquirePage updateUserWithEmail={this.updateUserWithEmail}/>;
     var Routes =  <div>
            { React.cloneElement(this.props.children, 
@@ -269,6 +270,11 @@ var TrakfireApp = React.createClass({
       this.setState({isPlaying : isPlaying, isPaused : isPaused});
     }    
   },
+
+  onProgressClick: function(millipos) {
+    console.log("SEEKING BOI");
+    scPlayer.seekTo(millipos);
+  }, 
 
   /**
    * Event handler for 'change' events coming from the PostStore

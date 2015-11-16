@@ -9,8 +9,26 @@ var TrakfirePlayer = React.createClass({
         isPlaying: ReactPropTypes.bool.isRequired,
         onPrevClick: ReactPropTypes.func,
         onNextClick: ReactPropTypes.func,
-        onPlayPauseClick: ReactPropTypes.func.isRequired
+        onPlayPauseClick: ReactPropTypes.func.isRequired, 
+        onProgressClick: ReactPropTypes.func
     },
+
+    getInitialState: function() {
+        return {toggle:false};
+    }, 
+
+    componentDidUpdate: function(prevProps, prevState) {
+        console.log(prevProps.currTrack, this.props.currTrack);
+        if(prevProps.currTrack != this.props.currTrack && !this.state.toggle) {
+            this.setState({toggle:true});
+        } else if(this.state.toggle) {
+            this.setState({toggle:false});
+        }
+    }, 
+
+    handleProgressClick: function(millipos) {
+        this.props.onProgressClick(millipos);
+    }, 
 
     handlePlayPauseClick: function() {
         this.props.onPlayPauseClick();
@@ -19,7 +37,6 @@ var TrakfirePlayer = React.createClass({
 
     handlePrevClick: function() {
         this.props.onPrevClick();
-
     },
 
     handleNextClick: function() {
@@ -47,6 +64,8 @@ var TrakfirePlayer = React.createClass({
                         <TrakfirePlayerProgress
                             duration={ currTrack ? parseInt(currTrack.duration) : 0 }
                             isPlaying={this.props.isPlaying}
+                            onProgressClick={this.handleProgressClick}
+                            toggle={this.state.toggle}
                         />
                     </div>
                     <div className="tf-player-controls-wrap-info">
