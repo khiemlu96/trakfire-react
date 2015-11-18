@@ -3,9 +3,12 @@
 var React = require('react/addons');
 var Uri = require('jsuri');
 var ReactPropTypes = React.PropTypes;
+var bootstrap = require('bootstrap');
 var Bootstrap = require('react-bootstrap');
 var Tooltip = Bootstrap.Tooltip;
 var Modal = Bootstrap.Modal;
+var Button = Bootstrap.Button;
+
 var NavBar = require('./NavBar.jsx');
 var Footer = require('./Footer.jsx');
 var FilterBar = require('./FilterBar.jsx');
@@ -151,10 +154,13 @@ var TrakfireApp = React.createClass({
     PostActions.filterPosts(genre, sort);
   },
 
-  scrollToTop: function() {
-      console.log('scrolling');
-      window.scrollTo(0,-252);
-  },
+  showModal: function(showState) {
+    this.setState({showModal:showState});
+  }, 
+
+  closeModal: function() {
+    this.setState({showModal:false});
+  }, 
 
   isCurrentTrackUpvoted: function() {
     var track = this.state.currTrack;
@@ -193,6 +199,7 @@ var TrakfireApp = React.createClass({
                 sort: this.state.sort,
                 genre: this.state.genre,
                 posts: {},
+                showModal: this.showModal,
                 togglePlay: this.onPlayBtnClick,
                 upvote: this.writeVoteToApi,
                 filterPosts: this.handleUserSelection,
@@ -200,7 +207,7 @@ var TrakfireApp = React.createClass({
                 currUser: this.state.currentUser,
                 origin: this.props.origin,
                 value: scPlayer.audio.currentTime, 
-                currStreamUrl: this.state.currStreamUrl
+                currStreamUrl: this.state.currStreamUrl, 
               }) }</div>;
 
     return (
@@ -210,15 +217,24 @@ var TrakfireApp = React.createClass({
               isLoggedIn={this.state.isLoggedIn}
               origin={this.props.origin}
               isAdmin={this.state.isAdmin}
-              user={this.state.currentUser}
-            />
+              user={this.state.currentUser}/>
           </div>
           {Routes}
           <div>
           {active ? tfPlayer : ''}
           </div>
+          <Modal show={this.state.showModal} onHide={this.closeModal}>
+            <Modal.Header closeButton>
+              <Modal.Title>If you're reading this.....</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+              <p>Sign up to upvote, post, and save tracks to your collection</p>
+              <a href={this.props.origin+'/request_token'} className="btn btn-danger btn-block"> COME THRU </a>
+            </Modal.Body>
+          </Modal>
+
           <Footer/>
-      </div>
+        </div>
     );
   },
 

@@ -31,7 +31,8 @@ var PostsPage = React.createClass({
     togglePlay : ReactPropTypes.func,
     upvote: ReactPropTypes.func,
     filterPosts : ReactPropTypes.func,
-    currUser: ReactPropTypes.object 
+    currUser: ReactPropTypes.object, 
+    showModal: ReactPropTypes.func 
   }, 
 
   getInitialState: function() {
@@ -82,8 +83,8 @@ var PostsPage = React.createClass({
           onClick={this.filterPosts}
           genre={this.props.genre}
           sort={this.props.sort}
-          scrollToTop={this.props.scrollToTop}
-        />
+          scrollToTop={this.props.scrollToTop}/>
+          
         <PostList
           posts={this.state.posts}
           sort={this.props.sort}
@@ -91,7 +92,7 @@ var PostsPage = React.createClass({
           onPostListItemClick={this.togglePlay}
           onPostUpvote={this.upvote}
           currUser={this.props.currUser}
-        />
+          showModal={this.props.showModal}/>
       </div>
     );
   },

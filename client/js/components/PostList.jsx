@@ -97,7 +97,8 @@ var PostsList = React.createClass({
     isLoggedIn: ReactPropTypes.bool,
     userId: ReactPropTypes.number, 
     currStreamUrl: ReactPropTypes.string,
-    currUser: ReactPropTypes.object
+    currUser: ReactPropTypes.object, 
+    showModal: ReactPropTypes.func
   },
 
   getInitialState: function() {
@@ -105,6 +106,7 @@ var PostsList = React.createClass({
   }, 
 
   componentDidMount: function() {
+    console.log("POSTLIST PROPS", this.props);
     PostStore.addChangeListener(this._onChange);
   },
 
@@ -187,7 +189,8 @@ var PostsList = React.createClass({
                         userId={ user != null ? user.id : null }
                         isUpvoted={isUpvotedByUser}
                         rank={key}
-                        currStreamUrl={this.props.currStreamUrl}/>
+                        currStreamUrl={this.props.currStreamUrl}
+                        showModal={this.props.showModal}/>
           container.push(post);           
         }
       }

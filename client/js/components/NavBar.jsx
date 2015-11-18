@@ -35,6 +35,11 @@ var NavBar = React.createClass({
   showModal: function() {
     this.props.showModal(true);
   },
+
+  closeModal: function() {
+    this.props.showModal(false);
+  }, 
+
   /**
    * @return {object}
    */

@@ -33,7 +33,8 @@ var PostListItem = React.createClass({
    userId: ReactPropTypes.number,
    isUpvoted: ReactPropTypes.bool,
    rank: ReactPropTypes.string,
-   currStreamUrl: ReactPropTypes.string
+   currStreamUrl: ReactPropTypes.string, 
+   showModal: ReactPropTypes.func
   },
 
   getInitialState: function() {
@@ -65,6 +66,8 @@ var PostListItem = React.createClass({
     if(this.props.isLoggedIn && !this.hasUpvoted(this.props.post)){
       this.props.onUpvote(this.props.post.id);
       this.setState({hasUpvoted:true});
+    } else if(!this.props.isLoggedIn) {
+      this.props.showModal(true);
     }
   },
 
