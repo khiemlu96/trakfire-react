@@ -33,24 +33,27 @@ var TrakfirePlayerProgress = React.createClass({
   componentWillUpdate: function(nextProps, nextState){
     var isPlaying = nextProps.isPlaying;
     //console.log("PLAYING OR TOGGLE", isPlaying, this.props.toggle);
-    if(!isPlaying || (!this.props.toggle && nextProps.toggle)) { 
+    if(!isPlaying || (!this.props.toggle && nextProps.toggle) || this.state.hasFinished) { 
       //if the track is not playing in nextState it will be paused
       //clear the timer
-      console.log("1", this.timer);
+      //console.log("1", this.timer);
       //console.log("PAUSED BRUH");
       clearInterval(this.timer);
+      if(this.state.hasFinished) {
+        this.setState({hasFinished:false});
+      }
 
     } else if(nextProps.isPlaying && !this.props.isPlaying ) {
       //else if the track is paused in nextProps and is paused currently 
       //restart the timer
       //console.log("PAUSED H BRUH");
       this.timer = setInterval(this.advancePos, 1000);
-      console.log("2",this.timer);
+      //console.log("2",this.timer);
     } else if(nextProps.toggle != this.props.toggle) {
       //console.log("KILLER BRUH");
       this.setState({currPos:0});
       this.timer = setInterval(this.advancePos, 1000);
-      console.log("3",this.timer);
+      //console.log("3",this.timer);
     }
   }, 
 
@@ -59,7 +62,7 @@ var TrakfirePlayerProgress = React.createClass({
   },
 
   getInitialState: function() {
-    return {currPos:0};
+    return {currPos:0, hasFinished:false};
   }, 
 
   handleClickAtPos: function() {
@@ -79,6 +82,12 @@ var TrakfirePlayerProgress = React.createClass({
   advancePos: function() {
     var duration = this.props.duration; 
     var pos = this.state.currPos + 1000;
+    if(this.state.currPos >= duration) {
+      console.log("FUCK");
+      pos = 0;
+      this.setState({hasFinished:true});
+      clearInterval(this.timer);
+    }
     this.setState({currPos: pos});
   }, 
 
