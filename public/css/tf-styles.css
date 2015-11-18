@@ -1380,7 +1380,7 @@ label.ownsong-label {
 }
 
 .tf-inactive {
-	color: #494949 !important;
-	pointer-events: none;
-   	cursor: default;
+	color: #494949 !important;	
+	/*pointer-events: none;
+   	cursor: default;*/
 }

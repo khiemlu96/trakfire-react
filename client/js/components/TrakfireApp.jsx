@@ -3,7 +3,9 @@
 var React = require('react/addons');
 var Uri = require('jsuri');
 var ReactPropTypes = React.PropTypes;
-
+var Bootstrap = require('react-bootstrap');
+var Tooltip = Bootstrap.Tooltip;
+var Modal = Bootstrap.Modal;
 var NavBar = require('./NavBar.jsx');
 var Footer = require('./Footer.jsx');
 var FilterBar = require('./FilterBar.jsx');
@@ -25,7 +27,6 @@ var EmailAcquirePage = require('./EmailAcquirePage.jsx');
 var SoundCloudAudio = require('soundcloud-audio');
 var scPlayer = new SoundCloudAudio('9999309763ba9d5f60b28660a5813440');
 var _persist = false;
-console.log(SongStore); 
 /**
  * Retrieve the current post and user data from the PostStore
  */

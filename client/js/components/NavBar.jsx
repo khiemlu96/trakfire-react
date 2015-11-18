@@ -12,6 +12,10 @@ var React = require('react');
 var Router = require('react-router');
 var Link = Router.Link;
 
+var Bootstrap = require('react-bootstrap');
+var Tooltip = Bootstrap.Tooltip;
+var OverlayTrigger = Bootstrap.OverlayTrigger;
+
 var ReactPropTypes = React.PropTypes;
 
 var NavBar = React.createClass({
@@ -38,11 +42,11 @@ var NavBar = React.createClass({
     if(this.props.isLoggedIn) {
       var signinLink = <a href="#!" onClick={this.handleSignOut}> SIGN OUT </a>
       var profileLink = <Link to={'/profile/'+user.id} className="tf-uppercase">{this.props.user.handle}</Link>;
-      //var emailLink = <Link to='/email?id=1'>EMAIL</Link>;
       if(this.props.isAdmin || this.props.user.canPost) { 
         var postLink = <Link to='/post'>POST</Link> 
       } else {
-        var postLink = <a href="" className="tf-inactive">POST</a>;
+        var tooltip = <Tooltip>Posting is invite only</Tooltip>;
+        var postLink = <OverlayTrigger placement="left" overlay={tooltip}><a href="" className="tf-inactive">POST</a></OverlayTrigger>;//<a href="" className="tf-inactive">POST</a>;
       }
     } else {
       var signinLink = <a href={this.props.origin+'/request_token'}> SIGN IN </a>
@@ -50,6 +54,7 @@ var NavBar = React.createClass({
       var postLink = '';
       //var emailLink = <Link to='/email?id=1'>EMAIL</Link>;
     }
+  
     return (
       <div className="tf-navbar" role="navigation"> 
         

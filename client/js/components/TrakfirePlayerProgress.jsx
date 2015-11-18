@@ -83,7 +83,7 @@ var TrakfirePlayerProgress = React.createClass({
     var duration = this.props.duration; 
     var pos = this.state.currPos + 1000;
     if(this.state.currPos >= duration) {
-      console.log("FUCK");
+      //console.log("FUCK");
       pos = 0;
       this.setState({hasFinished:true});
       clearInterval(this.timer);
