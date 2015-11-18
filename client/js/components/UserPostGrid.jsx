@@ -34,9 +34,10 @@ var UserPostsGrid = React.createClass({
    * @return {object}
    */
   render: function() {
-
     var upvoted = this.props.upvotedTracks;
     var posted = this.props.postedTracks;
+    var postHeader = (posted.length > 0) ? <h1 className="tf-header">Posted Tracks</h1> : "";
+    var upvoteHeader = (upvoted.length > 0) ? <h1 className="tf-header">Upvoted Tracks</h1> : "";
     var upvotedPosts = [];
     var postedPosts = [];
     var i = 0;
@@ -55,11 +56,11 @@ var UserPostsGrid = React.createClass({
     return (
       <div>
       <section id="user-posts">
-        <h1 className="tf-header">Posted Tracks</h1>
+        {postHeader}
         <ul id="post-grid" >{postedPosts}</ul>
       </section>
       <section id="user-upvotes">
-        <h1 className="tf-header">Upvoted Tracks</h1>
+        {upvoteHeader}
         <ul id="post-grid" >{upvotedPosts}</ul>
       </section>
       </div>

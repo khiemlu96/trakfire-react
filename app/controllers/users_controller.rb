@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     logger.info "USER TO BE SERVED"
     logger.info @user.username
     logger.info @user.as_json
-    render json: @user #, include: { posts: { except: [] }, votes: { except: [] } },  methods: ["upvotes"]
+    render json: @user
   end
 
   private 
