@@ -10,7 +10,7 @@ module.exports = {
       handle: rawUser.handle, 
       img: rawUser.img,
       bio: rawUser.tbio,
-      twturl: rawUser.twitterUrl,
+      twturl: "https://twitter.com/"+rawUser.handle,
       isAdmin: rawUser.isAdmin,
       canPost: rawUser.canPost,
       posts: rawUser.posts, 
