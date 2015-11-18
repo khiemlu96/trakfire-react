@@ -32,7 +32,7 @@ var TrakfirePlayerProgress = React.createClass({
 
   componentWillUpdate: function(nextProps, nextState){
     var isPlaying = nextProps.isPlaying;
-    console.log("PLAYING OR TOGGLE", isPlaying, this.props.toggle);
+    //console.log("PLAYING OR TOGGLE", isPlaying, this.props.toggle);
     if(!isPlaying || (!this.props.toggle && nextProps.toggle)) { 
       //if the track is not playing in nextState it will be paused
       //clear the timer

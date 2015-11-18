@@ -61,7 +61,7 @@ var ProfilePage = React.createClass({
       />
       <div className="tf-profile-posts-wrapper"> 
         <UserPostGrid 
-          upvotedTracks={user.posts} 
+          upvotedTracks={user.upvotes} 
           postedTracks={user.posts}
           onPostItemClick={this.props.onPostItemClick}
           currStreamUrl={this.props.currStreamUrl}

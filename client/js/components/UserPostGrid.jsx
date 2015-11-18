@@ -52,17 +52,16 @@ var UserPostsGrid = React.createClass({
       var item = <PostGridItem onClick={this.props.onPostItemClick} key={post.key} trackIdx={i} post={post} currStreamUrl={this.props.currStreamUrl}/>
       postedPosts.push(item);
     } 
-    //console.log("USER'S POSTS ", postedPosts, upvotedPosts);
     return (
       <div>
       <section id="user-posts">
         <h1 className="tf-header">Posted Tracks</h1>
         <ul id="post-grid" >{postedPosts}</ul>
       </section>
-      {/*<section id="user-upvotes">
-        <h1 className="tf-name">Upvoted Tracks</h1>
+      <section id="user-upvotes">
+        <h1 className="tf-header">Upvoted Tracks</h1>
         <ul id="post-grid" >{upvotedPosts}</ul>
-      </section>*/}
+      </section>
       </div>
     );
   }

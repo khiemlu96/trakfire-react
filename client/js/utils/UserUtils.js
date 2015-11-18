@@ -2,7 +2,7 @@
 module.exports = {
 
   convertRawUser: function(rawUser) {
-    console.log('USER ', rawUser);
+    console.log('RAW USER ', rawUser);
     return {
       id: rawUser.id,
       name: rawUser.username,
@@ -13,7 +13,8 @@ module.exports = {
       twturl: rawUser.twitterUrl,
       isAdmin: rawUser.isAdmin,
       canPost: rawUser.canPost,
-      posts: rawUser.posts
+      posts: rawUser.posts, 
+      upvotes: rawUser.upvotes
     };
   }
 

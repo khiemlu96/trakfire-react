@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :users, only: [:update, :show] do
     member do
       get :posts
+      get :votes
     end
   end
   
