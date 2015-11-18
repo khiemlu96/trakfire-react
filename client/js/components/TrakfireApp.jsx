@@ -155,19 +155,36 @@ var TrakfireApp = React.createClass({
       window.scrollTo(0,-252);
   },
 
+  isCurrentTrackUpvoted: function() {
+    var track = this.state.currTrack;
+    var user = this.state.currentUser;
+    if(user && track)
+      var exists = track.voters.indexOf(user.id);
+    else 
+      var exists = -1;
+    //console.log(post.id, exists);
+    return (exists != -1) ? true : false;
+  }, 
+
   /**
    * @return {object}
    */
   render: function() {
     var active = this.state.isActive;
-    console.log("IS ACTIVE? ", active);
+    var upvoted = this.isCurrentTrackUpvoted();
     var playing = this.state.isPlaying;
     var currTrack = this.state.currTrack;
+    var currUserId = this.state.currentUser ? this.state.currentUser.id : -1; 
     var tfPlayer =  <TrakfirePlayer 
                       currTrack={this.state.currTrack}
                       isPlaying={this.state.isPlaying}
                       onPlayPauseClick={this.onPlayCtrlClick} 
-                      onProgressClick={this.onProgressClick} />;
+                      onProgressClick={this.onProgressClick} 
+                      isLoggedIn={this.state.isLoggedIn}
+                      onUpvote={this.writeVoteToApi}
+                      isUpvoted={upvoted}
+                      userId={currUserId}
+                      />;
     //var tfEmailAcq = <EmailAcquirePage updateUserWithEmail={this.updateUserWithEmail}/>;
     var Routes =  <div>
            { React.cloneElement(this.props.children, 

@@ -72,13 +72,16 @@ var PostListItem = React.createClass({
     e.preventDefault();
     this.props.onClick(this.props.post.stream_url, this.props.post);
     var post = this.refs.post.getDOMNode();
+    //console.log("POST STATUS", this.state.isPlaying);
     if(!this.state.isPlaying) {
       post.className = isPlaying;
+      this.setState({isPlaying:true});
     }
     else {
       post.className = isNotPlaying;
+      this.setState({isPlaying:false});
     }
-    //console.log("POST STATUS", this.props.rank, this.state.isPlaying);
+    //console.log("POST STATUS POST", this.props.rank, this.state.isPlaying);
   },
 
   hasUpvoted: function(post) {
@@ -118,7 +121,6 @@ var PostListItem = React.createClass({
     var upvoted = (this.state.isUpvoted || this.props.isUpvoted || this.state.hasUpvoted);
     var localUpvote = this.state.hasUpvoted; //pre refresh we upvoted this
     _localVoteCount = post.vote_count + 1;
-    //console.log("TRACK "+this.props.rank+" is playing?", (this.state.isPlaying && thisPlaying));
     return (
       <li className={isNotPlaying} ref="post">
         <div className="tf-post-item-content">

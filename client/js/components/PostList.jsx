@@ -105,10 +105,6 @@ var PostsList = React.createClass({
   }, 
 
   componentDidMount: function() {
-    //console.log("POST LIST PROPS", this.props);
-    //console.log('Posts to be displayed ', posts);
-    //console.log("PROPS PASSED ", this.props)
-    //console.log("STATE OF PLAY", this.state);
     PostStore.addChangeListener(this._onChange);
   },
 

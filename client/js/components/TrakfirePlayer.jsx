@@ -2,19 +2,31 @@ var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var TrakfirePlayerProgress = require('./TrakfirePlayerProgress.jsx');
 var TrakfirePlayerInfo =require('./TrakfirePlayerInfo.jsx');
+var classNames = require('classnames');
+var isUpvoted = classNames("tf-player-wrap-inner-votes is-upvoted");
+var isNotUpvoted = classNames("tf-player-wrap-inner-votes");
+var _localVoteCount = 0;
 var TrakfirePlayer = React.createClass({
-    
+
     propTypes: {
         currTrack: ReactPropTypes.object.isRequired,
         isPlaying: ReactPropTypes.bool.isRequired,
         onPrevClick: ReactPropTypes.func,
         onNextClick: ReactPropTypes.func,
         onPlayPauseClick: ReactPropTypes.func.isRequired, 
-        onProgressClick: ReactPropTypes.func
+        onProgressClick: ReactPropTypes.func, 
+        isUpvoted: ReactPropTypes.bool,
+        onUpvote: ReactPropTypes.func, 
+        isLoggedIn: ReactPropTypes.bool, 
+        userId: ReactPropTypes.number
     },
 
     getInitialState: function() {
-        return {toggle:false};
+        return {toggle:false, isPlaying:false, isUpvoted:false, hasUpvoted:false};
+    }, 
+
+    componentDidMount: function() {
+        this.state.isUpvoted = this.props.isUpvoted;
     }, 
 
     componentDidUpdate: function(prevProps, prevState) {
@@ -41,17 +53,51 @@ var TrakfirePlayer = React.createClass({
 
     handleNextClick: function() {
         this.props.onNextClick();
-    },    
+    },  
+
+    hasUpvoted: function(post) {
+        if(this.props.isLoggedIn){
+          //console.log("POST TO UPVOTE", post);
+          if(this.props.userId != -1)
+            var exists = post.voters.indexOf(this.props.userId);
+          else 
+            var exists = -1;
+          //console.log(post.id, exists);
+          return (exists != -1) ? true : false;
+        }
+    }, 
+
+    upvote: function(e) {
+        e.preventDefault();
+        var post = this.props.currTrack;
+        //console.log('upvoting '+this.props.key);
+        //PostActions.upvote('http://localhost:3000'+'/votes', this.props.post.id);
+        mixpanel.identify(this.props.userid);
+        mixpanel.track("Upvote", {
+          "Title" : post.title,
+          "id" : post.id,
+          "artist" : post.artist,
+          "vote count" : post.vote_count
+        });
+        if(this.props.isLoggedIn && !this.hasUpvoted(post)){
+          this.props.onUpvote(post.id);
+          this.setState({hasUpvoted:true});
+        }
+    },
 
 	render: function(){
         var currTrack = this.props.currTrack;
+        var upvoted = (this.state.isUpvoted || this.props.isUpvoted || this.state.hasUpvoted);
+        console.log("IS UPVOTED?", upvoted);
         var play = <a className="tf-player-play" href="#!" onClick={this.handlePlayPauseClick}></a>;
         var pause = <a className="tf-player-pause" href="#!" onClick={this.handlePlayPauseClick}></a>;
+        var localUpvote = this.state.hasUpvoted; //pre refresh we upvoted this
+        _localVoteCount = currTrack.vote_count + 1;
         return (
             <div className="tf-player-wrap">
                 <div className="tf-player-wrap-inner container">
-                    <div className="tf-player-wrap-inner-votes">
-                    { currTrack ? currTrack.vote_count : 1 }
+                    <div className={upvoted ? isUpvoted : isNotUpvoted} ref="upvote" onClick={this.upvote}>
+                    { localUpvote ? _localVoteCount : currTrack.vote_count }
                     </div>
                     <div className="tf-player-controls-wrap">
                     {/*<a className="tf-player-backward" href="#!" onClick={this.handlePrevClick}></a>*/}
