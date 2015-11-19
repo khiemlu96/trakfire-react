@@ -116,7 +116,7 @@ var FilterBar = React.createClass({
           </a>
           <a href="#!" ref="hiphop" className={(_genre == "HIPHOP") ? "is-active" : "" } 
             onClick={this.handleHipHopClick} >
-            Hip-Hop / R&B
+            Rhymes + R&B
           </a>
           
           <div className="right">

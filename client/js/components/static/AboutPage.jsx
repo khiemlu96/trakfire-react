@@ -1,5 +1,5 @@
 var React = require('react');
-
+var boostrap = require('bootstrap');
 var AboutPage = React.createClass({
 
   /**

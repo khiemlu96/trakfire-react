@@ -228,7 +228,7 @@ var TrakfireApp = React.createClass({
               <Modal.Title>If you're reading this.....</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <p>Sign up to upvote, post, and save tracks to your collection</p>
+              <p>Sign up with Twitter to upvote, post, and save tracks to your collection</p>
               <a href={this.props.origin+'/request_token'} className="btn btn-danger btn-block"> COME THRU </a>
             </Modal.Body>
           </Modal>
