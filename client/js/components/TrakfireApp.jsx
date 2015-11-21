@@ -211,7 +211,7 @@ var TrakfireApp = React.createClass({
               }) }</div>;
 
     return (
-      <div>
+      <div className="tf-body">
         <div>
             <NavBar 
               isLoggedIn={this.state.isLoggedIn}

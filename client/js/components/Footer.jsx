@@ -9,6 +9,8 @@
 
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
+var Router = require('react-router');
+var Link = Router.Link;
 
 var Footer = React.createClass({
 
@@ -23,10 +25,10 @@ var Footer = React.createClass({
           <div className="tf-logo-footer"> 
             <img src={"assets/img/logo_footer.svg"}/> 
           </div> 
-          <a href="#!">MISSION</a>
+          <Link to="/about">MISSION</Link>
           <a href="#!">CONTACT</a>
-          <a href="#!">TERMS OF SERVICE</a>
-          <a href="#!">PRIVACY POLICY</a>
+          <Link to="/terms">TERMS OF SERVICE</Link>
+          <Link to="/privacy">PRIVACY POLICY</Link>
         </div>
       </footer>
     );

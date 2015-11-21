@@ -65,11 +65,17 @@ var PostListItem = React.createClass({
     });
     if(this.props.isLoggedIn && !this.hasUpvoted(this.props.post)){
       this.props.onUpvote(this.props.post.id);
+      var count = this.refs.count.getDOMNode();
+      var upvotes = this.refs.upvotes.getDOMNode();
+      upvotes.className="" ;
+      count.className = "";
+
       this.setState({hasUpvoted:true});
     } else if(!this.props.isLoggedIn) {
       this.props.showModal(true);
     }
   },
+
 
   playPauseTrack: function(e) {
     e.preventDefault();
@@ -128,7 +134,7 @@ var PostListItem = React.createClass({
       <li className={isNotPlaying} ref="post">
         <div className="tf-post-item-content">
           <div className={ upvoted ? isUpvoted : isNotUpvoted} ref="upvotes" onClick={this.upvote}>
-          { localUpvote ? _localVoteCount : post.vote_count }
+          <span className={upvoted ? "" : "tf-hide"} ref="count">{upvoted ? _localVoteCount : post.vote_count}</span>
           </div>
           <div className="tf-post-item--img"> 
             <a href="#!" className="tf-post-play" onClick={this.playPauseTrack}>

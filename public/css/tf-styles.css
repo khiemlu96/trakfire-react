@@ -283,7 +283,7 @@ th.upvote-col {
 	border: 2px solid #ff0d55;
 	width: 50px;
 	color: #fff;
-	background: #1C1C1C url("../assets/img/votes-arrow.svg") no-repeat center 10px;
+	background: #1C1C1C url("../assets/img/votes-arrow.svg") no-repeat center 20px;
 	height: 50px;
 	border-radius: 50%;
 	margin-left: -25px;
@@ -307,7 +307,8 @@ th.upvote-col {
 }
 
 .is-upvoted {
-	background-color: #ff0d55;
+	/*background-color: #ff0d55;*/
+	background: #ff0d55;
 }
 
 /* img */
@@ -611,23 +612,28 @@ th.upvote-col {
 }
 
 .tf-second-wrap .tf-post-item--first .tf-post-item--votes {
-		border: 2px solid #ff0d55;
-		width: 60px;
-		color: #fff;
-		background: #1C1C1C url("../assets/img/votes-arrow.svg") no-repeat center 15px!important;
-		height: 60px;
-		border-radius: 50%;
-		margin-left: -25px;
-		font-size: 11px;
-	    padding-top: 25px;
-	    text-align: center;
-	    font-size: 11px;
-	    letter-spacing: 0.07em;
-	    padding-left: 1px;
-	    position: absolute;
-	    left: 160px;
-	    cursor: pointer;
+	border: 2px solid #ff0d55;
+	width: 60px;
+	color: #fff;
+	background: #1C1C1C url("../assets/img/votes-arrow.svg") no-repeat center 15px!important;
+	height: 60px;
+	border-radius: 50%;
+	margin-left: -25px;
+	font-size: 11px;
+    padding-top: 10px;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.07em;
+    padding-left: 1px;
+    position: absolute;
+    left: 160px;
+    cursor: pointer;
+}
 
+.tf-vote-count{
+	padding-top: 0px;
+	margin-bottom: 10px;
+	font-size: 14px;
 }
 
 .tf-post-item--first:nth-of-type(2) {
@@ -1387,4 +1393,11 @@ label.ownsong-label {
 
 .tf-background {
 	background-color: #161616;
+}
+
+#terms-of-use, #privacy-policy, #about-page{
+	margin-top: 106px;
+	margin-left: 50px;
+	margin-right: 50px;
+	height: 100%;
 }

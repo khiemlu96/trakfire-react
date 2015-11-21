@@ -9,7 +9,7 @@ var AboutPage = React.createClass({
     return (
       <div id="about-page">
         <h1>About</h1>
-        <p>THIS IS TRAKFIRE STAY WAVY BITCHES</p>
+        <p>We are on a mission to level the playing field in the music industry. Through crowd curation we are democratizing discovery so that regardless of money, marketing or networks, good music surfaces up.</p>
       </div>
     );
   },

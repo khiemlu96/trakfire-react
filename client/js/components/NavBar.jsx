@@ -51,7 +51,7 @@ var NavBar = React.createClass({
         var postLink = <Link to='/post'>POST</Link> 
       } else {
         var tooltip = <Tooltip>Posting is invite only</Tooltip>;
-        var postLink = <OverlayTrigger placement="left" overlay={tooltip}><a href="" className="tf-inactive">POST</a></OverlayTrigger>;//<a href="" className="tf-inactive">POST</a>;
+        var postLink = <OverlayTrigger placement="left" overlay={tooltip}><a className="tf-inactive">POST</a></OverlayTrigger>;//<a href="" className="tf-inactive">POST</a>;
       }
     } else {
       var signinLink = <a href={this.props.origin+'/request_token'}> SIGN IN </a>
