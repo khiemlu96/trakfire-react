@@ -267,7 +267,7 @@ var TrakfireApp = React.createClass({
 
   /* Function triggered by item thumbnail click */
   onPlayBtnClick: function(stream_url, track, idx) {
-    //console.log("CLICKED TRACK IDX", idx);
+    console.log("CLICKED TRACK IDX", idx);
     var isPlaying = this.state.isPlaying;
     var isPaused = this.state.isPaused;
     if(!this.state.isActive) { this.setState({isActive:true}); }
