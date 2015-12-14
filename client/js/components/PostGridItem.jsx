@@ -55,7 +55,7 @@ var PostGridItem = React.createClass({
    * @return {object}
    */
   render: function() {
-    console.log(this.props.currStreamUrl);
+    //console.log(this.props.currStreamUrl);
     var post = this.props.post;
     var thisPlaying = (this.props.currStreamUrl == null || this.props.currStreamUrl == this.props.post.stream_url);
     return (

@@ -22,7 +22,8 @@ module.exports = {
       vote_count: rawPost.vote_count,
       voters: this.getUserIds(rawPost.votes),
       score: rawPost.hot_score, 
-      tags: rawPost.tags
+      tags: rawPost.tags, 
+      status: rawPost.status
     };
   },
 

@@ -26,7 +26,7 @@ var PostListItem = React.createClass({
   propTypes: {
    key: ReactPropTypes.string,
    post: ReactPropTypes.object,
-   trackIdx: ReactPropTypes.number,
+   idx: ReactPropTypes.number,
    onClick: ReactPropTypes.func,
    onUpvote: ReactPropTypes.func,
    isLoggedIn: ReactPropTypes.bool, 
@@ -42,7 +42,7 @@ var PostListItem = React.createClass({
   }, 
 
   componentDidMount: function() {
-    //console.log("POST LIST ITEM ", this.props);
+    console.log("POST LIST ITEM PROPS", this.props);
     this.state.isUpvoted = this.props.isUpvoted;
   },
 
@@ -79,7 +79,10 @@ var PostListItem = React.createClass({
 
   playPauseTrack: function(e) {
     e.preventDefault();
-    this.props.onClick(this.props.post.stream_url, this.props.post);
+    //var key = this.props.key;
+    var idx = this.props.idx;
+    //idx = idx[1];
+    this.props.onClick(this.props.post.stream_url, this.props.post, idx);
     var post = this.refs.post.getDOMNode();
     //console.log("POST STATUS", this.state.isPlaying);
     if(!this.state.isPlaying) {

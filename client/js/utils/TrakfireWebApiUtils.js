@@ -24,6 +24,7 @@ module.exports = {
   },
 
   getPostBatch: function(url) {
+    console.log("geting a recieveBatch");
   	Reqwest({
       url: url,
       type: 'json',

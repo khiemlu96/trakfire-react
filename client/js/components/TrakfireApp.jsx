@@ -17,7 +17,7 @@ var TrakfirePlayer = require('./TrakfirePlayer.jsx');
 
 var PostStore = require('../stores/PostStore');
 var PostActions = require('../actions/PostActions');
-var SongStore = require('../stores/SongStore');
+//var SongStore = require('../stores/SongStore');
 var SongActions = require('../actions/SongActions');
 var UserStore = require('../stores/UserStore.js');
 var UserActions = require('../actions/UserActions.js');
@@ -35,7 +35,7 @@ var _persist = false;
  */
 function getAppState() {
   return {
-    //allPosts: PostStore.getAll(),
+    allPosts: PostStore.getAll(),
     currentUser: UserStore.getCurrentUser(),
     isLoggedIn: UserStore.isSignedIn(),
     isAdmin: UserStore.isAdmin(),
@@ -68,7 +68,9 @@ var TrakfireApp = React.createClass({
         volume: 1.0,
         duration: 0,
         currTrack: null,
-        currStreamUrl: null,      
+        currStreamUrl: null, 
+        currSongList: {},
+        currSongIdx: 0     
     }
 
     return mergeState(storeState, ownedState);
@@ -81,6 +83,8 @@ var TrakfireApp = React.createClass({
   componentWillMount: function() {
     PostStore.addChangeListener(this._onChange);
     UserStore.addChangeListener(this._onChange);
+    //SongStore.addChangeListener(this._onChange);
+    //console.log("FUCK1");
     var jwt = new Uri(location.search).getQueryParamValue('jwt');
     //console.log('JWT: ', jwt, !!jwt);
     if (!!jwt) {
@@ -95,11 +99,13 @@ var TrakfireApp = React.createClass({
       this.currentUserFromAPI();
     }
     this.readPostsFromApi();
+    scPlayer.on('ended', this.onTrackEnded);
     //console.log("POSTS RECIEVED", this.props.allPosts);
   },
   componentWillUnmount: function() {
     PostStore.removeChangeListener(this._onChange);
     UserStore.removeChangeListener(this._onChange);
+    //SongStore.removeChangeListener(this._onChange);
   },
 
   componentWillUpdate: function() {
@@ -108,12 +114,25 @@ var TrakfireApp = React.createClass({
     }
   }, 
 
+  onTrackEnded: function() {
+      //console.log(scPlayer.track.title + ' just ended!');
+      // Send a two way message to the postlist to set the next song and play it
+      console.log("ENDED");
+      var nextIdx = this.state.currSongIdx+1;
+      var next = this.state.currSongList[nextIdx];
+      console.log("CURR SONG LIST IS", this.state.currSongList, this.state.currSongIdx);
+      console.log("NEXT SONG IS", next, nextIdx);
+      this.setState({
+        currTrack:next, 
+        currStreamUrl:next.stream_url,
+        currSongIdx: next
+      });
+      scPlayer.play({streamUrl: next.stream_url});
+  }, 
+
   shouldComponentUpdate: function(nextProps, nextState) {
-    console.log("NEXT: ", nextState, "CURR: ", this.state);
-    /*if(nextState.currStreamUrl == null && this.state.currStreamUrl) { return false; }
-    if(nextState.currStreamUrl && this.state.currStreamUrl == null && this.state.isPlaying) { return false; }
-    if(nextState.currStreamUrl == this.state.currStreamUrl) { return false; }*/
-      return true;
+    //console.log("NEXT: ", nextState, "CURR: ", this.state);
+    return true;
   }, 
 
   readPostsFromApi: function(){
@@ -146,7 +165,7 @@ var TrakfireApp = React.createClass({
   handleUserSelection: function(genre, sort) {
     var currGenre = this.state.genre;
     var currSort = this.state.sort;
-    console.log('filter to '+genre+' from '+currGenre+', sort by '+sort+' from '+currSort );
+    //console.log('filter to '+genre+' from '+currGenre+', sort by '+sort+' from '+currSort );
     this.setState({
       genre: genre ? genre : currGenre,
       sort: sort ? sort : currSort
@@ -172,6 +191,11 @@ var TrakfireApp = React.createClass({
     //console.log(post.id, exists);
     return (exists != -1) ? true : false;
   }, 
+
+  setSongList: function(songs) {
+    //console.log("SETTING THE SONG LIST WITH ", songs);
+    this.setState({currSongList:songs});
+  },
 
   /**
    * @return {object}
@@ -208,6 +232,7 @@ var TrakfireApp = React.createClass({
                 origin: this.props.origin,
                 value: scPlayer.audio.currentTime, 
                 currStreamUrl: this.state.currStreamUrl, 
+                setSongList: this.setSongList
               }) }</div>;
 
     return (
@@ -225,11 +250,13 @@ var TrakfireApp = React.createClass({
           </div>
           <Modal show={this.state.showModal} onHide={this.closeModal}>
             <Modal.Header closeButton>
-              <Modal.Title>If you're reading this.....</Modal.Title>
+              <Modal.Title>"If you're reading this....."</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <p>Sign up with Twitter to upvote, post, and save tracks to your collection</p>
-              <a href={this.props.origin+'/request_token'} className="btn btn-danger btn-block"> COME THRU </a>
+              <p>COME THRU</p>
+              <p>Sign up with Twitter or Facebook to upvote, post, and save tracks to your collection</p>
+              <a href={this.props.origin+'/request_token'} className="btn btn-primary btn-block"> Sign in with Twitter </a>
+              <a href={this.props.origin+'/request_token'} className="btn btn-danger btn-block"> Sign in with Twitter </a>
             </Modal.Body>
           </Modal>
 
@@ -239,31 +266,47 @@ var TrakfireApp = React.createClass({
   },
 
   /* Function triggered by item thumbnail click */
-  onPlayBtnClick: function(stream_url, track) {
+  onPlayBtnClick: function(stream_url, track, idx) {
+    //console.log("CLICKED TRACK IDX", idx);
     var isPlaying = this.state.isPlaying;
     var isPaused = this.state.isPaused;
     if(!this.state.isActive) { this.setState({isActive:true}); }
     if(this.state.currTrack == null) {
-      this.setState({currTrack : track});
+      this.setState({
+        currTrack : track,
+        currSongIdx : idx
+      });
     }
     if(!isPlaying) {
       scPlayer.play({streamUrl: stream_url});
       isPlaying = true;
-      SongActions.play();
-      this.setState({isPlaying : isPlaying, isPaused : isPaused, currStreamUrl : stream_url, currTrack : track});
+      //SongActions.play();
+      this.setState({
+        isPlaying : isPlaying, 
+        isPaused : isPaused, 
+        currStreamUrl : stream_url, 
+        currTrack : track,
+        currSongIdx : idx
+      });
     } else if(isPlaying && stream_url == this.state.currStreamUrl) {
         scPlayer.pause();
         isPlaying = false;
         isPaused = true;
-        SongActions.pause();
+        //SongActions.pause();
         this.setState({isPlaying : isPlaying, isPaused : isPaused});     
     } else if(isPlaying && stream_url != this.state.currStreamUrl) {
         scPlayer.pause();
         scPlayer.play({streamUrl : stream_url});
         isPlaying = true;
         isPaused = false;  
-        SongActions.play();
-        this.setState({isPlaying : isPlaying, isPaused : isPaused, currStreamUrl : stream_url, currTrack : track});     
+        //SongActions.play();
+        this.setState({
+          isPlaying : isPlaying, 
+          isPaused : isPaused, 
+          currStreamUrl : stream_url, 
+          currTrack : track,
+          currSongIdx : idx
+        });     
     }
     
     if(isPlaying){
@@ -306,7 +349,7 @@ var TrakfireApp = React.createClass({
   },
 
   onProgressClick: function(millipos) {
-    console.log("SEEKING BOI");
+    //console.log("SEEKING BOI");
     scPlayer.seekTo(millipos);
   }, 
 
@@ -314,7 +357,7 @@ var TrakfireApp = React.createClass({
    * Event handler for 'change' events coming from the PostStore
    */
   _onChange: function() {
-    console.log("APP STATE", getAppState());
+    //console.log("APP STATE", getAppState());
     this.setState(getAppState());
   }
 

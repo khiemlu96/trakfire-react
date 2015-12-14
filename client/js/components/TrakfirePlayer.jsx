@@ -30,7 +30,7 @@ var TrakfirePlayer = React.createClass({
     }, 
 
     componentDidUpdate: function(prevProps, prevState) {
-        console.log(prevProps.currTrack, this.props.currTrack);
+        //console.log(prevProps.currTrack, this.props.currTrack);
         if(prevProps.currTrack != this.props.currTrack && !this.state.toggle) {
             this.setState({toggle:true});
         } else if(this.state.toggle) {
@@ -88,7 +88,7 @@ var TrakfirePlayer = React.createClass({
 	render: function(){
         var currTrack = this.props.currTrack;
         var upvoted = (this.state.isUpvoted || this.props.isUpvoted || this.state.hasUpvoted);
-        console.log("IS UPVOTED?", upvoted);
+        //console.log("IS UPVOTED?", upvoted);
         var play = <a className="tf-player-play" href="#!" onClick={this.handlePlayPauseClick}></a>;
         var pause = <a className="tf-player-pause" href="#!" onClick={this.handlePlayPauseClick}></a>;
         var localUpvote = this.state.hasUpvoted; //pre refresh we upvoted this

@@ -15,9 +15,12 @@ var PostListItem = require('./PostListItem.jsx');
 var PostListDateHeader = require('./PostListDateHeader.jsx'); 
 var PostStore = require('../stores/PostStore');
 var UserStore = require('../stores/UserStore');
+var SongActions = require('../actions/SongActions');
 var _postListItems = [];
 var _dayCount = 0; 
 var _init = false;
+var _songList = {};
+var _songsSet = false;
 
 function sortPostsByDate(posts) {
   var dates = {};
@@ -85,6 +88,24 @@ function getComponentState() {
   };
 }
 
+function getSongList(posts) {
+    var postsByDate = sortPostsByDate(posts); //sort posts into date keyed dict + array of date str for the headers
+    //console.log("PBD", postsByDate, posts);
+    var dates = postsByDate[0].sort(sortDate); //sort dates in decending order
+    var posts = postsByDate[1] //date keyed dict
+    var songList = {};
+    var songCount = 0;
+    for(date in dates) {
+      var array = toArray(posts[dates[date]]).sort(sortScore);
+      console.log("ARRAY BOI", array);
+      for(key in array) {
+        songList[songCount] = array[key];
+        songCount += 1;          
+      }
+    }
+    return songList;
+}
+
 var PostsList = React.createClass({
 
   propTypes: {
@@ -98,16 +119,22 @@ var PostsList = React.createClass({
     userId: ReactPropTypes.number, 
     currStreamUrl: ReactPropTypes.string,
     currUser: ReactPropTypes.object, 
-    showModal: ReactPropTypes.func
+    showModal: ReactPropTypes.func,
+    setSongList: ReactPropTypes.func
   },
 
   getInitialState: function() {
-    return getComponentState();
+    var storedState = getComponentState();
+    storedState["hasSetSongList"] = false;
+    return storedState;
   }, 
 
   componentDidMount: function() {
-    console.log("POSTLIST PROPS", this.props);
+    //var posts = getSongList(p);
+    //this.props.setSongList(this.state.posts);
     PostStore.addChangeListener(this._onChange);
+    UserStore.addChangeListener(this._onChange);
+    this.setParentState();
   },
 
   componentWillUnmount: function() {
@@ -120,12 +147,29 @@ var PostsList = React.createClass({
     PostStore.addChangeListener(this._onChange);
     //console.log('Posts to be displayed ', posts);
   },
+
+  componentDidUpdate: function(prevProps, prevState) {
+    //console.log("WILL RECIEVE PROPS", prevProps.posts);
+    //console.log("HAS SET SONG LIST", this.state.hasSetSongList);
+    if(Object.keys(prevProps.posts).length > 0 && !this.state.hasSetSongList) {
+      //console.log("SETTING THE SONG LIST", this.state.hasSetSongList);
+      this.setState({hasSetSongList:true});
+      this.setParentState(prevProps.posts);
+    }
+  }, 
+
+  setParentState: function(posts) {
+    var sl = getSongList(posts);
+    if(Object.keys(sl).length > 0) {
+      this.props.setSongList(sl);
+    }
+  }, 
+
   upvote: function(postid) {
     this.props.onPostUpvote(postid);
   },
 
-  playPauseItem: function(stream_url, track) {
-    //console.log("CURRENT TRACK ", this.state.currentTrack, "REFS ", this.refs);
+  playPauseItem: function(stream_url, track, idx) {
     if(this.state.currentTrack != null) {
       var prevPli = this.state.currentTrack;
       var pli = this.refs[prevPli];
@@ -134,7 +178,7 @@ var PostsList = React.createClass({
       } 
     }
     this.state.currentTrack = track.id;
-    this.props.onPostListItemClick(stream_url, track);
+    this.props.onPostListItemClick(stream_url, track, idx);
   },
 
   hasUpvoted: function(post, userid) {
@@ -150,7 +194,9 @@ var PostsList = React.createClass({
     var isLoggedIn = UserStore.isSignedIn();
     var user = UserStore.getCurrentUser();
     var container = [];
+    var songList = {};
     var count = 0;
+    var songCount = 0;
     for(date in dates) {
 
         var d;
@@ -178,9 +224,11 @@ var PostsList = React.createClass({
             var isUpvotedByUser = this.hasUpvoted(array[key], user.id);
             //console.log("IS UPVOTED BY USER", isUpvotedByUser);
           }
-         // console.log("ID: ", array[key].id);
+          // console.log("ID: ", array[key].id);
+          songList[array[key].id] = array[key];
           var post = <PostListItem 
-                        key={"p_"+array[key].id} 
+                        key={"p_"+songCount}
+                        idx={songCount} 
                         ref={array[key].id}
                         post={array[key]}
                         onUpvote={this.upvote}
@@ -191,9 +239,21 @@ var PostsList = React.createClass({
                         rank={key}
                         currStreamUrl={this.props.currStreamUrl}
                         showModal={this.props.showModal}/>
-          container.push(post);           
+          container.push(post); 
+          //console.log("HEYYA", songCount, array[key]);
+          songList[songCount] = array[key];
+          songCount+=1;          
         }
       }
+    /*console.log("setting the song list breh", songList);
+    if(songCount > 0 && !_songsSet) {
+      SongActions.setSongList(songList);
+      _songsSet = true;
+    }*/
+    //console.log("setting the song list breh", songList);
+
+    //this.props.setSongList(songList);
+    //_songList = songList;
     return container;
   },
 
@@ -201,8 +261,9 @@ var PostsList = React.createClass({
    * @return {object}
    */
   render: function() {
-    var posts = this.state.posts;
+    var posts = this.props.posts;
     var postsByDate = sortPostsByDate(posts); //sort posts into date keyed dict + array of date str for the headers
+    //console.log("PDBD", postsByDate, posts);
     var dates = postsByDate[0].sort(sortDate); //sort dates in decending order
   
     var posts = postsByDate[1] //date keyed dict

@@ -10,7 +10,6 @@ var _cUser = null;
 var _user = null;
 var _posts = null;
 
-
 function _addCurrentUser(user) {
   _cUser = UserUtils.convertRawUser(user);
   console.log("CURR USER NAME",_cUser.name);

@@ -32,7 +32,8 @@ var PostsPage = React.createClass({
     upvote: ReactPropTypes.func,
     filterPosts : ReactPropTypes.func,
     currUser: ReactPropTypes.object, 
-    showModal: ReactPropTypes.func 
+    showModal: ReactPropTypes.func,
+    setSongList: ReactPropTypes.func
   }, 
 
   getInitialState: function() {
@@ -47,13 +48,15 @@ var PostsPage = React.createClass({
   },
 
   componentWillMount: function() {
-    //this.readPostsFromApi();
+    this.readPostsFromApi();
   },
 
   componentDidMount: function() {
     PostStore.addChangeListener(this._onChange);
     UserStore.addChangeListener(this._onChange);
     console.log("STATE", this.state);
+    console.log("PROPS", this.props);
+    console.log("POSTPAGE POSTS", this.state.posts);
     //console.log("POSTPAGE MOUNT ", this.state.posts);
   },
 
@@ -66,12 +69,17 @@ var PostsPage = React.createClass({
     PostActions.upvote(this.props.origin+'/votes', postid);
   },
 
-  togglePlay: function(stream_url, track) {
-    this.props.togglePlay(stream_url, track);
+  togglePlay: function(stream_url, track, idx) {
+    this.props.togglePlay(stream_url, track, idx);
   },
 
   filterPosts: function(genre, sort) {
     this.props.filterPosts(genre, sort);
+  },
+
+  readPostsFromApi: function(){
+    console.log('FETCHING POST BATCH', this.props.origin);
+    PostActions.getPostBatch(this.props.origin+'/posts');
   },
   /**
    * @return {object}
@@ -92,7 +100,8 @@ var PostsPage = React.createClass({
           onPostListItemClick={this.togglePlay}
           onPostUpvote={this.upvote}
           currUser={this.props.currUser}
-          showModal={this.props.showModal}/>
+          showModal={this.props.showModal}
+          setSongList={this.props.setSongList}/>
       </div>
     );
   },
@@ -100,7 +109,7 @@ var PostsPage = React.createClass({
    * Event handler for 'change' events coming from the PostStore
    */
   _onChange: function() {
-    console.log('CHANGE IN THE POST STORE');
+    //console.log('CHANGE IN THE POST STORE');
     this.setState(getAppState());
   }
 

@@ -11,6 +11,7 @@ var SongActions = {
   },
 
   setSongList: function(songs) {
+    console.log("SONGS", songs);
     AppDispatcher.dispatch({
       actionType: SongConstants.SET_SONG_LIST,
       songs: songs

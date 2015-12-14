@@ -26,10 +26,13 @@ var ProfilePage = React.createClass({
   componentDidMount: function() {
     UserStore.addChangeListener(this._onChange);
     var userid = this.props.params.id;
-    console.log("THE GIVEN USER ID IS ", userid);
-    var user = this.getUser(userid);
-    mixpanel.identify(userid);
-    mixpanel.track("Arrived on profile "+user.handle+"'s page {"+userid+"}");
+    this.getUser(userid);
+    var user = this.state.user;
+    if(user) {
+      console.log("THE GIVEN USER ID IS ", userid, user);
+      mixpanel.identify(userid);
+      mixpanel.track("Arrived on profile "+user.handle+"'s page {"+userid+"}");
+    }
   },
 
   componentDidUnmount: function() {
@@ -47,7 +50,7 @@ var ProfilePage = React.createClass({
    * @return {object}
    */
   render: function() {
-    console.log("USER TO RENDER", this.state.user)
+   //console.log("USER TO RENDER", this.state.user)
     var user = this.state.user;
     if(!user) { return (<div> Loading </div>); }
     return (

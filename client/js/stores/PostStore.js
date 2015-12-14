@@ -23,7 +23,7 @@ var _genre = "ALL";
 var _sort = "TOP";
 
 function _addPosts(rawPosts) {
-  console.log("ADDING POSTS", rawPosts);
+  //console.log("ADDING POSTS", rawPosts);
   rawPosts.forEach(function(post){
     if (!_posts[post.id]) {
       _posts[post.id] = PostUtils.convertRawPost( post );
@@ -33,7 +33,7 @@ function _addPosts(rawPosts) {
 }
 
 function _addPost(rawPost) {
-  console.log("ADDING POST", rawPost);
+  //console.log("ADDING POST", rawPost);
   _posts[rawPost.id] = PostUtils.convertRawPost(rawPost);
 }
 
@@ -68,7 +68,7 @@ var PostStore = assign({}, EventEmitter.prototype, {
    * @return {object}
    */
   getAll: function() {
-    console.log('IN POST STORE GETTING '+_sort+' of type ', _genre);
+    //console.log('IN POST STORE GETTING '+_sort+' of type ', _genre);
     var posts;
     switch(_genre) {
       case "ALL":

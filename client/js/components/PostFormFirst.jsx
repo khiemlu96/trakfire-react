@@ -32,6 +32,7 @@ var PostFormFirst = React.createClass({
   	} else {
   		_data['post']['title'] = this.refs.title_field.getDOMNode().value;
   		_data['post']['artist'] = this.refs.artist_field.getDOMNode().value;
+      _data['post']['status'] = "pending";
   		//console.log(_data)
   		//this.props.onSubmit(JSON.stringify(_data));
       this.props.updateData(_data);

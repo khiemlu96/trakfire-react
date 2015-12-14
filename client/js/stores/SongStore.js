@@ -1,4 +1,4 @@
-/*
+```/*
  * Copyright (c) 2014, Facebook, Inc.
  * All rights reserved.
  *
@@ -33,10 +33,41 @@ function _addSongs(songs) {
   _songs = songs;
 }
 
+function findSong(song) {
+  var i = 0;
+  for(s in _songs) {
+    if(s.title == song.title) {
+      return i;
+    }
+    i += 1;
+  }
+  return null;
+}
+
 var SongStore = assign({}, EventEmitter.prototype, {
 
   getCurrentSong: function() {
     return _currentSong;
+  }, 
+
+  getNextSong: function() {
+    if(_currentSong) {
+      var cIdx = findSong(_currentSong);
+      if (cIdx < _songs.length) {
+        return _songs[cIdx+1];
+      }
+    } 
+    return null;
+  }, 
+
+  getPrevSong: function() {
+    if(_currentSong) {
+      var cIdx = findSong(_currentSong);
+      if (cIdx > 0) {
+        return _songs[cIdx-1];
+      }
+    } 
+    return null;
   }, 
 
   isPlaying: function() {

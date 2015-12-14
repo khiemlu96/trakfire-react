@@ -95,7 +95,7 @@ var TrakfirePlayerProgress = React.createClass({
     var curr = this.state.currPos;
     var duration = this.props.duration;
     var value = Math.round((curr/duration)*100);
-    console.log("CURR", curr, "DUR", duration, "VALUE", value);
+    //console.log("CURR", curr, "DUR", duration, "VALUE", value);
     if (value < 0) {value = 0};
     if (value >= duration) {value = 100};
 
