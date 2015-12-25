@@ -80,6 +80,14 @@ var PostActions = {
     });
 
     TfAPI.writePost(origin, data);
+  }, 
+
+  setCurrentPost: function(song_id) {
+    console.log("setCurrentPost", song_id);
+    AppDispatcher.dispatch({
+      actionType: PostConstants.SET_CURR_POST,
+      song_id: song_id
+    });
   }
 
 };

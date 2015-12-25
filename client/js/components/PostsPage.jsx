@@ -11,9 +11,11 @@ var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var PostStore = require('../stores/PostStore.js');
 var UserStore = require('../stores/UserStore.js');
+var SongStore = require('../stores/SongStore.js');
 var PostList = require('./PostList.jsx');
 var FilterBar = require('./FilterBar.jsx');
 var PostActions = require('../actions/PostActions');
+var SongActions = require('../actions/SongActions');
 
 function getAppState() {
   return {
@@ -54,6 +56,7 @@ var PostsPage = React.createClass({
   componentDidMount: function() {
     PostStore.addChangeListener(this._onChange);
     UserStore.addChangeListener(this._onChange);
+    SongStore.addChangeListener(this._onChange);
     console.log("STATE", this.state);
     console.log("PROPS", this.props);
     console.log("POSTPAGE POSTS", this.state.posts);
@@ -63,6 +66,7 @@ var PostsPage = React.createClass({
   componentWillUnmount: function() {
     PostStore.removeChangeListener(this._onChange);
     UserStore.removeChangeListener(this._onChange);
+    SongStore.removeChangeListener(this._onChange);
   }, 
 
   upvote: function(postid) {
@@ -81,6 +85,7 @@ var PostsPage = React.createClass({
     console.log('FETCHING POST BATCH', this.props.origin);
     PostActions.getPostBatch(this.props.origin+'/posts');
   },
+  
   /**
    * @return {object}
    */
@@ -91,7 +96,7 @@ var PostsPage = React.createClass({
           onClick={this.filterPosts}
           genre={this.props.genre}
           sort={this.props.sort}
-          scrollToTop={this.props.scrollToTop}/>
+          scrollToTop={this.props.scrollToTop} />
           
         <PostList
           posts={this.state.posts}

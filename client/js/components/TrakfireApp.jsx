@@ -8,6 +8,9 @@ var Bootstrap = require('react-bootstrap');
 var Tooltip = Bootstrap.Tooltip;
 var Modal = Bootstrap.Modal;
 var Button = Bootstrap.Button;
+var Input = Bootstrap.Input;
+var Row = Bootstrap.Row;
+var Col = Bootstrap.Col; 
 
 var NavBar = require('./NavBar.jsx');
 var Footer = require('./Footer.jsx');
@@ -17,7 +20,7 @@ var TrakfirePlayer = require('./TrakfirePlayer.jsx');
 
 var PostStore = require('../stores/PostStore');
 var PostActions = require('../actions/PostActions');
-//var SongStore = require('../stores/SongStore');
+var SongStore = require('../stores/SongStore');
 var SongActions = require('../actions/SongActions');
 var UserStore = require('../stores/UserStore.js');
 var UserActions = require('../actions/UserActions.js');
@@ -39,6 +42,8 @@ function getAppState() {
     currentUser: UserStore.getCurrentUser(),
     isLoggedIn: UserStore.isSignedIn(),
     isAdmin: UserStore.isAdmin(),
+    currentSongList: PostStore.getSortedPosts(),
+    currentSong: PostStore.getCurrentSong()
   };
 }
 
@@ -83,8 +88,8 @@ var TrakfireApp = React.createClass({
   componentWillMount: function() {
     PostStore.addChangeListener(this._onChange);
     UserStore.addChangeListener(this._onChange);
-    //SongStore.addChangeListener(this._onChange);
-    //console.log("FUCK1");
+    SongStore.addChangeListener(this._onChange);
+
     var jwt = new Uri(location.search).getQueryParamValue('jwt');
     //console.log('JWT: ', jwt, !!jwt);
     if (!!jwt) {
@@ -99,16 +104,18 @@ var TrakfireApp = React.createClass({
       this.currentUserFromAPI();
     }
     this.readPostsFromApi();
+    //SongActions.setSongList({});
     scPlayer.on('ended', this.onTrackEnded);
     //console.log("POSTS RECIEVED", this.props.allPosts);
   },
   componentWillUnmount: function() {
     PostStore.removeChangeListener(this._onChange);
     UserStore.removeChangeListener(this._onChange);
-    //SongStore.removeChangeListener(this._onChange);
+    SongStore.removeChangeListener(this._onChange);
   },
 
   componentWillUpdate: function() {
+    //console.log("STATE OF PLAY", this.state);
     if(this.state.isPlaying && !_persist) {
       _persist = true;
     }
@@ -118,14 +125,14 @@ var TrakfireApp = React.createClass({
       //console.log(scPlayer.track.title + ' just ended!');
       // Send a two way message to the postlist to set the next song and play it
       console.log("ENDED");
-      var nextIdx = this.state.currSongIdx+1;
-      var next = this.state.currSongList[nextIdx];
-      console.log("CURR SONG LIST IS", this.state.currSongList, this.state.currSongIdx);
-      console.log("NEXT SONG IS", next, nextIdx);
+      //var nextIdx = this.state.currSongIdx+1;
+      var next = PostStore.getNextSong();//this.state.currentSong;//this.state.currSongList[nextIdx];
+      //console.log("CURR SONG LIST IS", this.state.currentSongList, this.state.currSongIdx);
+      console.log("NEXT SONG IS", next);
       this.setState({
         currTrack:next, 
         currStreamUrl:next.stream_url,
-        currSongIdx: next
+        currSongIdx: next.sortedIdx
       });
       scPlayer.play({streamUrl: next.stream_url});
   }, 
@@ -181,6 +188,14 @@ var TrakfireApp = React.createClass({
     this.setState({showModal:false});
   }, 
 
+  showSignupModal: function(){
+    this.setState({showSignupModal:true});
+  }, 
+
+  closeSignupModal: function() {
+    this.setState({showSignupModal:false});
+  }, 
+
   isCurrentTrackUpvoted: function() {
     var track = this.state.currTrack;
     var user = this.state.currentUser;
@@ -211,6 +226,8 @@ var TrakfireApp = React.createClass({
                       isPlaying={this.state.isPlaying}
                       onPlayPauseClick={this.onPlayCtrlClick} 
                       onProgressClick={this.onProgressClick} 
+                      onNextClick={this.onNextCtrlClick}
+                      onPrevClick={this.onPrevCtrlClick}
                       isLoggedIn={this.state.isLoggedIn}
                       onUpvote={this.writeVoteToApi}
                       isUpvoted={upvoted}
@@ -242,21 +259,62 @@ var TrakfireApp = React.createClass({
               isLoggedIn={this.state.isLoggedIn}
               origin={this.props.origin}
               isAdmin={this.state.isAdmin}
-              user={this.state.currentUser}/>
+              user={this.state.currentUser}
+              showSignupModal={this.showSignupModal}
+              showModal={this.showModal}/>
           </div>
           {Routes}
           <div>
           {active ? tfPlayer : ''}
           </div>
           <Modal show={this.state.showModal} onHide={this.closeModal}>
-            <Modal.Header closeButton>
-              <Modal.Title>"If you're reading this....."</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <p>COME THRU</p>
-              <p>Sign up with Twitter or Facebook to upvote, post, and save tracks to your collection</p>
+            {/*<Modal.Header closeButton className="tf-modal-header">
+              <Modal.Title className="tf-modal-title">If you're reading this.....</Modal.Title>
+            </Modal.Header>*/}
+            <Modal.Body closeButton className={"tf-modal-body"}>
+              <p><h2 className="tf-centered tf-uppercase">Sign In</h2></p>
+              <p className="tf-centered">Fill in your invite code or sign up with Twitter or Facebook to upvote, post, and save tracks to your collection</p>
+              <input type="text" ref="url_field" className="tf-soundcloud-link" placeholder="fill in the invite code">
+                <div className="button button--join" ref="add" onClick={this.fetchScData}> JOIN </div> 
+              </input>
+              <p className="tf-centered"> OR </p>
               <a href={this.props.origin+'/request_token'} className="btn btn-primary btn-block"> Sign in with Twitter </a>
-              <a href={this.props.origin+'/request_token'} className="btn btn-danger btn-block"> Sign in with Twitter </a>
+            </Modal.Body>
+          </Modal>
+
+          <Modal show={this.state.showSignupModal} onHide={this.closeSignupModal}>
+            <Modal.Body closeButton className={"tf-modal-body"}>
+              <p> <h2 className="tf-centered tf-uppercase">Request Invite</h2></p>
+              <p className="tf-centered">Wanna become an influencer? <br></br> Request an invite and become part of the community. </p>
+                <Row>
+                  <Col xs={6}>
+                    <Input type="text" label="Full Name" placeholder="First Last" />
+                  </Col>
+                  <Col xs={6}>
+                    <Input type="text" label="Twitter Handle" placeholder="@handle" />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12}>
+                    <Input type="text" label="Email" placeholder="slimeszn@trakfire.com" />
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12}>
+                    <Input label="Five favorite emerging artists" >
+                      <textarea placeholder="pure fire artists here" ></textarea>
+                    </Input>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col xs={12}>
+                    <Input label="Why do you deserve an invite?">
+                      <textarea placeholder="why you're pure fire here" ></textarea>
+                    </Input>
+                  </Col>
+                </Row>
+                <a href="#" className="btn tf-btn-rd btn-block"> Finish Account </a>
+                <a href="#" className="btn btn-link tf-btn-link btn-block"> Already have an account? </a>
             </Modal.Body>
           </Modal>
 
@@ -276,6 +334,7 @@ var TrakfireApp = React.createClass({
         currTrack : track,
         currSongIdx : idx
       });
+      //PostActions.setCurrentPost(idx);
     }
     if(!isPlaying) {
       scPlayer.play({streamUrl: stream_url});
@@ -288,6 +347,7 @@ var TrakfireApp = React.createClass({
         currTrack : track,
         currSongIdx : idx
       });
+      PostActions.setCurrentPost(idx);
     } else if(isPlaying && stream_url == this.state.currStreamUrl) {
         scPlayer.pause();
         isPlaying = false;
@@ -306,7 +366,8 @@ var TrakfireApp = React.createClass({
           currStreamUrl : stream_url, 
           currTrack : track,
           currSongIdx : idx
-        });     
+        }); 
+        PostActions.setCurrentPost(idx);    
     }
     
     if(isPlaying){
@@ -347,6 +408,28 @@ var TrakfireApp = React.createClass({
       this.setState({isPlaying : isPlaying, isPaused : isPaused});
     }    
   },
+
+  onNextCtrlClick: function() {
+      var next = PostStore.getNextSong();
+      console.log("CTRL: NEXT SONG IS", next);
+      this.setState({
+        currTrack:next, 
+        currStreamUrl:next.stream_url,
+        currSongIdx: next.sortedIdx
+      });
+      scPlayer.play({streamUrl: next.stream_url});
+  }, 
+
+  onPrevCtrlClick: function() {
+      var next = PostStore.getPrevSong();
+      console.log("CTRL: NEXT SONG IS", next);
+      this.setState({
+        currTrack:next, 
+        currStreamUrl:next.stream_url,
+        currSongIdx: next.sortedIdx
+      });
+      scPlayer.play({streamUrl: next.stream_url});
+  }, 
 
   onProgressClick: function(millipos) {
     //console.log("SEEKING BOI");

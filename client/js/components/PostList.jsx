@@ -84,7 +84,9 @@ function getComponentState() {
     isLoggedIn : UserStore.isSignedIn(), 
     currentUser : UserStore.getCurrentUser(),
     currentTrack : null,
-    posts : PostStore.getAll()
+    posts : PostStore.getAll(), 
+    sortedPosts : PostStore.getSortedPosts(), 
+    getCurrentSong : PostStore.getCurrentSong()
   };
 }
 
@@ -97,7 +99,7 @@ function getSongList(posts) {
     var songCount = 0;
     for(date in dates) {
       var array = toArray(posts[dates[date]]).sort(sortScore);
-      console.log("ARRAY BOI", array);
+      //console.log("ARRAY BOI", array);
       for(key in array) {
         songList[songCount] = array[key];
         songCount += 1;          

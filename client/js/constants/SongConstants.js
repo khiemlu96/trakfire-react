@@ -3,7 +3,7 @@
  */
 
 module.exports = {
-	SET_CURR_SONG: 'SET_CURR_SONG',
+	SET_SONG_LIST: 'SET_SONG_LIST',
 	SET_CURR_SONG: 'SET_CURR_SONG',
 	PLAY: 'PLAY',
 	PAUSE: 'PAUSE', 

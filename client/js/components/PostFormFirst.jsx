@@ -1,6 +1,7 @@
 //PostForm
 
 var React = require('react');
+var UserStore = require('../stores/UserStore');
 var PostActions = require('../actions/PostActions');
 var ReactPropTypes = React.PropTypes;
 var SoundCloudAudio = require('soundcloud-audio');
@@ -19,7 +20,7 @@ var PostFormFirst = React.createClass({
   }, 
 
   getInitialState: function() {
-    return {dataDidLoad:false, isLoading:false};
+    return {dataDidLoad:false, isLoading:false, user:UserStore.getCurrentUser()};
   }, 
   componentDidMount: function() {
     mixpanel.track("PostForm step 1");
@@ -32,7 +33,10 @@ var PostFormFirst = React.createClass({
   	} else {
   		_data['post']['title'] = this.refs.title_field.getDOMNode().value;
   		_data['post']['artist'] = this.refs.artist_field.getDOMNode().value;
-      _data['post']['status'] = "pending";
+      if(this.state.user.canPost)
+        _data['post']['status'] = "approved";
+      else
+        _data['post']['status'] = "pending";
   		//console.log(_data)
   		//this.props.onSubmit(JSON.stringify(_data));
       this.props.updateData(_data);
@@ -98,18 +102,21 @@ var PostFormFirst = React.createClass({
     console.log("LOADING!");
   }
   },
+
   addLoading: function() {
     console.log(this.refs.add.getDOMNode());
     var addBtn = this.refs.add.getDOMNode();
     addBtn.className += " tf-hide";
     this.setState({isLoading:true});
   }, 
+
   rmLoading: function() {
     var addBtn = this.refs.add.getDOMNode();
     console.log("REMOVE", this.refs.add.getDOMNode());
     addBtn.className = "button button--add";    
     this.setState({isLoading:false}); 
   }, 
+
   dataDidLoad: function() {
     this.setState({dataDidLoad: true});
   }, 

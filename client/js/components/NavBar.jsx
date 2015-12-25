@@ -24,7 +24,8 @@ var NavBar = React.createClass({
     isLoggedIn: ReactPropTypes.bool,
     origin: ReactPropTypes.string,
     isAdmin: ReactPropTypes.bool,
-    user: ReactPropTypes.object
+    user: ReactPropTypes.object, 
+    showSignupModal: ReactPropTypes.func
   },
 
   handleSignOut: function() {
@@ -38,6 +39,10 @@ var NavBar = React.createClass({
 
   closeModal: function() {
     this.props.showModal(false);
+  }, 
+
+  showSignupModal: function() {
+    this.props.showSignupModal();
   }, 
 
   /**
@@ -54,7 +59,8 @@ var NavBar = React.createClass({
         var postLink = <OverlayTrigger placement="left" overlay={tooltip}><a className="tf-inactive">POST</a></OverlayTrigger>;//<a href="" className="tf-inactive">POST</a>;
       }*/
     } else {
-      var signinLink = <a href={this.props.origin+'/request_token'}> SIGN IN </a>
+      var signinLink = <a href="#" onClick={this.showModal}> SIGN IN </a>
+      var inviteLink = <a href="#" onClick={this.showSignupModal}> REQUEST INVITE </a>
       var profileLink = "";
       var postLink = '';
       //var emailLink = <Link to='/email?id=1'>EMAIL</Link>;
@@ -75,6 +81,7 @@ var NavBar = React.createClass({
               <img src={'assets/img/search.svg'}/> 
             </a>*/}
             {signinLink}
+            {inviteLink}
           </div>
         </div> 
       </div> 

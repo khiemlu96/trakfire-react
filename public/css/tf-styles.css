@@ -307,8 +307,8 @@ th.upvote-col {
 }
 
 .is-upvoted {
-	/*background-color: #ff0d55;*/
-	background: #ff0d55;
+	/*background: #ff0d55;*/
+	background: #ff0d55 url("../assets/img/votes-arrow.svg") no-repeat center 20px;
 }
 
 /* img */
@@ -928,7 +928,7 @@ th.upvote-col {
 	margin-bottom: 31px;
 }
 
-input[type=text], textarea{
+input[type=text], input[type=textarea], textarea{
 	/* Rectangle 367 Copy: */
 	background: #161616;
 	border: 1px solid #545454;
@@ -1020,6 +1020,16 @@ input[type=text], textarea{
 	position: absolute;
 	top: 81px;
 	height: 25px;
+}
+
+.button--join {
+	width: 60px!important;
+	right: 18.5px;
+	padding-top: 6px;
+	position: absolute;
+	top: 129.5px;
+	height: 25px;
+	text-align: center;
 }
 
 .button--edit {
@@ -1400,4 +1410,38 @@ label.ownsong-label {
 	margin-left: 50px;
 	margin-right: 50px;
 	height: 100%;
+}
+
+.tf-modal-title {
+	font-family: "Benton Sans RE", sans-serif;
+	color: #fff;
+}
+
+.tf-modal-header {
+	font-family: "Benton Sans RE", sans-serif;
+	color: #fff;
+	background-color: #1f1f1f;
+}
+
+.tf-modal-body {
+	font-family: "Benton Sans RE", sans-serif;
+	color: #fff;
+	background-color: #1f1f1f;
+}
+
+.tf-centered {
+	text-align: center;
+}
+
+.tf-btn-rd {
+	background-color: #ff0d55;
+	color: #fff;
+}
+
+.tf-btn-rd > a:hover {
+	color: #fff;
+}
+
+.tf-btn-link a{
+	color: #ff0d55;
 }

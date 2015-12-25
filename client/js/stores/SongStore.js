@@ -1,4 +1,4 @@
-```/*
+/*
  * Copyright (c) 2014, Facebook, Inc.
  * All rights reserved.
  *
@@ -12,6 +12,7 @@
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var SongConstants = require('../constants/SongConstants');
+var PostStore = require('./PostStore');
 //var SongUtils = require('../utils/SongUtils');
 var assign = require('object-assign');
 
@@ -30,6 +31,8 @@ function _addSong(song) {
 }
 
 function _addSongs(songs) {
+  songs = PostStore.getAll();
+  console.log("SONGS", songs);
   _songs = songs;
 }
 
@@ -111,7 +114,7 @@ var SongStore = assign({}, EventEmitter.prototype, {
 });
 
 // Register callback to handle all updates
-AppDispatcher.register(function(action) {
+SongStore.dispatchToken = AppDispatcher.register(function(action) {
   switch(action.actionType) {
     case SongConstants.GET_CURR_SONG:
       console.log('SET_CURR_SONG', action.response);
@@ -121,8 +124,13 @@ AppDispatcher.register(function(action) {
       break;
     case SongConstants.SET_SONG_LIST:
       console.log('SET_SONG_LIST', action.response);
-      if(action.response)
-        _addSongs(action.response);
+      AppDispatcher.waitFor([ PostStore.dispatchToken ]);
+      //if(action.response) {
+        //_addSongs(action.response);
+      var posts = PostStore.getAll();
+      console.log("POSTS FOR SONG LIST", posts);
+      _addSongs(posts);
+      //}
       SongStore.emitChange();
       break;
     case SongConstants.PLAY:
