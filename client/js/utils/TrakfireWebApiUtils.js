@@ -195,6 +195,24 @@ module.exports = {
         //location = '/';
       }
     });  
+  }, 
+
+  sendUserApplication: function(url, data) {
+    Reqwest({
+      url: url,
+      data: JSON.stringify(data),
+      type: 'json',
+      method: 'POST',
+      contentType: 'application/json',
+      success: function(resp) {
+        console.log("SERVER RESPONSE", resp);
+        //UserServerActionCreators.recieveNewUser(newUser); 
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+        //location = '/';
+      }
+    });    
   }
 
 };

@@ -88,7 +88,7 @@ var PostActions = {
       actionType: PostConstants.SET_CURR_POST,
       song_id: song_id
     });
-  }
+  }, 
 
 };
 

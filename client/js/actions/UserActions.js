@@ -38,6 +38,15 @@ var UserActions = {
     });
 
     TfAPI.getUser(origin, userid);    
+  }, 
+
+  sendUserApplication: function(origin, data) {
+    console.log("SENDING USER APP ", data);
+    AppDispatcher.dispatch({
+      actionType: UserConstants.SEND_USER_APP
+    });
+
+    TfAPI.sendUserApplication(origin, data);     
   }
 
 };

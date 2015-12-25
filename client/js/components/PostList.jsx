@@ -16,6 +16,7 @@ var PostListDateHeader = require('./PostListDateHeader.jsx');
 var PostStore = require('../stores/PostStore');
 var UserStore = require('../stores/UserStore');
 var SongActions = require('../actions/SongActions');
+var moment = require('moment');
 var _postListItems = [];
 var _dayCount = 0; 
 var _init = false;
@@ -207,8 +208,8 @@ var PostsList = React.createClass({
         yesterday.setDate(today.getDate()-1);
 
         //console.log("TODAY IS", today.toDateString(), "YESTERDAY IS", yesterday.toDateString());
-
-        if(dates[date] == today.toDateString()) {
+        d = moment(dates[date]).format('dddd, MMMM Do');
+        /*if(dates[date] == today.toDateString()) {
           d = "Today";
           count+=1;
         } else if(dates[date] == yesterday.toDateString()) {
@@ -216,7 +217,7 @@ var PostsList = React.createClass({
           count+=1;
         } else {
           d = dates[date].toString();
-        }
+        }*/
         var dateHeader = <PostListDateHeader key={'d_'+date} date={d}/>
         container.push(dateHeader);
         var array = toArray(posts[dates[date]]).sort(sortScore);

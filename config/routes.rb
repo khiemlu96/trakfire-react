@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       get :votes
     end
   end
+  resources :applications, only: [:create]
   
   match '*all', to: 'application#index', via: [:get]
 end

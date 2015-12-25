@@ -169,6 +169,25 @@ var TrakfireApp = React.createClass({
     UserActions.updateEmail(this.props.origin+'/users/'+userid, email);
   },
 
+  sendUserApplication: function() {
+    var name = this.refs.nameField.getDOMNode();
+    var handle = this.refs.handleField.getDOMNode();
+    var email = this.refs.email.getDOMNode();
+    var artists = this.refs.artists.getDOMNode();
+    var statement = this.refs.statements.getDOMNode();
+
+    var data = { 
+      application :  {
+        name : name,
+        handle : handle, 
+        email : email, 
+        artists : artists, 
+        statement : statement
+      } 
+    }
+    UserActions.sendUserApplication(this.props.origin+'/applications', data);
+  }, 
+
   handleUserSelection: function(genre, sort) {
     var currGenre = this.state.genre;
     var currSort = this.state.sort;
@@ -313,7 +332,7 @@ var TrakfireApp = React.createClass({
                     </Input>
                   </Col>
                 </Row>
-                <a href="#" className="btn tf-btn-rd btn-block"> Finish Account </a>
+                <a href="#" className="btn tf-btn-rd btn-block" onClick={this.sendUserApplication}> Finish Account </a>
                 <a href="#" className="btn btn-link tf-btn-link btn-block"> Already have an account? </a>
             </Modal.Body>
           </Modal>
