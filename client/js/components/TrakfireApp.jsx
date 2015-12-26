@@ -182,7 +182,7 @@ var TrakfireApp = React.createClass({
       console.log("missed a field");
       return;
     }
-    
+
     var data = { 
       application :  {
         name : name,
@@ -193,6 +193,7 @@ var TrakfireApp = React.createClass({
       } 
     }
     UserActions.sendUserApplication(this.props.origin+'/applications', data);
+    this.closeSignupModal();
   }, 
 
   handleUserSelection: function(genre, sort) {
