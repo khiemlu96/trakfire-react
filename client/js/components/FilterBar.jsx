@@ -123,7 +123,7 @@ var FilterBar = React.createClass({
             onClick={this.handleHipHopClick} >
             Rhymes
           </a>
-          <a href="#!" ref="vocal" className={(_genre == "VOCALs") ? "is-active" : "" } 
+          <a href="#!" ref="vocal" className={(_genre == "VOCALS") ? "is-active" : "" } 
             onClick={this.handleVocalsClick} >
             Vocals
           </a>  
