@@ -308,7 +308,7 @@ th.upvote-col {
 
 .is-upvoted {
 	/*background: #ff0d55;*/
-	background: #ff0d55 url("../assets/img/votes-arrow.svg") no-repeat center 20px;
+	background: #ff0d55 url("../assets/img/votes-arrow.svg") no-repeat center 10px;
 }
 
 /* img */
