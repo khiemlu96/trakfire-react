@@ -1,9 +1,10 @@
 class ApplicationsController < ApplicationController
   def create
-  	@app = Applications.new(application_params)
-  	if !@app.save
-  	  render json: @app.errors, status: :unprocessable_entity
-  	end
+  	@app = Application.new(application_params)
+  	@app.save
+  	#if !@app.save
+  	 # render json: @app.errors, status: :unprocessable_entity
+  	#end
   end
 
   private

@@ -177,6 +177,12 @@ var TrakfireApp = React.createClass({
     var artists = this.refs.artistField.getDOMNode().value;
     var statement = this.refs.statementField.getDOMNode().value;
 
+
+    if(!name || !email || !artists || !statement) {
+      console.log("missed a field");
+      return;
+    }
+    
     var data = { 
       application :  {
         name : name,

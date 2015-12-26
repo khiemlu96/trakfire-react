@@ -204,6 +204,7 @@ module.exports = {
       type: 'json',
       method: 'POST',
       contentType: 'application/json',
+      headers: {'Authorization': sessionStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         //UserServerActionCreators.recieveNewUser(newUser); 
