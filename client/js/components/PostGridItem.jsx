@@ -61,7 +61,7 @@ var PostGridItem = React.createClass({
     return (
       <li className={(this.state.isPlaying && thisPlaying) ? isPlaying : isNotPlaying} ref="post">
         <div className="tf-post-item-content">
-          <div className="tf-post-item--votes">
+          <div className="tf-post-item--votes is-upvoted">
           {post.vote_count}
           </div>
 

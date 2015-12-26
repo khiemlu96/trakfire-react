@@ -185,9 +185,6 @@ var PostStore = assign({}, EventEmitter.prototype, {
   getAllOfGenre: function(genre){
     var postsOfGenre = {};
     for (var id in _posts ) { 
-      /*if(_posts[id].genre == genre) {
-        postsOfGenre[id] = _posts[id];
-      }*/
       if(_posts[id].genre && _posts[id].genre.indexOf(genre) > -1) {
         postsOfGenre[id] = _posts[id];
       }
