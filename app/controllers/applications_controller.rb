@@ -3,6 +3,7 @@ class ApplicationsController < ApplicationController
   	@app = Applications.new(application_params)
   	if !@app.save
   	  render json: @app.errors, status: :unprocessable_entity
+  	end
   end
 
   private

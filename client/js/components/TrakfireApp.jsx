@@ -170,11 +170,12 @@ var TrakfireApp = React.createClass({
   },
 
   sendUserApplication: function() {
-    var name = this.refs.nameField.getDOMNode();
-    var handle = this.refs.handleField.getDOMNode();
-    var email = this.refs.email.getDOMNode();
-    var artists = this.refs.artists.getDOMNode();
-    var statement = this.refs.statements.getDOMNode();
+    console.log(this.refs.artistField.getDOMNode().value);
+    var name = this.refs.nameField.getValue();
+    var handle = this.refs.handleField.getValue()
+    var email = this.refs.emailField.getValue();
+    var artists = this.refs.artistField.getDOMNode().value;
+    var statement = this.refs.statementField.getDOMNode().value;
 
     var data = { 
       application :  {
@@ -307,28 +308,28 @@ var TrakfireApp = React.createClass({
               <p className="tf-centered">Wanna become an influencer? <br></br> Request an invite and become part of the community. </p>
                 <Row>
                   <Col xs={6}>
-                    <Input type="text" label="Full Name" placeholder="First Last" />
+                    <Input type="text" ref="nameField" label="Full Name" placeholder="First Last" />
                   </Col>
                   <Col xs={6}>
-                    <Input type="text" label="Twitter Handle" placeholder="@handle" />
+                    <Input type="text" ref="handleField" label="Twitter Handle" placeholder="@handle" />
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={12}>
-                    <Input type="text" label="Email" placeholder="slimeszn@trakfire.com" />
+                    <Input type="text" ref="emailField" label="Email" placeholder="slimeszn@trakfire.com" />
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={12}>
                     <Input label="Five favorite emerging artists" >
-                      <textarea placeholder="pure fire artists here" ></textarea>
+                      <textarea ref="artistField" placeholder="pure fire artists here" ></textarea>
                     </Input>
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={12}>
                     <Input label="Why do you deserve an invite?">
-                      <textarea placeholder="why you're pure fire here" ></textarea>
+                      <textarea ref="statementField" placeholder="why you're pure fire here" ></textarea>
                     </Input>
                   </Col>
                 </Row>
