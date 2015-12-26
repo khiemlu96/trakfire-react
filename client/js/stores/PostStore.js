@@ -167,7 +167,7 @@ var PostStore = assign({}, EventEmitter.prototype, {
         posts = this.getAllOfGenre("electronic");
       break;
       case "HIPHOP":
-        posts = this.getAllOfGenre("Hip Hop / R&B");
+        posts = this.getAllOfGenre("HipHop");
       break;
       case "VOCALS":
         posts = this.getAllOfGenre("Vocals");
@@ -185,7 +185,10 @@ var PostStore = assign({}, EventEmitter.prototype, {
   getAllOfGenre: function(genre){
     var postsOfGenre = {};
     for (var id in _posts ) { 
-      if(_posts[id].genre == genre) {
+      /*if(_posts[id].genre == genre) {
+        postsOfGenre[id] = _posts[id];
+      }*/
+      if(_posts[id].genre && _posts[id].genre.indexOf(genre) > -1) {
         postsOfGenre[id] = _posts[id];
       }
     }

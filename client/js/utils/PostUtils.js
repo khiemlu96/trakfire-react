@@ -11,7 +11,7 @@ module.exports = {
       title: rawPost.title,
       date: new Date(rawPost.created_at),
       artist: rawPost.artist,
-      genre: rawPost.genre,
+      genre: this.getGenres(rawPost.genre),
       author: rawPost.user.handle,
       author_id: rawPost.user.id,
       author_img: rawPost.user.img,
@@ -28,6 +28,14 @@ module.exports = {
       sortedIdx: -1
     };
   },
+
+  getGenres: function(genreStr) {
+    //console.log(genreStr);
+    if(!genreStr)
+      return genreStr;
+    var genres = genreStr.trim().split(" ");
+    return genres;
+  }, 
 
   getUserIds: function(voteObj) {
     var ids = [];

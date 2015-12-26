@@ -132,12 +132,12 @@ var PostListItem = React.createClass({
     var key = this.props.key;
     var upvoted = (this.state.isUpvoted || this.props.isUpvoted || this.state.hasUpvoted);
     var localUpvote = this.state.hasUpvoted; //pre refresh we upvoted this
-    _localVoteCount = post.vote_count + 1;
+    _localVoteCount = post.vote_count;
     return (
       <li className={isNotPlaying} ref="post">
         <div className="tf-post-item-content">
           <div className={ upvoted ? isUpvoted : isNotUpvoted} ref="upvotes" onClick={this.upvote}>
-          <span className={upvoted ? "" : "tf-hide"} ref="count">{upvoted ? _localVoteCount : post.vote_count}</span>
+          <span className={upvoted ? "" : "tf-hide"} ref="count"><b>{upvoted ? _localVoteCount : post.vote_count}</b></span>
           </div>
           <div className="tf-post-item--img"> 
             <a href="#!" className="tf-post-play" onClick={this.playPauseTrack}>
