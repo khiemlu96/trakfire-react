@@ -295,9 +295,6 @@ var TrakfireApp = React.createClass({
           {active ? tfPlayer : ''}
           </div>
           <Modal show={this.state.showModal} onHide={this.closeModal}>
-            {/*<Modal.Header closeButton className="tf-modal-header">
-              <Modal.Title className="tf-modal-title">If you're reading this.....</Modal.Title>
-            </Modal.Header>*/}
             <Modal.Body closeButton className={"tf-modal-body"}>
               <p><h2 className="tf-centered tf-uppercase">Sign In</h2></p>
               <p className="tf-centered">Fill in your invite code or sign up with Twitter or Facebook to upvote, post, and save tracks to your collection</p>
