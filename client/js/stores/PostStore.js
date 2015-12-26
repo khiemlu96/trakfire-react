@@ -211,9 +211,11 @@ var PostStore = assign({}, EventEmitter.prototype, {
     var currIdx = curr.sortedIdx;
     var nextIdx = currIdx + 1;
     if(nextIdx >= len)
-      var nextIdx = currIdx;
+      nextIdx = currIdx;
     var next = _songs[nextIdx];
-
+    next.current = true;
+    curr.current = false;
+    
     return next;
   }, 
 
@@ -222,9 +224,11 @@ var PostStore = assign({}, EventEmitter.prototype, {
     var currIdx = curr.sortedIdx;
     var prevIdx = currIdx - 1;
     if(prevIdx < 0)
-      var prevIdx = currIdx;
+      prevIdx = currIdx;
     var prev = _songs[prevIdx];
-    
+    prev.current = true;
+    curr.current = false;
+
     return prev;
   }, 
 
