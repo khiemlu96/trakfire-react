@@ -72,6 +72,17 @@ var FilterBar = React.createClass({
     });
   },
 
+  handleVocalsClick: function() {
+    _genre = "VOCALS";
+    _sort = this.props.sort;
+    this.props.onClick("VOCALS", null);
+
+    mixpanel.track('Filter', {
+    'genre': 'Vocals',
+    'sort': _sort
+    });    
+  }, 
+
   handleTopClick: function(){
     //this.mutexClassName("top", _sort.toLowerCase());
     _genre = this.props.genre;
@@ -108,17 +119,20 @@ var FilterBar = React.createClass({
             onClick={this.handleAllClick}>
             All
           </a>
+          <a href="#!" ref="hiphop" className={(_genre == "HIPHOP") ? "is-active" : "" } 
+            onClick={this.handleHipHopClick} >
+            Rhymes
+          </a>
+          <a href="#!" ref="vocal" className={(_genre == "VOCALs") ? "is-active" : "" } 
+            onClick={this.handleVocalsClick} >
+            Vocals
+          </a>  
           <a href="#!" 
             ref="electronic" 
             className={(_genre == "ELECTRONIC") ? "is-active" : "" } 
             onClick={this.handleElectronicClick}>
             Electronic
-          </a>
-          <a href="#!" ref="hiphop" className={(_genre == "HIPHOP") ? "is-active" : "" } 
-            onClick={this.handleHipHopClick} >
-            Rhymes + R&B
-          </a>
-          
+          </a>        
           <div className="right">
             {/*<a href="#!" ref="top" className="is-active" 
               onClick={this.handleTopClick} >

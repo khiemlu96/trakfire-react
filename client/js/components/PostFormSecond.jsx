@@ -33,13 +33,18 @@ var PostFormSecond = React.createClass({
     var data = this.props.data.post;
     var e = this.refs.edm.getDOMNode();
     var h = this.refs.hiphop.getDOMNode();
-    if(h.checked && e.checked) {
+    var v = this.refs.vocals.getDOMNode();
+    var genres = [e, h, v];
+    var genre = genres.join();
+   /*if(h.checked && e.checked) {
       var genre = h.value + " " + e.value;
     } else if(!h.checked && !e.checked) {
       var genre = h.value + " " + e.value;
-    } else {
+    } else if(h.checked && e.checked && ){
+
+    } else{
       var genre = h.checked ? h.value : e.value;
-    }
+    }*/
     var tags = this.refs.tags.getDOMNode().value;
 
     console.log(tags);
@@ -93,7 +98,9 @@ var PostFormSecond = React.createClass({
             <div className="align-left"> 
               <div className="form-title"> GENRE </div>
               <input type="checkbox" ref="hiphop" className="tf-checkbox" name="hiphop" id="hiphop" value="Hip Hop / R&B"></input>
-              <label className="tf-checkbox-label" htmlFor="hiphop" onClick={this.setGenre}>Rhymes + R&B</label>
+              <label className="tf-checkbox-label" htmlFor="hiphop" onClick={this.setGenre}>Rhymes</label>
+              <input type="checkbox" ref="vocals" className="tf-checkbox" id="vocals" name="vocals" value="Vocals" onClick={this.setGenre}></input>
+              <label className="tf-checkbox-label" htmlFor="vocals" >Vocals</label>
               <input type="checkbox" ref="edm" className="tf-checkbox" id="edm" name="edm" value="electronic" onClick={this.setGenre}></input>
               <label className="tf-checkbox-label" htmlFor="edm" >Electronic</label> <br></br> <br></br> <br></br>
               {/*<input type="checkbox" className="ownsong-checkbox" id="ownsong" name="ownsong" value="ownsong"></input> 

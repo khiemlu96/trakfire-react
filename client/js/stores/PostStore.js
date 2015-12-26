@@ -169,6 +169,9 @@ var PostStore = assign({}, EventEmitter.prototype, {
       case "HIPHOP":
         posts = this.getAllOfGenre("Hip Hop / R&B");
       break;
+      case "VOCALS":
+        posts = this.getAllOfGenre("Vocals");
+      break;
       default:
     }
     return posts;
@@ -215,7 +218,7 @@ var PostStore = assign({}, EventEmitter.prototype, {
     var next = _songs[nextIdx];
     next.current = true;
     curr.current = false;
-    
+
     return next;
   }, 
 
