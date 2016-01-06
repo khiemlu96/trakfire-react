@@ -10,9 +10,9 @@
 # Ignore the default SQLite database.
 /db/*.sqlite3
 /db/*.sqlite3-journal
-node_modules/
 
 # Ignore all logfiles and tempfiles.
+/node_modules/*
 /log/*
 !/log/.keep
 /tmp
