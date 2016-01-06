@@ -23,6 +23,12 @@ class PostsController < ApplicationController
 	  end
 	end
 
+	def show
+	  	@post = Post.find(params[:id])
+	    logger.info "POST FOR DETAIL PAGE"
+	  	render json: @post
+	end
+
 	private
   	  def post_params
     	params.require(:post).permit(:url, :user_id, :img_url, :stream_url, :waveform_url, :artist, :title, :duration, :genre, :votes, :vote_count, :all_tags)

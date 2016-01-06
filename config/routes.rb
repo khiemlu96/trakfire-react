@@ -5,9 +5,11 @@ Rails.application.routes.draw do
   get 'current_user', to: 'application#current_user'
   get 'request_token', to: 'tokens#request_token'
   get 'access_token', to: 'tokens#access_token'
+  get 'post/:id' => 'posts#show'
 
   resources :posts, only: [:index, :create, :show]
   resources :votes, only: [:create, :destroy]
+  resources :comments, only: [:create, :destroy]
   resources :users, only: [:update, :show] do
     member do
       get :posts

@@ -293,6 +293,10 @@ PostStore.dispatchToken = AppDispatcher.register(function(action) {
       console.log("SET CURR POST", action.song_id);
       _markPostAsCurrent(action.song_id);
       PostStore.emitChange();
+    case PostConstants.GET_SINGLE_POST:
+      console.log("GET_SINGLE_POST IN POST_STORE");
+      _genre = action.genre;
+      PostStore.emitChange();
     default:
       // no op
   }

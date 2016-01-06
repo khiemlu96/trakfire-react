@@ -62,6 +62,14 @@ module.exports = {
       response: response,
       post_id: response.post_id
     });    
+  },
+  
+  recieveSinglePost: function(response) {
+    console.log('RECIEVING THE INDIVIDUAL POST', response);
+    AppDispatcher.dispatch({
+      actionType: PostConstants.GET_POST,
+      response: response
+    });    
   }
   
 };
