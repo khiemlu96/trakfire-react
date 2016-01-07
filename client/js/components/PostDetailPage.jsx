@@ -6,6 +6,10 @@ var UserStore = require('../stores/UserStore.js');
 var UserPostGrid = require('./UserPostGrid.jsx');
 var ProfileHeader = require('./ProfileHeader.jsx');
 var ProfileBar = require('./ProfileBar.jsx');
+var Bootstrap = require('react-bootstrap');
+var OverlayTrigger = Bootstrap.OverlayTrigger;
+var Popover = Bootstrap.Popover;
+var UserStyle = { maxWidth:480, backgroundColor: '#1c1c1c', border:'1px solid #2b2b2b'};
 
 function getAppState() {
   return {
@@ -27,7 +31,7 @@ var ProfilePage = React.createClass({
   componentDidMount: function() {
     PostStore.addChangeListener(this._onChange);
     var postid = this.props.params.id;
-    console.log(postid+'++++++++++++++ in componentDidMount Function');
+    console.log(postid+'In componentDidMount Function');
     this.getPost(postid);
     var user = this.state.user;
     if(user) {
@@ -42,7 +46,7 @@ var ProfilePage = React.createClass({
   }, 
 
   getPost: function(postid) {
-    console.log(postid+'++++++++++++++ in getPost Function');
+    console.log(postid+'In getPost Function');
     PostActions.getPost(this.props.origin+'/post/'+postid, postid);
   }, 
 
@@ -160,6 +164,27 @@ var ProfilePage = React.createClass({
                               <a className="tf-link" href="/profile/2" >
                                 <img className="tf-author-img" src="https://pbs.twimg.com/profile_images/668573362738696193/g0-CxwLx_400x400.png" />
                               </a>
+                              
+                              <OverlayTrigger trigger="click" rootClose placement="bottom" 
+                                overlay={ 
+                                          <Popover className="tf-user-list-popup" style={UserStyle}>
+                                            <div>
+                                              <div className="">
+                                                <a className="tf-profile-link"> Arjun Mehta</a> - Trakfire Founder.
+                                                <span className="tf-comment-time">4 hours ago</span>
+                                              </div>
+                                            </div>
+                                            <hr></hr>
+                                            <div>
+                                              <div className="">
+                                                <a className="tf-profile-link"> Arjun Mehta</a> - Trakfire Founder.
+                                                <span className="tf-comment-time">4 hours ago</span>
+                                              </div>
+                                            </div>
+                                          </Popover>
+                                        }>
+                                <span className="tf-firestarters-upvotes-count"><b>123+</b></span>
+                              </OverlayTrigger>
                             </div>
                           </div>
                         </div>

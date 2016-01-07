@@ -75,7 +75,8 @@ var PostActions = {
   getPost: function(origin, postid) {
     console.log("GETTING POSTS FOR TRAK ", postid);
     AppDispatcher.dispatch({
-      actionType: PostConstants.GET_SINGLE_POST
+      actionType: PostConstants.GET_SINGLE_POST,
+      post_id: postid
     });
 
     TfAPI.getPost(origin, postid);
