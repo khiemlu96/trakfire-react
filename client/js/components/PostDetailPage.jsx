@@ -13,7 +13,7 @@ var UserStyle = { maxWidth:480, backgroundColor: '#1c1c1c', border:'1px solid #2
 
 function getAppState() {
   return {
-    user: UserStore.getUser()
+    post: PostStore.getSinglePost()
   };
 }
 var ProfilePage = React.createClass({
@@ -167,7 +167,7 @@ var ProfilePage = React.createClass({
                               
                               <OverlayTrigger trigger="click" rootClose placement="bottom" 
                                 overlay={ 
-                                          <Popover className="tf-user-list-popup" style={UserStyle}>
+                                          <Popover className="tf-user-list-popup" id="tf-post-detail-popup" style={UserStyle}>
                                             <div>
                                               <div className="">
                                                 <a className="tf-profile-link"> Arjun Mehta</a> - Trakfire Founder.
@@ -203,7 +203,7 @@ var ProfilePage = React.createClass({
   renderComment: function(){
     return  <div className='tf-current-trak-comment-panel container'>
               <div className="tf-current-trak-inner col-md-12">
-                <div contenteditable="true" className="col-sm-12 tf-comment-add" >
+                <div className="col-sm-12 tf-comment-add" >
                   <div className="tf-comment-profile">
                     <a href="/profile/2" className="tf-link">
                       <img src="https://pbs.twimg.com/profile_images/668573362738696193/g0-CxwLx_400x400.png" className="tf-author-img"> </img>
