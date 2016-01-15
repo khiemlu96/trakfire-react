@@ -200,6 +200,7 @@ var PostsList = React.createClass({
     var songList = {};
     var count = 0;
     var songCount = 0;
+    var first = 1;
     for(date in dates) {
 
         var d;
@@ -229,6 +230,14 @@ var PostsList = React.createClass({
           }
           // console.log("ID: ", array[key].id);
           songList[array[key].id] = array[key];
+          console.log("KEY IS: ", key);
+          var f = false;
+          if(first == 1) {
+            first = -1;
+            f = true;
+          } else {
+            f = false;
+          }
           var post = <PostListItem 
                         key={"p_"+songCount}
                         idx={songCount} 
@@ -241,7 +250,8 @@ var PostsList = React.createClass({
                         isUpvoted={isUpvotedByUser}
                         rank={key}
                         currStreamUrl={this.props.currStreamUrl}
-                        showModal={this.props.showModal}/>
+                        showModal={this.props.showModal}
+                        first={f}/>
           container.push(post); 
           //console.log("HEYYA", songCount, array[key]);
           songList[songCount] = array[key];

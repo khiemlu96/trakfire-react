@@ -17,6 +17,8 @@ var classNames = require('classnames');
 
 var isPlaying = classNames("tf-post-item is-playing");
 var isNotPlaying = classNames("tf-post-item");
+var isFirstPlaying = classNames("tf-post-item--first is-playing");
+var isFirstNotPlaying = classNames("tf-post-item--first");
 var isUpvoted = classNames("tf-post-item--votes is-upvoted");
 var isNotUpvoted = classNames("tf-post-item--votes");
 var _localVoteCount = 0;
@@ -34,7 +36,8 @@ var PostListItem = React.createClass({
    isUpvoted: ReactPropTypes.bool,
    rank: ReactPropTypes.string,
    currStreamUrl: ReactPropTypes.string, 
-   showModal: ReactPropTypes.func
+   showModal: ReactPropTypes.func, 
+   isFirst: ReactPropTypes.bool
   },
 
   getInitialState: function() {
@@ -133,9 +136,11 @@ var PostListItem = React.createClass({
     var upvoted = (this.state.isUpvoted || this.props.isUpvoted || this.state.hasUpvoted);
     var localUpvote = this.state.hasUpvoted; //pre refresh we upvoted this
     _localVoteCount = post.vote_count;
+    var first = (this.props.first) ? isFirstNotPlaying : isNotPlaying;
     return (
-      <li className={isNotPlaying} ref="post">
+      <li className={first} ref="post">
         <div className="tf-post-item-content">
+          <div className="tf-post-item--rank">{parseInt(this.props.rank) + 1}</div>
           <div className={ upvoted ? isUpvoted : isNotUpvoted} ref="upvotes" onClick={this.upvote}>
           <span className={upvoted ? "" : "tf-hide"} ref="count"><b>{upvoted ? _localVoteCount : post.vote_count}</b></span>
           </div>
@@ -152,7 +157,6 @@ var PostListItem = React.createClass({
               <img src={'assets/img/player-pause-white.svg'} /> 
             </div> 
           </div>
-          <div className="tf-post-item--rank">{parseInt(this.props.rank) + 1}</div>
           <div className="tf-post-item--info">
             <h5> { post.title } </h5>
             <small> {post.artist } </small>

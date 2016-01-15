@@ -225,13 +225,15 @@ th.upvote-col {
 .tf-post-list {
 	list-style: none;
 	margin: 0px;
-	padding: 0px;
+	padding-right: 70px;
+	padding-left: 70px;
 }
 
 .tf-post-item {
-	margin-bottom: 10px;
+	margin-bottom: 25px;
 	width: 100%;
-	height: 100px;
+	height: 110px;
+
 }
 
 .tf-post-item div {
@@ -269,8 +271,9 @@ th.upvote-col {
 /* sams magic:; */
 
 .tf-post-item-content {
-	background-color: #1C1C1C;
+	background-color: #191818;
 	border: 1px solid #2B2B2B;
+	border-radius: 4px;
 	height: 100px;
 	padding: 0px;
 	width: 100%;
@@ -280,13 +283,14 @@ th.upvote-col {
 /* votes */
 
 .tf-post-item--votes {
+	position: relative;
 	border: 2px solid #ff0d55;
 	width: 50px;
 	color: #fff;
 	background: #1C1C1C url("../assets/img/votes-arrow.svg") no-repeat center 20px;
 	height: 50px;
 	border-radius: 50%;
-	margin-left: -25px;
+	margin-left: 0px;
 	font-size: 11px;
     padding-top: 20px;
     text-align: center;
@@ -294,6 +298,7 @@ th.upvote-col {
     letter-spacing: 0.07em;
     padding-left: 1px;
     cursor: pointer;
+    z-index: 11;
 }
 
 .tf-post-item--rank {
@@ -304,6 +309,7 @@ th.upvote-col {
 	font-family: "Benton Sans RE", sans-serif;
 	font-size: 19px;
 	color: #fff;
+	/*margin-left: 50px;*/
 }
 
 .is-upvoted {
@@ -318,13 +324,15 @@ th.upvote-col {
 	margin-top: 0px;
 	height: 100px;
 	overflow-y: hidden;
+	z-index: 10;
+	margin-right: 10px;
 }
 
 .tf-post-item .tpf-play-button img {
 	position: absolute;
 	    top: 22px;
 	    display: none;
-	    left: 82px;
+	    left: 140px;
 	    cursor: pointer;
 	    border-radius: 33px;
 	    padding-top: 13px;
@@ -339,10 +347,10 @@ th.upvote-col {
 .tf-post-item .tf-overlay {
 	background-color: rgba(0,0,0,0.6);
 	position: absolute;
-	height: 98px;
-	width: 98px;
-	left: 61px;
-	top: 0px;
+	height: 120px;
+	width: 120px;
+	left: 107px;
+	top: -10px;
 	z-index: 1;
 	display: none;
 }
@@ -436,11 +444,13 @@ th.upvote-col {
 
 
 .tf-thumbnail {
-	position: relative;
-	margin-left: 36px;
-    max-width: 100px;
-    height: 98px;
+	position: absolute;
+	margin-left: -23px;
+    max-width: 120px;
+    height: 120px;
     overflow-y: hidden;
+    z-index: 0;
+    top: -10px;
 }
 
 /* info */
@@ -449,6 +459,7 @@ th.upvote-col {
 	height: 100px;
 	display: block;
 	padding-top: 33px;
+	margin-left: 100px;
 }
 
 .tf-post-item--info h5 {
@@ -474,10 +485,10 @@ th.upvote-col {
 
 .tf-post-item--tags {
 	position: absolute;
-	right: 0px;
-	bottom: 0px;
+	/*right: 0px;
+	bottom: 0px;*/
 	width: 300px;
-	text-align: right;
+	text-align: left;
 	margin-bottom: -1px;
 	margin-right: -1px;
 }
@@ -504,22 +515,26 @@ th.upvote-col {
 /* first list item */
 
 .tf-post-item--first {
-	width: 680px;
-	height: 340px;
-	background: #1C1C1C;
+	/*width: 680px;*/
+	width: 90%;
+	height: 240px;
+	background: #191818;
 	border: 1px solid #2B2B2B;
 	position: relative;
+	margin-bottom: 20px;
 }
 
 .tf-post-item--first .tf-post-item--img {
-	width: 340px!important;
-	height: 340px;
+	width: 240px!important;
+	height: 240px;
+	display: inline-block;
 }
 
 .tf-post-item--first .tf-thumbnail {
-	max-width: 340px;
-	height: 340px;
+	max-width: 240px;
+	height: 240px;
 	margin-left: 0px;
+	display: inline-block;
 }
 
 
@@ -528,37 +543,41 @@ th.upvote-col {
 }
 
 .tf-post-item--first .tf-post-item-content {
-    background-color: #1C1C1C;
+    background-color: #191818;
     border: none!important;
     height: auto!important;
     padding: 0px;
     top: 0px;
-    left: 340px;
+    left: 0px;
     width: auto!important;
     position: absolute;
+    float: left;
+    display: inline-block;
 }
 
 .tf-post-item--first .tf-post-item--rank {
 	font-family: "Benton Sans RE", sans-serif;
 	font-size: 50px;
 	color: #FFFFFF;
+	display: inline-block;
 }
 
 .tf-post-item--first .tf-post-item--info {
-	padding-top: 18px;
-
+	padding-top: 10px;
+	display: inline-block;
 }
 
 .tf-post-item--first .tf-post-item--votes {
-	width: 80px;
-	height: 80px;
+	width: 50px;
+	height: 50px;
 	background: #1C1C1C url("../assets/img/votes-arrow.svg") no-repeat center 20px;
-	padding-top: 35px;
+	padding-top: 0px;
 	font-size: 16px;
 	z-index: 2;
-	left: 325px;
+	left: 0px;
 	position: absolute;
-	bottom: 12px;
+	bottom: 0px;
+	display: inline-block;
 
 }
 
@@ -575,11 +594,14 @@ th.upvote-col {
 	color: #B5B5B5;
 	display: block;
 	width: 210px;
+	position: relative;
+	float: left;
 }
 
 .tf-post-item--first .tf-post-item--rank {
 	width: 60px;
 	padding-top: 10px;
+	margin-right: 100px;
 }
 
 /* second and third */
@@ -619,7 +641,7 @@ th.upvote-col {
 	background: #1C1C1C url("../assets/img/votes-arrow.svg") no-repeat center 15px!important;
 	height: 60px;
 	border-radius: 50%;
-	margin-left: -25px;
+	margin-left: -100px;
 	font-size: 11px;
     padding-top: 10px;
     text-align: center;
@@ -1418,7 +1440,18 @@ label.ownsong-label {
 	color: #fff;
 }
 
+.modal-title {
+	font-family: "Benton Sans RE", sans-serif;
+	color: #fff;
+}
+
 .tf-modal-header {
+	font-family: "Benton Sans RE", sans-serif;
+	color: #fff;
+	background-color: #1f1f1f;
+}
+
+.modal-header {
 	font-family: "Benton Sans RE", sans-serif;
 	color: #fff;
 	background-color: #1f1f1f;
@@ -1430,8 +1463,22 @@ label.ownsong-label {
 	background-color: #1f1f1f;
 }
 
+.modal-body {
+	font-family: "Benton Sans RE", sans-serif;
+	color: #fff;
+	background-color: #1f1f1f;
+}
+
 .tf-centered {
 	text-align: center;
+}
+
+.tf-buffer {
+	margin-bottom: 10px;
+}
+
+.row {
+	margin-bottom: 15px;
 }
 
 .tf-btn-rd {
