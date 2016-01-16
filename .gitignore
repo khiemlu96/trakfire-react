@@ -12,6 +12,7 @@
 /db/*.sqlite3-journal
 
 # Ignore all logfiles and tempfiles.
+/node_modules/*
 /log/*
 !/log/.keep
 /tmp

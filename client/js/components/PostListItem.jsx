@@ -51,7 +51,6 @@ var PostListItem = React.createClass({
 
   componentWillMount: function() {
     //this.hasUpvoted("WILL MOUNT", this.props.post);
-
   }, 
 
   upvote: function(e) {
@@ -158,7 +157,7 @@ var PostListItem = React.createClass({
             </div> 
           </div>
           <div className="tf-post-item--info">
-            <h5> { post.title } </h5>
+            <Link to={"/post/"+post.id}> <h5>{ post.title }</h5></Link>
             <small> {post.artist } </small>
           </div>
           <div className="tf-post-item--author">

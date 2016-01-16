@@ -214,6 +214,22 @@ module.exports = {
         //location = '/';
       }
     });    
+  },
+
+  getPost: function(url, id) {
+    console.log(url+'GETTING POST '+id+' FOR POSTDETAIL PAGE');
+    Reqwest({
+      url: url,
+      type: 'json',
+      method: 'get',
+      success: function(resp) {
+        console.log("SERVER RESPONSE", resp);
+        PostServerActionCreators.recieveSinglePost(resp); 
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+      }
+    });    
   }
 
 };

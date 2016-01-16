@@ -102,7 +102,7 @@ html, body {
 	color: #fff;
 	max-height: 30px;
 	font-family: "Benton Sans RE", sans-serif;
-	text-align: left;
+	text-align: center;
 }
 
 .tf-player-info {
@@ -233,7 +233,7 @@ th.upvote-col {
 	margin-bottom: 25px;
 	width: 100%;
 	height: 110px;
-
+	cursor: pointer;
 }
 
 .tf-post-item div {
@@ -313,9 +313,8 @@ th.upvote-col {
 }
 
 .is-upvoted {
-	/*background: #ff0d55;*/
-	background: #ff0d55 url("../assets/img/votes-arrow.svg") no-repeat center 10px;
-	font-family: "Benton Sans RE", sans-serif;
+	/*background-color: #ff0d55;*/
+	background: #ff0d55;
 }
 
 /* img */
@@ -897,6 +896,8 @@ th.upvote-col {
 }
 .tf-social-icons {
 	margin-top: 10px;
+	margin-right: 10px;
+	color: #ff0d55;
 }
 
 .tf-social-icons img{
@@ -951,7 +952,7 @@ th.upvote-col {
 	margin-bottom: 31px;
 }
 
-input[type=text], input[type=textarea], textarea{
+input[type=text], textarea{
 	/* Rectangle 367 Copy: */
 	background: #161616;
 	border: 1px solid #545454;
@@ -1043,16 +1044,6 @@ input[type=text], input[type=textarea], textarea{
 	position: absolute;
 	top: 81px;
 	height: 25px;
-}
-
-.button--join {
-	width: 60px!important;
-	right: 18.5px;
-	padding-top: 6px;
-	position: absolute;
-	top: 129.5px;
-	height: 25px;
-	text-align: center;
 }
 
 .button--edit {
@@ -1435,9 +1426,27 @@ label.ownsong-label {
 	height: 100%;
 }
 
-.tf-modal-title {
-	font-family: "Benton Sans RE", sans-serif;
-	color: #fff;
+.tf-back-link::before{
+	border-bottom: 6px solid transparent;
+    border-right: 6px solid;
+    border-top: 6px solid transparent;
+    color: #ff0d55 !important;
+    content: "";
+    display: block;
+    left: 7%;
+    position: absolute;
+    top: 26px;
+}
+
+.tf-current-trak{
+	background-color: #1C1C1C;
+	border: 1px solid #2B2B2B;
+	border-radius: 5px;
+	height: auto;
+	padding: 0px;
+	padding-bottom: 2%;
+	width: 100%;
+	position: relative;
 }
 
 .modal-title {
@@ -1486,10 +1495,134 @@ label.ownsong-label {
 	color: #fff;
 }
 
-.tf-btn-rd > a:hover {
-	color: #fff;
+.tf-current-trak-inner{
+	background-color: #1C1C1C;
+	border: 1px solid #2B2B2B;
+	border-radius: 5px;
+	height: 350px;
+	padding: 30px 50px;
+	width: 100%;
+	position: relative;
 }
 
-.tf-btn-link a{
+.tf-current-trak-top-panel{
+	padding-top: 150px;
+	padding-bottom: 2%;
+}
+
+.tf-current-trak-comment-panel{
+	padding-top: 2%;
+	padding-bottom: 2%;
+}
+
+.tf-current-trak-content{
+	margin-left: -15px;
+	width: 102%;
+}
+.tf-current-trak hr{
+	color: #2b2b2b;
+	border-color: #2b2b2b;
+}
+.tf-profile-link {
 	color: #ff0d55;
+    font-size: 15px;
+    font-weight: bold;
+}
+.tf-current-trak h6 {
+	margin-bottom: 3px;
+}
+
+.tf-auther-panel {
+	padding-top: 12px;
+	padding-right: 5px;
+}
+.tf-current-trak-first-panel{
+	padding-top: 15px;
+}
+.tf-current-trak-second-panel{
+	padding-top: 5px;
+}
+.tumbler-logo{
+	width: 21px;
+}
+.tf-trak-detail-vote{
+	height: 49px; 
+	position: absolute; 
+	top: 56px;
+}
+.tf-trak-detail-thumbnail{
+	height: 204px;
+    margin-top: -11px;
+	margin-left: 36px;
+    max-width: 204px;
+    overflow-y: hidden;
+    position: absolute;
+}
+.tf-comment-add{
+	color: white; 
+	background: #1c1c1c none repeat scroll 0% 0%; 
+	cursor: text; 
+	border-radius: 5px; 
+	text-align: left; 
+	height: 35px; 
+	padding-top: 3px;"
+}
+.tf-comment-button{
+	height: 36px;
+    padding-top: 9px;
+    position: absolute;
+    right: 15px;
+    text-align: center;
+    top: 3px;
+    width: 122px !important;
+}
+.tf-comment-list-panel{
+	padding-top: 30px;
+	position: absolute;
+}
+.tf-comment-profile{
+	margin-top: 3px;
+    padding-left: 5px;
+    position: absolute;
+}
+.tf-comment-auther-panel{
+	float: left;
+}
+.tf-comment-time{
+	float: right;
+	text-align: right;
+}
+.tf-parent-comment-profile{
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.tf-current-trak-inner input{
+	background: #161616 none repeat scroll 0 0;
+    border: 0 solid #545454;
+    border-radius: 4px;
+    color: rgba(255, 255, 255, 1);
+    font-family: "Benton Sans Re",sans-serif;
+    font-size: 12px;
+    height: 115%;
+    line-height: 16px;
+    padding: 6px 50px;
+    width: 100%;
+}
+
+.tf-trak-img{
+	position: static;
+}
+
+.tf-post-title{
+	padding-top: 10%;
+	color: rgba(255, 255, 255, 255);
+    font-family: "Benton Sans Re",sans-serif;
+    font-size: 18px;
+}
+.tf-post-category{
+	color: #ff0d55;
+    font-size: 15px;
+    font-weight: bold;
+	border: 1px solid #2b2b2b;
+	padding: 5px;
 }

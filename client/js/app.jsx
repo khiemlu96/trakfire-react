@@ -24,6 +24,7 @@ var AboutPage = require('./components/static/AboutPage.jsx');
 var PrivacyPolicy = require('./components/static/PrivacyPolicy.jsx');
 var TermsOfUse = require('./components/static/TermsOfUse.jsx')
 var EmailAcquirePage = require('./components/EmailAcquirePage.jsx');
+var PostDetailPage = require('./components/PostDetailPage.jsx');
 
 React.render(
 <Router history={createBrowserHistory()}>
@@ -35,6 +36,7 @@ React.render(
       <Route path='/about' component={AboutPage}/>
       <Route path='/terms' component={TermsOfUse}/>
       <Route path='/privacy' component={PrivacyPolicy}/>
+      <Route path='/post/(:id)' component={PostDetailPage} />
     </Route>
   </Router>,
 

@@ -123,4 +123,14 @@ ActiveRecord::Schema.define(version: 20151225224027) do
 
   add_foreign_key "taggings", "posts"
   add_foreign_key "taggings", "tags"
+
+   create_table "comments", force: :cascade do |t|
+    t.integer  "comment_id"
+    t.integer  "parent_id"
+    t.integer  "post_id"
+    t.integer  "user_id"
+    t.string "comment_detail", null: false
+    t.datetime "created_at", null: false
+  end
+  
 end

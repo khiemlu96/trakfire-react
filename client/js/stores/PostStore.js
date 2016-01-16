@@ -21,6 +21,7 @@ var CHANGE_EVENT = 'change';
 var _posts = {};
 var _postsG = {};
 var _songs = {};
+var _singlePost = {};
 var _genre = "ALL";
 var _sort = "TOP";
 var _dayCount = 0; 
@@ -121,6 +122,12 @@ function _addPost(rawPost) {
     _posts[rawPost.id] = post; //PostUtils.convertRawPost(rawPost);
 }
 
+function _sPost(rawPost) {
+  if (rawPost !== undefined) {
+    _singlePost = PostUtils.convertRawPost(rawPost);
+  };
+}
+
 function _addUser(user) {
   _user = user;
 }
@@ -177,6 +184,9 @@ var PostStore = assign({}, EventEmitter.prototype, {
     return posts;
   },
 
+  getSinglePost:function(){
+    return _singlePost;
+  },
   /**
    * Get a filtered slice of posts
    * ex: by genre
@@ -233,6 +243,10 @@ var PostStore = assign({}, EventEmitter.prototype, {
     curr.current = false;
 
     return prev;
+  }, 
+
+  getPostById: function(id) {
+    return _posts[id];
   }, 
 
   emitChange: function() {
@@ -292,6 +306,10 @@ PostStore.dispatchToken = AppDispatcher.register(function(action) {
     case PostConstants.SET_CURR_POST:
       console.log("SET CURR POST", action.song_id);
       _markPostAsCurrent(action.song_id);
+      PostStore.emitChange();
+    case PostConstants.GET_SINGLE_POST:
+      console.log("GET_SINGLE_POST IN POST_STORE", action.response);
+      _sPost(action.response);
       PostStore.emitChange();
     default:
       // no op
