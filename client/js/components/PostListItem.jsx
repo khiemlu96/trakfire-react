@@ -156,6 +156,7 @@ var PostListItem = React.createClass({
               <img src={'assets/img/player-pause-white.svg'} /> 
             </div> 
           </div>
+          <div className="left">
           <div className="tf-post-item--info">
             <Link to={"/post/"+post.id}> <h5>{ post.title }</h5></Link>
             <small> {post.artist } </small>
@@ -165,6 +166,7 @@ var PostListItem = React.createClass({
           </div>
           <div className="tf-post-item--tags">
             {this.renderTags()}
+          </div>
           </div>
         </div>
       </li>

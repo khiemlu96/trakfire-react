@@ -102,7 +102,9 @@ html, body {
 	color: #fff;
 	max-height: 30px;
 	font-family: "Benton Sans RE", sans-serif;
-	text-align: center;
+	text-align: left;
+	margin-bottom: 20px;
+	text-transform: capitalize;
 }
 
 .tf-player-info {
@@ -514,19 +516,93 @@ th.upvote-col {
 /* first list item */
 
 .tf-post-item--first {
-	/*width: 680px;*/
-	width: 90%;
-	height: 240px;
+	width: 580px;
+	/*width: 60%;*/
+	height: 230px;
 	background: #191818;
 	border: 1px solid #2B2B2B;
 	position: relative;
 	margin-bottom: 20px;
 }
 
+.tf-post-item--first .tf-post-item-content .left .tf-post-item--info {
+	display: block;
+	margin-left: 0px;
+}
+
+.tf-post-item--first .tf-post-item-content .left {
+	position: absolute;
+	display: inline-block;
+	margin-left: 10px;
+	height: 230px;
+}
+
+.tf-post-item--first .tf-post-item-content .left .tf-post-item--author {
+	position: relative;
+	margin-top: 55px;
+	margin-left: 20px;
+	color: #ff0d55;
+}
+
 .tf-post-item--first .tf-post-item--img {
 	width: 240px!important;
 	height: 240px;
 	display: inline-block;
+	top: 5px;
+	margin-left: 105px;
+}
+
+.tf-post-item--first .tpf-play-button img {
+	position: absolute;
+	    top: 85px;
+	    display: none;
+	    left: 190px;
+	    cursor: pointer;
+	    border-radius: 33px;
+	    padding-top: 13px;
+	    padding-right: 11px;
+	    padding-left: 15px;
+	    padding-bottom: 13px;
+	    overflow: visible!important;
+	    border: 4px solid #FF0d55;
+	    z-index: 2;
+}
+
+.tf-post-item--first .tf-overlay {
+	background-color: rgba(0,0,0,0.6);
+	position: absolute;
+	height: 240px;
+	width: 240px;
+	left: 105px;
+	top: -10px;
+	z-index: 1;
+	display: none;
+}
+
+.tf-post-item--first .tpf-pause-button img {
+	position: absolute;
+    top: 120px;
+    display: none;
+    left: 100px;
+    cursor: pointer;
+    border-radius: 33px;
+    padding: 13px;
+    border: 4px solid #FF0d55;
+    z-index: 2;
+}
+
+
+.tf-post-item--first:hover .tf-post-item--img .tpf-play-button img{
+	display: block!important;
+}
+
+.tf-post-item--first:hover .tf-post-item--img .tf-overlay{
+	display: block!important;
+}
+
+
+.is-playing .tf-post-item--first:hover .tf-post-item--img:hover .tpf-play-button img{
+	display: none!important;
 }
 
 .tf-post-item--first .tf-thumbnail {
@@ -544,7 +620,7 @@ th.upvote-col {
 .tf-post-item--first .tf-post-item-content {
     background-color: #191818;
     border: none!important;
-    height: auto!important;
+    height: 230px !important;
     padding: 0px;
     top: 0px;
     left: 0px;
@@ -559,11 +635,15 @@ th.upvote-col {
 	font-size: 50px;
 	color: #FFFFFF;
 	display: inline-block;
+	position: absolute;
+	top: 90px;
+	margin-right: 50px;
 }
 
 .tf-post-item--first .tf-post-item--info {
-	padding-top: 10px;
+	/*padding-top: 10px;*/
 	display: inline-block;
+	word-wrap: normal;
 }
 
 .tf-post-item--first .tf-post-item--votes {
@@ -573,15 +653,16 @@ th.upvote-col {
 	padding-top: 0px;
 	font-size: 16px;
 	z-index: 2;
-	left: 0px;
+	left: 80px;
 	position: absolute;
-	bottom: 0px;
+	bottom: 90px;
 	display: inline-block;
 
 }
 
-.tf-post-item--first .tf-post-item--info h5 {
-	font-size: 20px;
+.tf-post-item--first .tf-post-item--info h5 {	
+	font-family: "Benton Sans RE", sans-serif;
+	font-size: 16px;
 	color: #FFFFFF;
 	letter-spacing: 1px;
 	margin-bottom: 5px;
@@ -589,7 +670,8 @@ th.upvote-col {
 }
 
 .tf-post-item--first .tf-post-item--info small {
-	font-size: 16px;
+	font-family: "Benton Sans RE", sans-serif;
+	font-size: 14px;
 	color: #B5B5B5;
 	display: block;
 	width: 210px;
