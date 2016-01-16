@@ -13,7 +13,7 @@ var UserStyle = { maxWidth:480, backgroundColor: '#1c1c1c', border:'1px solid #2
 
 function getAppState() {
   return {
-    post: PostStore.getSinglePost()
+    post: "POST"//PostStore.getSinglePost()
   };
 }
 var ProfilePage = React.createClass({
@@ -31,9 +31,11 @@ var ProfilePage = React.createClass({
   componentDidMount: function() {
     PostStore.addChangeListener(this._onChange);
     var postid = this.props.params.id;
-    console.log(postid+'In componentDidMount Function');
-    this.getPost(postid);
+    //console.log(postid+'In componentDidMount Function');
+    //this.getPost(postid);
     var user = this.state.user;
+    //this.state.post = PostStore.getPostById(postid);
+    this.setState({post: PostStore.getPostById(postid)});
     if(user) {
       console.log("THE GIVEN USER ID IS ", postid, user);
       mixpanel.identify(postid);
@@ -54,7 +56,20 @@ var ProfilePage = React.createClass({
     this.props.onPostItemClick(pid);
   },
 
+  renderTags: function(post) {
+    t = post.tags;
+    tags = [];
+    for(tag in t) {
+      var tag = <div className="tf-post-category">{t[tag].name}</div> 
+      tags.push(tag);
+    }
+
+    return tags;
+  },
+
   renderPost: function(){
+    console.log("POST IS :", this.state.post);
+    var post = this.state.post;
     return <div className='tf-current-trak-top-panel container'>
             <div className="tf-current-trak col-md-12">
               <div className="tf-current-trak-content">
@@ -69,27 +84,25 @@ var ProfilePage = React.createClass({
                 <div className="tf-post-item--img"> 
                   <div className="tf-trak-img">
                     <a href="#!" className="tf-post-play"  >
-                      <img className="tf-trak-detail-thumbnail" src= "https://i1.sndcdn.com/artworks-000141021142-7hadzv-t200x200.jpg" />
+                      <img className="tf-trak-detail-thumbnail" src={post.img_url} />
                     </a>
                   </div>
                   <div className="col-md-3"></div>
                   <div className="col-md-6">
                     <div className="tf-post-title">
-                      <div><b>Trak-Name</b></div>
-                      <div><small>Name</small></div>
+                      <div><b>{post.title}</b></div>
+                      <div><small>{post.artist}</small></div>
                     </div>
                   </div>
                   <div className="col-md-3">
                     <div className="col-md-6">
-                      <div className="tf-post-category">Category</div>
-                      <div className="tf-post-category">Category</div>
-                      <div className="tf-post-category">Category</div>
+                      {this.renderTags(post)}
                     </div>
-                    <div className="col-md-6">
+                    {/*<div className="col-md-6">
                       <div className="tf-post-category">Category</div>
                       <div className="tf-post-category">Category</div>
                       <div className="tf-post-category">Category</div>
-                    </div>
+                    </div>*/}
                   </div>
                 </div>
                 <div className="tf-post-item--rank"></div>
@@ -99,14 +112,14 @@ var ProfilePage = React.createClass({
                       <div className="col-md-2">
                         <div className="tf-auther-panel">
                           <a className="tf-link" href="/profile/2" >
-                            <img className="tf-author-img" src="https://pbs.twimg.com/profile_images/668573362738696193/g0-CxwLx_400x400.png" />
+                            <img className="tf-author-img" src={post.author_img} />
                           </a>
                         </div>
                       </div>
                       <div className="col-md-10">
                         <div>
                           <h6 > Posted By </h6>
-                          <a className="tf-profile-link"> Arjun Mehta</a>
+                          <a className="tf-profile-link">{post.author_name}</a>
                         </div>
                         <div className="tf-current-trak-first-panel">
                           <div >
@@ -116,7 +129,7 @@ var ProfilePage = React.createClass({
                           <div>
                             <img className="tf-social-icons" src={'/assets/img/twitter_footer.svg'} /> 
                             <img className="tf-social-icons" src={'/assets/img/facebook_footer.svg'} /> 
-                            <img className="tf-social-icons tumbler-logo" src={'/assets/img/tumbler.png'} /> 
+                            {/*<img className="tf-social-icons tumbler-logo" src={'/assets/img/tumbler.png'} /> */}
                           </div>
                         </div>
                       </div>

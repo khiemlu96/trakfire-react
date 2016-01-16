@@ -124,7 +124,7 @@ function _addPost(rawPost) {
 
 function _sPost(rawPost) {
   if (rawPost !== undefined) {
-    _singlePost = PostUtils.convertRawPost1(rawPost);
+    _singlePost = PostUtils.convertRawPost(rawPost);
   };
 }
 
@@ -243,6 +243,10 @@ var PostStore = assign({}, EventEmitter.prototype, {
     curr.current = false;
 
     return prev;
+  }, 
+
+  getPostById: function(id) {
+    return _posts[id];
   }, 
 
   emitChange: function() {
