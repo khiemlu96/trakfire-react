@@ -2,7 +2,7 @@
   "name": "Tesseract",
   "version": "0.0.1",
   "description": "Trakfire: a music sharing platform",
-  "main": "client/js/app.jsx",
+  "main": "./client/js/app.jsx",
   "repository": {
     "type": "git",
     "url": ""
