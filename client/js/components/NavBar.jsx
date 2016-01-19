@@ -13,13 +13,13 @@ var Router = require('react-router');
 var Link = Router.Link;
 
 var PostForm = require('./PostForm.jsx');
+var SearchBar = require('./SearchBar.jsx');
 var Bootstrap = require('react-bootstrap');
 var Tooltip = Bootstrap.Tooltip;
 var OverlayTrigger = Bootstrap.OverlayTrigger;
 var Popover = Bootstrap.Popover;
 var ReactPropTypes = React.PropTypes;
-console.log("ReactPropTypes");
-console.log(ReactPropTypes);
+
 var UserStyle = { top:38, maxWidth:'80%', backgroundColor: '#1c1c1c', border:'1px solid #2b2b2b'};
 var searchIconStyle = {cursor: 'pointer'};
 
@@ -30,7 +30,9 @@ var NavBar = React.createClass({
     origin: ReactPropTypes.string,
     isAdmin: ReactPropTypes.bool,
     user: ReactPropTypes.object, 
-    showSignupModal: ReactPropTypes.func
+    showSignupModal: ReactPropTypes.func,
+    onPostItemClick: ReactPropTypes.func,
+    currStreamUrl: ReactPropTypes.string
   },
 
   handleSignOut: function() {
@@ -92,7 +94,10 @@ var NavBar = React.createClass({
       //if(this.props.isAdmin || this.props.user.canPost) { 
         
       var postLink = <span className="tf-menu"><PostForm isVisible={true} origin={this.props.origin} /></span> 
-      var searchIcon = <span></span>
+      var searchIcon =  <span><SearchBar 
+                              isVisible={true} 
+                              currStreamUrl={this.props.currStreamUrl}
+                              onPlayBtnClick={this.props.onPostItemClick} /></span>
       /*} else {
         var tooltip = <Tooltip>Posting is invite only</Tooltip>;
         var postLink = <OverlayTrigger placement="left" overlay={tooltip}><a className="tf-inactive">POST</a></OverlayTrigger>;//<a href="" className="tf-inactive">POST</a>;
