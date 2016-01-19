@@ -14,7 +14,8 @@ module.exports = {
       isAdmin: rawUser.isAdmin,
       canPost: rawUser.canPost,
       posts: rawUser.posts, 
-      upvotes: rawUser.upvotes
+      upvotes: rawUser.upvotes,
+      email: rawUser.email
     };
   }
 

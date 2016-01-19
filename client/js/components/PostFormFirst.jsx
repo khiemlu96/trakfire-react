@@ -37,7 +37,7 @@ var PostFormFirst = React.createClass({
         _data['post']['status'] = "approved";
       else
         _data['post']['status'] = "pending";
-  		//console.log(_data)
+  		console.log(_data)
   		//this.props.onSubmit(JSON.stringify(_data));
       this.props.updateData(_data);
       //this.props.data = _data;

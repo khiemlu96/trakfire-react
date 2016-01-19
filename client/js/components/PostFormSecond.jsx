@@ -77,6 +77,8 @@ var PostFormSecond = React.createClass({
     console.log(data);
     var disabled = "button button--big is-disabled";
     var enabled = "button button--big";
+    console.log("DATA IN FORM SUBMIT=================");
+    console.log(data);    
   	return (
     <div className="tf-newtrack-wrapper"> 
       <img src="/assets/img/nipple.png" className="nipple"></img>

@@ -3,11 +3,21 @@
 var React = require('react');
 var PostActions = require('../actions/PostActions');
 var ReactPropTypes = React.PropTypes;
+var Router = require('react-router');
 var PostFormFirst = require('./PostFormFirst.jsx');
 var PostFormSecond = require('./PostFormSecond.jsx');;
 var PostFormLast = require('./PostFormLast.jsx');
 var BackBar = require('./ProfileBar.jsx');
+
+var Link = Router.Link;
+var PostForm = require('./PostForm.jsx');
+var Bootstrap = require('react-bootstrap');
+var Tooltip = Bootstrap.Tooltip;
+var OverlayTrigger = Bootstrap.OverlayTrigger;
+var Popover = Bootstrap.Popover;
 var SoundCloudAudio = require('soundcloud-audio');
+var PostStyle = { top:38, left:660,maxWidth:'80%', backgroundColor: '#1c1c1c', border:'1px solid #2b2b2b'};
+var SpanStyle = { float:'left'};
 var _submit = false;
 var _data = {};
 
@@ -25,6 +35,7 @@ var PostForm = React.createClass({
   }, 
 
   getDefaultProps: function() {
+
     return {data:{}};
   }, 
   componentDidMount: function() {
@@ -40,6 +51,8 @@ var PostForm = React.createClass({
   		nextStep = currStep+=1;
   	}
   	this.setState({step : nextStep})
+    console.log("ADVANCING STEP");
+    console.log(this.state);
   }, 
 
   goBack: function() {
@@ -52,22 +65,25 @@ var PostForm = React.createClass({
       nextStep = currStep-=1;
     }
     this.setState({step : nextStep})    
+    console.log("REGRESSING STEP");
+    console.log(this.state);
   }, 
 
   updateData: function(data) {
-    console.log("update data", data);
     this.props.data = data;
   }, 
 
   submit: function(data) {
     console.log("submitting");
     PostActions.writePost(this.props.origin+'/posts', data);
-    this.props.history.pushState(null, '/');
+    console.log("pushed.............");
+    this.setState({step : 4})
   }, 
 
   render: function() {
   	var postStep;
   	var step = this.state.step;
+    console.log("HI DATA");
     console.log(this.props.data);
   	switch(this.state.step) {
   		case 1:
@@ -84,22 +100,31 @@ var PostForm = React.createClass({
                       data={this.props.data}
                       submit={this.submit}/>
   		break;
-   		case 3:
-  			postStep = <PostFormLast 
+      case 4:
+        postStep = <PostFormLast 
                       advanceStep={this.advanceStep}
                       updateData={this.updateData}
                       data={_data}/>
-  		break;
+      break;
   		default:
   	}
 
   	return (
-  	  <div>
-        <BackBar/>
-        <div className="tf-nav-buffer">
-  	  	  {postStep}
-        </div>
-	   </div>
+  	  <span>
+        <span className="tf-nav-buffer">
+  	  	  
+        <OverlayTrigger trigger="click" rootClose placement="bottom"
+           overlay={ 
+                     <Popover style={PostStyle} id="PostForm" className="tf-post-trak-popup"> 
+                       <span style={SpanStyle}>
+                         {postStep}
+                       </span>
+                     </Popover>
+                   }>
+           <a>POST TRAK</a>
+         </OverlayTrigger>
+        </span>
+	   </span>
   	);
   }
 });

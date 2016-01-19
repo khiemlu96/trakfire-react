@@ -341,7 +341,8 @@ var TrakfireApp = React.createClass({
                 <a href="#" className="btn btn-link tf-btn-link btn-block"> Already have an account? </a>
             </Modal.Body>
           </Modal>
-
+          <div id="search-result">
+          </div>
           <Footer/>
         </div>
     );

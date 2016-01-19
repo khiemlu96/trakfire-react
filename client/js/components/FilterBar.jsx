@@ -110,38 +110,36 @@ var FilterBar = React.createClass({
    * @return {object}
    */
   render: function() {
+    var title = "TODAY'S FIRE";
     return (
       <div className="tf-filter-bar">
-        <div className="container"> 
-          <a href="#!"
-            ref="all" 
-            className={(_genre == "ALL") ? "is-active" : "" }
-            onClick={this.handleAllClick}>
-            All
-          </a>
-          <a href="#!" ref="hiphop" className={(_genre == "HIPHOP") ? "is-active" : "" } 
-            onClick={this.handleHipHopClick} >
-            Rhymes
-          </a>
-          <a href="#!" ref="vocal" className={(_genre == "VOCALS") ? "is-active" : "" } 
-            onClick={this.handleVocalsClick} >
-            Vocals
-          </a>  
-          <a href="#!" 
-            ref="electronic" 
-            className={(_genre == "ELECTRONIC") ? "is-active" : "" } 
-            onClick={this.handleElectronicClick}>
-            Electronic
-          </a>        
-          <div className="right">
-            {/*<a href="#!" ref="top" className="is-active" 
+        <div className="container "> 
+          <div className="left"><h4>{title} </h4></div>
+          <div className="row right">
+           <ul>
+            <a href="#!" ref="electronic" className={(_genre == "ELECTRONIC") ? "is-active tf-left-filter" : "is-non-active tf-left-filter" } 
+              onClick={this.handleElectronicClick}>
+              <li >Electronic</li>
+            </a>              
+            <a href="#!" ref="hiphop" className={(_genre == "HIPHOP") ? "is-active " : "is-non-active" } 
+              onClick={this.handleHipHopClick} >
+              <li>Hiphop</li>
+            </a>    
+            <a href="#!" ref="vocal" className={(_genre == "VOCALS") ? "is-active tf-right-filter" : "is-non-active tf-right-filter" } 
+              onClick={this.handleVocalsClick} >
+              <li>Vocals</li>
+            </a>    
+            {/*<a href="#!" 
+              ref="top" 
+              className={(_genre == "POPULAR") ?"is-active" : "" }
               onClick={this.handleTopClick} >
               POPULAR
-            </a>
-            <a href="#!" ref="new" className="" 
-              onClick={this.handleNewClick} >
-              NEW
             </a>*/}
+            </ul>
+          </div>
+          <div className="right">
+            {
+            }
           </div>
         </div>
       </div>
