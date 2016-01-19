@@ -12,11 +12,16 @@ var React = require('react');
 var Router = require('react-router');
 var Link = Router.Link;
 
+var PostForm = require('./PostForm.jsx');
 var Bootstrap = require('react-bootstrap');
 var Tooltip = Bootstrap.Tooltip;
 var OverlayTrigger = Bootstrap.OverlayTrigger;
-
+var Popover = Bootstrap.Popover;
 var ReactPropTypes = React.PropTypes;
+console.log("ReactPropTypes");
+console.log(ReactPropTypes);
+var UserStyle = { top:38, maxWidth:'80%', backgroundColor: '#1c1c1c', border:'1px solid #2b2b2b'};
+var searchIconStyle = {cursor: 'pointer'};
 
 var NavBar = React.createClass({
 
@@ -45,15 +50,49 @@ var NavBar = React.createClass({
     this.props.showSignupModal();
   }, 
 
+  renderUserInfo: function(){
+    return <OverlayTrigger trigger="click" rootClose placement="bottom" 
+              overlay={ 
+                        <Popover className="tf-notification-popup col-md-4" id="tf-post-detail-popup" style={UserStyle} >
+                            <div className="tf-popup-profile-link" onClick={() => this.hide()}> GO TO YOUR <Link to={'/profile/'+2}>PROFILE</Link> </div>
+                              <div className="tf-notification-content">
+                                <div className="">
+                                  <div className="" >
+                                    <div className="tf-notification-auther">
+                                       <Link to={'/profile/'+2} className="tf-link">
+                                        <img className="tf-author-img" src={"https://pbs.twimg.com/profile_images/668573362738696193/g0-CxwLx_400x400.png"}></img>
+                                       </Link>
+                                    </div>
+                                    <div className="tf-notification-title">
+                                      <a className="tf-profile-link"> Arjun Mehta</a> 
+                                      <small> 4 - Hours ago </small>
+                                      <div> Commented on your trak.</div>
+                                    </div> 
+                                    <div className="button tf-follow-button"> Following </div>
+                                  </div>
+                                </div>
+                              </div>
+                            <div className="tf-popup-profile-link" onClick={() => this.hide()} > VIEW ALL <Link to={'/notifications'}>NOTIFICATIONS <span className="tf-notification-link"></span></Link></div>
+                        </Popover>
+                      }>
+              <span className="tf-firestarters-upvotes-count">
+                <img className='tf-author-img' src={this.props.user.img}></img>
+              </span>
+            </OverlayTrigger>
+  },
+
   /**
    * @return {object}
    */
   render: function() {
     if(this.props.isLoggedIn) {
+      console.log("IN NAVBAR");
       var signinLink = <a href="#!" onClick={this.handleSignOut}> SIGN OUT </a>
-      var profileLink = <Link to={'/profile/'+this.props.user.id} className="tf-uppercase">{this.props.user.handle}</Link>;
+      var profileLink = <span className="tf-menu">{this.renderUserInfo()}</span>
       //if(this.props.isAdmin || this.props.user.canPost) { 
-      var postLink = <Link to='/post'>POST</Link> 
+        
+      var postLink = <span className="tf-menu"><PostForm isVisible={true} origin={this.props.origin} /></span> 
+      var searchIcon = <span></span>
       /*} else {
         var tooltip = <Tooltip>Posting is invite only</Tooltip>;
         var postLink = <OverlayTrigger placement="left" overlay={tooltip}><a className="tf-inactive">POST</a></OverlayTrigger>;//<a href="" className="tf-inactive">POST</a>;
@@ -63,6 +102,7 @@ var NavBar = React.createClass({
       var inviteLink = <a href="#" onClick={this.showSignupModal}> REQUEST INVITE </a>
       var profileLink = "";
       var postLink = '';
+      var searchIcon = '';
       //var emailLink = <Link to='/email?id=1'>EMAIL</Link>;
     }
   
@@ -76,6 +116,7 @@ var NavBar = React.createClass({
           
           <div className="right"> 
             {postLink}
+            {searchIcon}
             {profileLink}
             {/*<a>             
               <img src={'assets/img/search.svg'}/> 

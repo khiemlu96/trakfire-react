@@ -13,7 +13,7 @@ var UserStyle = { maxWidth:480, backgroundColor: '#1c1c1c', border:'1px solid #2
 
 function getAppState() {
   return {
-    post: "POST"//PostStore.getSinglePost()
+    post: PostStore.getSinglePost()
   };
 }
 var ProfilePage = React.createClass({
@@ -31,13 +31,9 @@ var ProfilePage = React.createClass({
   componentDidMount: function() {
     PostStore.addChangeListener(this._onChange);
     var postid = this.props.params.id;
-    //console.log(postid+'In componentDidMount Function');
-    //this.getPost(postid);
+    this.getPost(postid);
     var user = this.state.user;
-    //this.state.post = PostStore.getPostById(postid);
-    this.setState({post: PostStore.getPostById(postid)});
     if(user) {
-      console.log("THE GIVEN USER ID IS ", postid, user);
       mixpanel.identify(postid);
       mixpanel.track("Arrived on profile "+user.handle+"'s page {"+postid+"}");
     }
@@ -48,7 +44,6 @@ var ProfilePage = React.createClass({
   }, 
 
   getPost: function(postid) {
-    console.log(postid+'In getPost Function');
     PostActions.getPost(this.props.origin+'/post/'+postid, postid);
   }, 
 
@@ -68,7 +63,6 @@ var ProfilePage = React.createClass({
   },
 
   renderPost: function(){
-    console.log("POST IS :", this.state.post);
     var post = this.state.post;
     return <div className='tf-current-trak-top-panel container'>
             <div className="tf-current-trak col-md-12">
@@ -96,13 +90,8 @@ var ProfilePage = React.createClass({
                   </div>
                   <div className="col-md-3">
                     <div className="col-md-6">
-                      {this.renderTags(post)}
+                      <div className="tf-post-category">{this.renderTags(post)}</div>
                     </div>
-                    {/*<div className="col-md-6">
-                      <div className="tf-post-category">Category</div>
-                      <div className="tf-post-category">Category</div>
-                      <div className="tf-post-category">Category</div>
-                    </div>*/}
                   </div>
                 </div>
                 <div className="tf-post-item--rank"></div>
@@ -129,7 +118,7 @@ var ProfilePage = React.createClass({
                           <div>
                             <img className="tf-social-icons" src={'/assets/img/twitter_footer.svg'} /> 
                             <img className="tf-social-icons" src={'/assets/img/facebook_footer.svg'} /> 
-                            {/*<img className="tf-social-icons tumbler-logo" src={'/assets/img/tumbler.png'} /> */}
+                            <img className="tf-social-icons tumbler-logo" src={'/assets/img/tumbler.png'} /> 
                           </div>
                         </div>
                       </div>
@@ -256,8 +245,9 @@ var ProfilePage = React.createClass({
    * @return {object}
    */
   render: function() {
-   //console.log("USER TO RENDER", this.state.user)
-    var user = this.state.user;
+   
+    var post = this.state.post;
+    
     <div> Loading 
     
     </div>
