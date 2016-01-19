@@ -1891,15 +1891,6 @@ label.ownsong-label {
     top: 60px !important;
 }
 
-.tf-search-input-box .arrow {
-    border-bottom-color: #161616 !important;
-    margin-left: 0px !important;
-}
-
-.tf-search-input-box .arrow::after {
-    border-bottom-color: #161616 !important;
-}
-
 .tf-search-input-box input::-moz-placeholder {
     color: #FFFFFF !important;
     opacity: 1.0;
@@ -2022,8 +2013,8 @@ label.ownsong-label {
 }
 .tf-search-page-sort-container span {
     float: left;
-    font-size: 10px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 600;
 }
 
 .tf-search-page-sort-container a {

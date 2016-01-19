@@ -55,7 +55,6 @@ var SearchItemContainer = React.createClass({
     
     playPauseTrack: function(e) {
         e.preventDefault();
-        console.log(this.props.post);
         this.props.onPlayBtnClick(this.props.post.stream_url, this.props.post);
         if (!this.state.isPlaying) {
             //this.refs.post.className += " is-playing";
@@ -95,15 +94,15 @@ var SearchItemContainer = React.createClass({
                     		</span>
                     	</div>
                         <div className="col-sm-6 tf-post-item--img">
-                            <a href = "#!" className = "tf-post-play" onClick = {this.props.playPauseTrack}>
+                            <a href = "#!" className = "tf-post-play" onClick = {this.playPauseTrack}>
                         	   <img className="tf-search-item-img" src={ post.img_url ? post.img_url : "../assets/img/tf_placeholder.png" }/>
                             </a>
-                            <div className = "tf-overlay" onClick = {this.props.playPauseTrack}>
+                            <div className = "tf-overlay" onClick = {this.playPauseTrack}>
                             </div>  
-                            <div className = "tpf-play-button" onClick = {this.props.playPauseTrack}>
+                            <div className = "tpf-play-button" onClick = {this.playPauseTrack}>
                                 <img src = {'../assets/img/player-play-white.svg'}/>  
                             </div>  
-                            <div className = "tpf-pause-button" onClick = {this.props.playPauseTrack}>
+                            <div className = "tpf-pause-button" onClick = {this.playPauseTrack}>
                                  <img src = {'../assets/img/player-pause-white.svg'}/>  
                             </div>
                         </div>
