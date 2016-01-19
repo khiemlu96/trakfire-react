@@ -38,11 +38,7 @@ var ProfileEdit = React.createClass({
         saveUserProfile: function() {
             this.props.toggleProfileEdit(false);
         },
-        handleChange: function(evt) {
-            this.setState({
-              user: evt.target.value
-            });
-        },
+        
         /**
          * @return {object}
          */
@@ -66,9 +62,9 @@ var ProfileEdit = React.createClass({
                             </div>
                             <div className="col-md-5 col-sm-5 col-xs-5 first-section"> 
                                 <label> USERNAME </label>
-                                <input type="text" name="name" ref="name" value={user.name} onChange = {this.handleChange}></input>
+                                <input type="text" name="name" ref="name" value={user.name}></input>
                                 <label> EMAIL * </label>
-                                <input type="text" name="email" ref="email" value={user.email} onChange = {this.handleChange}></input>
+                                <input type="text" name="email" ref="email" value={user.email}></input>
                             </div>
                             <div className="col-md-4 col-sm-4 col-xs-4 second-section"> 
                                 <label> FACEBOOK.COM/ </label>
