@@ -4,80 +4,96 @@ var UserActions = require('../actions/UserActions.js');
 var UserStore = require('../stores/UserStore.js');
 var UserPostGrid = require('./UserPostGrid.jsx');
 var ProfileHeader = require('./ProfileHeader.jsx');
-var ProfileBar = require('./ProfileBar.jsx');
+var ProfileEditPage = require('./ProfileEditPage.jsx');
+
 
 function getAppState() {
-  return {
-    user: UserStore.getUser()
-  };
+    return {
+        user: UserStore.getUser(),
+        showEditProfileWrapper: false
+    };
 }
+
 var ProfilePage = React.createClass({
 
-  propTypes : {
-    onPostItemClick: ReactPropTypes.func, //Playability
-    currStreamUrl: ReactPropTypes.string, 
-    origin: ReactPropTypes.string
-  }, 
+        propTypes: {
+            onPostItemClick: ReactPropTypes.func, //Playability
+            currStreamUrl: ReactPropTypes.string,
+            origin: ReactPropTypes.string
+        },
 
-  getInitialState: function() {
-    return getAppState();
-  }, 
+        getInitialState: function() {
+            return getAppState();
+        },
 
-  componentDidMount: function() {
-    UserStore.addChangeListener(this._onChange);
-    var userid = this.props.params.id;
-    this.getUser(userid);
-    var user = this.state.user;
-    if(user) {
-      console.log("THE GIVEN USER ID IS ", userid, user);
-      mixpanel.identify(userid);
-      mixpanel.track("Arrived on profile "+user.handle+"'s page {"+userid+"}");
-    }
-  },
+        componentDidMount: function() {
+            UserStore.addChangeListener(this._onChange);
+            var userid = this.props.params.id;
+            this.getUser(userid);
+            var user = this.state.user;
+            if (user) {
+                mixpanel.identify(userid);
+                mixpanel.track("Arrived on profile " + user.handle + "'s page {" + userid + "}");
+            }
+        },
 
-  componentDidUnmount: function() {
-    UserStore.removeChangeListener(this._onChange);
-  }, 
+        componentDidUnmount: function() {
+            UserStore.removeChangeListener(this._onChange);
+        },
 
-  getUser: function(userid) {
-    UserActions.getUser(this.props.origin+'/users/'+userid+'/', userid);
-  }, 
+        getUser: function(userid) {
+            UserActions.getUser(this.props.origin + '/users/' + userid + '/', userid);
+        },
 
-  onPostListItemClick:function(pid) {
-    this.props.onPostItemClick(pid);
-  },
-  /**
-   * @return {object}
-   */
-  render: function() {
-   //console.log("USER TO RENDER", this.state.user)
-    var user = this.state.user;
-    if(!user) { return (<div> Loading </div>); }
-    return (
-      <div>
-      <ProfileBar/>
-      <ProfileHeader
-        userName={user.name}
-        userBio={user.bio}
-        userImg={user.img}
-        userTwitterLink={user.twturl}
-      />
-      <div className="tf-profile-posts-wrapper"> 
-        <UserPostGrid 
-          upvotedTracks={user.upvotes} 
-          postedTracks={user.posts}
-          onPostItemClick={this.props.onPostItemClick}
-          currStreamUrl={this.props.currStreamUrl}
-        />
-      </div>
-      </div>
-    );
-  },
+        onPostListItemClick: function(pid) {
+            this.props.onPostItemClick(pid);
+        },
 
-  _onChange: function() {
-    this.setState(getAppState());
-  }
+        toggleProfileEdit: function(flag) {
+            this.setState({
+                showEditProfileWrapper: flag
+            });
+        },
 
-});
+        /**
+         * @return {object}
+         */
+        render: function() {
+            //console.log("USER TO RENDER", this.state.user)
+            var user = this.state.user;
+            console.log(user);
+            if(!user) { return (<div> Loading </div>); }
+            return (
+                <div>                   
+                    
+                    <ProfileHeader
+                        userid={user.id}
+                        userName={user.name}
+                        userBio={user.bio}
+                        userImg={user.img}
+                        userTwitterLink={user.twturl}
+                        isVisible= {!this.state.showEditProfileWrapper}
+                        toggleProfileEdit={this.toggleProfileEdit} />                    
+                    
+                    <ProfileEditPage
+                        user= {user} 
+                        isVisible = {this.state.showEditProfileWrapper} 
+                        toggleProfileEdit= {this.toggleProfileEdit} />
 
-module.exports = ProfilePage;
+                    <div className="tf-profile-posts-wrapper"> 
+                        <UserPostGrid 
+                        upvotedTracks={user.upvotes} 
+                        postedTracks={user.posts}
+                        onPostItemClick={this.props.onPostItemClick}
+                        currStreamUrl={this.props.currStreamUrl} />                    
+                    </div>
+                </div>
+            );
+        },
+
+        _onChange: function() {
+            this.setState(getAppState());
+        }
+    });
+
+    module.exports = ProfilePage;
