@@ -26,6 +26,14 @@ ActiveRecord::Schema.define(version: 20151225224027) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "comments", primary_key: "comment_id", force: :cascade do |t|
+    t.integer  "parent_id"
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.string   "comment_detail"
+    t.datetime "created_at",     null: false
+  end
+
   create_table "oauths", force: :cascade do |t|
     t.string "token",  null: false
     t.string "secret", null: false
