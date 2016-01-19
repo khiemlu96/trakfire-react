@@ -9,75 +9,43 @@
 
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
-var ProfileBar = require('./ProfileBar.jsx'); 
-
-var styleDisplay = {
-    display: 'none'
-};
 
 var ProfileHeader = React.createClass({
 
-    propTypes: {
-        userName: ReactPropTypes.string,
-        userTwitterLink: ReactPropTypes.string,
-        userBio: ReactPropTypes.string,
-        userFacebookLink: ReactPropTypes.string,
-        userImg: ReactPropTypes.string,
-        isVisible:  ReactPropTypes.bool,
-        toggleProfileEdit: ReactPropTypes.func
-    },
+  propTypes: {
+    userName: ReactPropTypes.string,
+    userTwitterLink: ReactPropTypes.string,
+    userBio: ReactPropTypes.string,
+    userFacebookLink: ReactPropTypes.string,
+    userImg: ReactPropTypes.string
+  },
 
-    getInitialState: function() {
-        return {
-            isVisible: this.props.isVisible
-        };
-    },
+  componentDidMount: function() {
+    //console.log(this.props);
+  }, 
+  /**
+   * @return {object}
+   */
+  render: function() {
+    return (
+      <div className="tf-profile-wrapper"> 
 
-    componentDidMount: function() {
-        //console.log(this.props);
-    },
-    /**
-     * @return {object}
-     */
-    render: function() {
+        <img src={this.props.userImg} className="tf-profile-image"></img>
 
-        if(this.props.isVisible === true ){
-            styleDisplay.display = 'block';
-        } else {
-            styleDisplay.display = 'none';
-        }
+        <h1 className="tf-name">{this.props.userName}</h1> 
+        <p className="tf-bio">{this.props.userBio}</p>
 
-        return ( 
-            <div className = "tf-profile-wrapper" style={styleDisplay}>
-                <ProfileBar toggleProfileEdit = {this.props.toggleProfileEdit} />
-                <div className="row col-md-12 col-sm-12 col-xs-12">
-                    <div className="col-md-4 col-xs-4 col-sm-3">
-                    </div>
-                    <div className="col-md-4 col-xs-6 col-sm-7 tf-profile-info-wrapper">
-                        <div className="col-md-4 col-xs-4 col-sm-4 tf-profile-img-wrapper" >
-                            <img src = {this.props.userImg} className = "tf-profile-image"> </img>
-                        </div>
-                        <div className="col-md-8 col-xs-8 col-sm-8">                    
-                            <h1 className = "row tf-name" > {this.props.userName} </h1>
-                            <div className = "row tf-bio" > {this.props.userBio} The user profile page should open when user clicks on user image on trak row</div>
-                            
-                            <div className = "row tf-social-icons" > { /*<img src="assets/img/facebook_share.svg"></img>*/ } 
-                                <div className="tf-btn-follow btn btn-primary">Follow</div>
-                                    <a href = {this.props.userTwitterLink} target = "_blank" >
-                                        <img src="../assets/img/facebook_share.svg"></img>
-                                    </a>
-                                    <a href = {this.props.userTwitterLink} target = "_blank" >
-                                        <img src = "../assets/img/twitter_share.svg"> </img> 
-                                    </a> 
-                            </div>
-                        </div>
-                    </div>
-                    <div className="col-md-4 col-xs-2 col-sm-2">
-                    </div>                    
-                </div>
-            </div>
-        );
-    },
+        <div className="tf-social-icons"> 
+          {/*<img src="assets/img/facebook_share.svg"></img>*/}
+          <a href={this.props.userTwitterLink} target="_blank">
+            <img src="../assets/img/twitter_share.svg"></img>
+          </a>
+        </div>
+
+      </div>
+    );
+  },
+
 
 });
 module.exports = ProfileHeader;

@@ -9,9 +9,7 @@
 
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
-//var PostGridItem = require('./PostGridItem.jsx');
-var PostGridItem = require('./PostGridItemNew.jsx');
-var Link = require('react-router').Link;
+var PostGridItem = require('./PostGridItem.jsx');
 
 var _postGridItems = [];
 
@@ -60,12 +58,6 @@ var UserPostsGrid = React.createClass({
       <section id="user-posts">
         {postHeader}
         <ul id="post-grid" >{postedPosts}</ul>
-        <div className="row tf-load-more-section">
-            LOAD MORE FOR   <span className="">
-                                <a>POSTED TRACKS</a>&nbsp;&nbsp;
-                                <a>&#9660;</a>
-                            </span>
-        </div>
       </section>
       <section id="user-upvotes">
         {upvoteHeader}
