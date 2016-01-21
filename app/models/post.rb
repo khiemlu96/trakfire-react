@@ -2,6 +2,7 @@ class Post < ActiveRecord::Base
 	belongs_to :user
 	has_one :song, :dependent => :destroy
 	has_many :votes, :dependent => :delete_all
+	has_many :comments, :dependent => :delete_all
 	has_many :taggings, :dependent => :delete_all
 	has_many :tags, through: :taggings, :dependent => :delete_all
 	validates :url, uniqueness: true

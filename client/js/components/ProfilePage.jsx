@@ -25,7 +25,6 @@ var ProfilePage = React.createClass({
         getInitialState: function() {
             return getAppState();
         },
-
         componentDidMount: function() {
             UserStore.addChangeListener(this._onChange);
             var userid = this.props.params.id;
@@ -45,6 +44,7 @@ var ProfilePage = React.createClass({
             UserActions.getUser(this.props.origin + '/users/' + userid + '/', userid);
         },
 
+
         onPostListItemClick: function(pid) {
             this.props.onPostItemClick(pid);
         },
@@ -55,13 +55,22 @@ var ProfilePage = React.createClass({
             });
         },
 
+        followUser: function() {
+            var follow_id = this.state.user.id;
+            UserActions.followUser(this.props.origin+ '/follower', follow_id);
+        },
+
+        unFollowUser: function() {
+            var follow_id = this.state.user.id;
+            UserActions.unFollowUser(this.props.origin+ '/follower', follow_id);
+        },   
         /**
          * @return {object}
          */
         render: function() {
             //console.log("USER TO RENDER", this.state.user)
             var user = this.state.user;
-            console.log(user);
+
             if(!user) { return (<div> Loading </div>); }
             return (
                 <div>                   
@@ -73,7 +82,9 @@ var ProfilePage = React.createClass({
                         userImg={user.img}
                         userTwitterLink={user.twturl}
                         isVisible= {!this.state.showEditProfileWrapper}
-                        toggleProfileEdit={this.toggleProfileEdit} />                    
+                        toggleProfileEdit={this.toggleProfileEdit} 
+                        onUserFollowClick={this.followUser}
+                        onUnFollowClick={this.unFollowUser} />                    
                     
                     <ProfileEditPage
                         user= {user} 

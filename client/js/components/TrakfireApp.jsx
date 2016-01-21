@@ -290,7 +290,9 @@ var TrakfireApp = React.createClass({
               showSignupModal={this.showSignupModal}
               showModal={this.showModal}/>
           </div>
-          {Routes}
+          <div id ="main-container">
+            {Routes}
+          </div>          
           <div>
           {active ? tfPlayer : ''}
           </div>

@@ -230,6 +230,47 @@ module.exports = {
         console.error(url, error['response']);
       }
     });    
+  },
+
+  followUser: function(url, follow_id) { 
+    var data = { follow : {follow_id : follow_id} };  
+
+    Reqwest({
+      url: url,
+      data: JSON.stringify(data),
+      type: 'json',
+      method: 'POST',
+      contentType: 'application/json',
+      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      success: function(resp) {
+        console.log("SERVER RESPONSE", resp);
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+      }
+    });
+  },
+
+  unFollowUser: function(url, follow_id) { 
+    var data = { follow : {follow_id : follow_id} };  
+    console.log(" IN unFollowUser");
+    Reqwest({
+      url: url,
+      data: JSON.stringify(data),
+      type: 'json',
+      method: 'delete',
+      contentType: 'application/json',
+      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      success: function(resp) {
+        console.log("SERVER RESPONSE", resp);
+        //newVote = resp;
+        //PostServerActionCreators.recieveNewVote(newVote); 
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+        //location = '/';
+      }
+    });
   }
 
 };
