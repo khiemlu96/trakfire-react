@@ -47,8 +47,21 @@ var UserActions = {
     });
 
     TfAPI.sendUserApplication(origin, data);     
-  }
+  },
 
+  followUser: function(origin, data) {
+      AppDispatcher.dispatch({
+        actionType: UserConstants.FOLLOW_USER
+      });
+      TfAPI.followUser(origin, data);
+  },
+
+  unFollowUser: function(origin, data) {
+      AppDispatcher.dispatch({
+        actionType: UserConstants.UNFOLLOW_USER
+      });
+      TfAPI.unFollowUser(origin, data);
+  }
 };
 
 module.exports = UserActions;

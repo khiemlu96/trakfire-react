@@ -297,6 +297,10 @@ th.upvote-col {
     cursor: pointer;
 }
 
+#Post-list .tf-post-item .tf-post-item--votes {
+	margin-left: -35px;
+}
+
 .tf-post-item--rank {
 	height: 60px;
 	padding-top: 18px;
@@ -305,6 +309,10 @@ th.upvote-col {
 	font-family: "Benton Sans RE", sans-serif;
 	font-size: 19px;
 	color: #fff;
+}
+
+#Post-list .tf-post-item .tf-post-item--rank {
+	width: 10px;
 }
 
 .is-upvoted {
@@ -453,6 +461,10 @@ th.upvote-col {
 	height: 100px;
 	display: block;
 	padding-top: 33px;
+}
+
+#Post-list .tf-post-item .tf-post-item--info {
+	padding-left: 10px;
 }
 
 .tf-post-item--info h5 {
@@ -669,13 +681,14 @@ th.upvote-col {
 
 /* navbar */
 .tf-navbar {
-	background-color: #1C1C1C;
-	width: 100%;
-	height: 46px;
-	border-bottom: 1px solid #2B2B2B;
-	position: fixed;
-	top: 0px;
-	z-index: 100;
+    background-color: #161616;
+    width: 100%;
+    height: 80px;
+    border-bottom: 1px solid #2B2B2B;
+    position: fixed;
+    top: 0px;
+    z-index: 100;
+    padding: 10px;
 }
 
 .tf-logo {
@@ -696,8 +709,8 @@ th.upvote-col {
 }
 
 .tf-navbar .right {
-	font-family: "Benton Sans Black", sans-serif;
-	padding-top: 12px;
+    font-family: "Benton Sans Black", sans-serif;
+    padding-top: 18px;
 }
 
 #post_link {
@@ -769,7 +782,6 @@ th.upvote-col {
 	color: #494949;
 	letter-spacing: 0.6px;
 	line-height: 30px;
-	margin-right: 20px;
 	display: inline-block;
 }
 
@@ -892,7 +904,6 @@ th.upvote-col {
 /**************** START OF PROFILE PAGE ****************/
 
 .tf-profile-wrapper {
-    background-color: #1C1C1C;
     text-align: center;
     padding-top: 24px;
     padding-bottom: 22px;
@@ -901,8 +912,6 @@ th.upvote-col {
 }
 
 .tf-profile-wrapper .tf-filter-bar {
-    background-color: #1C1C1C;
-    border: none;
     position: absolute;
     z-index: 0;
     margin-top: 7px;
@@ -1997,9 +2006,12 @@ label.ownsong-label {
 }
 
 .tf-back-link::before {
-    top: 33px;
+    top: 10px;
 }
 
+.search-text-container .tf-back-link::before {
+    top: 11px !important;
+}
 .tf-search-page-heading {
     font-weight: 700;
     font-size: 28px;

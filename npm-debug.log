@@ -1,0 +1,37 @@
+0 info it worked if it ends with ok
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'run', 'devserve' ]
+2 info using npm@2.14.2
+3 info using node@v4.0.0
+4 verbose run-script [ 'predevserve', 'devserve', 'postdevserve' ]
+5 info predevserve Tesseract@0.0.1
+6 info devserve Tesseract@0.0.1
+7 verbose unsafe-perm in lifecycle true
+8 info Tesseract@0.0.1 Failed to exec devserve script
+9 verbose stack Error: Tesseract@0.0.1 devserve: `webpack-dev-server -d --config webpack.dev.config.js --content-base public/ --progress --colors`
+9 verbose stack spawn ENOENT
+9 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:17:16)
+9 verbose stack     at emitTwo (events.js:87:13)
+9 verbose stack     at ChildProcess.emit (events.js:172:7)
+9 verbose stack     at maybeClose (internal/child_process.js:817:16)
+9 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+10 verbose pkgid Tesseract@0.0.1
+11 verbose cwd /Users/grantcollins/Dev/Web/Projects/trakfire/rails/tesseract-api
+12 error Darwin 14.0.0
+13 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "devserve"
+14 error node v4.0.0
+15 error npm  v2.14.2
+16 error file sh
+17 error code ELIFECYCLE
+18 error errno ENOENT
+19 error syscall spawn
+20 error Tesseract@0.0.1 devserve: `webpack-dev-server -d --config webpack.dev.config.js --content-base public/ --progress --colors`
+20 error spawn ENOENT
+21 error Failed at the Tesseract@0.0.1 devserve script 'webpack-dev-server -d --config webpack.dev.config.js --content-base public/ --progress --colors'.
+21 error This is most likely a problem with the Tesseract package,
+21 error not with npm itself.
+21 error Tell the author that this fails on your system:
+21 error     webpack-dev-server -d --config webpack.dev.config.js --content-base public/ --progress --colors
+21 error You can get their info via:
+21 error     npm owner ls Tesseract
+21 error There is likely additional logging output above.
+22 verbose exit [ 1, true ]
