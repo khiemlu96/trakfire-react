@@ -25,7 +25,8 @@ module.exports = {
       tags: rawPost.tags, 
       status: rawPost.status,
       current: false,
-      sortedIdx: -1
+      sortedIdx: -1,
+      comments: rawPost.comments
     };
   },
 

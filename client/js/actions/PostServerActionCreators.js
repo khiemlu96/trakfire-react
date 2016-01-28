@@ -71,6 +71,13 @@ module.exports = {
       response: response,
       post_id: response.post_id
     });    
-  }
-  
+  },
+
+  recieveNewPostComment: function(response) {
+    AppDispatcher.dispatch({
+      actionType: PostConstants.RECIEVE_NEW_COMMENT,
+      response: response,
+      post_id: response.post_id
+    });    
+  },
 };

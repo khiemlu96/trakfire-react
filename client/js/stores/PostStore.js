@@ -25,6 +25,7 @@ var _singlePost = {};
 var _genre = "ALL";
 var _sort = "TOP";
 var _dayCount = 0; 
+var _current_new_post = {};
 
 function sortPostsByDate(posts) {
   var dates = {};
@@ -118,6 +119,7 @@ function _addPosts(rawPosts) {
 function _addPost(rawPost) {
   //console.log("ADDING POST", rawPost);
   var post = PostUtils.convertRawPost(rawPost);
+  _current_new_post = post;
   if(post.status == "approved")
     _posts[rawPost.id] = post; //PostUtils.convertRawPost(rawPost);
 }
@@ -146,11 +148,19 @@ function _markPostAsCurrent(song_id) {
   console.log(_songs[song_id].current);
 }
 
+function _addPostComment(post_id, comment) {
+    if(comment !== undefined) {
+        _posts[post_id].comments.push(comment);
+        _singlePost = _posts[post_id];
+    }
+}
+
 /**
  * Update all of the TODO items with the same object.
  * @param  {object} updates An object literal containing only the data to be
  *     updated.
  */
+ 
 function updateAll(updates) {
   for (var id in _posts) {
     update(id, updates);
@@ -247,7 +257,11 @@ var PostStore = assign({}, EventEmitter.prototype, {
 
   getPostById: function(id) {
     return _posts[id];
-  }, 
+  },
+
+  getNewPost: function(){
+    return _current_new_post;
+  },
 
   emitChange: function() {
     this.emit(CHANGE_EVENT);
@@ -310,6 +324,9 @@ PostStore.dispatchToken = AppDispatcher.register(function(action) {
     case PostConstants.GET_SINGLE_POST:
       console.log("GET_SINGLE_POST IN POST_STORE", action.response);
       _sPost(action.response);
+      PostStore.emitChange();
+    case PostConstants.RECIEVE_NEW_COMMENT:
+      _addPostComment(action.post_id, action.response);
       PostStore.emitChange();
     default:
       // no op
