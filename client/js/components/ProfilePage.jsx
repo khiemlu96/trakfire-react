@@ -19,13 +19,13 @@ var ProfilePage = React.createClass({
         propTypes: {
             onPostItemClick: ReactPropTypes.func, //Playability
             currStreamUrl: ReactPropTypes.string,
-            origin: ReactPropTypes.string
+            origin: ReactPropTypes.string,
+            currUser: ReactPropTypes.object
         },
 
         getInitialState: function() {
             return getAppState();
         },
-
         componentDidMount: function() {
             UserStore.addChangeListener(this._onChange);
             var userid = this.props.params.id;
@@ -45,6 +45,7 @@ var ProfilePage = React.createClass({
             UserActions.getUser(this.props.origin + '/users/' + userid + '/', userid);
         },
 
+
         onPostListItemClick: function(pid) {
             this.props.onPostItemClick(pid);
         },
@@ -55,30 +56,53 @@ var ProfilePage = React.createClass({
             });
         },
 
+        followUser: function() {
+            var follow_id = this.state.user.id;
+            UserActions.followUser(this.props.origin+ '/follower', follow_id);
+        },
+
+        unFollowUser: function() {
+            var follow_id = this.state.user.id;
+            UserActions.unFollowUser(this.props.origin+ '/follower', follow_id);
+        },   
         /**
          * @return {object}
          */
         render: function() {
             //console.log("USER TO RENDER", this.state.user)
             var user = this.state.user;
-            console.log(user);
+            var isFollowing = false;            
+            
+            if(user !== null) {
+                for(var key in user.followers) {
+                    if(user.followers[key].id === this.props.currUser.id) {
+                        isFollowing = true;                        
+                    }
+                }
+            }
+
             if(!user) { return (<div> Loading </div>); }
             return (
                 <div>                   
                     
                     <ProfileHeader
-                        userid={user.id}
+                        userId={user.id}
                         userName={user.name}
                         userBio={user.bio}
                         userImg={user.img}
                         userTwitterLink={user.twturl}
                         isVisible= {!this.state.showEditProfileWrapper}
-                        toggleProfileEdit={this.toggleProfileEdit} />                    
+                        toggleProfileEdit={this.toggleProfileEdit} 
+                        onUserFollowClick={this.followUser}
+                        onUnFollowClick={this.unFollowUser}
+                        isFollowing={isFollowing}
+                        currentUserId={this.props.currUser.id} />                    
                     
                     <ProfileEditPage
                         user= {user} 
                         isVisible = {this.state.showEditProfileWrapper} 
-                        toggleProfileEdit= {this.toggleProfileEdit} />
+                        toggleProfileEdit= {this.toggleProfileEdit} 
+                        origin= {this.props.origin} />
 
                     <div className="tf-profile-posts-wrapper"> 
                         <UserPostGrid 

@@ -10,21 +10,31 @@
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var ProfileBar = require('./ProfileBar.jsx'); 
+var UserActions = require('../actions/UserActions.js');
 
 var styleDisplay = {
+    display: 'none'
+};
+
+var followBtnStyle = {
     display: 'none'
 };
 
 var ProfileHeader = React.createClass({
 
     propTypes: {
+        userId: ReactPropTypes.number,
         userName: ReactPropTypes.string,
         userTwitterLink: ReactPropTypes.string,
         userBio: ReactPropTypes.string,
         userFacebookLink: ReactPropTypes.string,
         userImg: ReactPropTypes.string,
         isVisible:  ReactPropTypes.bool,
-        toggleProfileEdit: ReactPropTypes.func
+        toggleProfileEdit: ReactPropTypes.func,
+        onUserFollowClick: ReactPropTypes.func,
+        onUnFollowClick: ReactPropTypes.func,
+        isFollowing: ReactPropTypes.bool,
+        currentUserId: ReactPropTypes.number
     },
 
     getInitialState: function() {
@@ -36,20 +46,38 @@ var ProfileHeader = React.createClass({
     componentDidMount: function() {
         //console.log(this.props);
     },
+
+    follow_click: function() {
+        if(this.props.isFollowing === true) {
+            this.props.onUnFollowClick();
+        } else {
+            this.props.onUserFollowClick();            
+        }
+    },
+
     /**
      * @return {object}
      */
     render: function() {
-
         if(this.props.isVisible === true ){
             styleDisplay.display = 'block';
         } else {
             styleDisplay.display = 'none';
         }
 
+        var follow_text = this.props.isFollowing === true ? "UnFollow" : "Follow";
+        
+        var showEditLink = true;
+        
+        followBtnStyle.display = 'none';
+        if(this.props.userId !== this.props.currentUserId) {
+            showEditLink = false;
+            followBtnStyle.display = 'block';
+        }
+
         return ( 
             <div className = "tf-profile-wrapper" style={styleDisplay}>
-                <ProfileBar toggleProfileEdit = {this.props.toggleProfileEdit} />
+                <ProfileBar toggleProfileEdit = {this.props.toggleProfileEdit} showEditLink = {showEditLink} />
                 <div className="row col-md-12 col-sm-12 col-xs-12">
                     <div className="col-md-4 col-xs-4 col-sm-3">
                     </div>
@@ -62,7 +90,7 @@ var ProfileHeader = React.createClass({
                             <div className = "row tf-bio" > {this.props.userBio} The user profile page should open when user clicks on user image on trak row</div>
                             
                             <div className = "row tf-social-icons" > { /*<img src="assets/img/facebook_share.svg"></img>*/ } 
-                                <div className="tf-btn-follow btn btn-primary">Follow</div>
+                                <div className="tf-btn-follow btn btn-primary" onClick={this.follow_click} style={followBtnStyle}>{follow_text}</div>
                                     <a href = {this.props.userTwitterLink} target = "_blank" >
                                         <img src="../assets/img/facebook_share.svg"></img>
                                     </a>

@@ -35,8 +35,33 @@ var ProfileEdit = React.createClass({
             UserActions.getUser(this.props.origin + '/users/' + userid + '/', userid);
         },
 
-        saveUserProfile: function() {
+        onChange: function(event) {
+            var user = this.state.user;
+            if(event.target.name === 'name')
+                user.username = event.target.value;
+            else if(event.target.name === 'email')
+                user.email = event.target.value;
+            else if(event.target.name === 'bio')
+                user.bio = event.target.value;
+
+            this.setState({
+                user : user
+            });
+        },
+
+        saveUserProfile: function(userid) {            
             this.props.toggleProfileEdit(false);
+            var userId = this.props.user.id;
+            
+            var data = {
+                user: {}
+            };
+
+            data['user']['username'] = this.state.user.username;
+            data['user']['email'] = this.state.user.email;
+            data['user']['tbio'] = this.state.user.bio;
+
+            UserActions.updateProfile(this.props.origin + '/users/' + userId, data);
         },
         
         /**
@@ -62,9 +87,9 @@ var ProfileEdit = React.createClass({
                             </div>
                             <div className="col-md-5 col-sm-5 col-xs-5 first-section"> 
                                 <label> USERNAME </label>
-                                <input type="text" name="name" ref="name" value={user.name}></input>
+                                <input type="text" name="name" ref="name" value={this.state.user.username} onChange={this.onChange}></input>
                                 <label> EMAIL * </label>
-                                <input type="text" name="email" ref="email" value={user.email}></input>
+                                <input type="text" name="email" ref="email" value={this.state.user.email} onChange={this.onChange}></input>
                             </div>
                             <div className="col-md-4 col-sm-4 col-xs-4 second-section"> 
                                 <label> FACEBOOK.COM/ </label>
@@ -74,7 +99,7 @@ var ProfileEdit = React.createClass({
                             </div>
                             <div className="col-md-12 col-sm-12 col-xs-12 last-section"> 
                                 <label> BIO </label>
-                                <input type="text" name="bio" ref="bio" value={user.bio}></input>
+                                <input type="text" name="bio" ref="bio" value={this.state.user.bio} onChange={this.onChange}></input>
                             </div>
                         </div>
                         <div className="col-md-2 col-xs-2 col-sm-2">
