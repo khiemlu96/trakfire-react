@@ -18,17 +18,18 @@ class Post < ActiveRecord::Base
 	  self.tags.map(&:name).join(", ")
 	end
 
-	def comments=(comments)
+	def post_comments=(comments)
 	    post_comments = []
 	    @comments = comments.each do |comment|
-	    	@commenter = comment.user_id
-	    	comment.user = @commenter
-			post_comments.push(comment)   	
+	    	commenter_id = comment.user_id
+	    	comment.user = commenter_id
+	    	comment.replies = comment.id
+	      	post_comments.push(comment)
     	end
 	    @comments = post_comments
   	end
 
-  	def comments
+  	def post_comments
     	@comments
   	end
 

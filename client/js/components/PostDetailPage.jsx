@@ -7,7 +7,7 @@ var UserPostGrid = require('./UserPostGrid.jsx');
 var ProfileHeader = require('./ProfileHeader.jsx');
 var ProfileBar = require('./ProfileBar.jsx');
 var Bootstrap = require('react-bootstrap');
-var moment = require('moment');
+var PostComment = require('./PostComment.jsx');
 
 var OverlayTrigger = Bootstrap.OverlayTrigger;
 var Popover = Bootstrap.Popover;
@@ -20,12 +20,29 @@ function getAppState() {
   };
 }
 
-function getLength(a) {
-  var i = 0;
-  for(key in a){
-    i++;
+function getLength(arr) {
+  var count = 0;
+  for(key in arr){
+    count++;
   }
-  return i;
+  return count;
+}
+
+function getCommentLength(comments) {
+  var comment_count = 0, reply_count = 0;
+  for(key in comments){
+    comment_count++;
+    if(comments[key].replies) {
+      var replies = comments[key].replies;
+      for(key in replies) {
+        reply_count++;
+      }
+    }
+  }
+  return {
+    comment_count: comment_count, 
+    reply_count: reply_count
+  };
 }
 
 var ProfilePage = React.createClass({
@@ -236,29 +253,12 @@ var ProfilePage = React.createClass({
           </div>;
   },
 
-  renderSingleComment: function(comment) {
-    return <div className="row tf-parent-comment-profile">
-              <div className="tf-comment-auther-panel">
-                <a className="tf-link" href={"/profile/"+comment.user.id} >
-                  <img className="tf-author-img" src={comment.user.img} />
-                </a>
-              </div>
-              <div>
-                <div className="">
-                  <a className="tf-profile-link"> {comment.user.username}</a> - Trakfire Founder.
-                </div>
-                <div className="col-md-8 tf-comment-detail">{comment.comment_detail}</div>
-              </div>
-              <div className="tf-comment-time">{moment(comment.created_at).fromNow()}</div>
-            </div>;
-  },
-
   renderComments: function(post){
     var comments = post.comments;
     var commentHtml = [];
     if( getLength(comments) > 0 ) {
       for(key in comments) {
-        commentHtml.push(this.renderSingleComment(comments[key]));
+        commentHtml.push(<PostComment comment = {comments[key]} post_id={post.id} origin={this.props.origin} />);
       }
     }
 
@@ -281,9 +281,10 @@ var ProfilePage = React.createClass({
   },
 
   renderCommentCount: function(post){
+    var count = getCommentLength(post.comments);
     return <div className='container'>
             <div className="col-md-12">
-              <span><h3><b>{getLength(post.comments)} Comments, 2 Replies</b></h3></span>
+              <span><h3><b>{count.comment_count} Comments, {count.reply_count} Replies</b></h3></span>
             </div>
           </div>;
   },

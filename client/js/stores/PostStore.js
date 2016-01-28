@@ -107,7 +107,7 @@ function getSongList(posts) {
 function _addPosts(rawPosts) {
   //console.log("ADDING POSTS", rawPosts);
   rawPosts.forEach(function(post){
-    if (!_posts[post.id]) {
+    if (!_posts[post.id]) {      
       _posts[post.id] = PostUtils.convertRawPost( post );
     }
   });
@@ -149,10 +149,19 @@ function _markPostAsCurrent(song_id) {
 }
 
 function _addPostComment(post_id, comment) {
-    if(comment !== undefined) {
-        _posts[post_id].comments.push(comment);
-        _singlePost = _posts[post_id];
+  if(comment !== undefined) {    
+    if(comment.parent_id === null) {
+      comment.replies = [];
+      _singlePost.comments.push(comment);
+    } else {
+      var parent_comment_id = comment.parent_id;
+      for(key in _singlePost.comments) {
+        if(_singlePost.comments[key].id === parent_comment_id) {
+          _singlePost.comments[key].replies.push(comment);
+        }
+      }
     }
+  }
 }
 
 /**
@@ -322,7 +331,6 @@ PostStore.dispatchToken = AppDispatcher.register(function(action) {
       _markPostAsCurrent(action.song_id);
       PostStore.emitChange();
     case PostConstants.GET_SINGLE_POST:
-      console.log("GET_SINGLE_POST IN POST_STORE", action.response);
       _sPost(action.response);
       PostStore.emitChange();
     case PostConstants.RECIEVE_NEW_COMMENT:

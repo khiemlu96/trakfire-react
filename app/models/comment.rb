@@ -10,7 +10,22 @@ class Comment < ActiveRecord::Base
     	@commenter
  	end
 
+ 	def replies=(parent_id)
+ 		@replies = Comment.where(parent_id: parent_id)
+    replies = []
+    @replies = @replies.each do |reply|
+      user_id = reply.user_id
+      reply.user = user_id
+      replies.push(reply)
+    end
+    @replies = replies
+ 	end
+
+ 	def replies
+    	@replies
+ 	end
+
  	def as_json(options={})
-    	super({ methods: ['user'] })
+    	super({ methods: ['user', 'replies'] })
   	end
 end

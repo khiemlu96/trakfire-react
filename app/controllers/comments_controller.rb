@@ -17,7 +17,8 @@ class CommentsController < ApplicationController
 		post.update( { 'comment_count' =>  comment_count } )
 		post.save
 
-		render json: @comment
+		@comment.user = @comment.user_id
+		render json: @comment, methods: ['user']
 	  else
 		render json: @comment.errors, status: :unprocessable_entity
 	  end
@@ -35,6 +36,6 @@ class CommentsController < ApplicationController
 
 private
 	def comment_params
-		params.require(:comment).permit(:id, :comment_id, :post_id, :user_id, :comment_detail)
+		params.require(:comment).permit(:id, :comment_id, :post_id, :user_id, :comment_detail, :parent_id)
 	end
 end

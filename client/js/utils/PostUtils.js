@@ -26,7 +26,7 @@ module.exports = {
       status: rawPost.status,
       current: false,
       sortedIdx: -1,
-      comments: rawPost.comments
+      comments: (rawPost.comments !== undefined) ? rawPost.comments : rawPost.post_comments
     };
   },
 

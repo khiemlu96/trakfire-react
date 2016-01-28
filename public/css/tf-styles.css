@@ -1948,6 +1948,8 @@ label.ownsong-label {
 	height: 35px; 
 	padding-top: 3px;"
 }
+
+.tf-comment-reply-button,
 .tf-comment-button{
 	height: 36px;
     padding-top: 9px;
@@ -1957,6 +1959,11 @@ label.ownsong-label {
     top: 3px;
     width: 122px !important;
 }
+
+.tf-comment-reply-button {
+	top: 104px;
+}
+
 .tf-comment-list-panel{
 	padding-top: 30px;
 	position: absolute;
@@ -1970,20 +1977,51 @@ label.ownsong-label {
 	float: left;
 }
 .tf-comment-time{
-	float: right;
-	text-align: right;
+	float: right !important;
+    left: 40px !important;
+    text-align: right;
 }
+
+.tf-reply-comment-profile,
 .tf-parent-comment-profile{
 	padding-left: 20px;
 	padding-right: 5px;
 	padding-top: 15px;
 	padding-bottom: 10px;
+	background-color: #1c1c1c;
+	margin: 4px;
+	border-radius: 5px;
+}
+.tf-reply-comment-profile {
+	margin-left: 36px;
 }
 
 .tf-parent-comment-profile .tf-comment-detail {
 	margin-top: 10px;
 	margin-left: -15px;
 }
+
+.tf-parent-comment-profile .tf-comment-text {
+	padding: 0px 60px 0px 85px;
+}
+
+.tf-parent-comment-profile .tf-reply-btn{
+	visibility: hidden;
+}
+
+.tf-parent-comment-profile:hover .tf-reply-btn{
+	visibility: visible;
+	cursor: pointer;
+	margin-right: 15px;
+}
+
+.tf-parent-comment-profile .tf-comment-reply-input {
+ 	height: 40px;
+    margin: 25px 0px 10px 55px;
+    width: 80%;
+    padding-left: 20px;
+}
+
 .tf-current-trak-inner input{
 	background: #161616 none repeat scroll 0 0;
     border: 0 solid #545454;
