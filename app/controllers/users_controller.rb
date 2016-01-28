@@ -24,9 +24,12 @@ class UsersController < ApplicationController
 
   def update
     logger.info "THE USERS EMAIL"
-    logger.info params['user']['email']
     @user = User.find(params[:id])
-  	@user.update_attributes(email: params['user']['email'])
+  	@user.update_attributes(
+      :email => user_params[:email], 
+      :username => user_params[:username], 
+      :tbio => user_params[:tbio]
+    )
     render json: @user
   end
 
@@ -38,12 +41,19 @@ class UsersController < ApplicationController
     @user.upvotes = @votes
     logger.info "USER TO BE SERVED"
     logger.info @user.username
+    
+    @followers = Follower.where(follow_id: @user.id)
+    @user.followers = @followers
+    
+    @followings = Follower.where(user_id: @user.id)
+    @user.followings = @followings
+
     logger.info @user.as_json
     render json: @user
   end
 
   private 
   def user_params
-    params.require(:user).permit(:email, :username, :upvotes)   
+    params.require(:user).permit(:email, :username, :upvotes, :tbio)   
   end
 end
