@@ -27,7 +27,8 @@ var ProfileBar = React.createClass({
      * @return {object}
      */
     render: function() {
-        if(this.state.showEditLink === true) {
+
+        if(this.props.showEditLink === true) {
             editBtnDisplayStyle.display = 'block';
         } else {
             editBtnDisplayStyle.display = 'none';

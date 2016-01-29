@@ -56,7 +56,7 @@ var NavBar = React.createClass({
     return <OverlayTrigger trigger="click" rootClose placement="bottom" 
               overlay={ 
                         <Popover className="tf-notification-popup col-md-4" id="tf-post-detail-popup" style={UserStyle} >
-                            <div className="tf-popup-profile-link" onClick={() => this.hide()}> GO TO YOUR <Link to={'/profile/'+2}>PROFILE</Link> </div>
+                            <div className="tf-popup-profile-link" onClick={this.hide()}> GO TO YOUR <Link to={'/profile/'+2}>PROFILE</Link> </div>
                               <div className="tf-notification-content">
                                 <div className="">
                                   <div className="" >
@@ -74,7 +74,7 @@ var NavBar = React.createClass({
                                   </div>
                                 </div>
                               </div>
-                            <div className="tf-popup-profile-link" onClick={() => this.hide()} > VIEW ALL <Link to={'/notifications'}>NOTIFICATIONS <span className="tf-notification-link"></span></Link></div>
+                            <div className="tf-popup-profile-link" onClick={this.hide()} > VIEW ALL <Link to={'/notifications'}>NOTIFICATIONS <span className="tf-notification-link"></span></Link></div>
                         </Popover>
                       }>
               <span className="tf-firestarters-upvotes-count">

@@ -4,7 +4,7 @@ class PostsController < ApplicationController
 	def index
 	  #@posts = Post.all.order(date: :desc).ranking.limit(50)
 	  @posts = Post.where(status: "approved").order(date: :desc).ranking.limit(50)
-      render json: @posts, include: { tags:{}, votes:{},comments:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :date, :created_at, :duration, :genre, :vote_count, :hot_score, :status] 
+      render json: @posts, include: { tags:{}, votes:{}, comments:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :date, :created_at, :duration, :genre, :vote_count, :hot_score, :status] 
 	end
 	
 	def create
@@ -26,7 +26,11 @@ class PostsController < ApplicationController
 	def show
 	  	@post = Post.find(params[:id])
 	    logger.info "POST FOR DETAIL PAGE"
-	  	render json: @post, include: { tags:{}, votes:{},comments:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :date, :created_at, :duration, :genre, :vote_count, :hot_score, :status] 
+
+	    @comments = Comment.where(post_id: @post.id, parent_id: nil)	    
+		@post.post_comments = @comments
+
+	  	render json: @post, include: { tags:{}, votes:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, methods: ['post_comments'], only: [:id, :title, :stream_url, :duration, :artist, :img_url, :date, :created_at, :duration, :genre, :vote_count, :hot_score, :status] 
 	end
 
 	private

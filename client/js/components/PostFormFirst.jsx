@@ -138,7 +138,7 @@ var PostFormFirst = React.createClass({
           </input>
           <div className="align-left"> 
             <div className="tf-newtrack-img"> 
-              <img src="assets/img/tf_placeholder.png" ref="img_field"></img>
+              <img src="/assets/img/tf_placeholder.png" ref="img_field"></img>
             </div>
             <div className="tf-newtrack-form"> 
               <label> ARTIST </label> 

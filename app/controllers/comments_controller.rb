@@ -1,23 +1,24 @@
 class CommentsController < ApplicationController
 	before_action :authenticate_request, only: [:create, :destroy]
+
 	def create
 	  logger.info "PARAMS COMMENT "
 	  logger.info params
-	  @comment = Comments.new(comment_params)
+	  @comment = Comment.new(comment_params)
 	  @comment.user_id = @current_user.id
 	  #update the post associated
 	  post = Post.find(@comment.post_id)
 	  if @comment.save
 	  	if post.comment_count.nil?
-	  		post.comment_count = 0
-	  	end
-	  	vc = post.comment_count += 1
-	  	logger.info cc
-	  	logger.info post.comment_count
-		post.update( { 'comment_count' =>  cc } )
+	  		comment_count = 1
+	  	else 
+  			comment_count = post.comment_count + 1
+  		end
+		post.update( { 'comment_count' =>  comment_count } )
 		post.save
-		logger.info post.comment_count
-		render json: @comment
+
+		@comment.user = @comment.user_id
+		render json: @comment, methods: ['user']
 	  else
 		render json: @comment.errors, status: :unprocessable_entity
 	  end
@@ -35,6 +36,6 @@ class CommentsController < ApplicationController
 
 private
 	def comment_params
-		params.require(:comment).permit(:comment_id, :post_id, :user_id)
+		params.require(:comment).permit(:id, :comment_id, :post_id, :user_id, :comment_detail, :parent_id)
 	end
 end

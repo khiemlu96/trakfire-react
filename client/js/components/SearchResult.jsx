@@ -135,7 +135,7 @@ var SearchResultModal = React.createClass({
                         <b>See more results ({total_result_count})</b>
                     </div>
                 </div>
-                < a onClick = {() => this.closeModal()} role = "button" style = {closeButtonStyle} > &times; < /a> 
+                < a onClick = {this.closeModal()} role = "button" style = {closeButtonStyle} > &times; < /a> 
             </div>            
         );
     }

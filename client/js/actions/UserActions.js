@@ -61,6 +61,13 @@ var UserActions = {
         actionType: UserConstants.UNFOLLOW_USER
       });
       TfAPI.unFollowUser(origin, data);
+  },
+  
+  updateProfile: function(origin, data) {
+      AppDispatcher.dispatch({
+          actionType: UserConstants.UPDATE_USER_PROFILE
+      });
+      TfAPI.updateProfile(origin, data);
   }
 };
 

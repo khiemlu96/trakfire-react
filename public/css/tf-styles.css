@@ -303,9 +303,9 @@ th.upvote-col {
     z-index: 11;
 }
 
-#Post-list .tf-post-item .tf-post-item--votes {
+/*#Post-list .tf-post-item .tf-post-item--votes {
 	margin-left: -35px;
-}
+}*/
 
 .tf-post-item--rank {
 	height: 60px;
@@ -318,9 +318,13 @@ th.upvote-col {
 	/*margin-left: 50px;*/
 }
 
-#Post-list .tf-post-item .tf-post-item--rank {
+/*#Post-list .tf-post-item .tf-post-item--rank {
 	width: 10px;
 }
+
+#Post-list .tf-post-item .tf-post-item--rank {
+	width: 10px;
+}*/
 
 .is-upvoted {
 	/*background-color: #ff0d55;*/
@@ -336,21 +340,26 @@ th.upvote-col {
 	z-index: 10;
 	margin-right: 10px;
 }
+.tf-current-trak-content .tpf-play-button img {
+	left: 108px !important;
+	top: 64px !important;
+}
 
+.tf-current-trak-content .tpf-play-button img,
 .tf-post-item .tpf-play-button img {
 	position: absolute;
-	    top: 22px;
-	    display: none;
-	    left: 140px;
-	    cursor: pointer;
-	    border-radius: 33px;
-	    padding-top: 13px;
-	    padding-right: 11px;
-	    padding-left: 15px;
-	    padding-bottom: 13px;
-	    overflow: visible!important;
-	    border: 4px solid #FF0d55;
-	    z-index: 2;
+    top: 22px;
+    display: none;
+    left: 140px;
+    cursor: pointer;
+    border-radius: 33px;
+    padding-top: 13px;
+    padding-right: 11px;
+    padding-left: 15px;
+    padding-bottom: 13px;
+    overflow: visible!important;
+    border: 4px solid #FF0d55;
+    z-index: 2;
 }
 
 .tf-post-item .tf-overlay {
@@ -363,7 +372,7 @@ th.upvote-col {
 	z-index: 1;
 	display: none;
 }
-
+.tf-current-trak-content .tpf-pause-button img,
 .tf-post-item .tpf-pause-button img {
 	position: absolute;
     top: 22px;
@@ -376,11 +385,13 @@ th.upvote-col {
     z-index: 2;
 }
 
-.tf-search-item-content:hover .tf-post-item--img .tpf-play-button img,
+.tf-current-trak-content .tf-post-item--img:hover .tpf-play-button img,
+.tf-search-item-content .tf-post-item--img:hover .tpf-play-button img,
 .tf-post-item:hover .tf-post-item--img .tpf-play-button img{
 	display: block!important;
 }
 
+.tf-current-trak-content:hover .tf-post-item--img .tf-overlay,
 .tf-search-item-content:hover .tf-post-item--img .tf-overlay,
 .tf-post-item:hover .tf-post-item--img .tf-overlay{
 	display: block!important;
@@ -399,6 +410,7 @@ th.upvote-col {
 	display: none!important;
 }
 
+.tf-current-trak-content .tpf-play-button img,
 .tf-search-item-content .tpf-play-button img,
 .tf-post-grid .tpf-play-button img {
 	position: absolute;
@@ -415,6 +427,7 @@ th.upvote-col {
     z-index: 2;
 }
 
+.tf-current-trak-content .tf-overlay,
 .tf-search-item-content .tf-overlay,
 .tf-post-grid .tf-overlay {
 	background-color: rgba(0,0,0,0.6);
@@ -427,16 +440,26 @@ th.upvote-col {
 	display: none;
 }
 
+.tf-current-trak-content .tf-overlay {
+ 	height: 204px;
+	width: 204px;
+	left: 35px;
+	top: -10px;
+}
+
+.tf-current-trak-content .tf-post-item--img:hover .tpf-play-button img,
 .tf-search-item-content .tf-post-item--img:hover .tpf-play-button img,
 .tf-post-grid .tf-post-item--img:hover .tpf-play-button img{
 	display: block!important;
 }
 
+.tf-current-trak-content .tf-post-item--img:hover .tf-overlay,
 .tf-search-item-content .tf-post-item--img:hover .tf-overlay,
 .tf-post-grid .tf-post-item--img:hover .tf-overlay{
 	display: block!important;
 }
 
+.tf-current-trak-content .tpf-pause-button img,
 .tf-search-item-content .tpf-pause-button img,
 .tf-post-grid .tpf-pause-button img {
 	position: absolute;
@@ -467,7 +490,6 @@ th.upvote-col {
 }
 
 /* info */
-
 .tf-post-item--info {
 	height: 100px;
 	display: block;
@@ -475,9 +497,13 @@ th.upvote-col {
 	margin-left: 100px;
 }
 
-#Post-list .tf-post-item .tf-post-item--info {
+/*#Post-list .tf-post-item .tf-post-item--info {
 	padding-left: 10px;
 }
+
+#Post-list .tf-post-item .tf-post-item--info {
+	padding-left: 10px;
+}*/
 
 .tf-post-item--info h5 {
 	font-family: "Benton Sans Black", sans-serif;
@@ -521,8 +547,6 @@ th.upvote-col {
 	padding-bottom: 4px;
 	height: 30px;
 	cursor: pointer;
-
-
 }
 
 .tf-tag:nth-of-type(1) {
@@ -628,7 +652,7 @@ th.upvote-col {
 	display: inline-block;
 }
 
-.tf-search-item-content .tf-post-item--tags .tf-tag,
+
 .tf-post-item--first .tf-post-item--tags .tf-tag{
 	font-size: 9px;
 }
@@ -738,7 +762,7 @@ th.upvote-col {
 	background: #1C1C1C url("../assets/img/votes-arrow.svg") no-repeat center 15px!important;
 	height: 60px;
 	border-radius: 50%;
-	margin-left: -100px;
+	margin-left: -25px;
 	font-size: 11px;
     padding-top: 10px;
     text-align: center;
@@ -793,7 +817,6 @@ th.upvote-col {
     z-index: 100;
     padding: 10px;
 }
-
 .tf-logo {
 	margin-top: 13px;
 	float: left;
@@ -851,7 +874,7 @@ th.upvote-col {
     bottom: 0px;
     z-index: 10;
     padding-top: 20px;
-    position: fixed;
+    position: relative;
     bottom: 0px;
 }
 
@@ -873,9 +896,13 @@ th.upvote-col {
 	background: #161616;
 	position: fixed;
 	top: 70px;
-	/*margin-top: 46px;*/
-	z-index: 100;
+	position: absolute;;
+	/*margin-top: 46px;
+	background: #161616;
 	border: 1px solid #2b2b2b;
+	*/
+	z-index: 0;
+	
 }
 
 .tf-filter-bar a{
@@ -1000,7 +1027,6 @@ th.upvote-col {
 	 * this.margin-top: height(navbar) + height(filterbar) + maxHeight(dayheader) + padding (optional)
 	 * 46 + 60 + 30 + 10 = 146;
 	 */
-
 	margin-top: 146px;
 }
 
@@ -1013,6 +1039,7 @@ th.upvote-col {
     margin-top: 80px;
     height: 245px;
 }
+
 
 .tf-profile-wrapper .tf-filter-bar {
     position: absolute;
@@ -1069,6 +1096,12 @@ th.upvote-col {
 
 .tf-profile-wrapper .tf-social-icons {
     margin-top: 10px;
+    margin-right: 10px;
+    color: #ff0d55;
+}
+
+.tf-trak-detail-wrapper .tf-social-icons{
+	margin-top: 10px;
     margin-right: 10px;
     color: #ff0d55;
 }
@@ -1369,6 +1402,29 @@ input[type=text], textarea{
 	opacity: 1.0;
 }
 
+.tf-newtrack-wrapper .tf-new-post {
+	padding-left: 40px;
+	height: 290px;
+}
+
+.tf-newtrack-wrapper .tf-check-live-post {
+	position: relative;
+    top: 195px;
+}
+.tf-newtrack-wrapper .tf-check-live-post .button {
+	text-align: left;
+}
+.tf-newtrack-wrapper .tf-search-item-content {
+	margin-bottom: 0px;
+}
+
+.tf-newtrack-wrapper .tf-search-item-content .tf-post-item--votes {
+	left: 41px;
+}
+
+.tf-newtrack-wrapper .tf-search-item-content .tf-search-item-auth-img {
+	left: 412px;
+}
 .button--add {
 	width: 60px!important;
 	right: 67px;
@@ -1770,7 +1826,6 @@ label.ownsong-label {
     position: absolute;
     top: 26px;
 }
-
 .tf-notification-link::after{
 	border-left: 6px solid transparent;
     border-right: 6px solid transparent;
@@ -1783,7 +1838,6 @@ label.ownsong-label {
     top: 80%;
     width: 0;
 }
-
 .tf-current-trak{
 	background-color: #1C1C1C;
 	border: 1px solid #2B2B2B;
@@ -1840,7 +1894,6 @@ label.ownsong-label {
 	background-color: #ff0d55;
 	color: #fff;
 }
-
 .tf-current-trak-inner{
 	background-color: #1C1C1C;
 	border: 1px solid #2B2B2B;
@@ -1913,6 +1966,8 @@ label.ownsong-label {
 	height: 35px; 
 	padding-top: 3px;"
 }
+
+.tf-comment-reply-button,
 .tf-comment-button{
 	height: 36px;
     padding-top: 9px;
@@ -1922,6 +1977,11 @@ label.ownsong-label {
     top: 3px;
     width: 122px !important;
 }
+
+.tf-comment-reply-button {
+	top: 104px;
+}
+
 .tf-comment-list-panel{
 	padding-top: 30px;
 	position: absolute;
@@ -1935,13 +1995,51 @@ label.ownsong-label {
 	float: left;
 }
 .tf-comment-time{
-	float: right;
-	text-align: right;
+	float: right !important;
+    left: 40px !important;
+    text-align: right;
 }
+
+.tf-reply-comment-profile,
 .tf-parent-comment-profile{
-	padding-left: 5px;
+	padding-left: 20px;
 	padding-right: 5px;
+	padding-top: 15px;
+	padding-bottom: 10px;
+	background-color: #1c1c1c;
+	margin: 4px;
+	border-radius: 5px;
 }
+.tf-reply-comment-profile {
+	margin-left: 36px;
+}
+
+.tf-parent-comment-profile .tf-comment-detail {
+	margin-top: 10px;
+	margin-left: -15px;
+}
+
+.tf-parent-comment-profile .tf-comment-text {
+	padding: 0px 60px 0px 85px;
+}
+
+.tf-parent-comment-profile .tf-reply-btn{
+	visibility: hidden;
+}
+
+.tf-parent-comment-profile:hover .tf-reply-btn{
+	visibility: visible;
+	cursor: pointer;
+	margin-right: 15px;
+}
+
+.tf-parent-comment-profile .tf-comment-reply-input {
+ 	height: 40px;
+    margin: 25px 0px 10px 55px;
+    width: 80%;
+    padding-left: 20px;
+}
+
 .tf-current-trak-inner input{
 	background: #161616 none repeat scroll 0 0;
     border: 0 solid #545454;

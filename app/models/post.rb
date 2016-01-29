@@ -18,5 +18,20 @@ class Post < ActiveRecord::Base
 	  self.tags.map(&:name).join(", ")
 	end
 
+	def post_comments=(comments)
+	    post_comments = []
+	    @comments = comments.each do |comment|
+	    	commenter_id = comment.user_id
+	    	comment.user = commenter_id
+	    	comment.replies = comment.id
+	      	post_comments.push(comment)
+    	end
+	    @comments = post_comments
+  	end
+
+  	def post_comments
+    	@comments
+  	end
+
 	scope :ranking, -> { select("id, user_id, song_id, created_at, genre, date, genre, play_count, score, vote_count, img_url, title, artist, stream_url, duration,  hot_score(vote_count, created_at) as hot_score") }
 end

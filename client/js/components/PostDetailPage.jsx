@@ -7,15 +7,44 @@ var UserPostGrid = require('./UserPostGrid.jsx');
 var ProfileHeader = require('./ProfileHeader.jsx');
 var ProfileBar = require('./ProfileBar.jsx');
 var Bootstrap = require('react-bootstrap');
+var PostComment = require('./PostComment.jsx');
+
 var OverlayTrigger = Bootstrap.OverlayTrigger;
 var Popover = Bootstrap.Popover;
 var UserStyle = { maxWidth:480, backgroundColor: '#1c1c1c', border:'1px solid #2b2b2b'};
 
 function getAppState() {
   return {
-    post: PostStore.getSinglePost()
+    post: PostStore.getSinglePost(),
+    isPlaying: false
   };
 }
+
+function getLength(arr) {
+  var count = 0;
+  for(key in arr){
+    count++;
+  }
+  return count;
+}
+
+function getCommentLength(comments) {
+  var comment_count = 0, reply_count = 0;
+  for(key in comments){
+    comment_count++;
+    if(comments[key].replies) {
+      var replies = comments[key].replies;
+      for(key in replies) {
+        reply_count++;
+      }
+    }
+  }
+  return {
+    comment_count: comment_count, 
+    reply_count: reply_count
+  };
+}
+
 var ProfilePage = React.createClass({
 
   propTypes : {
@@ -48,7 +77,7 @@ var ProfilePage = React.createClass({
   }, 
 
   onPostListItemClick:function(pid) {
-    this.props.onPostItemClick(pid);
+    this.props.onPostItemClick(this.state.post.stream_url, this.state.post, pid);
   },
 
   renderTags: function(post) {
@@ -60,6 +89,20 @@ var ProfilePage = React.createClass({
     }
 
     return tags;
+  },
+
+  postComment: function() {
+    var postid = this.props.params.id;
+    var comment_text = this.refs.comment.getDOMNode().value.trim();
+    var data = {};
+
+    if(comment_text !== "") {
+      data['comment'] = {};
+      data['comment']['post_id'] = postid;
+      data['comment']['comment_detail'] = comment_text;
+      PostActions.postComment(this.props.origin + '/comments', data);
+      this.refs.comment.getDOMNode().value = "";
+    }
   },
 
   renderPost: function(){
@@ -77,9 +120,17 @@ var ProfilePage = React.createClass({
                 </div>
                 <div className="tf-post-item--img"> 
                   <div className="tf-trak-img">
-                    <a href="#!" className="tf-post-play"  >
+                    <a href="#!" className="tf-post-play" onClick={this.onPostListItemClick} >
                       <img className="tf-trak-detail-thumbnail" src={post.img_url} />
                     </a>
+                    <div className = "tf-overlay"  onClick={this.onPostListItemClick} >
+                    </div>  
+                    <div className = "tpf-play-button"  onClick={this.onPostListItemClick} >
+                        <img src = {'../assets/img/player-play-white.svg'}/>  
+                    </div>  
+                    <div className = "tpf-pause-button"  onClick={this.onPostListItemClick} >
+                         <img src = {'../assets/img/player-pause-white.svg'}/>  
+                    </div>
                   </div>
                   <div className="col-md-3"></div>
                   <div className="col-md-6">
@@ -115,7 +166,7 @@ var ProfilePage = React.createClass({
                             <span><b>Share</b></span>
                             <span>&nbsp;&nbsp;this song</span>
                           </div>
-                          <div>
+                          <div className="tf-trak-detail-wrapper">
                             <img className="tf-social-icons" src={'/assets/img/twitter_footer.svg'} /> 
                             <img className="tf-social-icons" src={'/assets/img/facebook_footer.svg'} /> 
                             <img className="tf-social-icons tumbler-logo" src={'/assets/img/tumbler.png'} /> 
@@ -202,7 +253,15 @@ var ProfilePage = React.createClass({
           </div>;
   },
 
-  renderComment: function(){
+  renderComments: function(post){
+    var comments = post.comments;
+    var commentHtml = [];
+    if( getLength(comments) > 0 ) {
+      for(key in comments) {
+        commentHtml.push(<PostComment comment = {comments[key]} post_id={post.id} origin={this.props.origin} />);
+      }
+    }
+
     return  <div className='tf-current-trak-comment-panel container'>
               <div className="tf-current-trak-inner col-md-12">
                 <div className="col-sm-12 tf-comment-add" >
@@ -211,33 +270,21 @@ var ProfilePage = React.createClass({
                       <img src="https://pbs.twimg.com/profile_images/668573362738696193/g0-CxwLx_400x400.png" className="tf-author-img"> </img>
                     </a>
                   </div>
-                  <input className="tf-soundcloud-link" type="text" placeholder="Write a Comment..."></input>
-                  <div className="button tf-comment-button"> Add Comment </div>
+                  <input ref="comment" className="tf-soundcloud-link" type="text" placeholder="Write a Comment..."></input>
+                  <div className="button tf-comment-button" onClick = {this.postComment}> Add Comment </div>
                 </div>
                 <div className="tf-comment-list-panel col-md-12">
-                  <div className="tf-parent-comment-profile">
-                    <div className="tf-comment-auther-panel">
-                      <a className="tf-link" href="/profile/2" >
-                        <img className="tf-author-img" src="https://pbs.twimg.com/profile_images/668573362738696193/g0-CxwLx_400x400.png" />
-                      </a>
-                    </div>
-                    <div>
-                      <div className="">
-                        <a className="tf-profile-link"> Arjun Mehta</a> - Trakfire Founder.
-                      </div>
-                      <div className="col-md-8">Really like the second drop of this song at 03:12!!!</div>
-                    </div>
-                    <div className="tf-comment-time">4 hours ago</div>
-                  </div>
+                  {commentHtml}
                 </div>    
               </div>  
             </div>;
   },
 
-  renderCommentCount: function(){
+  renderCommentCount: function(post){
+    var count = getCommentLength(post.comments);
     return <div className='container'>
             <div className="col-md-12">
-              <span><h3><b>17 Comments, 2 Replies</b></h3></span>
+              <span><h3><b>{count.comment_count} Comments, {count.reply_count} Replies</b></h3></span>
             </div>
           </div>;
   },
@@ -247,7 +294,6 @@ var ProfilePage = React.createClass({
   render: function() {
    
     var post = this.state.post;
-    
     <div> Loading 
     
     </div>
@@ -260,10 +306,10 @@ var ProfilePage = React.createClass({
          {this.renderPost()}
         </div>
         <div>
-          {this.renderCommentCount()}
+          {this.renderCommentCount(post)}
         </div>
         <div>
-         {this.renderComment()}
+         {this.renderComments(post)}
         </div>
       </div>
     );

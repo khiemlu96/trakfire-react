@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151225224027) do
+ActiveRecord::Schema.define(version: 20160123014149) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -22,6 +22,19 @@ ActiveRecord::Schema.define(version: 20151225224027) do
     t.string   "email"
     t.string   "artists"
     t.string   "statement"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "comments", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "post_id"
+  end
+
+  create_table "followers", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "follow_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -37,9 +50,9 @@ ActiveRecord::Schema.define(version: 20151225224027) do
     t.integer  "user_id"
     t.integer  "song_id"
     t.string   "url"
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
-    t.integer  "tags",         default: [],              array: true
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
+    t.integer  "tags",          default: [],              array: true
     t.string   "genre"
     t.date     "date"
     t.integer  "play_count"
@@ -56,6 +69,7 @@ ActiveRecord::Schema.define(version: 20151225224027) do
     t.string   "img_url"
     t.float    "dateinmill"
     t.string   "status"
+    t.integer  "comment_count"
   end
 
   create_table "songs", force: :cascade do |t|
@@ -104,6 +118,7 @@ ActiveRecord::Schema.define(version: 20151225224027) do
     t.boolean  "isAdmin"
     t.string   "handle"
     t.boolean  "canPost"
+    t.float    "score"
   end
 
   add_index "users", ["uid"], name: "index_users_on_uid", using: :btree

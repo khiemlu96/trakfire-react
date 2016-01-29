@@ -271,7 +271,67 @@ module.exports = {
         //location = '/';
       }
     });
-  }
+  },
 
+  /*unFollowUser: function(url, follow_id) { 
+    var data = { follow : {follow_id : follow_id} };  
+    url = url + '/' + follow_id;
+    Reqwest({
+      url: url,
+      data: JSON.stringify(data),
+      type: 'json',
+      method: 'delete',
+      contentType: 'application/json',
+      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      success: function(resp) {
+        console.log("SERVER RESPONSE", resp);
+        //newVote = resp;
+        //PostServerActionCreators.recieveNewVote(newVote); 
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+        //location = '/';
+      }
+    });
+  },*/
+
+  writePostComment: function(url, commentData) {
+    Reqwest({
+      url: url,
+      data: JSON.stringify(commentData),
+      type: 'json',
+      method: 'POST',
+      contentType: 'application/json',
+      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      success: function(resp) {
+        console.log("SERVER RESPONSE", resp);
+        newComment = resp;
+        PostServerActionCreators.recieveNewPostComment(newComment); 
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+        //location = '/';
+      }
+    });
+  },
+
+  updateProfile: function(url, data) {
+    console.log(data);
+    Reqwest({
+      url: url,
+      type: 'json',
+      method: 'PUT',
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      success: function(resp) {
+        console.log("SERVER RESPONSE", resp);
+        UserServerActionCreators.recieveCurrentUser(resp); 
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+      }
+    });
+  }
 };
 

@@ -15,7 +15,9 @@ module.exports = {
       canPost: rawUser.canPost,
       posts: rawUser.posts, 
       upvotes: rawUser.upvotes,
-      email: rawUser.email
+      email: rawUser.email,
+      followers: rawUser.followers,
+      followings: rawUser.followings
     };
   }
 
