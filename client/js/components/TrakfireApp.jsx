@@ -12,7 +12,7 @@ var Button = Bootstrap.Button;
 var Input = Bootstrap.Input;
 var Row = Bootstrap.Row;
 var Col = Bootstrap.Col; 
-
+console.log("POST BS");
 var NavBar = require('./NavBar.jsx');
 var Footer = require('./Footer.jsx');
 var FilterBar = require('./FilterBar.jsx');
