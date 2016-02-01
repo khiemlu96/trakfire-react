@@ -1,8 +1,10 @@
 //TrakfireApp.js
-
+console.log("PRE R");
 var React = require('react/addons');
+console.log("PRE JSURI");
 var Uri = require('jsuri');
 var ReactPropTypes = React.PropTypes;
+console.log("PRE BS");
 var Bootstrap = require('react-bootstrap');
 var Tooltip = Bootstrap.Tooltip;
 var Modal = Bootstrap.Modal;
