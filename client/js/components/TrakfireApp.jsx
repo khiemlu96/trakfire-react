@@ -3,7 +3,6 @@
 var React = require('react/addons');
 var Uri = require('jsuri');
 var ReactPropTypes = React.PropTypes;
-var bootstrap = require('bootstrap');
 var Bootstrap = require('react-bootstrap');
 var Tooltip = Bootstrap.Tooltip;
 var Modal = Bootstrap.Modal;
