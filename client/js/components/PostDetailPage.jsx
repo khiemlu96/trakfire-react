@@ -67,7 +67,8 @@ var ProfilePage = React.createClass({
   componentDidMount: function() {
     PostStore.addChangeListener(this._onChange);
     var postid = this.props.params.id;
-    this.getPost(postid);
+    console.log("POST ID IS ", postid);
+    this.setState({post: this.getPost(postid)});
     var user = this.state.user;
     if(user) {
       mixpanel.identify(postid);
@@ -80,7 +81,8 @@ var ProfilePage = React.createClass({
   }, 
 
   getPost: function(postid) {
-    PostActions.getPost(this.props.origin+'/post/'+postid, postid);
+    //PostActions.getPost(this.props.origin+'/post/'+postid, postid);
+    return PostStore.getPostById(postid);
   }, 
 
   onPostListItemClick:function(pid) {
@@ -114,6 +116,7 @@ var ProfilePage = React.createClass({
 
   renderPost: function(){
     var post = this.state.post;
+    console.log(post);
     return <div className='tf-current-trak-top-panel container'>
             <div className="tf-current-trak col-md-12">
               <div className="tf-current-trak-content">
@@ -284,9 +287,9 @@ var ProfilePage = React.createClass({
               <div className="tf-current-trak-inner col-md-12">
                 <div className="col-sm-12 tf-comment-add" >
                   <div className="tf-comment-input-box">
-                    <a href={"/profile/" + this.props.currUser.id} className="tf-link">
+                    {/*<a href={"/profile/" + this.props.currUser.id} className="tf-link">
                       <img src={this.props.currUser.img} className="tf-author-img"> </img>
-                    </a>
+                    </a>*/}
                   </div>
                   <input ref="comment" className="tf-soundcloud-link" type="text" placeholder="Write a Comment..."></input>
                   <div className="button tf-comment-button" onClick = {this.postComment}> Add Comment </div>

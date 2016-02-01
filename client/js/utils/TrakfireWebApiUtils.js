@@ -324,7 +324,7 @@ module.exports = {
         //UserServerActionCreators.recieveCurrentUser(resp); 
       },
       error: function(error) {
-        console.error(url, error['response']);
+        console.error(url, error['response'], error);
       }
     });
   }

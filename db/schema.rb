@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160123014149) do
+ActiveRecord::Schema.define(version: 20160201195354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,6 +35,15 @@ ActiveRecord::Schema.define(version: 20160123014149) do
   create_table "followers", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "follow_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "message"
+    t.datetime "read_time"
+    t.datetime "sent_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

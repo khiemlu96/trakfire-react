@@ -283,7 +283,7 @@ var TrakfireApp = React.createClass({
                 setSongList: this.setSongList
               }) }</div>;
 
-    var user_notifications = this.getUserNotifications();
+    var user_notifications = {};//this.getUserNotifications();
     
     return (
       <div className="tf-body">
