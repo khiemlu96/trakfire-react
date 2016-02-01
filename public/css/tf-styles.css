@@ -1918,7 +1918,7 @@ label.ownsong-label {
 	background-color: #1C1C1C;
 	border: 1px solid #2B2B2B;
 	border-radius: 5px;
-	height: 350px;
+	height: 100%;
 	padding: 30px 50px;
 	width: 100%;
 	position: relative;
@@ -1997,26 +1997,33 @@ label.ownsong-label {
     top: 3px;
     width: 122px !important;
 }
-
-.tf-comment-reply-button {
-	top: 104px;
+.tf-comment-reply-button{
+	right: 0px;
 }
-
 .tf-comment-list-panel{
 	padding-top: 30px;
-	position: absolute;
+	position: relative;
 }
+
 .tf-comment-profile{
 	margin-top: 3px;
     padding-left: 5px;
-    position: absolute;
+    position: relative;
+    margin-bottom: 0px;
+}
+
+.tf-comment-input-box {
+	margin-top: 3px;
+    padding-left: 5px;
+	position: absolute;
+	z-index: 100;
 }
 .tf-comment-auther-panel{
 	float: left;
 }
 .tf-comment-time{
 	float: right !important;
-    left: 40px !important;
+    left: 20px !important;
     text-align: right;
 }
 
@@ -2040,24 +2047,33 @@ label.ownsong-label {
 }
 
 .tf-parent-comment-profile .tf-comment-text {
-	padding: 0px 60px 0px 85px;
+	padding: 0px 0px 0px 75px;
+	margin-bottom: 20px;
 }
 
-.tf-parent-comment-profile .tf-reply-btn{
+.tf-reply-comment-profile .tf-comment-text {
+	margin-bottom: 10px !important;
+}
+
+.tf-parent-comment-profile .tf-reply-btn {
 	visibility: hidden;
-}
-
-.tf-parent-comment-profile:hover .tf-reply-btn{
-	visibility: visible;
 	cursor: pointer;
 	margin-right: 15px;
 }
 
+.tf-parent-comment-profile:hover .tf-reply-btn {
+	visibility: visible;	
+}
+
 .tf-parent-comment-profile .tf-comment-reply-input {
  	height: 40px;
-    margin: 25px 0px 10px 55px;
-    width: 80%;
+    margin: 2px 0px 5px 30px;
+    width: 98%;
     padding-left: 20px;
+}
+
+.tf-comment-reply-container {
+	margin-top: 10px;
 }
 
 .tf-current-trak-inner input{

@@ -17,6 +17,37 @@ class CommentsController < ApplicationController
 		post.update( { 'comment_count' =>  comment_count } )
 		post.save
 
+		notification = Notification.new();
+		if @comment.parent_id == nil
+			notification.user_id = post.user_id
+			notification.notification_type = 'COMMENT_ON_POST'
+			notification.reference_id = post.id
+
+			@data = {
+				:commenter_id => @current_user.id,
+				:commenter_profile_url => "profile/#{@current_user.id}",
+				:post_id => post.id
+			}
+		else
+			parent_comment = Comment.find(comment_params[:parent_id])
+			notification.user_id = parent_comment.user_id
+			notification.notification_type = 'REPLY_ON_COMMENT'
+			notification.reference_id = parent_comment.id
+
+			@data = {
+				:commenter_id => @current_user.id,
+				:profile_url => "profile/#{@current_user.id}",
+				:post_id => post.id
+			}
+		end
+	
+		notification.sent_time = Time.current.utc.iso8601		
+		notification.data = @data.to_json
+
+		if notification.save
+			logger.info "notification sent for follow user"
+		end
+
 		@comment.user = @comment.user_id
 		render json: @comment, methods: ['user']
 	  else

@@ -14,12 +14,20 @@ var ReactPropTypes = React.PropTypes;
 var Link = Router.Link;
 var moment = require('moment');
 var PostActions = require('../actions/PostActions.js');
+var CommentReplyInput = require('./CommentReplyInput.jsx');
+
+function compareCreatedAt(a, b) {
+  if(a.created_at < b.created_at) return 1;
+  else if(a.created_at > b.created_at) return -1;
+  return 0;
+}
 
 var PostComment = React.createClass({
 	propTypes: {
         comment: ReactPropTypes.object,
         origin: ReactPropTypes.string,
-        post_id: ReactPropTypes.number
+        post_id: ReactPropTypes.number,
+        currUser: ReactPropTypes.object
     },
 
 	getInitialState: function() {
@@ -31,17 +39,17 @@ var PostComment = React.createClass({
 
     renderSingleReply: function(reply) {
     	return (
-    		<div className="col-md-11 tf-reply-comment-profile">
+    		<div className="col-md-12 tf-reply-comment-profile">
 				<div className = "row tf-comment-profile col-md-12">
 					<div className="col-md-0 tf-comment-auther-panel left">
 						<a className="tf-link" href={"/profile/"+reply.user.id} >
 							<img className="tf-author-img" src={reply.user.img} />
 						</a>
 					</div>	
-					<div className="col-md-9">
+					<div className="col-md-8">
 						<a className="tf-profile-link"> {reply.user.username}</a> - Trakfire Founder.
 					</div>				
-					<div className="col-md-2 tf-comment-time right">					
+					<div className="col-md-3 tf-comment-time right">					
 						<span className="">{moment(reply.created_at).fromNow()}</span>
 					</div>
 				</div>
@@ -53,29 +61,27 @@ var PostComment = React.createClass({
     	);
     },
 
-    renderCommentReplyInput: function(comment_id) {
-	},
+    renderCommentReplyInput: function() {
+    	var self = this;
+		var comment_id = self.props.comment.id;		
 
-	postCommentReply: function() {
-		var self = this;
-		var comment_id = self.props.comment.id;
-		var postid = self.props.post_id;
-		
-		var comment_text = self.refs.replyComment.getDOMNode().value.trim();
-		var data = {};
-
-		if(comment_text !== "") {
-		  data['comment'] = {};
-		  data['comment']['post_id'] = postid;
-		  data['comment']['parent_id'] = comment_id;
-		  data['comment']['comment_detail'] = comment_text;
-		  PostActions.postComment(this.props.origin + '/comments', data);
-		  self.refs.replyComment.getDOMNode().value = "";
-		}
+		React.render(
+					<CommentReplyInput 
+						comment = {this.props.comment}
+						origin = {this.props.origin}
+						post_id = {this.props.post_id} 
+						currUser = {this.props.currUser} />,
+	       			document.getElementById("comment-reply-input-" + comment_id)
+       			);
 	},
 
     renderCommentReplies: function(comment) {
     	var replies = comment.replies;
+
+    	if(replies !== undefined){
+	      replies = replies.sort(compareCreatedAt); //sort dates in decending order
+	    }
+
     	var replyHtml = [];
     	for(key in replies) {
     		replyHtml.push(this.renderSingleReply(replies[key]));
@@ -84,7 +90,8 @@ var PostComment = React.createClass({
     },
 
     render: function() {
-    	var comment = this.state.comment;
+    	var comment = this.props.comment;
+
 		return (
 			<div className="col-md-12 tf-parent-comment-profile">
 				<div className = "row tf-comment-profile col-md-12">
@@ -93,12 +100,12 @@ var PostComment = React.createClass({
 							<img className="tf-author-img" src={comment.user.img} />
 						</a>
 					</div>	
-					<div className="col-md-9">
+					<div className="col-md-8">
 						<a className="tf-profile-link"> {comment.user.username}</a> - Trakfire Founder.
 					</div>				
-					<div className="col-md-2 tf-comment-time right">
-						<span className="tf-reply-btn">
-							<img ref="replyBtn" src="../assets/img/reply-comment-icon.png" onClick={this.renderCommentReplyInput(comment.id)}></img>
+					<div className="col-md-3 tf-comment-time right">
+						<span className="tf-reply-btn" onClick = {this.renderCommentReplyInput}>
+							<img ref="replyBtn" src="../assets/img/reply-comment-icon.png"></img>
 						</span>						
 						<span className="">{moment(comment.created_at).fromNow()}</span>
 					</div>
@@ -108,16 +115,9 @@ var PostComment = React.createClass({
 					<div className="tf-comment-detail">{comment.comment_detail}</div>
 				</div>				
 
-				<div id = {"comment-reply-container-" + comment.id} className={"tf-comment-reply-container-" + comment.id}>
-					<div id={"comment-reply-input-" + comment.id} className="reply-comment-input-box">
-						<input ref="commentReply" 
-				       		id = {"reply-comment-" + comment.id} 
-				       		className="tf-comment-reply-input" 
-				       		type="text" 
-				       		ref="replyComment"
-				       		placeholder="Reply a Comment...">
-		       			</input>
-		       			<div className="button tf-comment-reply-button" onClick = {this.postCommentReply}> Add Reply </div>
+				<div id = {"comment-reply-container-" + comment.id} className={"tf-comment-reply-container"}>
+					<div id={"comment-reply-input-" + comment.id} className="reply-comment-input-box col-md-12">
+						
 					</div>
 					{this.renderCommentReplies(comment)}
 				</div>			

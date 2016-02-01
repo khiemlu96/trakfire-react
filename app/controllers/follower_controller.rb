@@ -4,13 +4,30 @@ class FollowerController < ApplicationController
 	def create
 		@follower = Follower.new(follower_params)
 	  	@follower.user_id = @current_user.id
-	  	@follower.follow_id = follower_params[:id]
+	  	@follower.follow_id = follower_params[:follow_id]
 
 		if @follower.save
+			notification = Notification.new();
+			notification.user_id = follower_params[:follow_id]
+			notification.notification_type = 'FOLLOW_USER'
+			notification.sent_time = Time.current.utc.iso8601
+			notification.reference_id = @current_user.id
+
+			@data = {
+				:username => @current_user.username,
+				:profile_url => "profile/#{@current_user.id}"
+			}
+			
+			notification.data = @data.to_json
+
+			if notification.save
+				logger.info "notification sent for follow user"
+			end
+
 		  	render json: @follower, status: :created
 		else
 			render json: @follower.errors, status: :unprocessable_entity
-	  	end	
+	  	end
 	end	
 
 	def destroy

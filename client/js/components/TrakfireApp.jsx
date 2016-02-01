@@ -239,6 +239,10 @@ var TrakfireApp = React.createClass({
     this.setState({currSongList:songs});
   },
 
+  getUserNotifications: function() {
+    UserActions.getUserNotifications(this.props.origin+'/notifications');
+  },
+
   /**
    * @return {object}
    */
@@ -279,6 +283,8 @@ var TrakfireApp = React.createClass({
                 setSongList: this.setSongList
               }) }</div>;
 
+    var user_notifications = this.getUserNotifications();
+    
     return (
       <div className="tf-body">
         <div>
@@ -290,7 +296,7 @@ var TrakfireApp = React.createClass({
               showSignupModal={this.showSignupModal}
               showModal={this.showModal}/>
           </div>
-          <div>
+          <div id ="main-container">
             {Routes}
           </div>          
           <div>

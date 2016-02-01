@@ -68,6 +68,10 @@ var UserActions = {
           actionType: UserConstants.UPDATE_USER_PROFILE
       });
       TfAPI.updateProfile(origin, data);
+  },
+
+  getUserNotifications: function(origin) {
+    TfAPI.getUserNotifications(origin);
   }
 };
 

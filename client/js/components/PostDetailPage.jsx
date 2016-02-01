@@ -45,12 +45,19 @@ function getCommentLength(comments) {
   };
 }
 
+function compareCreatedAt(a, b) {
+  if(a.created_at < b.created_at) return 1;
+  else if(a.created_at > b.created_at) return -1;
+  return 0;
+}
+
 var ProfilePage = React.createClass({
 
   propTypes : {
     onPostItemClick: ReactPropTypes.func, //Playability
     currStreamUrl: ReactPropTypes.string, 
-    origin: ReactPropTypes.string
+    origin: ReactPropTypes.string,
+    currUser: ReactPropTypes.object
   }, 
 
   getInitialState: function() {
@@ -255,19 +262,30 @@ var ProfilePage = React.createClass({
 
   renderComments: function(post){
     var comments = post.comments;
+
+    //var commentsByDate = sortCommentsByDate(comments); //sort posts into date keyed dict + array of date str for the headers
+    //console.log("PDBD", postsByDate, posts);
+    if(comments !== undefined){
+      comments = comments.sort(compareCreatedAt); //sort dates in decending order
+    }
     var commentHtml = [];
     if( getLength(comments) > 0 ) {
       for(key in comments) {
-        commentHtml.push(<PostComment comment = {comments[key]} post_id={post.id} origin={this.props.origin} />);
+        commentHtml.push(
+          <PostComment 
+          comment = {comments[key]} post_id={post.id} 
+          origin={this.props.origin} 
+          currUser={this.props.currUser} />
+        );
       }
     }
 
     return  <div className='tf-current-trak-comment-panel container'>
               <div className="tf-current-trak-inner col-md-12">
                 <div className="col-sm-12 tf-comment-add" >
-                  <div className="tf-comment-profile">
-                    <a href="/profile/2" className="tf-link">
-                      <img src="https://pbs.twimg.com/profile_images/668573362738696193/g0-CxwLx_400x400.png" className="tf-author-img"> </img>
+                  <div className="tf-comment-input-box">
+                    <a href={"/profile/" + this.props.currUser.id} className="tf-link">
+                      <img src={this.props.currUser.img} className="tf-author-img"> </img>
                     </a>
                   </div>
                   <input ref="comment" className="tf-soundcloud-link" type="text" placeholder="Write a Comment..."></input>
