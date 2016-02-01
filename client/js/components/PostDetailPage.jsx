@@ -51,7 +51,7 @@ function compareCreatedAt(a, b) {
   return 0;
 }
 
-var ProfilePage = React.createClass({
+var PostDetailPage = React.createClass({
 
   propTypes : {
     onPostItemClick: ReactPropTypes.func, //Playability
@@ -342,5 +342,5 @@ var ProfilePage = React.createClass({
 
 });
 
-module.exports = ProfilePage;
+module.exports = PostDetailPage;
 
