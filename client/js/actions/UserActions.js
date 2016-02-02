@@ -71,6 +71,9 @@ var UserActions = {
   },
 
   getUserNotifications: function(origin) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.GET_USER_NOTIFICATIONS
+    });
     TfAPI.getUserNotifications(origin);
   }
 };

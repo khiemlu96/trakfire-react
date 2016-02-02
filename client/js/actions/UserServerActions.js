@@ -38,6 +38,12 @@ module.exports = {
       actionType: UserConstants.RECIEVE_USER,
       response: response
     });      
-  }
+  }, 
   
+  recieveUserNotifications: function(response) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.RECIEVE_USER_NOTIFICATIONS,
+      response: response
+    });
+  }
 };

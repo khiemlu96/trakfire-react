@@ -20,13 +20,14 @@ module.exports = {
       img_url: rawPost.img_url, 
       duration: rawPost.duration,
       vote_count: rawPost.vote_count,
-      voters: this.getUserIds(rawPost.votes),
+      voters: this.getUserIds(rawPost.post_votes),
       score: rawPost.hot_score, 
       tags: rawPost.tags, 
       status: rawPost.status,
       current: false,
       sortedIdx: -1,
-      comments: (rawPost.comments !== undefined) ? rawPost.comments : rawPost.post_comments
+      comments: (rawPost.comments !== undefined) ? rawPost.comments : rawPost.post_comments,
+      votes: rawPost.post_votes
     };
   },
 

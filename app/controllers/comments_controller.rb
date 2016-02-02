@@ -25,6 +25,8 @@ class CommentsController < ApplicationController
 
 			@data = {
 				:commenter_id => @current_user.id,
+				:commenter_name => @current_user.username,
+				:commenter_img => @current_user.img,
 				:commenter_profile_url => "profile/#{@current_user.id}",
 				:post_id => post.id
 			}
@@ -36,7 +38,9 @@ class CommentsController < ApplicationController
 
 			@data = {
 				:commenter_id => @current_user.id,
-				:profile_url => "profile/#{@current_user.id}",
+				:commenter_name => @current_user.username,
+				:commenter_img => @current_user.img,
+				:commenter_profile_url => "profile/#{@current_user.id}",
 				:post_id => post.id
 			}
 		end

@@ -14,7 +14,9 @@ class FollowerController < ApplicationController
 			notification.reference_id = @current_user.id
 
 			@data = {
+				:userid => @current_user.id,
 				:username => @current_user.username,
+				:userimg => @current_user.img,
 				:profile_url => "profile/#{@current_user.id}"
 			}
 			

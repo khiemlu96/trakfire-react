@@ -1,10 +1,9 @@
 //TrakfireApp.js
-console.log("PRE R");
+
 var React = require('react/addons');
-console.log("PRE JSURI");
 var Uri = require('jsuri');
 var ReactPropTypes = React.PropTypes;
-console.log("PRE BS");
+var bootstrap = require('bootstrap');
 var Bootstrap = require('react-bootstrap');
 var Tooltip = Bootstrap.Tooltip;
 var Modal = Bootstrap.Modal;
@@ -12,7 +11,7 @@ var Button = Bootstrap.Button;
 var Input = Bootstrap.Input;
 var Row = Bootstrap.Row;
 var Col = Bootstrap.Col; 
-console.log("POST BS");
+
 var NavBar = require('./NavBar.jsx');
 var Footer = require('./Footer.jsx');
 var FilterBar = require('./FilterBar.jsx');
@@ -240,10 +239,6 @@ var TrakfireApp = React.createClass({
     this.setState({currSongList:songs});
   },
 
-  getUserNotifications: function() {
-    UserActions.getUserNotifications(this.props.origin+'/notifications');
-  },
-
   /**
    * @return {object}
    */
@@ -253,6 +248,7 @@ var TrakfireApp = React.createClass({
     var playing = this.state.isPlaying;
     var currTrack = this.state.currTrack;
     var currUserId = this.state.currentUser ? this.state.currentUser.id : -1; 
+
     var tfPlayer =  <TrakfirePlayer 
                       currTrack={this.state.currTrack}
                       isPlaying={this.state.isPlaying}
@@ -283,8 +279,6 @@ var TrakfireApp = React.createClass({
                 currStreamUrl: this.state.currStreamUrl, 
                 setSongList: this.setSongList
               }) }</div>;
-
-    var user_notifications = {};//this.getUserNotifications();
     
     return (
       <div className="tf-body">

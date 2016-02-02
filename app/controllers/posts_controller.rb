@@ -30,7 +30,10 @@ class PostsController < ApplicationController
 	    @comments = Comment.where(post_id: @post.id, parent_id: nil)	    
 		@post.post_comments = @comments
 
-	  	render json: @post, include: { tags:{}, votes:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, methods: ['post_comments'], only: [:id, :title, :stream_url, :duration, :artist, :img_url, :date, :created_at, :duration, :genre, :vote_count, :hot_score, :status] 
+		@votes = Vote.where(post_id: @post.id)
+		@post.post_votes = @votes
+
+	  	render json: @post, include: { tags:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, methods: ['post_comments', 'post_votes'], only: [:id, :title, :stream_url, :duration, :artist, :img_url, :date, :created_at, :duration, :genre, :vote_count, :hot_score, :status] 
 	end
 
 	private

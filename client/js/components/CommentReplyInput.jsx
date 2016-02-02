@@ -13,6 +13,7 @@ var Bootstrap = require('react-bootstrap');
 var ReactPropTypes = React.PropTypes;
 var Link = Router.Link;
 var PostActions = require('../actions/PostActions.js');
+var CommentInput = require('./CommentInput.jsx');
 
 var CommentReplyInput = React.createClass({
 	
@@ -24,12 +25,11 @@ var CommentReplyInput = React.createClass({
     },
 
 	getInitialState: function() {
-		var self = this;
-		var comment_user = "@" + self.props.comment.user.username + " "
+		var comment_user = "@" + this.props.comment.user.username + " ";
         return {
         	reply_text: comment_user,
-            comment : self.props.comment,
-            post_id : self.props.post_id
+            comment : this.props.comment,
+            post_id : this.props.post_id
         };
     },
 
@@ -42,6 +42,7 @@ var CommentReplyInput = React.createClass({
     },
 
 	postCommentReply: function() {
+		console.log("In postCommentReply");
 		var self = this;
 		var comment_id = self.props.comment.id;
 		var postid = self.props.post_id;
@@ -50,19 +51,26 @@ var CommentReplyInput = React.createClass({
 		var data = {};
 
 		if(comment_text !== "") {
-		  data['comment'] = {};
-		  data['comment']['post_id'] = postid;
-		  data['comment']['parent_id'] = comment_id;
-		  data['comment']['comment_detail'] = comment_text;
-		  PostActions.postComment(self.props.origin + '/comments', data);
-		  
-		  self.setState({
-		  	reply_text : ''
-		  });
+		  	data['comment'] = {};
+			data['comment']['post_id'] = postid;
+			data['comment']['parent_id'] = comment_id;
+			data['comment']['comment_detail'] = comment_text;
+			PostActions.postComment(self.props.origin + '/comments', data);
+
+			self.setState({
+				reply_text : ''
+			});					
+
+		  	React.unmountComponentAtNode(document.getElementById('comment-input-container'));
+			React.render(
+				<CommentInput origin={this.props.origin} post_id = {this.props.post_id} />,
+				document.getElementById("comment-input-container")
+			);
 		}
 	},
 
 	render: function() {
+		console.log("In render of comment reply input");
 		return (
 			<div className="col-sm-12 tf-comment-add">
 				<div className="tf-comment-input-box">

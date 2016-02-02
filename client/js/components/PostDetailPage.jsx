@@ -16,6 +16,7 @@ var UserStyle = { maxWidth:480, backgroundColor: '#1c1c1c', border:'1px solid #2
 function getAppState() {
   return {
     post: PostStore.getSinglePost(),
+    currUser: UserStore.getCurrentUser(),
     isPlaying: false
   };
 }
@@ -45,13 +46,7 @@ function getCommentLength(comments) {
   };
 }
 
-function compareCreatedAt(a, b) {
-  if(a.created_at < b.created_at) return 1;
-  else if(a.created_at > b.created_at) return -1;
-  return 0;
-}
-
-var PostDetailPage = React.createClass({
+var ProfilePage = React.createClass({
 
   propTypes : {
     onPostItemClick: ReactPropTypes.func, //Playability
@@ -67,8 +62,7 @@ var PostDetailPage = React.createClass({
   componentDidMount: function() {
     PostStore.addChangeListener(this._onChange);
     var postid = this.props.params.id;
-    console.log("POST ID IS ", postid);
-    this.setState({post: this.getPost(postid)});
+    this.getPost(postid);
     var user = this.state.user;
     if(user) {
       mixpanel.identify(postid);
@@ -81,8 +75,7 @@ var PostDetailPage = React.createClass({
   }, 
 
   getPost: function(postid) {
-    //PostActions.getPost(this.props.origin+'/post/'+postid, postid);
-    return PostStore.getPostById(postid);
+    PostActions.getPost(this.props.origin+'/post/'+postid, postid);
   }, 
 
   onPostListItemClick:function(pid) {
@@ -100,23 +93,10 @@ var PostDetailPage = React.createClass({
     return tags;
   },
 
-  postComment: function() {
-    var postid = this.props.params.id;
-    var comment_text = this.refs.comment.getDOMNode().value.trim();
-    var data = {};
-
-    if(comment_text !== "") {
-      data['comment'] = {};
-      data['comment']['post_id'] = postid;
-      data['comment']['comment_detail'] = comment_text;
-      PostActions.postComment(this.props.origin + '/comments', data);
-      this.refs.comment.getDOMNode().value = "";
-    }
-  },
-
   renderPost: function(){
+
     var post = this.state.post;
-    console.log(post);
+
     return <div className='tf-current-trak-top-panel container'>
             <div className="tf-current-trak col-md-12">
               <div className="tf-current-trak-content">
@@ -168,7 +148,7 @@ var PostDetailPage = React.createClass({
                       </div>
                       <div className="col-md-10">
                         <div>
-                          <h6 > Posted By </h6>
+                          <h6 > <b>Song</b> posted By </h6>
                           <a className="tf-profile-link">{post.author_name}</a>
                         </div>
                         <div className="tf-current-trak-first-panel">
@@ -189,20 +169,12 @@ var PostDetailPage = React.createClass({
                         <div className="tf-current-trak-second-panel">
                           <div >
                             <i className="glyphicon glyphicon-fire tf-social-icons"></i> 
-                            <span><b>3 &nbsp;friends</b></span>
+                            <span><b>{voteCount = getLength(post.votes)} &nbsp;friends</b></span>
                             <span>&nbsp;&nbsp;upvoted</span>
                           </div>
                           <div>
-                            <div className="tf-auther-panel">
-                              <a className="tf-link" href="/profile/2" >
-                                <img className="tf-author-img" src="https://pbs.twimg.com/profile_images/668573362738696193/g0-CxwLx_400x400.png" />
-                              </a>
-                              <a className="tf-link" href="/profile/2" >
-                                <img className="tf-author-img" src="https://pbs.twimg.com/profile_images/668573362738696193/g0-CxwLx_400x400.png" />
-                              </a>
-                              <a className="tf-link" href="/profile/2" >
-                                <img className="tf-author-img" src="https://pbs.twimg.com/profile_images/668573362738696193/g0-CxwLx_400x400.png" />
-                              </a>
+                            <div className="tf-auther-panel">         
+                              {this.renderVotes(post)}                     
                             </div>
                           </div>
                         </div>
@@ -263,42 +235,31 @@ var PostDetailPage = React.createClass({
           </div>;
   },
 
+  renderVotes: function(post) {
+    var votes = post.votes;
+    var voteHtml = [];
+    for(key in votes) {
+      voteHtml.push(
+        <a className="tf-link" href={"/profile/" + votes[key].user.id} >
+          <img className="tf-author-img" src={votes[key].user.img} />
+        </a>
+      );                              
+    }
+    return (voteHtml);
+  },
+
   renderComments: function(post){
-    var comments = post.comments;
-
-    //var commentsByDate = sortCommentsByDate(comments); //sort posts into date keyed dict + array of date str for the headers
-    //console.log("PDBD", postsByDate, posts);
-    if(comments !== undefined){
-      comments = comments.sort(compareCreatedAt); //sort dates in decending order
-    }
-    var commentHtml = [];
-    if( getLength(comments) > 0 ) {
-      for(key in comments) {
-        commentHtml.push(
-          <PostComment 
-          comment = {comments[key]} post_id={post.id} 
-          origin={this.props.origin} 
-          currUser={this.props.currUser} />
+    if(post.id !== undefined && post !== null) {
+      return (
+        <PostComment 
+          post = {post} 
+          post_id = {post.id}
+          origin = {this.props.origin} 
+          currUser = {this.state.currUser} />
         );
-      }
-    }
-
-    return  <div className='tf-current-trak-comment-panel container'>
-              <div className="tf-current-trak-inner col-md-12">
-                <div className="col-sm-12 tf-comment-add" >
-                  <div className="tf-comment-input-box">
-                    {/*<a href={"/profile/" + this.props.currUser.id} className="tf-link">
-                      <img src={this.props.currUser.img} className="tf-author-img"> </img>
-                    </a>*/}
-                  </div>
-                  <input ref="comment" className="tf-soundcloud-link" type="text" placeholder="Write a Comment..."></input>
-                  <div className="button tf-comment-button" onClick = {this.postComment}> Add Comment </div>
-                </div>
-                <div className="tf-comment-list-panel col-md-12">
-                  {commentHtml}
-                </div>    
-              </div>  
-            </div>;
+    } else {
+      return (<div></div>);
+    }    
   },
 
   renderCommentCount: function(post){
@@ -342,5 +303,5 @@ var PostDetailPage = React.createClass({
 
 });
 
-module.exports = PostDetailPage;
+module.exports = ProfilePage;
 

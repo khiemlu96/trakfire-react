@@ -321,10 +321,10 @@ module.exports = {
       headers: {'Authorization': sessionStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
-        //UserServerActionCreators.recieveCurrentUser(resp); 
+        UserServerActionCreators.recieveUserNotifications(resp); 
       },
       error: function(error) {
-        console.error(url, error['response'], error);
+        console.error(url, error['response']);
       }
     });
   }

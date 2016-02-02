@@ -3,7 +3,12 @@ class NotificationsController < ApplicationController
 
 	def index
 		@notifications = Notification.where(user_id: @current_user.id, read_time: nil).order(sent_time: :desc)
-		render json: @notifications, include: { user:{} }
+		
+		@notifications.each do |n|
+			n.json_data = n.data
+		end
+
+		render json: @notifications
 	end
 
 	def destroy
