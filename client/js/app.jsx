@@ -25,6 +25,7 @@ var PrivacyPolicy = require('./components/static/PrivacyPolicy.jsx');
 var TermsOfUse = require('./components/static/TermsOfUse.jsx')
 var EmailAcquirePage = require('./components/EmailAcquirePage.jsx');
 var PostDetailPage = require('./components/PostDetailPage.jsx');
+var SearchResultPage = require('./components/SearchResultPage.jsx');
 
 React.render(
 <Router history={createBrowserHistory()}>

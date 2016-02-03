@@ -54,11 +54,93 @@ var SearchBar = React.createClass({
 	propTypes: {
 		isVisible: ReactPropTypes.bool,
 		onPlayBtnClick: ReactPropTypes.func,
-   	 	currStreamUrl: ReactPropTypes.string
+   	 	currStreamUrl: ReactPropTypes.string,
+   	 	searchKeyword: ReactPropTypes.string
 	},
 	
 	componentDidMount: function() {
-	    $(document.body).on('keydown', this.handleKeyDown);
+	    //$(document.body).on('keydown', this.handleKeyDown);
+	  var search = instantsearch({
+        appId: '2CGJRVYAYN',
+        apiKey: 'd216e9a395320d63a1b68ea0b20b9347',
+        indexName: 'posts',
+        urlSync: true,
+        searchOnEmptyQuery: false,
+        searchParameters: {query:this.props.searchKeyword}
+      });
+
+    search.addWidget(
+      instantsearch.widgets.searchBox({
+        container: '.tf-search-input'
+      })
+    );
+
+    var hitTemplate =
+                      '<div class="hit media">' +
+                        '<div >'+
+                          '<div class="media-body tf-search-item-content">' +
+                          '<div class="tf-post-item--votes is-upvoted" ref="upvotes">'+
+                              '<span>'+
+                                  '<b>&#9650;</b>'+
+                              '</span>'+
+                              '<br/>'+
+                              '<span ref="count">'+
+                                  '<b>{{vote_count}}</b>'+
+                              '</span>'+
+                            '</div>'+
+                            '<div class="col-md-5 tf-thumbnail tf-search-panel"  style="background-image: url(\'{{img_url}}\');"></div>' + 
+                            '<div class="col-md-7 tf-post-item--info">'+
+                              '<h5 >{{{title}}} {{#stars}}<span class="ais-star-rating--star{{^.}}__empty{{/.}}"></span>{{/stars}}</h5>' +
+                              '<p class="year">{{artist}}</p><p class="genre">{{#genre}}<span class="badge">{{.}}</span> {{/genre}}</p>' +
+                            '</div>' +
+                            '<div class="tf-search-item-auth-img" ref="author_img">'+
+                              '<span class="" ref="author_img">'+
+                                '<img class="author_img" src="../assets/img/tf_placeholder.png" />'+
+                              '</span>'+
+                            '</div>'+
+                          '</div>' +
+                        '</div>' +
+                      '</div>';
+    var noResultsTemplate =  '<div class="text-center">No results found matching <strong>{{query}}</strong>.</div>';
+
+    search.addWidget(
+      instantsearch.widgets.hits({
+        container: '#tf-search-result',
+        hitsPerPage: 3,
+        cssClasses: {
+          item: 'col-md-4',
+          root:'row'
+        },
+        templates: {
+          empty: noResultsTemplate,
+          item: hitTemplate
+        },
+        transformData: function(hit) {
+          console.log(hit);
+          document.getElementById("tf-search-result").style.display = "block";
+          return hit;
+        }
+      })
+    );
+
+    search.addWidget(
+	  instantsearch.widgets.stats({
+	    container: '#tf-search-result-stat',
+	    transformData: function(hit) {
+	    	console.log(hit.nbHits);
+	    	if(hit.nbHits > 3){
+	    		document.getElementById("show-more-btn-container").style.display = "block";
+	    	}
+	    	else{
+	    		document.getElementById("show-more-btn-container").style.display = "none";
+	    	}
+	    	return hit;
+	    }
+	  })
+	);
+
+    search.start();
+
 	},
 
 	componentWillUnmount: function() {
@@ -73,8 +155,8 @@ var SearchBar = React.createClass({
 	},
 
 	handleKeyDown: function(e) {
-	    var ENTER = 13;
-	    if( e.keyCode == ENTER ) {
+	    var SPACE = 32;
+	    if( e.keyCode == SPACE ) {
 	    	this.closeModal();
 	    	var searchKey = e.target.value;
 	        this.showSearchResult(searchKey);
@@ -114,26 +196,9 @@ var SearchBar = React.createClass({
 	 * @return {object}
 	 */
 	render: function() {
-		if (this.state.isVisible === true) {
-			searchBoxStyle.display = 'block';
-		} else {
-			searchBoxStyle.display = 'none';
-		}
 
 		return (
-			<OverlayTrigger trigger = "click" rootClose placement = "bottom"
-				overlay = { 
-					< Popover id="tf-search-bar" className = "tf-search-input-box col-sm-12 col-xs-12 col-md-12" style = {searchBoxStyle}>
-						< div >
-							<input  ref="searchInput" type = "text" onKeyDown={this.handleKeyDown} className = "tf-search-input" 
-							placeholder = "WHAT ARE YOU LOOKING FOR?" style = {searchInputArea} >
-							</input> 
-							< a onClick = {this.closeModal} role = "button" style = {closeButtonStyle} > &times; < /a> 
-						< /div> 
-					< /Popover>
-				} >
-				<span className = "glyphicon glyphicon-search" onClick={this.renderSearchBar} style = {searchIconStyle}></span>		 
-			</OverlayTrigger>
+			<div></div>
 			
 		);
 	}

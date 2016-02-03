@@ -21,10 +21,64 @@ var Tooltip = Bootstrap.Tooltip;
 var OverlayTrigger = Bootstrap.OverlayTrigger;
 var Popover = Bootstrap.Popover;
 var ReactPropTypes = React.PropTypes;
-
+var SearchResultPage = require('./SearchResultPage.jsx');
 var UserStyle = { top:38, maxWidth:'80%', backgroundColor: '#1c1c1c', border:'1px solid #2b2b2b', width: 470, borderRadius: 4};
 var searchIconStyle = {cursor: 'pointer'};
+var searchkey = "";
+var searchIconStyle = {
+  cursor: 'pointer',
+  color: '#ff0d55',
+  fontSize: '18px',
+  marginRight: '15px'
+};
 
+
+var searchButtonStyle = {
+  position:'relative'
+}
+
+var searchBoxStyle = {
+    backgroundColor: '#161616',
+    border: '1px solid #2b2b2b',
+    left: '0 !important',
+    marginLeft: '2%',
+    marginRight: '2%',
+    marginTop: '9px',
+    maxHeight: 'auto',
+    maxWidth: '96%',
+    paddingTop: 0,
+    position: 'fixed',
+    zIndex: 100,
+    borderRadius: '5px',
+    display: 'none'
+};
+
+var searchInputArea = {
+  backgroundColor: '#161616',
+  border: 'none',
+  textAlign: 'center',
+  fontSize: 20,
+  height: 60,
+  fontWeight: 600,
+  maxWidth: '97%'
+};
+var closeButtonStyle = {
+  fontSize: 40,
+  color: '#ff0d55',
+  textDecoration: 'none',
+  verticalAlign: 'middle',
+  float: 'right',
+  top:5
+};
+var searchIconStyle = {
+  cursor: 'pointer',
+  color: '#ff0d55',
+  fontSize: '18px',
+  marginRight: '15px'
+};
+var showMoreStyle = {
+  display: 'none'
+};
 var NavBar = React.createClass({
 
   propTypes: {
@@ -34,7 +88,8 @@ var NavBar = React.createClass({
     user: ReactPropTypes.object, 
     showSignupModal: ReactPropTypes.func,
     onPostItemClick: ReactPropTypes.func,
-    currStreamUrl: ReactPropTypes.string
+    currStreamUrl: ReactPropTypes.string,
+    searchkey:ReactPropTypes.string
   },
 
   handleSignOut: function() {
@@ -47,11 +102,67 @@ var NavBar = React.createClass({
   },
 
   closeModal: function() {
-    this.props.showModal(false);
+    console.log("HI");
+    this.setState({
+          isVisible: true
+        }); 
+        searchBoxStyle.display = 'none';
   }, 
 
   showSignupModal: function() {
     this.props.showSignupModal();
+  }, 
+
+  handleKeyUp: function(e) {
+    searchkey = e.target.value;
+    console.log(searchkey);
+
+    if(searchkey !== '')
+    {
+      console.log("NOT SPACE");
+      this.showSearchResult();
+    }
+    else{
+      console.log("BLANK");
+      this.hideSearchResult();
+    }
+  },
+
+
+  hideSearchResult: function() {
+    console.log("HIDE")
+    document.getElementById("show-more-btn-container").style.display = "none";
+  },
+
+  showSearchResult: function() {
+    var searchKey = this.refs.searchInput.getDOMNode().value; 
+    console.log(searchKey);
+    if(searchKey != ''){
+        React.render(
+        <SearchBar 
+          isSearchVisible={true} 
+          searchKeyword={searchKey} 
+          onPlayBtnClick = {this.props.onPlayBtnClick}
+            currStreamUrl={this.props.currStreamUrl} />, 
+        document.getElementById("tf-search-result")
+      );
+        this.setState({
+          isVisible: true
+        }); 
+        searchBoxStyle.display = 'block';
+    }else{
+      document.getElementById("tf-search-result").style.display = "none";
+    }
+    this.props.searchkey = this.refs.searchInput.getDOMNode().value; 
+    this.setState({isVisible:false});
+    console.log(this.props);
+  },
+
+  showSearchResultPage: function() {
+    console.log("HI");
+    console.log(searchKey);
+    //this.setState({isVisible:false});
+    
   }, 
 
   renderUserInfo: function(){
@@ -67,10 +178,27 @@ var NavBar = React.createClass({
             </OverlayTrigger>
   },
 
+
+  renderSearchBar: function() {
+    this.setState({
+      isVisible: true
+    }); 
+    searchBoxStyle.display = 'block';
+  },
+
+
+  getInitialState: function() {
+    return {
+      isVisible: this.props.isVisible,
+      showSearchResultPopup: false
+    };
+  },
+
   /**
    * @return {object}
    */
   render: function() {
+
     if(this.props.isLoggedIn) {
       console.log("IN NAVBAR");
       var signinLink = <a href="#!" onClick={this.handleSignOut}> SIGN OUT </a>
@@ -78,10 +206,7 @@ var NavBar = React.createClass({
       //if(this.props.isAdmin || this.props.user.canPost) { 
         
       var postLink = <span className="tf-menu"><PostForm isVisible={true} origin={this.props.origin} /></span> 
-      var searchIcon =  <span><SearchBar 
-                              isVisible={true} 
-                              currStreamUrl={this.props.currStreamUrl}
-                              onPlayBtnClick={this.props.onPostItemClick} /></span>
+      var searchIcon =  <span><span className = "glyphicon glyphicon-search" onClick={this.renderSearchBar} style = {searchIconStyle}></span> </span>
       /*} else {
         var tooltip = <Tooltip>Posting is invite only</Tooltip>;
         var postLink = <OverlayTrigger placement="left" overlay={tooltip}><a className="tf-inactive">POST</a></OverlayTrigger>;//<a href="" className="tf-inactive">POST</a>;
@@ -96,25 +221,46 @@ var NavBar = React.createClass({
     }
   
     return (
-      <div className="tf-navbar" role="navigation"> 
-        
-        <div className="tf-navbar-inner container">   
-          <div className="tf-logo"> 
-            <Link to="/"><img src={"assets/img/logo.svg"}/></Link>
-          </div> 
-          
-          <div className="right"> 
-            {postLink}
-            {searchIcon}
-            {profileLink}
-            {/*<a>             
-              <img src={'assets/img/search.svg'}/> 
-            </a>*/}
-            {signinLink}
-            {inviteLink}
-          </div>
-        </div> 
-      </div> 
+            <div>
+              <div className="tf-navbar" role="navigation"> 
+                <div className="tf-navbar-inner container">   
+                  <div className="tf-logo"> 
+                    <Link to="/"><img src={"assets/img/logo.svg"}/></Link>
+                  </div> 
+                  
+                  <div className="right"> 
+                    {postLink}
+                    {searchIcon}
+                    {profileLink}
+                    {/*<a>             
+                      <img src={'assets/img/search.svg'}/> 
+                    </a>*/}
+                    {signinLink}
+                    {inviteLink}
+                  </div>
+                </div> 
+              </div>
+              <div>
+                < div id="tf-search-bar" className = "tf-search-input-box col-sm-12 col-xs-12 col-md-12" style = {searchBoxStyle}>
+                  <div >
+                    <input  ref="searchInput" type = "text" onKeyUp={this.showSearchResult} className = "tf-search-input" 
+                    placeholder = "WHAT ARE YOU LOOKING FOR?" style = {searchInputArea} >
+                    </input> 
+                    < div onClick = {() => this.closeModal()} role = "button" style = {closeButtonStyle} > &times; < /div> 
+                  < /div> 
+                  <div id="tf-search-result"></div>
+                  <div id="tf-search-count" > </div> 
+                  <Link to={'/searchresult/'+this.props.searchkey} params={{searchkey:"searchkey"}}>
+                    <div id="show-more-btn-container" className="row show-more-btn-container col-md-12 col-sm-12 col-xs-12" style={showMoreStyle}>
+                      <div className="show-more-result-btn btn btn-pimary" >
+                        <b>See more results(5)</b>
+                      </div>
+                    </div>
+                  </Link>
+                  </div>
+                  <div id="tf-search-result-stat"></div>
+              </div> 
+            </div>
       );
   }
 
