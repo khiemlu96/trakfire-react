@@ -27,9 +27,12 @@ ActiveRecord::Schema.define(version: 20160201195354) do
   end
 
   create_table "comments", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.integer  "parent_id"
     t.integer  "post_id"
+    t.integer  "user_id"
+    t.string   "comment_detail"
   end
 
   create_table "followers", force: :cascade do |t|
@@ -41,11 +44,11 @@ ActiveRecord::Schema.define(version: 20160201195354) do
 
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id"
-    t.string   "message"
     t.datetime "read_time"
     t.datetime "sent_time"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "reference_id"
+    t.string   "notification_type"
+    t.text     "data"
   end
 
   create_table "oauths", force: :cascade do |t|
