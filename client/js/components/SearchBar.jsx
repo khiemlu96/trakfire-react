@@ -128,7 +128,7 @@ var SearchBar = React.createClass({
 							<input  ref="searchInput" type = "text" onKeyDown={this.handleKeyDown} className = "tf-search-input" 
 							placeholder = "WHAT ARE YOU LOOKING FOR?" style = {searchInputArea} >
 							</input> 
-							< a onClick = {this.closeModal()} role = "button" style = {closeButtonStyle} > &times; < /a> 
+							< a onClick = {this.closeModal} role = "button" style = {closeButtonStyle} > &times; < /a> 
 						< /div> 
 					< /Popover>
 				} >
