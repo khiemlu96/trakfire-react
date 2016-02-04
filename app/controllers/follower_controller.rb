@@ -7,7 +7,7 @@ class FollowerController < ApplicationController
 	  	@follower.follow_id = follower_params[:follow_id]
 
 		if @follower.save
-			notification = Notification.new();
+			notification = Notification.new()
 			notification.user_id = follower_params[:follow_id]
 			notification.notification_type = 'FOLLOW_USER'
 			notification.sent_time = Time.current.utc.iso8601

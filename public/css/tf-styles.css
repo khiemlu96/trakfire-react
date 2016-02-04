@@ -810,12 +810,10 @@ th.upvote-col {
 .tf-navbar {
 	background-color: #161616;
     border-bottom: 1px solid #2b2b2b;
-    height: 70px;
-    margin-left: 2%;
-    margin-right: 5%;
+    height: 80px;
     position: fixed;
     top: 0;
-    width: 96%;
+    width: 100%;
     z-index: 100;
 }
 
@@ -885,7 +883,7 @@ th.upvote-col {
     bottom: 0px;
     z-index: 10;
     padding-top: 20px;
-    position: relative;
+    position: fixed;
     bottom: 0px;
 }
 
@@ -1065,6 +1063,7 @@ th.upvote-col {
     position: absolute;
     z-index: 0;
     margin-top: 7px;
+    background-color: #1F1F1F;
 }
 
 .tf-profile-wrapper .tf-filter-bar .is-active {
@@ -1162,9 +1161,8 @@ th.upvote-col {
 
 .tf-profile-info-wrapper .tf-btn-follow {
     border: 1px solid #ff0d55 !important;
-    background-color: #1C1C1C !important;
     width: 80px !important;
-    margin: 4px 10px 0px 0px;
+    margin: 0px 5px 0px 0px;
     border-radius: 5px !important;
     padding: 4px;
     font-size: 12px;
@@ -2113,7 +2111,9 @@ label.ownsong-label {
 	border-bottom-color: #1c1c1c;
 	top: 38px;
 }
-
+.tf-notification-popup .row{
+	margin-left: 0px;
+}
 .tf-notification-popup .popover-content{
 	padding-left: 0px;
 	padding-right: 0px;
@@ -2126,7 +2126,7 @@ label.ownsong-label {
 	left:48% !important;
 }
 .tf-notification-content{
-	background-color: #1c1c1c;
+	background-color: #191818;
     height: auto;
     max-height: 425px;
     padding: 0;
@@ -2170,7 +2170,7 @@ label.ownsong-label {
 .tf-notification-auther{
 	color: #ff0d55;
     position: absolute;
-    top: 7px;
+    top: 10px;
     left: 0px;
 }
 .tf-notification-title{
@@ -2181,14 +2181,14 @@ label.ownsong-label {
 }
 
 .tf-notification-header {
-	padding-bottom: 3%;
-    padding-top: 2%;
+	padding: 6px;
     text-align: center;
+    height: 30px;
 }
 
 .tf-notification-footer {
-	padding-bottom: 3%;
-    padding-top: 2%;
+ 	margin-bottom: 6px;
+    padding-top: 6px;
     text-align: center;
 }
 
@@ -2221,15 +2221,115 @@ label.ownsong-label {
 
 .tf-notification-profile {
 	font-size: 14px;
-    font-weight: bold;
+    font-weight: lighter;
     left: 30px;
-    line-height: 20px;
-
+    line-height: 25px;
 }
+
+.tf-notification-profile .tf-link{
+	font-size: 14px;
+    font-weight: bold;
+}
+
 .tf-notification-sent-time {
 	color: #4b4b4b;
 }
 
+
+/********************START OF NOTIFICATION PAGE********************************/
+
+.tf-notification-page-container {
+	width: 100%;
+	background-color: #1f1f1f;
+	margin-top: 80px;
+}
+
+.tf-notification-page-container .tf-notification-page-left-bar,
+.tf-notification-page-container .tf-notification-page-content-container,
+.tf-notification-page-container .tf-notification-page-right-bar {
+	height: 100%;
+}
+
+.tf-notification-page-content-container {
+	margin: 0px 195px 0px 195px;
+    width: 72%;
+}
+
+.tf-notification-page-container .tf-notification-page-header {
+	height: 130px;
+	position: relative;
+}
+
+.tf-notification-page-container .tf-notification-page-content {	
+	background-color: #191818;
+}
+
+.tf-notification-page-container .tf-notification-heading h1{	
+	font-weight: 600;
+	font-size: 40px;
+}
+.tf-notification-page-container .tf-notification-page-header .tf-back-link{	
+	margin-left: 33px !important;
+    margin-top: 10px !important;
+}
+
+.tf-notification-page-container .tf-notification-page-header div:first-child {	
+	top: 20px !important;
+}
+
+.tf-notification-page-container .tf-notification-page-header .tf-back-link::before{	
+	left: 5px !important;
+	top: 20px !important;
+}
+
+.tf-notification-page-container .tf-notification-page-header .tf-back-link h6{	
+	font-size: 12px !important;
+	font-weight: 900 !important;
+}
+
+.tf-notification-page-container .tf-notification-page-content .tf-notification-page-list{	
+	border: 1px solid #2b2b2b;
+    border-radius: 4px;
+    height: auto;
+    width: 100%;
+}
+
+.tf-notification-page-container .tf-notification-page-list .tf-notification-list-item{	
+	height: 80px;
+	font-size: 12px;
+	font-family: arial, sans-serif;	
+}
+
+.tf-notification-page-list .tf-notification-list-item .tf-follow-button{	
+    font-size: 11px;
+    height: 30px;
+    margin: 5px;
+    padding: 4px;
+    right: 10px;
+    width: 80px;
+}
+
+.tf-notification-page-list .tf-notification-list-item .tf-notification-profile {
+	left: 35px;
+}
+
+.tf-notification-page-list .tf-notification-list-item .tf-notification-auther {
+	left: 10px;
+}
+.tf-notification-page-list:first-child{
+	border-top: none !important;
+}
+
+.tf-notification-page-container .tf-notification-page-footer {
+	height: 80px;
+	text-align: center;
+	font-size: 12px;
+}
+.tf-notification-page-container .tf-notification-page-footer .tf-link {
+    font-weight: 600;
+}
+
+/********************END OF NOTIFICATION PAGE********************************/
 
 /*********************** Search Input box *******************************/
 .tf-search-input-box {

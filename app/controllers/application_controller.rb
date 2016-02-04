@@ -10,6 +10,13 @@ class ApplicationController < ActionController::API
     logger.info "Current User Requested"
     logger.info @current_user
     logger.info @current_user.posts
+
+    @followers = Follower.where(follow_id: @current_user.id)
+    @current_user.followers = @followers
+
+    @followings = Follower.where(user_id: @current_user.id)
+    @current_user.followings = @followings
+    
     render json: @current_user, include: { posts: { except: [] }}
   end
 

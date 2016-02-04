@@ -13,7 +13,6 @@ var _notifications = null;
 
 function _addCurrentUser(user) {
   _cUser = UserUtils.convertRawUser(user);
-  console.log("CURR USER NAME",_cUser.name);
   
   mixpanel.identify(_cUser.id);
   mixpanel.people.set_once({
@@ -35,6 +34,14 @@ function _addPostsToUser(userPosts) {
 
 function _addUserNotifications(notifications) {
   _notifications = notifications;
+  _cUser.notifications = _notifications;
+}
+
+function _addMoreUserNotifications(notifications) {
+  _notifications = notifications;
+  for(key in notifications) {
+    _cUser.notifications.push(notifications[key]);
+  }
 }
 
 var UserStore = assign({}, EventEmitter.prototype, {
@@ -66,7 +73,7 @@ var UserStore = assign({}, EventEmitter.prototype, {
   }, 
 
   getUserNotifications: function() {
-      return _notifications;
+      return _cUser.notifications;
   },
 
   emitChange: function() {
@@ -115,7 +122,11 @@ AppDispatcher.register(function(action) {
       UserStore.emitChange();
       break;
     case UserConstants.RECIEVE_USER_NOTIFICATIONS:
-      _addUserNotifications(action.response);
+      if(action.loadMore === true){
+        _addMoreUserNotifications(action.response);
+      } else {
+        _addUserNotifications(action.response);
+      }      
       UserStore.emitChange();
       break;
 

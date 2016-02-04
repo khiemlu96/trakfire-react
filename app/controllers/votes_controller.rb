@@ -17,6 +17,31 @@ class VotesController < ApplicationController
 		post.update( { 'vote_count' =>  vc } )
 		post.save
 		logger.info post.vote_count
+
+		#send notifications to user who have posted a track
+		if post.user_id != @vote.user_id
+			notification = Notification.new()
+	  		notification.user_id = post.user_id
+			notification.notification_type = 'VOTED_YOUR_TRAK'
+			notification.reference_id = post.id
+
+			@data = {
+				:user_id => @current_user.id,
+				:user_name => @current_user.username,
+				:user_img => @current_user.img,
+				:user_profile_url => "profile/#{@current_user.id}",
+				:post_id => post.id,
+				:post_name => post.title
+			}
+
+			notification.sent_time = Time.current.utc.iso8601		
+			notification.data = @data.to_json
+		
+			if notification.save
+				logger.info "notification sent for follow user"
+			end
+		end
+
 		render json: @vote
 	  else
 		render json: @vote.errors, status: :unprocessable_entity

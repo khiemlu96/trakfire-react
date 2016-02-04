@@ -43,7 +43,16 @@ module.exports = {
   recieveUserNotifications: function(response) {
     AppDispatcher.dispatch({
       actionType: UserConstants.RECIEVE_USER_NOTIFICATIONS,
-      response: response
+      response: response,
+      loadMore: false
+    });
+  },
+
+  recieveMoreUserNotifications: function(response) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.RECIEVE_USER_NOTIFICATIONS,
+      response: response,
+      loadMore: true
     });
   }
 };

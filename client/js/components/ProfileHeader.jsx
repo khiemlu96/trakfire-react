@@ -39,7 +39,8 @@ var ProfileHeader = React.createClass({
 
     getInitialState: function() {
         return {
-            isVisible: this.props.isVisible
+            isVisible: this.props.isVisible,
+            isFollowing: this.props.isFollowing
         };
     },
 
@@ -48,11 +49,14 @@ var ProfileHeader = React.createClass({
     },
 
     follow_click: function() {
-        if(this.props.isFollowing === true) {
+        if(this.state.isFollowing === true) {
             this.props.onUnFollowClick();
         } else {
             this.props.onUserFollowClick();            
         }
+        this.setState({
+            isFollowing: !this.state.isFollowing
+        });
     },
 
     /**
@@ -65,11 +69,17 @@ var ProfileHeader = React.createClass({
             styleDisplay.display = 'none';
         }
 
-        var follow_text = this.props.isFollowing === true ? "UnFollow" : "Follow";
-        
-        var showEditLink = true;
-        
+        if(this.state.isFollowing === true) {
+            var follow_text = "Following";
+            followBtnStyle.backgroundColor = "#ff0d55";
+        } else {
+            var follow_text = "Follow";
+            followBtnStyle.backgroundColor = "#1C1C1C";
+        }
+        console.log(followBtnStyle);
+        var showEditLink = true;        
         followBtnStyle.display = 'none';
+        
         if(this.props.userId !== this.props.currentUserId) {
             showEditLink = false;
             followBtnStyle.display = 'block';
@@ -89,14 +99,18 @@ var ProfileHeader = React.createClass({
                             <h1 className = "row tf-name" > {this.props.userName} </h1>
                             <div className = "row tf-bio" > {this.props.userBio} The user profile page should open when user clicks on user image on trak row</div>
                             
-                            <div className = "row tf-social-icons" > { /*<img src="assets/img/facebook_share.svg"></img>*/ } 
-                                <div className="tf-btn-follow btn btn-primary" onClick={this.follow_click} style={followBtnStyle}>{follow_text}</div>
-                                    <a href = {this.props.userTwitterLink} target = "_blank" >
-                                        <img src="../assets/img/facebook_share.svg"></img>
-                                    </a>
-                                    <a href = {this.props.userTwitterLink} target = "_blank" >
-                                        <img src = "../assets/img/twitter_share.svg"> </img> 
-                                    </a> 
+                            <div className = "row tf-social-icons" >
+                                <span>
+                                    <div className="tf-btn-follow btn btn-primary col-md-6" onClick={this.follow_click} style={followBtnStyle}>{follow_text}</div>
+                                    <div className="col-md-6">
+                                        <a href = {this.props.userTwitterLink} target = "_blank" >
+                                            <img src="../assets/img/facebook_share.svg"></img>
+                                        </a>
+                                        <a href = {this.props.userTwitterLink} target = "_blank" >
+                                            <img src = "../assets/img/twitter_share.svg"> </img> 
+                                        </a>
+                                    </div>
+                                </span>
                             </div>
                         </div>
                     </div>
