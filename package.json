@@ -34,6 +34,7 @@
     "object-assign": "^1.0.0",
     "react": "^0.13.0",
     "react-bootstrap": "0.26.4",
+    "react-router": "1.0.0",
     "reqwest": "^1.1.5",
     "soundcloud-audio": "^0.1.6",
     "style-loader": "^0.8.3",
