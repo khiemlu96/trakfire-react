@@ -6,13 +6,14 @@ var Uri = require('jsuri');
 var ReactPropTypes = React.PropTypes;
 console.log("PRE BS");
 var Bootstrap = require('react-bootstrap');
+console.log("POST BS");
 var Tooltip = Bootstrap.Tooltip;
 var Modal = Bootstrap.Modal;
 var Button = Bootstrap.Button;
 var Input = Bootstrap.Input;
 var Row = Bootstrap.Row;
 var Col = Bootstrap.Col; 
-console.log("POST BS");
+
 var NavBar = require('./NavBar.jsx');
 var Footer = require('./Footer.jsx');
 var FilterBar = require('./FilterBar.jsx');
