@@ -244,6 +244,7 @@ module.exports = {
       headers: {'Authorization': sessionStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
+        UserServerActionCreators.addFollowers(resp);
       },
       error: function(error) {
         console.error(url, error['response']);
@@ -264,7 +265,7 @@ module.exports = {
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         //newVote = resp;
-        //PostServerActionCreators.recieveNewVote(newVote); 
+        UserServerActionCreators.removeFollowers(resp);
       },
       error: function(error) {
         console.error(url, error['response']);
@@ -312,19 +313,48 @@ module.exports = {
     });
   },
 
-  getUserNotifications: function(url) {
+  getUserNotifications: function(url, data) {
+    var params = {
+      limit: data.limit,
+      offset: data.offset
+    };
+    
     Reqwest({
       url: url,
       type: 'json',
       method: 'GET',
+      data: params,
       contentType: 'application/json',
       headers: {'Authorization': sessionStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
-        //UserServerActionCreators.recieveCurrentUser(resp); 
+        UserServerActionCreators.recieveUserNotifications(resp); 
       },
       error: function(error) {
-        console.error(url, error['response'], error);
+        console.error(url, error['response']);
+      }
+    });
+  },
+
+  loadMoreUserNotifications: function(url, data) {
+    var params = {
+      limit: data.limit,
+      offset: data.offset
+    };
+    
+    Reqwest({
+      url: url,
+      type: 'json',
+      method: 'GET',
+      data: params,
+      contentType: 'application/json',
+      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      success: function(resp) {
+        console.log("SERVER RESPONSE", resp);
+        UserServerActionCreators.recieveMoreUserNotifications(resp); 
+      },
+      error: function(error) {
+        console.error(url, error['response']);
       }
     });
   }

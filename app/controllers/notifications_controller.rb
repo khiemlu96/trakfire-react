@@ -2,8 +2,18 @@ class NotificationsController < ApplicationController
 	before_action :authenticate_request, only: [:index, :destroy]
 
 	def index
-		@notifications = Notification.where(user_id: @current_user.id, read_time: nil).order(sent_time: :desc)
-		render json: @notifications, include: { user:{} }
+		if params[:limit] 
+			limit =  params[:limit]
+			offset = params[:offset]
+		end
+
+		@notifications = Notification.where(user_id: @current_user.id).order(sent_time: :desc).limit(limit).offset(offset)
+
+		@notifications.each do |n|
+			n.json_data = n.data
+		end
+
+		render json: @notifications
 	end
 
 	def destroy
@@ -12,6 +22,6 @@ class NotificationsController < ApplicationController
 	end
 
 	def notification_params
-		params.require(:notification).permit(:user_id, :id)
+		params.require(:notification).permit(:limit, :user_id, :id)
 	end
 end

@@ -33,5 +33,21 @@ class Post < ActiveRecord::Base
     	@comments
   	end
 
+  	def post_votes=(votes)
+  		post_votes = []
+
+  		@votes = votes.each do |vote|
+  			voter_id = vote.user_id
+  			vote.user = voter_id
+  			post_votes.push(vote)
+  		end
+  		
+  		@votes = post_votes
+  	end
+
+  	def post_votes
+  		@votes
+  	end
+
 	scope :ranking, -> { select("id, user_id, song_id, created_at, genre, date, genre, play_count, score, vote_count, img_url, title, artist, stream_url, duration,  hot_score(vote_count, created_at) as hot_score") }
 end

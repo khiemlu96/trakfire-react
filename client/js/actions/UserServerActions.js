@@ -38,6 +38,35 @@ module.exports = {
       actionType: UserConstants.RECIEVE_USER,
       response: response
     });      
-  }
+  }, 
   
+  recieveUserNotifications: function(response) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.RECIEVE_USER_NOTIFICATIONS,
+      response: response,
+      loadMore: false
+    });
+  },
+
+  recieveMoreUserNotifications: function(response) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.RECIEVE_USER_NOTIFICATIONS,
+      response: response,
+      loadMore: true
+    });
+  },
+
+  addFollowers: function(response) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.ADD_FOLLOWER,
+      response: response,
+    });
+  },
+  
+  removeFollowers: function(response) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.REMOVE_FOLLOWER,
+      response: response,
+    });
+  }
 };

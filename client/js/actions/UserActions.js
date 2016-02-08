@@ -70,8 +70,15 @@ var UserActions = {
       TfAPI.updateProfile(origin, data);
   },
 
-  getUserNotifications: function(origin) {
-    TfAPI.getUserNotifications(origin);
+  getUserNotifications: function(url, data) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.RECIEVE_USER_NOTIFICATIONS
+    });
+    TfAPI.getUserNotifications(url, data);
+  },
+
+  loadMoreUserNotifications: function(url, data) {
+    TfAPI.loadMoreUserNotifications(url, data);
   }
 };
 

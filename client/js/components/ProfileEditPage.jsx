@@ -38,7 +38,7 @@ var ProfileEdit = React.createClass({
         onChange: function(event) {
             var user = this.state.user;
             if(event.target.name === 'name')
-                user.username = event.target.value;
+                user.name = event.target.value;
             else if(event.target.name === 'email')
                 user.email = event.target.value;
             else if(event.target.name === 'bio')
@@ -57,7 +57,7 @@ var ProfileEdit = React.createClass({
                 user: {}
             };
 
-            data['user']['username'] = this.state.user.username;
+            data['user']['username'] = this.state.user.name;
             data['user']['email'] = this.state.user.email;
             data['user']['tbio'] = this.state.user.bio;
 
@@ -87,7 +87,7 @@ var ProfileEdit = React.createClass({
                             </div>
                             <div className="col-md-5 col-sm-5 col-xs-5 first-section"> 
                                 <label> USERNAME </label>
-                                <input type="text" name="name" ref="name" value={this.state.user.username} onChange={this.onChange}></input>
+                                <input type="text" name="name" ref="name" value={this.state.user.name} onChange={this.onChange}></input>
                                 <label> EMAIL * </label>
                                 <input type="text" name="email" ref="email" value={this.state.user.email} onChange={this.onChange}></input>
                             </div>

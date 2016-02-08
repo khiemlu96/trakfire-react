@@ -9,10 +9,11 @@ var CHANGE_EVENT = 'change';
 var _cUser = null;
 var _user = null;
 var _posts = null;
+var _notifications = null;
 
 function _addCurrentUser(user) {
   _cUser = UserUtils.convertRawUser(user);
-  console.log("CURR USER NAME",_cUser.name);
+  
   mixpanel.identify(_cUser.id);
   mixpanel.people.set_once({
   '$handle' : _cUser.handle,
@@ -24,13 +25,40 @@ function _addCurrentUser(user) {
 
 function _addUser(user) {
   _user = UserUtils.convertRawUser(user);
-} 
+}
 
 function _addPostsToUser(userPosts) {
   _posts['upvoted'] = userPosts.upvoted;
   _posts['posted'] = userPosts.posted;
 }
 
+function _addUserNotifications(notifications) {
+  _notifications = notifications;
+  _cUser.notifications = _notifications;
+}
+
+function _addMoreUserNotifications(notifications) {
+  _notifications = notifications;
+  for(key in notifications) {
+    _cUser.notifications.push(notifications[key]);
+  }
+}
+
+function _addFollower(follower) {
+  _cUser.followings.push(follower);
+}
+
+function _removeFollower(follower) {
+  var rowIdx = 0;
+  var followings = _cUser.followings;
+  for(key in followings) {
+    if(followings[key].id === follower.id) {
+      followings.splice(rowIdx, 1);
+    }
+    rowIdx++;
+  }
+  _cUser.followings = followings;
+}
 
 var UserStore = assign({}, EventEmitter.prototype, {
 
@@ -59,6 +87,10 @@ var UserStore = assign({}, EventEmitter.prototype, {
     //console.log('GETTING THE USERS POSTS');
     return _uposts;
   }, 
+
+  getUserNotifications: function() {
+      return _cUser.notifications;
+  },
 
   emitChange: function() {
     this.emit(CHANGE_EVENT);
@@ -103,6 +135,22 @@ AppDispatcher.register(function(action) {
     case UserConstants.RECIEVE_USER_POSTS:
       //console.log('recieving user posts ', action.response);
       _addPostsToUser(action.response);
+      UserStore.emitChange();
+      break;
+    case UserConstants.RECIEVE_USER_NOTIFICATIONS:
+      if(action.loadMore === true){
+        _addMoreUserNotifications(action.response);
+      } else {
+        _addUserNotifications(action.response);
+      }      
+      UserStore.emitChange();
+      break;
+    case UserConstants.ADD_FOLLOWER:
+      _addFollower(action.response);   
+      UserStore.emitChange();
+      break;
+    case UserConstants.REMOVE_FOLLOWER:
+      _removeFollower(action.response);    
       UserStore.emitChange();
       break;
     default:

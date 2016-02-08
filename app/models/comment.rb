@@ -7,7 +7,7 @@ class Comment < ActiveRecord::Base
 	    @commenter = User.find(commenter)
   	end
 
-  	def user
+	def user
     	@commenter
  	end
 
@@ -15,7 +15,6 @@ class Comment < ActiveRecord::Base
  		@replies = Comment.where(parent_id: parent_id)
     replies = []
     @replies = @replies.each do |reply|
-      user_id = reply.user_id
       reply.user = user_id
       replies.push(reply)
     end
@@ -27,6 +26,6 @@ class Comment < ActiveRecord::Base
  	end
 
  	def as_json(options={})
-    	super({ methods: ['user', 'replies'] })
-  	end
+  	super({ methods: ['user', 'replies'] })
+	end
 end
