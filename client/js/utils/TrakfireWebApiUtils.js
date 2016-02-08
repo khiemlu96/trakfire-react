@@ -244,6 +244,7 @@ module.exports = {
       headers: {'Authorization': sessionStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
+        UserServerActionCreators.addFollowers(resp);
       },
       error: function(error) {
         console.error(url, error['response']);
@@ -264,7 +265,7 @@ module.exports = {
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         //newVote = resp;
-        //PostServerActionCreators.recieveNewVote(newVote); 
+        UserServerActionCreators.removeFollowers(resp);
       },
       error: function(error) {
         console.error(url, error['response']);

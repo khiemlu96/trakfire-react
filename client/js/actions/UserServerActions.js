@@ -54,5 +54,19 @@ module.exports = {
       response: response,
       loadMore: true
     });
+  },
+
+  addFollowers: function(response) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.ADD_FOLLOWER,
+      response: response,
+    });
+  },
+  
+  removeFollowers: function(response) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.REMOVE_FOLLOWER,
+      response: response,
+    });
   }
 };

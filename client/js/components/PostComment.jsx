@@ -63,13 +63,13 @@ var PostComment = React.createClass({
     renderSingleComment: function(comment) {
 		return (
 			<div className="col-md-12 tf-parent-comment-profile" id = {comment.id}>
-				<div className = "row tf-comment-profile col-md-12">
+				<div className = "tf-comment-profile col-md-12">
 					<div className="col-md-0 tf-comment-auther-panel left">
 						<a className="tf-link" href={"/profile/" + comment.user.id} >
 							<img className="tf-author-img" src={comment.user.img} />
 						</a>
 					</div>	
-					<div className="col-md-8">
+					<div className="col-md-8 tf-user-profile-section">
 						<a className="tf-profile-link"> {comment.user.username}</a> 
 						<span className="tf-user-tbio"> - Trakfire Founder. </span>
 					</div>				
@@ -81,7 +81,7 @@ var PostComment = React.createClass({
 					</div>
 				</div>
 				
-				<div className="row tf-comment-text col-md-12">					
+				<div className="tf-comment-text col-md-12">					
 					<div className="tf-comment-detail">{comment.comment_detail}</div>
 				</div>				
 
@@ -135,21 +135,22 @@ var PostComment = React.createClass({
     renderSingleReply: function(reply) {
     	return (
     		<div className="col-md-12 tf-reply-comment-profile">
-				<div className = "row tf-comment-profile col-md-12">
+				<div className = "tf-comment-profile col-md-12">
 					<div className="col-md-0 tf-comment-auther-panel left">
 						<a className="tf-link" href={"/profile/"+reply.user.id} >
 							<img className="tf-author-img" src={reply.user.img} />
 						</a>
 					</div>	
-					<div className="col-md-8">
-						<a className="tf-profile-link"> {reply.user.username}</a> - Trakfire Founder.
+					<div className="col-md-8 tf-user-profile-section">
+						<a className="tf-profile-link"> {reply.user.username}</a>
+						<span className="tf-user-tbio"> - Trakfire Founder. </span>
 					</div>				
 					<div className="col-md-3 tf-comment-time right">					
 						<span className="">{moment(reply.created_at).fromNow()}</span>
 					</div>
 				</div>
 				
-				<div className="row tf-comment-text col-md-12">					
+				<div className="tf-comment-text col-md-12">					
 					<div className="tf-comment-detail">{reply.comment_detail}</div>
 				</div>		
 			</div>

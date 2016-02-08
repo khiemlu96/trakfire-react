@@ -85,12 +85,26 @@ var ProfilePage = React.createClass({
   renderTags: function(post) {
     t = post.tags;
     tags = [];
+    var i = 0;
     for(tag in t) {
+      if(i === 4) {
+        break;
+      }
       var tag = <div className="tf-post-category">{t[tag].name}</div> 
       tags.push(tag);
+      i++
     }
-
     return tags;
+  },
+
+  renderGenre: function(post) {
+    var genres = post.genre;
+    var html = [];
+    for(g in genres) {
+      var genre = <div className="tf-post-genre">{genres[g]}</div> 
+      html.push(genre);
+    }
+    return html;
   },
 
   renderPost: function(){
@@ -102,13 +116,10 @@ var ProfilePage = React.createClass({
               <div className="tf-current-trak-content">
                 <a className="tf-trak-detail-vote" href="/post/11">
                   <div className="tf-post-item--votes" >
-                    <span className="tf-hide" >1</span>
+                    <span className="" ref="count">1</span>
                   </div>
                 </a>
-                <div className='' ref="upvotes" >
-                  <span className= '' ref="count"> </span>
-                </div>
-                <div className="tf-post-item--img"> 
+                <div className="tf-post-item--img col-md-3">
                   <div className="tf-trak-img">
                     <a href="#!" className="tf-post-play" onClick={this.onPostListItemClick} >
                       <img className="tf-trak-detail-thumbnail" src={post.img_url} />
@@ -121,114 +132,104 @@ var ProfilePage = React.createClass({
                     <div className = "tpf-pause-button"  onClick={this.onPostListItemClick} >
                          <img src = {'../assets/img/player-pause-white.svg'}/>  
                     </div>
-                  </div>
-                  <div className="col-md-3"></div>
-                  <div className="col-md-6">
-                    <div className="tf-post-title">
-                      <div><b>{post.title}</b></div>
-                      <div><small>{post.artist}</small></div>
+                  </div>                  
+                </div>
+                <div className="tf-post-title col-md-6">
+                  <div className="tf-title"><b>{post.title}</b></div>
+                  <div className="tf-author"><small>{post.artist}</small></div>
+                </div>
+                <div className="col-md-3 tf-key-container">
+                  <div className="col-md-6 tf-post-genre-container">{this.renderGenre(post)}</div>
+                  <div className="col-md-6 tf-post-tag-container">{this.renderTags(post)}</div>
+                </div>
+              </div>
+              <div className="tf-current-trak-vote-section col-md-12">
+                <div className="col-md-3">
+                  <div className="col-md-2">
+                    <div className="tf-auther-panel">
+                      <a className="tf-link" href="/profile/2" >
+                        <img className="tf-author-img" src={post.author_img} />
+                      </a>
                     </div>
                   </div>
-                  <div className="col-md-3">
-                    <div className="col-md-6">
-                      <div className="tf-post-category">{this.renderTags(post)}</div>
+                  <div className="col-md-10">
+                      <b>Song</b> posted By <br/>
+                      <a className="tf-profile-link">{post.author_name}</a>
+                  </div>
+                </div>
+                <div className="col-md-3">
+                  <div className="col-md-10">
+                    <div className="">
+                      <div >
+                        <i className="glyphicon glyphicon-fire tf-social-icons"></i> 
+                        <span><b>{voteCount = getLength(post.votes)} &nbsp;friends</b></span>
+                        <span>&nbsp;&nbsp;upvoted</span>
+                      </div>
+                      <div>
+                        <div className="tf-auther-panel">         
+                          {this.renderVotes(post)}                     
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
-                <div className="tf-post-item--rank"></div>
-                <hr></hr>
-                <div className="col-md-12">
-                    <div className="col-md-3">
-                      <div className="col-md-2">
+                <div className="col-md-3">
+                  {/*<div className="col-md-12">
+                    <div className="tf-current-trak-second-panel">
+                      <div >
+                        <i className="glyphicon glyphicon-fire tf-social-icons"></i> 
+                        <span><b>3 &nbsp;Firestarters</b></span>
+                        <span>&nbsp;&nbsp;upvoted</span>
+                      </div>
+                      <div>
                         <div className="tf-auther-panel">
                           <a className="tf-link" href="/profile/2" >
-                            <img className="tf-author-img" src={post.author_img} />
+                            <img className="tf-author-img" src="https://pbs.twimg.com/profile_images/668573362738696193/g0-CxwLx_400x400.png" />
                           </a>
-                        </div>
-                      </div>
-                      <div className="col-md-10">
-                        <div>
-                          <h6 > <b>Song</b> posted By </h6>
-                          <a className="tf-profile-link">{post.author_name}</a>
-                        </div>
-                        <div className="tf-current-trak-first-panel">
-                          <div >
-                            <span><b>Share</b></span>
-                            <span>&nbsp;&nbsp;this song</span>
-                          </div>
-                          <div className="tf-trak-detail-wrapper">
-                            <img className="tf-social-icons" src={'/assets/img/twitter_footer.svg'} /> 
-                            <img className="tf-social-icons" src={'/assets/img/facebook_footer.svg'} /> 
-                            <img className="tf-social-icons tumbler-logo" src={'/assets/img/tumbler.png'} /> 
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-3">
-                      <div className="col-md-10">
-                        <div className="tf-current-trak-second-panel">
-                          <div >
-                            <i className="glyphicon glyphicon-fire tf-social-icons"></i> 
-                            <span><b>{voteCount = getLength(post.votes)} &nbsp;friends</b></span>
-                            <span>&nbsp;&nbsp;upvoted</span>
-                          </div>
-                          <div>
-                            <div className="tf-auther-panel">         
-                              {this.renderVotes(post)}                     
-                            </div>
-                          </div>
+                          <a className="tf-link" href="/profile/2" >
+                            <img className="tf-author-img" src="https://pbs.twimg.com/profile_images/668573362738696193/g0-CxwLx_400x400.png" />
+                          </a>
+                          <a className="tf-link" href="/profile/2" >
+                            <img className="tf-author-img" src="https://pbs.twimg.com/profile_images/668573362738696193/g0-CxwLx_400x400.png" />
+                          </a>
+                          
+                          <OverlayTrigger trigger="click" rootClose placement="bottom" 
+                            overlay={ 
+                                      <Popover className="tf-user-list-popup" id="tf-post-detail-popup" style={UserStyle}>
+                                        <div>
+                                          <div className="">
+                                            <a className="tf-profile-link"> Arjun Mehta</a> - Trakfire Founder.
+                                            <span className="tf-comment-time">4 hours ago</span>
+                                          </div>
+                                        </div>
+                                        <hr></hr>
+                                        <div>
+                                          <div className="">
+                                            <a className="tf-profile-link"> Arjun Mehta</a> - Trakfire Founder.
+                                            <span className="tf-comment-time">4 hours ago</span>
+                                          </div>
+                                        </div>
+                                      </Popover>
+                                    }>
+                            <span className="tf-firestarters-upvotes-count"><b>123+</b></span>
+                          </OverlayTrigger>
                         </div>
                       </div>
                     </div>
-                    <div className="col-md-3">
-                      <div className="col-md-12">
-                        <div className="tf-current-trak-second-panel">
-                          <div >
-                            <i className="glyphicon glyphicon-fire tf-social-icons"></i> 
-                            <span><b>3 &nbsp;Firestarters</b></span>
-                            <span>&nbsp;&nbsp;upvoted</span>
-                          </div>
-                          <div>
-                            <div className="tf-auther-panel">
-                              <a className="tf-link" href="/profile/2" >
-                                <img className="tf-author-img" src="https://pbs.twimg.com/profile_images/668573362738696193/g0-CxwLx_400x400.png" />
-                              </a>
-                              <a className="tf-link" href="/profile/2" >
-                                <img className="tf-author-img" src="https://pbs.twimg.com/profile_images/668573362738696193/g0-CxwLx_400x400.png" />
-                              </a>
-                              <a className="tf-link" href="/profile/2" >
-                                <img className="tf-author-img" src="https://pbs.twimg.com/profile_images/668573362738696193/g0-CxwLx_400x400.png" />
-                              </a>
-                              
-                              <OverlayTrigger trigger="click" rootClose placement="bottom" 
-                                overlay={ 
-                                          <Popover className="tf-user-list-popup" id="tf-post-detail-popup" style={UserStyle}>
-                                            <div>
-                                              <div className="">
-                                                <a className="tf-profile-link"> Arjun Mehta</a> - Trakfire Founder.
-                                                <span className="tf-comment-time">4 hours ago</span>
-                                              </div>
-                                            </div>
-                                            <hr></hr>
-                                            <div>
-                                              <div className="">
-                                                <a className="tf-profile-link"> Arjun Mehta</a> - Trakfire Founder.
-                                                <span className="tf-comment-time">4 hours ago</span>
-                                              </div>
-                                            </div>
-                                          </Popover>
-                                        }>
-                                <span className="tf-firestarters-upvotes-count"><b>123+</b></span>
-                              </OverlayTrigger>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                <div className="tf-post-item--author">     </div>
-                <div className="tf-post-item--tags">       </div>
-
+                  </div>*/}
+                </div>
+                <div className="col-md-2 right">
+                  {/*<div>
+                                      <span><b>Share</b></span>
+                                      <span>&nbsp;&nbsp;this song</span>
+                                    </div>
+                                    <div className="tf-trak-detail-wrapper">
+                                      <img className="tf-social-icons" src={'/assets/img/twitter_footer.svg'} /> 
+                                      <img className="tf-social-icons" src={'/assets/img/facebook_footer.svg'} /> 
+                                      <img className="tf-social-icons tumbler-logo" src={'/assets/img/tumbler.png'} /> 
+                                    </div>*/}
+                  <div className="button btn-share-song"><img className="tf-social-icons" src={'/assets/img/twitter_footer.svg'} /> Tweet This Song</div>
+                </div>
               </div>
 
             </div>
@@ -264,7 +265,7 @@ var ProfilePage = React.createClass({
 
   renderCommentCount: function(post){
     var count = getCommentLength(post.comments);
-    return <div className='container'>
+    return <div className='container tf-comment-count-section'>
             <div className="col-md-12">
               <span><h3><b>{count.comment_count} Comments, {count.reply_count} Replies</b></h3></span>
             </div>

@@ -26,10 +26,10 @@ class VotesController < ApplicationController
 			notification.reference_id = post.id
 
 			@data = {
-				:user_id => @current_user.id,
-				:user_name => @current_user.username,
-				:user_img => @current_user.img,
-				:user_profile_url => "profile/#{@current_user.id}",
+				:src_user_id => @current_user.id,
+				:src_user_name => @current_user.username,
+				:src_user_img => @current_user.img,
+				:src_user_profile_url => "profile/#{@current_user.id}",
 				:post_id => post.id,
 				:post_name => post.title
 			}
