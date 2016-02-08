@@ -2,6 +2,7 @@
 
 var React = require('react/addons');
 var Uri = require('jsuri');
+console.log("POST BB");
 var ReactPropTypes = React.PropTypes;
 var bootstrap = require('bootstrap');
 var Bootstrap = require('react-bootstrap');
