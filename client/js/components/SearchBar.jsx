@@ -26,28 +26,6 @@ var searchBoxStyle = {
 	border: '1px solid #2b2b2b',
 	position: 'fixed'
 };
-var searchInputArea = {
-	backgroundColor: '#161616',
-	border: 'none',
-	textAlign: 'center',
-	fontSize: 20,
-	height: 60,
-	fontWeight: 600,
-	maxWidth: '97%'
-};
-var closeButtonStyle = {
-	fontSize: 40,
-	color: '#ff0d55',
-	textDecoration: 'none',
-	verticalAlign: 'middle',
-	float: 'right'
-};
-var searchIconStyle = {
-	cursor: 'pointer',
-	color: '#ff0d55',
-	fontSize: '18px',
-	marginRight: '15px'
-};
 
 var SearchBar = React.createClass({
 
@@ -59,10 +37,10 @@ var SearchBar = React.createClass({
 	},
 	
 	componentDidMount: function() {
-	    //$(document.body).on('keydown', this.handleKeyDown);
+		
 	  var search = instantsearch({
-        appId: '2CGJRVYAYN',
-        apiKey: 'd216e9a395320d63a1b68ea0b20b9347',
+        appId: 'YX1WDN49CX',
+        apiKey: '50d31a5aee4abf796b908e368f312027',
         indexName: 'posts',
         urlSync: true,
         searchOnEmptyQuery: false,

@@ -60,7 +60,8 @@ var searchInputArea = {
   fontSize: 20,
   height: 60,
   fontWeight: 600,
-  maxWidth: '97%'
+  maxWidth: '97%',
+  float: 'left'
 };
 var closeButtonStyle = {
   fontSize: 40,
@@ -68,7 +69,8 @@ var closeButtonStyle = {
   textDecoration: 'none',
   verticalAlign: 'middle',
   float: 'right',
-  top:5
+  top:20,
+  position: 'relative'
 };
 var searchIconStyle = {
   cursor: 'pointer',
@@ -103,6 +105,7 @@ var NavBar = React.createClass({
 
   closeModal: function() {
     console.log("HI");
+    this.refs.searchInput.getDOMNode().value = "";
     this.setState({
           isVisible: true
         }); 
@@ -243,6 +246,7 @@ var NavBar = React.createClass({
               <div>
                 < div id="tf-search-bar" className = "tf-search-input-box col-sm-12 col-xs-12 col-md-12" style = {searchBoxStyle}>
                   <div >
+                    <div> <img src="/assets/img/nipple.png" className="tf-search-input-box-nipple"></img></div>
                     <input  ref="searchInput" type = "text" onKeyUp={this.showSearchResult} className = "tf-search-input" 
                     placeholder = "WHAT ARE YOU LOOKING FOR?" style = {searchInputArea} >
                     </input> 

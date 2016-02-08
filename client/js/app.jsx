@@ -38,6 +38,7 @@ React.render(
       <Route path='/terms' component={TermsOfUse}/>
       <Route path='/privacy' component={PrivacyPolicy}/>
       <Route path='/post/(:id)' component={PostDetailPage} />
+      <Route path='/searchresult/(:searchkey)' component={SearchResultPage} />
     </Route>
   </Router>,
 
