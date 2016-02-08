@@ -26,11 +26,12 @@ class CommentsController < ApplicationController
 					notification.reference_id = post.id
 
 					@data = {
-						:commenter_id => @current_user.id,
-						:commenter_name => @current_user.username,
-						:commenter_img => @current_user.img,
-						:commenter_profile_url => "profile/#{@current_user.id}",
-						:post_id => post.id
+						:src_user_id => @current_user.id,
+						:src_user_name => @current_user.username,
+						:src_user_img => @current_user.img,
+						:src_user_profile_url => "profile/#{@current_user.id}",
+						:post_id => post.id,
+						:post_name => post.title
 					}
 					notification.sent_time = Time.current.utc.iso8601		
 					notification.data = @data.to_json
@@ -48,11 +49,13 @@ class CommentsController < ApplicationController
 					notification.reference_id = parent_comment.id
 
 					@data = {
-						:commenter_id => @current_user.id,
-						:commenter_name => @current_user.username,
-						:commenter_img => @current_user.img,
-						:commenter_profile_url => "profile/#{@current_user.id}",
-						:post_id => post.id
+						:src_user_id => @current_user.id,
+						:src_user_name => @current_user.username,
+						:src_user_img => @current_user.img,
+						:src_user_profile_url => "profile/#{@current_user.id}",
+						:parent_comment_id => parent_comment.id,
+						:post_id => post.id,
+						:post_name => post.title
 					}
 
 					notification.sent_time = Time.current.utc.iso8601		

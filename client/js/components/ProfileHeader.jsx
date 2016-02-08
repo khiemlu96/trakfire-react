@@ -71,7 +71,7 @@ var ProfileHeader = React.createClass({
 
         if(this.state.isFollowing === true) {
             var follow_text = "Following";
-            followBtnStyle.backgroundColor = "#ff0d55";
+            followBtnStyle.backgroundColor = "#ff0d60";
         } else {
             var follow_text = "Follow";
             followBtnStyle.backgroundColor = "#1C1C1C";

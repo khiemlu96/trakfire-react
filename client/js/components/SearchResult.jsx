@@ -38,7 +38,7 @@ var searchInputArea = {
 };
 var closeButtonStyle = {
     fontSize: 40,
-    color: '#ff0d55',
+    color: '#ff0d60',
     textDecoration: 'none',
     float: 'right',
     position: 'absolute',

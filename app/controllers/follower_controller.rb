@@ -14,10 +14,10 @@ class FollowerController < ApplicationController
 			notification.reference_id = @current_user.id
 
 			@data = {
-				:userid => @current_user.id,
-				:username => @current_user.username,
-				:userimg => @current_user.img,
-				:profile_url => "profile/#{@current_user.id}"
+				:src_user_id => @current_user.id,
+				:src_user_name => @current_user.username,
+				:src_user_img => @current_user.img,
+				:src_user_profile_url => "profile/#{@current_user.id}"
 			}
 			
 			notification.data = @data.to_json
@@ -26,7 +26,9 @@ class FollowerController < ApplicationController
 				logger.info "notification sent for follow user"
 			end
 
-		  	render json: @follower, status: :created
+			@user = User.find(@follower.follow_id);
+
+		  	render json: @user, status: :created
 		else
 			render json: @follower.errors, status: :unprocessable_entity
 	  	end
@@ -37,7 +39,8 @@ class FollowerController < ApplicationController
 		@follow_to_destroy = Follower.where(follow_id: follow_id, user_id: @current_user.id).first
 
 		if @follow_to_destroy.destroy
-			render json: "Destroy complete"
+			@user = User.find(@follow_to_destroy.follow_id);
+			render json: @user
 		else 
 			@follow_to_destroy.errors
 		end

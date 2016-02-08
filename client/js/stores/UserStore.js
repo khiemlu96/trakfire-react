@@ -44,6 +44,22 @@ function _addMoreUserNotifications(notifications) {
   }
 }
 
+function _addFollower(follower) {
+  _cUser.followings.push(follower);
+}
+
+function _removeFollower(follower) {
+  var rowIdx = 0;
+  var followings = _cUser.followings;
+  for(key in followings) {
+    if(followings[key].id === follower.id) {
+      followings.splice(rowIdx, 1);
+    }
+    rowIdx++;
+  }
+  _cUser.followings = followings;
+}
+
 var UserStore = assign({}, EventEmitter.prototype, {
 
   getCurrentUser: function() {
@@ -129,7 +145,14 @@ AppDispatcher.register(function(action) {
       }      
       UserStore.emitChange();
       break;
-
+    case UserConstants.ADD_FOLLOWER:
+      _addFollower(action.response);   
+      UserStore.emitChange();
+      break;
+    case UserConstants.REMOVE_FOLLOWER:
+      _removeFollower(action.response);    
+      UserStore.emitChange();
+      break;
     default:
       // no op
   }
