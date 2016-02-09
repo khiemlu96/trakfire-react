@@ -48,6 +48,7 @@ html, body {
 	left: -4px;
 	position: relative;
 }
+
 .tf-player-controls-wrap-info {
 	display: inline-block;
 	vertical-align: middle;
@@ -300,7 +301,7 @@ th.upvote-col {
     letter-spacing: 0.07em;
     padding-left: 1px;
     cursor: pointer;
-    z-index: 11;
+    z-index: 10;
 }
 
 /*#Post-list .tf-post-item .tf-post-item--votes {
@@ -342,7 +343,7 @@ th.upvote-col {
 }
 
 .tf-current-trak-content .tf-post-item--img {
-	height: auto;
+	height: 100%;
 	overflow-y: visible;
 	margin-right: 0px;
 }
@@ -359,15 +360,32 @@ th.upvote-col {
 }
 
 .tf-current-trak-content .tf-trak-detail-thumbnail {
-	left: 60px;
 	margin-left: 0px;
 	height: 235px;
 	max-width: 235px;
 }
 
 .tf-current-trak-content .tpf-play-button img {
-	left: 150px !important;
-	top: 75px !important;
+	left: 90px !important;
+	top: 140px !important;
+	border: 2px solid #ff0d60 !important;
+	display: block !important;
+}
+
+.tf-current-trak-content .tf-player-controls-wrap {
+	display: inline-block;
+	vertical-align: middle;
+	top: 210px;
+	left: 0px;
+	position: relative;
+	width: 100%;
+}
+
+.tf-current-trak-content .tf-player-controls-wrap .tf-progress-container{
+	min-width: 235px !important;
+	margin-left: 0px !important;
+	width: 100%;
+	background-color: transparent;
 }
 
 .tf-current-trak-content .tpf-play-button img,
@@ -408,6 +426,23 @@ th.upvote-col {
     padding: 13px;
     border: 4px solid #ff0d60;
     z-index: 2;
+}
+
+.tf-current-trak-content .tpf-pause-button img {
+	left: 90px !important;
+	top: 140px !important;
+	border: 2px solid #ff0d60 !important;
+	display: block !important;
+}
+
+.tf-current-trak-content .tf-player-controls-wrap .tf-playbackTimeline-timePassed {
+	margin-top: -60px;
+	margin-left: 40px;
+}
+
+.tf-current-trak-content .tf-player-controls-wrap .tf-playbackTimeline-timeRemained {
+	margin-top: -60px;
+	margin-right: 40px;
 }
 
 .tf-current-trak-content .tf-post-item--img:hover .tpf-play-button img,
@@ -523,13 +558,13 @@ th.upvote-col {
 }
 
 .tf-current-trak-content .tf-key-container .tf-post-genre-container{
-	margin-top: 60px;
-	margin-bottom: 60px;
+	margin: 60px -10px 60px 15px;
 }
 
 .tf-current-trak-content .tf-key-container .tf-post-tag-container {
 	margin-top: 40px;
 	margin-bottom: 40px;
+	margin-left: -10px;
 }
 
 .tf-current-trak-content .tf-key-container .tf-post-category {
@@ -546,7 +581,7 @@ th.upvote-col {
 	border: 1px solid #2b2b2b;
     color: #ff0d60;
     font-size: 12px;
-    font-weight: 800;
+    font-weight: 700;
     line-height: 14px;
     padding: 5px;
     text-align: center;
@@ -2213,6 +2248,13 @@ label.ownsong-label {
 
 .tf-trak-img{
 	position: static;
+}
+
+.tf-current-trak-content .tf-trak-img {
+	height: 100%;
+    left: 60px !important;
+    position: absolute;
+    width: 235px;
 }
 
 .tf-post-title{

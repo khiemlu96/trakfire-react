@@ -12,8 +12,22 @@ var PostActions = require('../actions/PostActions');
 var ReactPropTypes = React.PropTypes;
 
 function getSecondsFromMilli(milliseconds) {
-  return milliseconds * 0.001; 
+  return milliseconds * 0.001;
+}
 
+function seconds2time (milliseconds) {
+    var seconds = milliseconds * 0.001;
+    var hours   = Math.floor(seconds / 3600);
+    var minutes = Math.floor((seconds - (hours * 3600)) / 60);
+    var seconds = Math.floor(seconds - (hours * 3600) - (minutes * 60));
+    var time = "";
+
+    minutes = (minutes < 10) ? "0" + minutes : String(minutes);
+    time += minutes + ":";
+    
+    time += (seconds < 10) ? "0" + seconds : String(seconds);
+    
+    return time;
 }
 
 var TrakfirePlayerProgress = React.createClass({
@@ -22,7 +36,8 @@ var TrakfirePlayerProgress = React.createClass({
     isPlaying: ReactPropTypes.bool,
     duration: ReactPropTypes.number,
     onProgressClick: ReactPropTypes.func,
-    toggle: ReactPropTypes.bool
+    toggle: ReactPropTypes.bool,
+    showTrackDuration: ReactPropTypes.bool
   },
 
   componentDidMount: function() {
@@ -65,7 +80,7 @@ var TrakfirePlayerProgress = React.createClass({
     return {currPos:0, hasFinished:false};
   }, 
 
-  handleClickAtPos: function() {
+  handleClickAtPos: function(event) {
     var el = this.refs.progressbar.getDOMNode();
     var rect = el.getBoundingClientRect();
     var left = rect.left;
@@ -95,9 +110,12 @@ var TrakfirePlayerProgress = React.createClass({
     var curr = this.state.currPos;
     var duration = this.props.duration;
     var value = Math.round((curr/duration)*100);
-    //console.log("CURR", curr, "DUR", duration, "VALUE", value);
+
     if (value < 0) {value = 0};
     if (value >= duration) {value = 100};
+
+    var timePassed = seconds2time(curr);
+    var timeRemained = seconds2time(duration - curr);
 
     var style = {
       backgroundColor: this.props.color || '#ff0d55',
@@ -106,9 +124,21 @@ var TrakfirePlayerProgress = React.createClass({
       height: this.props.height || 3
     };
 
+    if(this.props.showTrackDuration === true) {
+      var timePassedHtml = <div className="tf-playbackTimeline-timePassed left">{timePassed}</div>;
+      var timeRemainedHtml = <div className="tf-playbackTimeline-timeRemained right">{"-" + timeRemained}</div>
+    } else {
+      var timePassedHtml = '';
+      var timeRemainedHtml = '';
+    }   
+
     return (
-      <div className="tf-progress-container" ref="progressbar" onClick={this.handleClickAtPos}>
-        <div className="tf-progress-inner" style={style}></div>
+      <div>
+        {timePassedHtml}
+        {timeRemainedHtml}
+        <div className="tf-progress-container" ref="progressbar" onClick={this.handleClickAtPos}>
+          <div className="tf-progress-inner" style={style}></div>
+        </div>        
       </div>
     );
   }
