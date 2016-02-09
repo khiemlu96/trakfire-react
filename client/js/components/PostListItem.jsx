@@ -158,7 +158,7 @@ var PostListItem = React.createClass({
           </div>
           <div className="tf-post-item--info">
             <Link to={'/post/'+post.id}> <h5>{ post.title }</h5> </Link> 
-            <small> {post.artist } </small>
+            <small> {post.artist} </small>
           </div>
           <div className="tf-post-item--author">
             {this.renderAuthor()}

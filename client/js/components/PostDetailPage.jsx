@@ -82,6 +82,14 @@ var ProfilePage = React.createClass({
     this.props.onPostItemClick(this.state.post.stream_url, this.state.post, pid);
   },
 
+  buildTweet: function(post) {
+    var text = "Listen to " + post.title + " by " + post.artist;
+    var via = "trakfiremusic";
+    //var url = post.url  TODO ONCE SERVER RENDERING IS COMPLETE
+    var base = "https://twitter.com/intent/tweet?";
+    return base + "text=" + text + "&via=" + via; // TODO ES6 TEMPLATE STRINGS
+  }, 
+
   renderTags: function(post) {
     t = post.tags;
     tags = [];
@@ -228,7 +236,7 @@ var ProfilePage = React.createClass({
                                       <img className="tf-social-icons" src={'/assets/img/facebook_footer.svg'} /> 
                                       <img className="tf-social-icons tumbler-logo" src={'/assets/img/tumbler.png'} /> 
                                     </div>*/}
-                  <div className="button btn-share-song"><img className="tf-social-icons" src={'/assets/img/twitter_footer.svg'} /> Tweet This Song</div>
+                  <a href={this.buildTweet(post)}><div className="button btn-share-song"><img className="tf-social-icons" src={'/assets/img/twitter_footer.svg'} /> Tweet This Song</div></a>
                 </div>
               </div>
 
