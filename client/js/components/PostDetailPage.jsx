@@ -50,6 +50,10 @@ function getCommentLength(comments) {
   };
 }
 
+function randomIntFromInterval(min,max) {
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
+
 var ProfilePage = React.createClass({
 
   propTypes : {
@@ -97,7 +101,13 @@ var ProfilePage = React.createClass({
   },
 
   buildTweet: function(post) {
-    var text = "Listen to " + post.title + " by " + post.artist;
+    var surlines = ["premium unleaded gasoline", 
+                    "a tidal wave of pure fire", 
+                    "pure unadulterated fire", 
+                    "the next wave",
+                    "undeniable"];
+    var choice = randomIntFromInterval(0, 4);
+    var text = post.title + " by " + post.artist + " is " + surlines[choice];
     var via = "trakfiremusic";
     //var url = post.url  TODO ONCE SERVER RENDERING IS COMPLETE
     var base = "https://twitter.com/intent/tweet?";
