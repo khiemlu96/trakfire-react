@@ -14277,13 +14277,6 @@
 	    this.audio.currentTime = percent * (this.audio.duration || 0);
 	};
 	
-	SoundCloud.prototype.seekTo = function(milliseconds) {
-	    if(!this.audio.readyState) {
-	        return false;
-	    } 
-	    this.audio.currentTime = Math.round(milliseconds/1000);
-	};
-	
 	module.exports = SoundCloud;
 
 
@@ -15041,13 +15034,25 @@
 	    this.props.onClick(this.props.post.stream_url, this.props.post, idx);
 	    var post = this.refs.post.getDOMNode();
 	    //console.log("POST STATUS", this.state.isPlaying);
-	    if(!this.state.isPlaying) {
-	      post.className = isPlaying;
-	      this.setState({isPlaying:true});
-	    }
-	    else {
-	      post.className = isNotPlaying;
-	      this.setState({isPlaying:false});
+	    if(!this.props.first) {
+	      if(!this.state.isPlaying) {
+	        post.className = isPlaying;
+	        this.setState({isPlaying:true});
+	      }
+	      else {
+	        post.className = isNotPlaying;
+	        this.setState({isPlaying:false});
+	      }
+	    } 
+	    else if(this.props.first) {
+	      if(!this.state.isPlaying) {
+	        post.className = isFirstPlaying;
+	        this.setState({isPlaying:true});
+	      }
+	      else {
+	        post.className = isFirstNotPlaying;
+	        this.setState({isPlaying:false});
+	      }      
 	    }
 	    //console.log("POST STATUS POST", this.props.rank, this.state.isPlaying);
 	  },
