@@ -8,6 +8,9 @@ var ProfileHeader = require('./ProfileHeader.jsx');
 var ProfileBar = require('./ProfileBar.jsx');
 var Bootstrap = require('react-bootstrap');
 var PostComment = require('./PostComment.jsx');
+var TrakfirePlayerProgress = require('./TrakfirePlayerProgress.jsx');
+var SoundCloudAudio = require('soundcloud-audio');
+var scPlayer = new SoundCloudAudio('9999309763ba9d5f60b28660a5813440');
 
 var OverlayTrigger = Bootstrap.OverlayTrigger;
 var Popover = Bootstrap.Popover;
@@ -17,7 +20,8 @@ function getAppState() {
   return {
     post: PostStore.getSinglePost(),
     currUser: UserStore.getCurrentUser(),
-    isPlaying: false
+    isPlaying: false,
+    toggle:false
   };
 }
 
@@ -52,12 +56,18 @@ var ProfilePage = React.createClass({
     onPostItemClick: ReactPropTypes.func, //Playability
     currStreamUrl: ReactPropTypes.string, 
     origin: ReactPropTypes.string,
-    currUser: ReactPropTypes.object
+    currUser: ReactPropTypes.object,
+    isPlaying: false,
+    isPaused: true,
+    isActive: false,
+    currTrack: null,
+    currStreamUrl: null,
+    currSongIdx: 0
   }, 
 
   getInitialState: function() {
     return getAppState();
-  }, 
+  },
 
   componentDidMount: function() {
     PostStore.addChangeListener(this._onChange);
@@ -78,8 +88,12 @@ var ProfilePage = React.createClass({
     PostActions.getPost(this.props.origin+'/post/'+postid, postid);
   }, 
 
-  onPostListItemClick:function(pid) {
-    this.props.onPostItemClick(this.state.post.stream_url, this.state.post, pid);
+  onPostListItemClick:function() {
+    this.props.onPostItemClick(this.state.post.stream_url, this.state.post);
+  },
+
+  handleProgressClick: function(millipos) {
+      this.onProgressClick(millipos);
   },
 
   buildTweet: function(post) {
@@ -98,7 +112,7 @@ var ProfilePage = React.createClass({
       if(i === 4) {
         break;
       }
-      var tag = <div className="tf-post-category">{t[tag].name}</div> 
+      var tag = <div className="tf-post-category">{"#" + t[tag].name}</div> 
       tags.push(tag);
       i++
     }
@@ -115,9 +129,116 @@ var ProfilePage = React.createClass({
     return html;
   },
 
+  /* Function triggered by item thumbnail click */
+  onPlayBtnClick: function() {
+    var isPlaying = this.state.isPlaying;
+    var isPaused = this.state.isPaused;
+    var stream_url = this.state.post.stream_url;
+    var track = this.state.post;
+    if(!this.state.isActive) { this.setState({isActive:true}); }
+    if(this.state.currTrack == null) {
+      this.setState({
+        currTrack : track,
+        currSongIdx : track.id
+      });
+      //PostActions.setCurrentPost(idx);
+    }
+    if(!isPlaying) {
+      scPlayer.play({streamUrl: stream_url});
+      isPlaying = true;
+      //SongActions.play();
+      this.setState({
+        isPlaying : isPlaying, 
+        isPaused : isPaused, 
+        currStreamUrl : stream_url, 
+        currTrack : track,
+        currSongIdx : track.id
+      });
+      //PostActions.setCurrentPost(track.id);
+    } else if(isPlaying && stream_url == this.state.currStreamUrl) {
+        scPlayer.pause();
+        isPlaying = false;
+        isPaused = true;
+        //SongActions.pause();
+        this.setState({isPlaying : isPlaying, isPaused : isPaused});     
+    } else if(isPlaying && stream_url != this.state.currStreamUrl) {
+        scPlayer.pause();
+        scPlayer.play({streamUrl : stream_url});
+        isPlaying = true;
+        isPaused = false;  
+        //SongActions.play();
+        this.setState({
+          isPlaying : isPlaying, 
+          isPaused : isPaused, 
+          currStreamUrl : stream_url, 
+          currTrack : track,
+          currSongIdx : track.id
+        }); 
+        //PostActions.setCurrentPost(track.id);    
+    }
+    
+    if(isPlaying){
+      mixpanel.track('Playing track', {
+      'title': track.title,
+      'id': track.id,
+      'artist' : track.artist, 
+      'filter' : this.state.genre,
+      'sort' : this.state.sort
+      });
+    } else if(isPaused) {
+      mixpanel.track('Paused track', {
+      'title': track.title,
+      'id': track.id,
+      'artist' : track.artist, 
+      'filter' : this.state.genre, 
+      'sort' : this.state.sort 
+      });      
+    }
+  },
+
+  onPlayCtrlClick: function() {
+    var isPlaying = this.state.isPlaying;
+    var isPaused = this.state.isPaused;
+    var stream_url = this.state.currStreamUrl;
+    if(!isPlaying) {
+      //console.log('playing');
+      scPlayer.play({streamUrl: stream_url});
+      isPlaying = true;
+      isPaused = false;
+      this.setState({isPlaying : isPlaying, isPaused : isPaused});
+    } else if(isPlaying && !isPaused || isPlaying) {
+      //console.log('pausing');
+      scPlayer.pause();
+      isPlaying = false;
+      isPaused = true;
+      this.setState({isPlaying : isPlaying, isPaused : isPaused});
+    }    
+  },
+
+  onProgressClick: function(millipos) {
+    scPlayer.seekTo(millipos);
+  },
+
   renderPost: function(){
 
     var post = this.state.post;
+    var active = this.state.isActive;
+    var playing = this.state.isPlaying;
+    var currTrack = this.state.currTrack;
+
+    var tfPlayer = <TrakfirePlayerProgress
+                            duration={ post ? parseInt(post.duration) : 0 }
+                            isPlaying={this.state.isPlaying}
+                            onProgressClick={this.handleProgressClick}
+                            toggle={this.state.toggle} 
+                            showTrackDuration={true} />;
+
+    var play =  <div className = "tpf-play-button"  onClick={this.onPlayBtnClick} >
+                    <img src = {'../assets/img/player-play-white.svg'}/>  
+                </div>;
+    var pause = <div className = "tpf-pause-button"  onClick={this.onPlayBtnClick} >
+                     <img src = {'../assets/img/player-pause-white.svg'}/>  
+                </div>;
 
     return <div className='tf-current-trak-top-panel container'>
             <div className="tf-current-trak col-md-12">
@@ -129,16 +250,12 @@ var ProfilePage = React.createClass({
                 </a>
                 <div className="tf-post-item--img col-md-3">
                   <div className="tf-trak-img">
-                    <a href="#!" className="tf-post-play" onClick={this.onPostListItemClick} >
+                    <a href="#!" className="tf-post-play" onClick={this.onPlayBtnClick} >
                       <img className="tf-trak-detail-thumbnail" src={post.img_url} />
-                    </a>
-                    <div className = "tf-overlay"  onClick={this.onPostListItemClick} >
-                    </div>  
-                    <div className = "tpf-play-button"  onClick={this.onPostListItemClick} >
-                        <img src = {'../assets/img/player-play-white.svg'}/>  
-                    </div>  
-                    <div className = "tpf-pause-button"  onClick={this.onPostListItemClick} >
-                         <img src = {'../assets/img/player-pause-white.svg'}/>  
+                    </a>                    
+                    {!this.state.isPlaying ? play : pause}
+                    <div className="tf-player-controls-wrap">                        
+                        {active ? tfPlayer : ''}
                     </div>
                   </div>                  
                 </div>
@@ -153,6 +270,7 @@ var ProfilePage = React.createClass({
               </div>
               <div className="tf-current-trak-vote-section col-md-12">
                 <div className="col-md-3">
+                  <div className="col-md-2"></div>
                   <div className="col-md-2">
                     <div className="tf-auther-panel">
                       <a className="tf-link" href="/profile/2" >
@@ -160,7 +278,7 @@ var ProfilePage = React.createClass({
                       </a>
                     </div>
                   </div>
-                  <div className="col-md-10">
+                  <div className="col-md-7">
                       <b>Song</b> posted By <br/>
                       <a className="tf-profile-link">{post.author_name}</a>
                   </div>

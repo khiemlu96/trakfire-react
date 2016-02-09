@@ -112,6 +112,7 @@ var TrakfirePlayer = React.createClass({
                             isPlaying={this.props.isPlaying}
                             onProgressClick={this.handleProgressClick}
                             toggle={this.state.toggle}
+                            showTrackDuration={false}
                         />
                     </div>
                     <div className="tf-player-controls-wrap-info">
