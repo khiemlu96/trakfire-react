@@ -102,11 +102,11 @@ var PostFormSecond = React.createClass({
             </div>
             <div className="align-left"> 
               <div className="form-title"> GENRE </div>
-              <input type="checkbox" ref="hiphop" className="tf-checkbox" name="hiphop" id="hiphop" value="HipHop"></input>
+              <input type="checkbox" ref="hiphop" className="tf-checkbox" name="hiphop" id="hiphop" value="HIPHOP"></input>
               <label className="tf-checkbox-label" htmlFor="hiphop" onClick={this.setGenre}>Rhymes</label>
-              <input type="checkbox" ref="vocals" className="tf-checkbox" id="vocals" name="vocals" value="Vocals" onClick={this.setGenre}></input>
+              <input type="checkbox" ref="vocals" className="tf-checkbox" id="vocals" name="vocals" value="VOCALS" onClick={this.setGenre}></input>
               <label className="tf-checkbox-label" htmlFor="vocals" >Vocals</label>
-              <input type="checkbox" ref="edm" className="tf-checkbox" id="edm" name="edm" value="electronic" onClick={this.setGenre}></input>
+              <input type="checkbox" ref="edm" className="tf-checkbox" id="edm" name="edm" value="ELECTRONIC" onClick={this.setGenre}></input>
               <label className="tf-checkbox-label" htmlFor="edm" >Electronic</label> <br></br> <br></br> <br></br>
               {/*<input type="checkbox" className="ownsong-checkbox" id="ownsong" name="ownsong" value="ownsong"></input> 
               <label className="ownsong-label" for="ownsong" >This is my own song</label>*/}

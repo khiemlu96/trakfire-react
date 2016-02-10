@@ -66,7 +66,7 @@ var TrakfireApp = React.createClass({
     var storeState = getAppState();
     var ownedState = {
         sort: "TOP",
-        genre: "ALL",
+        genre: ["HIPHOP", "ELECTRONIC", "VOCALS"],
         isPlaying: false,
         isLoading: false,
         isPaused: true,
@@ -201,12 +201,18 @@ var TrakfireApp = React.createClass({
   handleUserSelection: function(genre, sort) {
     var currGenre = this.state.genre;
     var currSort = this.state.sort;
-    //console.log('filter to '+genre+' from '+currGenre+', sort by '+sort+' from '+currSort );
+    var exists = currGenre.indexOf(genre);
+    console.log("Genre", genre, "currGenre", currGenre, "exists", exists);
+    if(exists > -1) {
+      currGenre.splice(exists, 1);
+    } else {
+      currGenre.push(genre);
+    }
     this.setState({
-      genre: genre ? genre : currGenre,
+      genre: currGenre,
       sort: sort ? sort : currSort
     }); 
-    PostActions.filterPosts(genre, sort);
+    PostActions.filterPosts(currGenre, sort);
   },
 
   showModal: function(showState) {

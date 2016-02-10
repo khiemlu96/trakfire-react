@@ -13,7 +13,8 @@ var classNames = require('classnames');
 var ReactPropTypes = React.PropTypes;
 
 /* GLOBAL SCOPE VARS */
-var _genre = null;
+//var _genre = null;
+var _genre = ["ELECTRONIC", "HIPHOP", "VOCALS"];
 var _sort = null;
 var _inactive = classNames("");
 var _active = classNames("is-active");
@@ -29,9 +30,9 @@ var FilterBar = React.createClass({
   },
 
   componentDidMount: function() {
-    _genre = "ALL";
+    //_genre = "ALL";
     _sort = "TOP";
-    this.props.onClick("ALL", "TOP");
+    //this.props.onClick(null, "TOP");
   },
 
   handleAllClick: function() {
@@ -50,7 +51,14 @@ var FilterBar = React.createClass({
 
   handleElectronicClick: function() {
     //this.mutexClassName('electronic', _genre.toLowerCase());
-    _genre = "ELECTRONIC";
+    //_genre = "ELECTRONIC";
+        var exists = _genre.indexOf("ELECTRONIC");
+    if(exists > -1) {
+      _genre.splice(exists, 1);
+    } else {
+      _genre.push("ELECTRONIC");
+    }
+    
     _sort = this.props.sort;
     this.props.onClick("ELECTRONIC", null);
     //this.props.scrollToTop();
@@ -62,7 +70,13 @@ var FilterBar = React.createClass({
 
   handleHipHopClick: function(){
     //this.mutexClassName('hiphop', _genre.toLowerCase());
-    _genre = "HIPHOP";
+    //_genre = "HIPHOP";
+    var exists = _genre.indexOf("HIPHOP");
+    if(exists > -1) {
+      _genre.splice(exists, 1);
+    } else {
+      _genre.push("HIPHOP");
+    }
     _sort = this.props.sort;
     this.props.onClick("HIPHOP", null);
     //this.props.scrollToTop();
@@ -73,7 +87,14 @@ var FilterBar = React.createClass({
   },
 
   handleVocalsClick: function() {
-    _genre = "VOCALS";
+    //_genre = "VOCALS";
+    var exists = _genre.indexOf("VOCALS");
+    if(exists > -1) {
+      _genre.splice(exists, 1);
+    } else {
+      _genre.push("VOCALS");
+    }
+  
     _sort = this.props.sort;
     this.props.onClick("VOCALS", null);
 
@@ -117,15 +138,15 @@ var FilterBar = React.createClass({
           <div className="left"><h4>{title} </h4></div>
           <div className="row right">
            <ul>
-            <a href="#!" ref="electronic" className={(_genre == "ELECTRONIC") ? "is-active tf-left-filter" : "is-non-active tf-left-filter" } 
+            <a href="#!" ref="electronic" className={(_genre.indexOf("ELECTRONIC") > -1 ) ? "is-active tf-left-filter" : "is-non-active tf-left-filter" } 
               onClick={this.handleElectronicClick}>
               <li >Electronic</li>
             </a>              
-            <a href="#!" ref="hiphop" className={(_genre == "HIPHOP") ? "is-active " : "is-non-active" } 
+            <a href="#!" ref="hiphop" className={(_genre.indexOf("HIPHOP") > -1 ) ? "is-active " : "is-non-active" } 
               onClick={this.handleHipHopClick} >
               <li>Hiphop</li>
             </a>    
-            <a href="#!" ref="vocal" className={(_genre == "VOCALS") ? "is-active tf-right-filter" : "is-non-active tf-right-filter" } 
+            <a href="#!" ref="vocal" className={(_genre.indexOf("VOCALS") > -1 ) ? "is-active tf-right-filter" : "is-non-active tf-right-filter" } 
               onClick={this.handleVocalsClick} >
               <li>Vocals</li>
             </a>    

@@ -22,7 +22,7 @@ var _posts = {};
 var _postsG = {};
 var _songs = {};
 var _singlePost = {};
-var _genre = "ALL";
+var _genre = ["ELECTRONIC", "VOCALS", "HIPHOP"]; //"ALL";
 var _sort = "TOP";
 var _dayCount = 0; 
 var _current_new_post = {};
@@ -186,7 +186,7 @@ var PostStore = assign({}, EventEmitter.prototype, {
   getAll: function() {
     //console.log('IN POST STORE GETTING '+_sort+' of type ', _genre);
     var posts;
-    switch(_genre) {
+    /*switch(_genre) {
       case "ALL":
         posts = _posts;
       break;
@@ -200,13 +200,13 @@ var PostStore = assign({}, EventEmitter.prototype, {
         posts = this.getAllOfGenre("Vocals");
       break;
       default:
-    }
+    }*/
+    console.log("GENRES", _genre);
+    posts = this.getAllOfGenres(_genre);
     return posts;
   },
 
   getSinglePost:function(){
-    console.log("SINGLE POST", _singlePost, "PPOST IN QUEUE", _posts[_singlePost.id]);
-
     return _singlePost;
   },
   /**
@@ -224,6 +224,20 @@ var PostStore = assign({}, EventEmitter.prototype, {
 
     return postsOfGenre;
   },
+
+  getAllOfGenres: function(genres) {
+    var postsOfGenres = {};
+    for(genre in genres) {
+      console.log("GENRE", _genre[genre])
+      for (var id in _posts ) { 
+        if(_posts[id].genre && _posts[id].genre.indexOf(_genre[genre]) > -1) {
+          postsOfGenres[id] = _posts[id];
+        }
+      }      
+    }
+    console.log("POSTS OF GENRES", postsOfGenres);
+    return postsOfGenres;
+  }, 
 
   getSortedPosts: function() {
     return _songs;

@@ -37,7 +37,7 @@ var PostActions = {
   },
 
   filterPosts: function(genre, sort) {
-    console.log(genre, sort);
+    console.log("FILTER POSTS GENRE", genre, sort);
     AppDispatcher.dispatch({
       actionType: PostConstants.FILTER_POSTS,
       genre: genre,
