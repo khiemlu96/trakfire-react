@@ -66,6 +66,6 @@ class PostsController < ApplicationController
 
 	private
   	  def post_params
-    	params.require(:post).permit(:url, :user_id, :img_url, :stream_url, :waveform_url, :artist, :title, :duration, :genre, :votes, :vote_count, :all_tags)
+    	params.require(:post).permit(:url, :user_id, :img_url, :img_url_lg, :stream_url, :waveform_url, :artist, :title, :duration, :genre, :votes, :vote_count, :all_tags)
   	  end
 end

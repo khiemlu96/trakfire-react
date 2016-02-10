@@ -69,13 +69,14 @@ var PostFormFirst = React.createClass({
       console.log(img.src);
     	sc.resolve(url, 
     				function(track){
-    					if(!!track ){
-
-  	  					console.log(track.title, track.artist, track.stream_url);
-  	  					console.log(title);
+    					if(!!track){
+                console.log("RECIEVED DATA FOR: ", track);
+  	  					//console.log(track.title, track.artist, track.stream_url);
+  	  					//console.log(title);
   	  					title.value = track.title;
   	  					artist.value = track.user.username;
   	  					img.src = track.artwork_url;
+                var img_url_lg = track.artwork_url.replace("large", "crop"); //get the 300x300 version
 
   	  					_data = {
   	  						post : {
@@ -83,6 +84,7 @@ var PostFormFirst = React.createClass({
   		  						title: track.title,
   		  						artist: track.artist,
   		  						img_url: track.artwork_url,
+                    img_url_lg: img_url_lg,
   		  						stream_url: track.stream_url,
   		  						duration: track.duration,
   		  						waveform_url: track.waveform_url,
