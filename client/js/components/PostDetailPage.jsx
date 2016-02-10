@@ -232,6 +232,7 @@ var ProfilePage = React.createClass({
   renderPost: function(){
 
     var post = this.state.post;
+    console.log("IMG URL LG", post);
     var active = this.state.isActive;
     var playing = this.state.isPlaying;
     var currTrack = this.state.currTrack;
@@ -261,7 +262,7 @@ var ProfilePage = React.createClass({
                 <div className="tf-post-item--img col-md-3">
                   <div className="tf-trak-img">
                     <a href="#!" className="tf-post-play" onClick={this.onPlayBtnClick} >
-                      <img className="tf-trak-detail-thumbnail" src={post.img_url} />
+                      <img className="tf-trak-detail-thumbnail" src={post.img_url_lg} />
                     </a>                    
                     {!this.state.isPlaying ? play : pause}
                     <div className="tf-player-controls-wrap">                        

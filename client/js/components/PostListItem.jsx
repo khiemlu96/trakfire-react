@@ -147,6 +147,13 @@ var PostListItem = React.createClass({
     var upvoted = (this.state.isUpvoted || this.props.isUpvoted || this.state.hasUpvoted);
     var localUpvote = this.state.hasUpvoted; //pre refresh we upvoted this
     _localVoteCount = post.vote_count;
+    var img;
+    if(this.props.first) {
+      img = post.img_url_lg;
+      console.log("LARGE IMG", img);
+    } else {
+      img = post.img_url;
+    }
     var first = (this.props.first) ? isFirstNotPlaying : isNotPlaying;
     return (
       <li className={first} ref="post">
@@ -157,7 +164,7 @@ var PostListItem = React.createClass({
           </div>
           <div className="tf-post-item--img"> 
             <a href="#!" className="tf-post-play" onClick={this.playPauseTrack}>
-              <img className="tf-thumbnail" src={ post.img_url ? post.img_url : "assets/img/tf_placeholder.png" }/>
+              <img className="tf-thumbnail" src={ img ? img : "assets/img/tf_placeholder.png" }/>
             </a>
             <div className="tf-overlay" onClick={this.playPauseTrack}> 
             </div> 

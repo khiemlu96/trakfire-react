@@ -108,6 +108,7 @@ function _addPosts(rawPosts) {
   //console.log("ADDING POSTS", rawPosts);
   rawPosts.forEach(function(post){
     if (!_posts[post.id]) {      
+      console.log("RAW POST", post);
       _posts[post.id] = PostUtils.convertRawPost( post );
     }
   });
@@ -120,8 +121,8 @@ function _addPost(rawPost) {
   //console.log("ADDING POST", rawPost);
   var post = PostUtils.convertRawPost(rawPost);
   _current_new_post = post;
-  if(post.status == "approved")
-    _posts[rawPost.id] = post; //PostUtils.convertRawPost(rawPost);
+  //if(post.status == "approved")
+  _posts[rawPost.id] = post; //PostUtils.convertRawPost(rawPost);
 }
 
 function _sPost(rawPost) {
@@ -204,6 +205,8 @@ var PostStore = assign({}, EventEmitter.prototype, {
   },
 
   getSinglePost:function(){
+    console.log("SINGLE POST", _singlePost, "PPOST IN QUEUE", _posts[_singlePost.id]);
+
     return _singlePost;
   },
   /**
