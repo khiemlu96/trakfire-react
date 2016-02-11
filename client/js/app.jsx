@@ -26,6 +26,7 @@ var TermsOfUse = require('./components/static/TermsOfUse.jsx')
 var EmailAcquirePage = require('./components/EmailAcquirePage.jsx');
 var PostDetailPage = require('./components/PostDetailPage.jsx');
 var SearchResultPage = require('./components/SearchResultPage.jsx');
+var NotificationPage = require('./components/NotificationPage.jsx');
 
 React.render(
 <Router history={createBrowserHistory()}>
@@ -39,6 +40,7 @@ React.render(
       <Route path='/privacy' component={PrivacyPolicy}/>
       <Route path='/post/(:id)' component={PostDetailPage} />
       <Route path='/searchresult/(:searchkey)' component={SearchResultPage} />
+      <Route path='/notification' component={NotificationPage} />
     </Route>
   </Router>,
 

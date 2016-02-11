@@ -40,6 +40,41 @@ function getAppState() {
 	};
 }
 
+function convertHtmlToText(inputText) {
+    var returnText = "" + inputText;
+
+    //-- remove BR tags and replace them with line break
+    returnText = returnText.replace(/<br>/gi, "\n");
+    returnText = returnText.replace(/<br\s\/>/gi, "\n");
+    returnText = returnText.replace(/<br\/>/gi, "\n");
+
+    //-- remove P and A tags but preserve what's inside of them
+    returnText = returnText.replace(/<p.*>/gi, "\n");
+    returnText = returnText.replace(/<a.*href="(.*?)".*>(.*?)<\/a>/gi, " $2 ($1)");
+
+    //-- remove all inside SCRIPT and STYLE tags
+    returnText = returnText.replace(/<script.*>[\w\W]{1,}(.*?)[\w\W]{1,}<\/script>/gi, "");
+    returnText = returnText.replace(/<style.*>[\w\W]{1,}(.*?)[\w\W]{1,}<\/style>/gi, "");
+    //-- remove all else
+    returnText = returnText.replace(/<(?:.|\s)*?>/g, "");
+
+    //-- get rid of more than 2 multiple line breaks:
+    returnText = returnText.replace(/(?:(?:\r\n|\r|\n)\s*){2,}/gim, "\n\n");
+
+    //-- get rid of more than 2 spaces:
+    returnText = returnText.replace(/ +(?= )/g,'');
+
+    //-- get rid of html-encoded characters:
+    returnText = returnText.replace(/&nbsp;/gi," ");
+    returnText = returnText.replace(/&amp;/gi,"&");
+    returnText = returnText.replace(/&quot;/gi,'"');
+    returnText = returnText.replace(/&lt;/gi,'<');
+    returnText = returnText.replace(/&gt;/gi,'>');
+
+    //-- return
+    return returnText;
+}
+
 var PostComment = React.createClass({
 	propTypes: {
         origin: ReactPropTypes.string,
@@ -60,9 +95,23 @@ var PostComment = React.createClass({
 		);
   	},
 
+  	renderCommentText: function(comment) {
+  		var comment_text = comment.comment_detail;
+
+  		for( key in comment.tagged_members ) {
+  			var user = comment.tagged_members[key];
+  			var html = "<Link to={'/profile/" + user.id + "'} className='tf-link'>" + user.username + "</Link>";
+  			var taggedHtml = "<a href = '/profile/" + user.id + "' class = 'tf-link'>" + user.username + "</a>";	
+
+  			comment_text = comment_text.replace("@" + user.username, taggedHtml);
+  		}
+
+  		return (comment_text);
+  	},
+
     renderSingleComment: function(comment) {
 		return (
-			<div className="col-md-12 tf-parent-comment-profile" id = {comment.id}>
+			<div className="col-md-12 tf-parent-comment-profile" id = {"comment_" + comment.id}>
 				<div className = "tf-comment-profile col-md-12">
 					<div className="col-md-0 tf-comment-auther-panel left">
 						<a className="tf-link" href={"/profile/" + comment.user.id} >
@@ -82,8 +131,8 @@ var PostComment = React.createClass({
 				</div>
 				
 				<div className="tf-comment-text col-md-12">					
-					<div className="tf-comment-detail">{comment.comment_detail}</div>
-				</div>				
+					<div  className="tf-comment-detail"  dangerouslySetInnerHTML={{__html: this.renderCommentText(comment)}} />
+				</div>
 
 				<div id = {"comment-reply-container-" + comment.id} className="tf-comment-reply-container">
 					<div id={"comment-reply-input-" + comment.id} className="reply-comment-input-box col-md-12">
@@ -134,7 +183,7 @@ var PostComment = React.createClass({
 
     renderSingleReply: function(reply) {
     	return (
-    		<div className="col-md-12 tf-reply-comment-profile">
+    		<div className="col-md-12 tf-reply-comment-profile" id={"comment_"+ reply.id}>
 				<div className = "tf-comment-profile col-md-12">
 					<div className="col-md-0 tf-comment-auther-panel left">
 						<a className="tf-link" href={"/profile/"+reply.user.id} >
@@ -150,9 +199,9 @@ var PostComment = React.createClass({
 					</div>
 				</div>
 				
-				<div className="tf-comment-text col-md-12">					
-					<div className="tf-comment-detail">{reply.comment_detail}</div>
-				</div>		
+				<div className="tf-comment-text col-md-12">
+					<div className="tf-comment-detail" dangerouslySetInnerHTML={{__html: this.renderCommentText(reply)}} />
+				</div>
 			</div>
     	);
     },
@@ -161,7 +210,6 @@ var PostComment = React.createClass({
     	post_id = this.props.post.id;
     	var comments = this.props.post.comments;
 		var commentHtml = [];
-		console.log("In render----------------");
 		if( comments !== undefined && getLength(comments) > 0 ) {
 			comments = comments.sort(compareCreatedAt);
 			for(key in comments) {

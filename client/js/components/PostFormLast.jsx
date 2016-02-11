@@ -58,6 +58,11 @@ var PostFormLast = React.createClass({
       return tags;
   },
 
+  hide: function() {
+      document.getElementById("PostForm").style.display = 'none';
+      return true;
+  },
+
   render: function() {
     var post = this.state.post;
     if (post != null)
@@ -108,7 +113,7 @@ var PostFormLast = React.createClass({
                   </div>
               </div>
               <div className="tf-check-live-post">
-                <Link to={ '/post/'+post.id}>
+                <Link to={ '/post/' + post.id} onClick={this.hide}>
                   <div className="button button--big"> Check out you live post </div>
                 </Link>
               </div>

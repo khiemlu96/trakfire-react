@@ -2,9 +2,9 @@ class PostsController < ApplicationController
 	before_action :authenticate_request, only: [:create]
 
 	def index
-	  @posts = Post.all.order(date: :desc).ranking.limit(50)
-	  #@posts = Post.where(status: "approved").order(date: :desc).ranking.limit(50)
-      render json: @posts, include: { tags:{}, votes:{}, comments:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } } 
+	  #@posts = Post.all.order(date: :desc).ranking.limit(50)
+	  @posts = Post.where(status: "approved").order(date: :desc).ranking.limit(50)
+      render json: @posts, include: { tags:{}, votes:{}, comments:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :date, :created_at, :duration, :genre, :vote_count, :hot_score, :status] 
 	end
 	
 	def create
@@ -61,11 +61,11 @@ class PostsController < ApplicationController
 		@votes = Vote.where(post_id: @post.id)
 		@post.post_votes = @votes
 
-	  	render json: @post, include: { tags:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, methods: ['post_comments', 'post_votes'], only: [:id, :title, :stream_url, :duration, :artist, :img_url, :img_url_lg, :date, :created_at, :duration, :genre, :vote_count, :hot_score, :status] 
+	  	render json: @post, include: { tags:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, methods: ['post_comments', 'post_votes'], only: [:id, :title, :stream_url, :duration, :artist, :img_url, :date, :created_at, :duration, :genre, :vote_count, :hot_score, :status] 
 	end
 
 	private
   	  def post_params
-    	params.require(:post).permit(:url, :user_id, :img_url, :img_url_lg, :stream_url, :waveform_url, :artist, :title, :duration, :genre, :votes, :vote_count, :all_tags)
+    	params.require(:post).permit(:url, :user_id, :img_url, :stream_url, :waveform_url, :artist, :title, :duration, :genre, :votes, :vote_count, :all_tags)
   	  end
 end

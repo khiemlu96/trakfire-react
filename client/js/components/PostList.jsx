@@ -230,7 +230,6 @@ var PostsList = React.createClass({
           }
           // console.log("ID: ", array[key].id);
           songList[array[key].id] = array[key];
-          console.log("KEY IS: ", key);
           var f = false;
           if(first == 1) {
             first = -1;
