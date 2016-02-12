@@ -17,6 +17,17 @@ class CommentsController < ApplicationController
 	  		end
 			post.update( { 'comment_count' =>  comment_count } )
 			post.save
+			
+			if(params[:comment][:tagged_members] != nil)
+				params[:comment][:tagged_members].each do |user_id|
+					@tagged_member = MemberTag.where(comment_id: @comment.id, user_id: user_id)
+
+					if @tagged_member != nil
+						member_tag = MemberTag.new({comment_id: @comment.id, user_id: user_id})
+						member_tag.save
+					end
+				end
+			end
 
 			if @comment.parent_id == nil
 				if post.user_id != @comment.user_id
@@ -68,7 +79,8 @@ class CommentsController < ApplicationController
 			end
 
 			@comment.user = @comment.user_id
-			render json: @comment, methods: ['user']
+			@comment.tagged_members = @comment.id
+			render json: @comment, methods: ['user', 'tagged_members']
 	  	else
 			render json: @comment.errors, status: :unprocessable_entity
 	  	end
@@ -86,6 +98,6 @@ class CommentsController < ApplicationController
 
 private
 	def comment_params
-		params.require(:comment).permit(:id, :comment_id, :post_id, :user_id, :comment_detail, :parent_id)
+		params.require(:comment).permit(:id, :comment_id, :post_id, :user_id, :comment_detail, :parent_id, :tagged_members)
 	end
 end

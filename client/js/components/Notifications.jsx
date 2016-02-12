@@ -69,6 +69,8 @@ var Notifications = React.createClass({
     },
 
     handle_follow_click: function(event) {
+        event.preventDefault();
+        
         var id = event.target.parentNode.id;
 
         var user_id = parseInt(id.substring("followUser_".length));
@@ -82,6 +84,7 @@ var Notifications = React.createClass({
         } else {
             this.followUser(user_id); 
         }
+        return false;
     },
 
     followUser: function(follow_id) {
@@ -105,23 +108,23 @@ var Notifications = React.createClass({
     renderSingleNotification: function(notification_data) {
         return (
             <div className="tf-notification-list-item">
-                <div className="col-md-12">
-                    <div className="col-md-1 tf-notification-auther">
-                       <Link to={'/profile/' + notification_data.srcUserId}>
+                <Link to={notification_data.target_url} onClick={this.hide}>
+                    <div className="col-md-12">
+                        <div className="col-md-1 tf-notification-auther">
                             <img className="tf-author-img tf-notification-auther-img" src={notification_data.srcUserImg}></img>
-                       </Link>
-                    </div>
-                    <div className="col-md-9 tf-notification-profile">
-                        <div className = "">
-                            <a className="tf-link">{notification_data.srcUserName}</a> 
-                            <small className="tf-notification-sent-time"> &nbsp; {moment(notification_data.sent_time).fromNow()} </small>
                         </div>
-                        <div> {notification_data.description} </div>
+                        <div className="col-md-9 tf-notification-profile">
+                            <div className = "">
+                                <span className="tf-link">{notification_data.srcUserName}</span> 
+                                <small className="tf-notification-sent-time"> &nbsp; {moment(notification_data.sent_time).fromNow()} </small>
+                            </div>
+                            <div> {notification_data.description} </div>
+                        </div>
+                        <div className = "col-md-2">
+                            <div className={notification_data.className} id={"followUser_"+ notification_data.srcUserId} style={followBtnStyle} onClick={this.handle_follow_click}> {notification_data.follow_text} </div>
+                        </div>
                     </div>
-                    <div className = "col-md-2">
-                        <div className={notification_data.className} id={"followUser_"+ notification_data.srcUserId} style={followBtnStyle} onClick={this.handle_follow_click}> {notification_data.follow_text} </div>
-                    </div>
-                </div>
+                </Link>
             </div>
         );          
     },
@@ -161,53 +164,61 @@ var Notifications = React.createClass({
                 notification_data.srcUserId = data.src_user_id;
                 notification_data.srcUserName = data.src_user_name;
                 notification_data.srcUserImg = data.src_user_img;
-                notification_data.description = "Started following you";
+                notification_data.description = <span className="tf-notification-desc">Started following you</span>;
                 notification_data.sent_time = notification.sent_time;
+                notification_data.target_url = 'profile/'+ data.src_user_id;
             } else if(notification.notification_type === "COMMENT_ON_POST") {
 
                 notification_data.notification_id = notification.id;
                 notification_data.srcUserId = data.src_user_id;
                 notification_data.srcUserName = data.src_user_name;
                 notification_data.srcUserImg = data.src_user_img;
-                notification_data.description = <span>Commented on <Link to={"/post/" + data.post_id} className = "tf-link"> your track </Link></span>; 
+                notification_data.description = <span className="tf-notification-desc">Commented on <span className="tf-link"> your track </span></span>;
                 notification_data.post_id = data.post_id;
                 notification_data.sent_time = notification.sent_time;
+                notification_data.target_url = 'post/'+ data.post_id;
+
             } else if(notification.notification_type === "REPLY_ON_COMMENT") {
 
                 notification_data.notification_id = notification.id;
                 notification_data.srcUserId = data.src_user_id;
                 notification_data.srcUserName = data.src_user_name;
                 notification_data.srcUserImg = data.src_user_img;
-                notification_data.description = "Replied on your comment";
+                notification_data.description = <span className="tf-notification-desc">Replied on your comment</span>;
                 notification_data.post_id = data.post_id;
-                notification_data.sent_time = notification.sent_time;         
+                notification_data.sent_time = notification.sent_time;
+                notification_data.target_url = 'post/'+ data.post_id;
+
             } else if(notification.notification_type === "POSTED_NEW_TRACK") {
 
                 notification_data.notification_id = notification.id;
                 notification_data.srcUserId = data.src_user_id;
                 notification_data.srcUserName = data.src_user_name;
                 notification_data.srcUserImg = data.src_user_img;
-                notification_data.description = <span>Posted a <Link to={"/post/" + data.post_id} className = "tf-link"> new track </Link></span>;
+                notification_data.description = <span className="tf-notification-desc">Posted a <span className = "tf-link"> new track </span></span>;
                 notification_data.post_id = data.post_id;
                 notification_data.sent_time = notification.sent_time;
+                notification_data.target_url = 'post/'+ data.post_id;
+
             } else if(notification.notification_type === "VOTED_YOUR_TRAK") {
+
+                if(vote_notification[data.post_id] === undefined)
+                    vote_notification[data.post_id] = [];
+            
+                vote_notification[data.post_id].push(notification);
 
                 notification_data.notification_id = notification.id;            
                 notification_data.srcUserId = data.src_user_id;
                 notification_data.srcUserName = data.src_user_name;
                 notification_data.srcUserImg = data.src_user_img;
-                notification_data.description = "Liked your track";
+                notification_data.description = <span className="tf-notification-desc">Liked your track</span>;
                 notification_data.post_id = data.post_id;
                 notification_data.sent_time = notification.sent_time;
-
-                if(vote_notification[data.post_id] === undefined)
-                    vote_notification[data.post_id] = [];
-                
-                vote_notification[data.post_id].push(notification);
+                notification_data.target_url = 'post/'+ data.post_id;
             }
-
             notificationHtml.push(this.renderSingleNotification(notification_data));
         }
+
         return notificationHtml;
     },
     
@@ -223,7 +234,7 @@ var Notifications = React.createClass({
     render: function() {
         return (
             <div>
-                <div className="row tf-notification-header"> GO TO YOUR <Link to={'/profile/'+2}>PROFILE</Link> </div>
+                <div className="row tf-notification-header"> GO TO YOUR <Link to={'/profile/'+2} onClick={this.hide}>PROFILE</Link> </div>
                 <div className="row tf-notification-content">
                     <div className="tf-notification-list col-md-12">
                         {this.renderNotifications()}
