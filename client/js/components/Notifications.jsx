@@ -234,7 +234,7 @@ var Notifications = React.createClass({
     render: function() {
         return (
             <div>
-                <div className="row tf-notification-header"> GO TO YOUR <Link to={'/profile/'+2}>PROFILE</Link> </div>
+                <div className="row tf-notification-header"> GO TO YOUR <Link to={'/profile/'+2} onClick={this.hide}>PROFILE</Link> </div>
                 <div className="row tf-notification-content">
                     <div className="tf-notification-list col-md-12">
                         {this.renderNotifications()}
