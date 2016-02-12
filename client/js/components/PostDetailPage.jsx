@@ -232,7 +232,7 @@ var ProfilePage = React.createClass({
   renderPost: function(){
 
     var post = this.state.post;
-    console.log("IMG URL LG", post);
+    //console.log("IMG URL LG", post);
     var active = this.state.isActive;
     var playing = this.state.isPlaying;
     var currTrack = this.state.currTrack;
