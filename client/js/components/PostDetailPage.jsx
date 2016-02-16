@@ -380,9 +380,12 @@ var ProfilePage = React.createClass({
     var voteHtml = [];
     for(key in votes) {
       voteHtml.push(
-        <a className="tf-link" href={"/profile/" + votes[key].user.id} >
+        /*<a className="tf-link" href={"/profile/" + votes[key].user.id} >
           <img className="tf-author-img" src={votes[key].user.img} />
-        </a>
+        </a>*/
+        <Link to={'/profile/'+votes[key].user.id}>  
+          <img className="tf-author-img" src={votes[key].user.img}></img>
+        </Link>
       );                              
     }
     return (voteHtml);
