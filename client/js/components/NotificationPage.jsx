@@ -20,6 +20,14 @@ var followBtnStyle = {
     border: '1px solid #ff0d60'
 };
 
+function getLength(arr) {
+    var count = 0;
+    for(key in arr){
+        count++;
+    }
+    return count;
+}
+
 var NotificationPage = React.createClass({
 	
 	getInitialState: function(){
@@ -83,30 +91,93 @@ var NotificationPage = React.createClass({
         this.getUserNotifications();
     },
 
+    renderAuthorImages: function(sender_imgs) {
+        var imgHtml = [];
+        var img_count = getLength(sender_imgs);
+        var count = img_count < 3 ? img_count : 3;
+
+        for(var i = 0, j = img_count - 1; i < count; i++, j--) {
+            imgHtml.push(<img className="tf-author-img tf-notification-auther-img" src={sender_imgs[j]}></img>);
+        }
+
+        return imgHtml;
+    },
+
+	renderAuthorNames: function(screen_names) {
+	 	var namesHtml = [];
+        var screen_name_count = getLength(screen_names);
+        var count = screen_name_count < 3 ? screen_name_count : 3;
+        var screen_names_to_show = [];
+
+        for(var i = 0, j = screen_name_count - 1; i < count; i++, j--) {
+            screen_names_to_show.push(screen_names[j]);
+        }
+        namesHtml.push(<span className="tf-link">{screen_names_to_show.join(", ")}</span>);
+
+        if(count < screen_name_count) {
+			namesHtml.push(<p> and {screen_name_count - count} others</p>);
+        }        
+
+        return namesHtml;
+	},
+
     renderSingleNotification: function(notification_data) {
-    	return(
-    		
-    		<div id = {"notification-" + notification_data.notification_id} className = "tf-notification-list-item">
-				<Link to={notification_data.target_url}>
-					<div className="col-md-12">
-						<div className="left tf-notification-auther">
-	                       	<div className="tf-unread-indicator"></div>
-                        	<img className="tf-author-img tf-notification-auther-img" src={notification_data.srcUserImg}></img>
-	                    </div>
-	                    <div className="col-md-9 tf-notification-profile">
-	                        <div className = "">
-	                        	<span className="tf-link">{notification_data.srcUserName}</span> 
-	                            <small className="tf-notification-sent-time"> &nbsp; - &nbsp;{moment(notification_data.sent_time).fromNow()} </small>
-	                        </div>
-	                        <div> {notification_data.description} </div>
-	                    </div>
-	                    <div className = "col-md-2 right">
-	                        <div className={notification_data.className} id={"followUser_"+ notification_data.srcUserId} style={followBtnStyle} onClick={this.handle_follow_click}> {notification_data.follow_text} </div>
-	                    </div>
-	                </div>
-                </Link>
-			</div>
-		);
+
+    	var sender_ids = notification_data.srcUserId.split(",");
+		var count_of_sender_ids = getLength(sender_ids);
+		var screen_names = notification_data.srcUserName.split(",");
+
+		var isNotificationRead = notification_data.read_time === null ? false : true;
+		if(isNotificationRead === false) {
+			var indicator = <div className="tf-unread-indicator"></div>;
+		} else {
+			var indicator = "";
+		}
+
+		if(count_of_sender_ids < 2) {
+			return(    		
+	    		<div id = {"notification-" + notification_data.notification_id} className = "tf-notification-list-item">
+					<Link to={notification_data.target_url}>
+						<div className="col-md-12">
+							<div className="left tf-notification-auther">
+		                       	{indicator}
+	                        	<img className="tf-author-img tf-notification-auther-img" src={notification_data.srcUserImg}></img>
+		                    </div>
+		                    <div className="col-md-10 tf-notification-profile">
+		                        <div className = "">
+		                        	<span className="tf-link">{notification_data.srcUserName}</span> 
+		                            <small className="tf-notification-sent-time"> &nbsp; - &nbsp;{moment(notification_data.sent_time).fromNow()} </small>
+		                        </div>
+		                        <div> {notification_data.description} </div>
+		                    </div>
+		                    <div className = "col-md-2 right">
+		                        <div className={notification_data.className} id={"followUser_"+ notification_data.srcUserId} style={followBtnStyle} onClick={this.handle_follow_click}> {notification_data.follow_text} </div>
+		                    </div>
+		                </div>
+	                </Link>
+				</div>
+			);
+		} else {
+			var sender_imgs = notification_data.srcUserImg.split(",");
+			return(    		
+	    		<div id = {"notification-" + notification_data.notification_id} className = "tf-notification-list-item tf-consolidate-notification">
+					<Link to={notification_data.target_url}>
+						<div className="col-md-12">
+							<div className="left col-md-0 tf-consolidate-notifications-auther">
+                                {this.renderAuthorImages(sender_imgs)}
+                            </div>
+		                    <div className="col-md-9 tf-consolidate-notifications-profile tf-notification-profile">
+		                        <div className = "">
+		                        	<span className="tf-notification-profile-header"><b>Trakfire</b></span> 
+		                            <small className="tf-notification-sent-time"> &nbsp; - &nbsp;{moment(notification_data.sent_time).fromNow()} </small>
+		                        </div>
+		                        <div> {this.renderAuthorNames(screen_names)} {notification_data.description} </div>
+		                    </div>
+		                </div>
+	                </Link>
+				</div>
+			);
+		}    	
     },
 
 	renderNotifications: function() {
@@ -114,23 +185,22 @@ var NotificationPage = React.createClass({
 		var notificationHtml = [];
 		var className = "";
 		var vote_notification = {};
+		var currentUser = this.state.currentUser;
+		var currentUser_followings = [];
+
+		for(key in currentUser.followings) {
+            currentUser_followings.push(currentUser.followings[key].id);
+        }
 
 		for( key in user_notifications ) {
 			var notification = user_notifications[key];
 			var data = notification.json_data;     
-			var follow_text = "";  
-
-			var currentUser = this.state.currentUser;
-			var currentUser_followings = [];
-	        var notification_data = {};
-	        for(key in currentUser.followings) {
-	            currentUser_followings.push(currentUser.followings[key].id);
-	        }
-
-			if(currentUser_followings.indexOf(data.src_user_id) > -1) {
+			var follow_text = "";
+	        var notification_data = {};	        
+		
+			if(currentUser_followings.indexOf(parseInt(data.sender_id)) > -1) {
 	            follow_text = "Following";
 	            className = "button tf-follow-button";
-
 	        } else {
 	            follow_text = "Follow";
 	            className = "button tf-follow-button tf-background";
@@ -142,61 +212,62 @@ var NotificationPage = React.createClass({
 			if(notification.notification_type === "FOLLOW_USER") {
 				
 				notification_data.notification_id = notification.id;
-				notification_data.srcUserId = data.src_user_id;
-	            notification_data.srcUserName = data.src_user_name;
-	            notification_data.srcUserImg = data.src_user_img;
+				notification_data.srcUserId = data.sender_id;
+	            notification_data.srcUserName = data.screen_name;
+	            notification_data.srcUserImg = data.sender_img;
 	            notification_data.description = <span className="tf-notification-desc">Started following you</span>;
 	            notification_data.sent_time = notification.sent_time;
-				notification_data.target_url = 'profile/'+ data.src_user_id;
+	            notification_data.read_time = notification.read_time;
+				notification_data.target_url = 'profile/'+ data.sender_id;
 
 			} else if(notification.notification_type === "COMMENT_ON_POST") {
 				
 				notification_data.notification_id = notification.id;
-	            notification_data.srcUserId = data.src_user_id;
-	            notification_data.srcUserName = data.src_user_name;
-	            notification_data.srcUserImg = data.src_user_img;
-	            notification_data.description = <span className="tf-notification-desc">Commented on <span className="tf-link"> your track </span></span>;	
+	            notification_data.srcUserId = data.sender_id;
+	            notification_data.srcUserName = data.screen_name;
+	            notification_data.srcUserImg = data.sender_img;
+	            notification_data.description = <span className="tf-notification-desc">Commented on <span className="tf-link"> your track </span>:<i> {data.comment_text} </i></span>;	
 				notification_data.post_id = data.post_id;
 				notification_data.sent_time = notification.sent_time;
+				notification_data.read_time = notification.read_time;
 				notification_data.target_url = 'post/'+ data.post_id;
 
 			} else if(notification.notification_type === "REPLY_ON_COMMENT") {
 				
 				notification_data.notification_id = notification.id;
-	            notification_data.srcUserId = data.src_user_id;
-	            notification_data.srcUserName = data.src_user_name;
-	            notification_data.srcUserImg = data.src_user_img;
-	            notification_data.description = <span className="tf-notification-desc">Replied on your comment</span>;
+	            notification_data.srcUserId = data.sender_id;
+	            notification_data.srcUserName = data.screen_name;
+	            notification_data.srcUserImg = data.sender_img;
+	            notification_data.description = <span className="tf-notification-desc">Replied on your comment:<i> {data.comment_text} </i></span>;
 	            notification_data.post_id = data.post_id;
 	            notification_data.sent_time = notification.sent_time;
+	            notification_data.read_time = notification.read_time;
 	            notification_data.target_url = 'post/'+ data.post_id;
 
 			} else if(notification.notification_type === "POSTED_NEW_TRACK") {
 				
 				notification_data.notification_id = notification.id;
-	            notification_data.srcUserId = data.src_user_id;
-	            notification_data.srcUserName = data.src_user_name;
-	            notification_data.srcUserImg = data.src_user_img;
+	            notification_data.srcUserId = data.sender_id;
+	            notification_data.srcUserName = data.screen_name;
+	            notification_data.srcUserImg = data.sender_img;
 	            notification_data.description = <span className="tf-notification-desc">Posted a <span className = "tf-link"> new track </span></span>;
 				notification_data.post_id = data.post_id;
 				notification_data.sent_time = notification.sent_time;
+				notification_data.read_time = notification.read_time;
 				notification_data.target_url = 'post/'+ data.post_id;
 
 			} else if(notification.notification_type === "VOTED_YOUR_TRAK") {
 				
 				notification_data.notification_id = notification.id;			
-	            notification_data.srcUserId = data.src_user_id;
-	            notification_data.srcUserName = data.src_user_name;
-	            notification_data.srcUserImg = data.src_user_img;
+	            notification_data.srcUserId = data.sender_id;
+	            notification_data.srcUserName = data.screen_name;
+	            notification_data.srcUserImg = data.sender_img;
 	            notification_data.description = <span className="tf-notification-desc">Liked your track</span>;
 	            notification_data.post_id = data.post_id;
 	            notification_data.sent_time = notification.sent_time;
+	            notification_data.read_time = notification.read_time;
 				notification_data.target_url = 'post/'+ data.post_id;
 
-	            if(vote_notification[data.post_id] === undefined)
-	            	vote_notification[data.post_id] = [];
-            	
-            	vote_notification[data.post_id].push(notification);
 			}
 
 			notificationHtml.push( this.renderSingleNotification( notification_data ) );
@@ -206,6 +277,7 @@ var NotificationPage = React.createClass({
 	},
 
 	render: function() {
+
 		if(this.props.currUser !== undefined && this.state.notifications !== undefined) {
 			return (
 				<div className="tf-notification-page-container container col-md-12">

@@ -2150,7 +2150,7 @@ label.ownsong-label {
     right: 0px;
     text-align: center;
     top: 0px;
-    width: 122px !important;
+    width: 135px !important;
 }
 .tf-comment-reply-button{
 	right: 0px;
@@ -2379,7 +2379,7 @@ label.ownsong-label {
     text-align: center;
     padding: 5px;
     font-size: 10px;
-    margin: 6px;
+    margin: 11px;
 }
 
 .tf-notification-auther{
@@ -2388,6 +2388,7 @@ label.ownsong-label {
     top: 10px;
     left: 0px;
 }
+
 .tf-notification-title{
 	display: block;
     height: 70px;
@@ -2440,6 +2441,7 @@ label.ownsong-label {
     font-weight: normal;
     left: 30px;
     line-height: 24px;
+    max-height: 60px !important;
 }
 
 .tf-notification-profile .tf-link{
@@ -2453,8 +2455,45 @@ label.ownsong-label {
 }
 
 .tf-notification-desc {
-	color: #FFFFFF !important;
-	font-size: 14px !important;
+	color: #ffffff !important;
+    font-size: 14px !important;
+    height: 100% !important;
+    line-height: 18px;
+    max-height: 30px !important;
+}
+
+.tf-notification-desc .tf-desc-comment-text {
+	font-style: italic;
+    height: 100% !important;
+    max-height: 20px !important;
+    overflow: auto;
+    text-overflow: ellipsis;
+}
+
+.tf-consolidate-notifications-auther {
+	color: #ff0d60;
+    left: 12px;
+    position: absolute;
+    top: 10px;
+}
+
+.tf-consolidate-notifications-auther img {
+	margin-right: -12px;
+	border: 3px solid #1C1C1C;
+	height: 27px;
+	width: 27px;
+}
+
+.tf-consolidate-notifications-profile {
+	margin-left: 20px;
+}
+
+.tf-consolidate-notification .tf-notification-desc {
+	text-transform: lowercase;
+}
+
+.tf-consolidate-notification .tf-notification-profile-header {
+	color: #FFFFFF;
 }
 
 /********************START OF NOTIFICATION PAGE********************************/
@@ -2529,9 +2568,11 @@ label.ownsong-label {
     right: 10px;
     width: 80px;
 }
+
 .tf-notification-page-list .tf-notification-list-item .tf-notification-auther{	
 	top: 14px;
 }
+
 .tf-notification-page-list .tf-notification-list-item .tf-notification-auther img{	
 	margin-right: 0px;
 }
@@ -2574,6 +2615,25 @@ label.ownsong-label {
     width: 16px !important;
     z-index: 10;
 }
+
+.tf-notification-page-container .tf-consolidate-notifications-auther {
+	color: #ff0d60;
+    left: 22px;
+    position: absolute;
+    top: 10px;
+}
+
+.tf-notification-page-container .tf-consolidate-notifications-auther img{	
+	margin-right: -15px;
+	height: 30px;
+	width: 30px;
+	border: 3px solid #1C1C1C;
+}
+
+.tf-notification-page-container .tf-consolidate-notifications-profile {
+	margin-left: 40px;
+}
+
 /********************END OF NOTIFICATION PAGE********************************/
 
 
