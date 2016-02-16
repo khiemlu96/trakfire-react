@@ -52,15 +52,20 @@ var FilterBar = React.createClass({
   handleElectronicClick: function() {
     //this.mutexClassName('electronic', _genre.toLowerCase());
     //_genre = "ELECTRONIC";
-        var exists = _genre.indexOf("ELECTRONIC");
+    var exists = _genre.indexOf("ELECTRONIC");
     if(exists > -1) {
-      _genre.splice(exists, 1);
+      if(_genre.length > 1){
+        _genre.splice(exists, 1);
+        this.props.onClick("ELECTRONIC", null);
+      }
     } else {
       _genre.push("ELECTRONIC");
+      this.props.onClick("ELECTRONIC", null);
     }
     
     _sort = this.props.sort;
-    this.props.onClick("ELECTRONIC", null);
+    //if(_genre.length > 1)
+    //this.props.onClick("ELECTRONIC", null);
     //this.props.scrollToTop();
     mixpanel.track('Filter', {
     'genre': 'Electronic',
@@ -73,12 +78,17 @@ var FilterBar = React.createClass({
     //_genre = "HIPHOP";
     var exists = _genre.indexOf("HIPHOP");
     if(exists > -1) {
-      _genre.splice(exists, 1);
+      if(_genre.length > 1) {
+        _genre.splice(exists, 1);
+        this.props.onClick("HIPHOP", null);
+      }
     } else {
       _genre.push("HIPHOP");
+      this.props.onClick("HIPHOP", null);
     }
     _sort = this.props.sort;
-    this.props.onClick("HIPHOP", null);
+    //if(_genre.length > 1)
+    //this.props.onClick("HIPHOP", null);
     //this.props.scrollToTop();
     mixpanel.track('Filter', {
     'genre': 'Hip Hop',
@@ -90,13 +100,18 @@ var FilterBar = React.createClass({
     //_genre = "VOCALS";
     var exists = _genre.indexOf("VOCALS");
     if(exists > -1) {
-      _genre.splice(exists, 1);
+      if(_genre.length > 1) {
+        _genre.splice(exists, 1);
+        this.props.onClick("VOCALS", null);
+      }
     } else {
       _genre.push("VOCALS");
+      this.props.onClick("VOCALS", null);
     }
-  
     _sort = this.props.sort;
-    this.props.onClick("VOCALS", null);
+
+    //if(_genre.length > 1) 
+    //this.props.onClick("VOCALS", null);
 
     mixpanel.track('Filter', {
     'genre': 'Vocals',
