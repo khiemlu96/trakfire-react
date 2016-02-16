@@ -2441,6 +2441,7 @@ label.ownsong-label {
     font-weight: normal;
     left: 30px;
     line-height: 24px;
+    max-height: 60px !important;
 }
 
 .tf-notification-profile .tf-link{
@@ -2454,8 +2455,19 @@ label.ownsong-label {
 }
 
 .tf-notification-desc {
-	color: #FFFFFF !important;
-	font-size: 14px !important;
+	color: #ffffff !important;
+    font-size: 14px !important;
+    height: 100% !important;
+    line-height: 18px;
+    max-height: 30px !important;
+}
+
+.tf-notification-desc .tf-desc-comment-text {
+	font-style: italic;
+    height: 100% !important;
+    max-height: 20px !important;
+    overflow: auto;
+    text-overflow: ellipsis;
 }
 
 .tf-consolidate-notifications-auther {

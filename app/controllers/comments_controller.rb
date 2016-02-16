@@ -42,7 +42,8 @@ class CommentsController < ApplicationController
 									:sender_img => @current_user.img,
 									:sender_profile_url => "profile/#{@current_user.id}",
 									:post_id => post.id,
-									:post_name => post.title
+									:post_name => post.title,
+									:comment_text => @comment.comment_detail
 								}
 					}
 				
@@ -64,7 +65,8 @@ class CommentsController < ApplicationController
 									:sender_profile_url => "profile/#{@current_user.id}",
 									:post_id => post.id,
 									:post_name => post.title,
-									:parent_comment_id => parent_comment.id
+									:parent_comment_id => parent_comment.id,
+									:comment_text => @comment.comment_detail
 								}
 					}
 				

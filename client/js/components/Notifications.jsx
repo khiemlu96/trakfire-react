@@ -219,8 +219,9 @@ var Notifications = React.createClass({
                 notification_data.srcUserId = data.sender_id;
                 notification_data.srcUserName = data.screen_name;
                 notification_data.srcUserImg = data.sender_img;
-                notification_data.description = <span className="tf-notification-desc">Commented on <span className="tf-link"> your track </span></span>;
+                notification_data.description = <span className="tf-notification-desc"><p>Commented on <span className="tf-link"> your track</span> : <span className="tf-desc-comment-text">{data.comment_text}</span> </p></span>;
                 notification_data.post_id = data.post_id;
+                notification_data.comment_text = data.comment_text;
                 notification_data.sent_time = notification.sent_time;
                 notification_data.target_url = 'post/'+ data.post_id;
 
@@ -230,8 +231,9 @@ var Notifications = React.createClass({
                 notification_data.srcUserId = data.sender_id;
                 notification_data.srcUserName = data.screen_name;
                 notification_data.srcUserImg = data.sender_img;
-                notification_data.description = <span className="tf-notification-desc">Replied on your comment</span>;
+                notification_data.description = <span className="tf-notification-desc"><p>Replied on your comment: &nbsp;<span className="tf-desc-comment-text">{data.comment_text}</span></p></span>;
                 notification_data.post_id = data.post_id;
+                notification_data.comment_text = data.comment_text;
                 notification_data.sent_time = notification.sent_time;
                 notification_data.target_url = 'post/'+ data.post_id;
 
@@ -258,7 +260,6 @@ var Notifications = React.createClass({
                 notification_data.target_url = 'post/'+ data.post_id;
 
             }
-
             notificationHtml.push(this.renderSingleNotification(notification_data));
         }
 
