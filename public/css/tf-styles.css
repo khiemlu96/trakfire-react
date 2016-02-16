@@ -728,9 +728,18 @@ th.upvote-col {
 
 .tf-post-item--first .tf-post-item-content .left .tf-post-item--author {
 	position: relative;
-	margin-top: 55px;
-	margin-left: 20px;
+	/*margin-top: 55px;
+	margin-left: 20px;*/
+	position: absolute;
+	top: 160px;
+	right: 160px;
 	color: #ff0d60;
+}
+
+.tf-post-item--first .tf-post-item-content .tf-post-item--author  {
+	position: absolute;
+	top: 190px;
+	left: 355px;	
 }
 
 .tf-post-item--first .tf-post-item--img {
@@ -801,6 +810,11 @@ th.upvote-col {
 	display: inline-block;
 }
 
+/*.tf-post-item--first .tf-post--author{
+	position: absolute;
+	top: 160px;
+	right: 160px;
+}*/
 
 .tf-post-item--first .tf-post-item--tags .tf-tag{
 	font-size: 9px;
@@ -829,10 +843,13 @@ th.upvote-col {
 	margin-right: 50px;
 }
 
-.tf-post-item--first .tf-post-item--info {
-	/*padding-top: 10px;*/
+.tf-post-item--first .tf-post-item-content .tf-post-item--info {
+	position: absolute;
+	top: 10px;
+	left: 255px;
 	display: inline-block;
 	word-wrap: normal;
+	width: 100%;
 }
 
 .tf-post-item--first .tf-post-item--votes {
@@ -849,16 +866,17 @@ th.upvote-col {
 
 }
 
-.tf-post-item--first .tf-post-item--info h5 {	
+.tf-post-item--first > .tf-post-item--info h5 {	
 	font-family: "Benton Sans RE", sans-serif;
 	font-size: 16px;
 	color: #FFFFFF;
 	letter-spacing: 1px;
 	margin-bottom: 5px;
+	width: 100%;
 
 }
 
-.tf-post-item--first .tf-post-item--info small {
+.tf-post-item--first > .tf-post-item--info small {
 	font-family: "Benton Sans RE", sans-serif;
 	font-size: 14px;
 	color: #B5B5B5;
