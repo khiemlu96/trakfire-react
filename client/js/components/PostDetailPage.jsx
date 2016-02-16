@@ -232,7 +232,7 @@ var ProfilePage = React.createClass({
   renderPost: function(){
 
     var post = this.state.post;
-    //console.log("IMG URL LG", post);
+    console.log("IMG URL LG", post);
     var active = this.state.isActive;
     var playing = this.state.isPlaying;
     var currTrack = this.state.currTrack;
@@ -289,7 +289,7 @@ var ProfilePage = React.createClass({
                       </a>
                     </div>
                   </div>
-                  <div className="col-md-7">
+                  <div className="col-md-8">
                       <b>Song</b> posted By <br/>
                       <a className="tf-profile-link">{post.author_name}</a>
                   </div>
@@ -420,7 +420,7 @@ var ProfilePage = React.createClass({
     return (
       <div>
         <div> 
-          <ProfileBar/>
+          <ProfileBar showEditLink={false}/>
         </div>
         <div>
          {this.renderPost()}

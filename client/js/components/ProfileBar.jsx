@@ -27,11 +27,12 @@ var ProfileBar = React.createClass({
      * @return {object}
      */
     render: function() {
-
         if(this.props.showEditLink === true) {
-            editBtnDisplayStyle.display = 'block';
+            var editBtnHtml =   <div className="right" style={editBtnDisplayStyle}>
+                                    <a onClick={this.openEditProfile}><div className="is-active btn btn-primary">Edit</div></a>
+                                </div>;
         } else {
-            editBtnDisplayStyle.display = 'none';
+            var editBtnHtml = <div></div>;
         }
 
         return ( 
@@ -39,10 +40,8 @@ var ProfileBar = React.createClass({
                 <div className = "container col-md-12 col-xs-12" >
                     <div className="left">
                         <Link to="#!" className="tf-back-link"><h6>BACK</h6></Link>
-                    </div>                    
-                    <div className="right" style={editBtnDisplayStyle}>
-                        <a onClick={this.openEditProfile}><div className="is-active btn btn-primary">Edit</div></a>
-                    </div>
+                    </div>                
+                    {editBtnHtml}
                 </div> 
             </div>
         );

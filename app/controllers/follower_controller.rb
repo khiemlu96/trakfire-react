@@ -7,23 +7,21 @@ class FollowerController < ApplicationController
 	  	@follower.follow_id = follower_params[:follow_id]
 
 		if @follower.save
-			notification = Notification.new()
-			notification.user_id = follower_params[:follow_id]
-			notification.notification_type = 'FOLLOW_USER'
-			notification.sent_time = Time.current.utc.iso8601
-			notification.reference_id = @current_user.id
-
-			@data = {
-				:src_user_id => @current_user.id,
-				:src_user_name => @current_user.username,
-				:src_user_img => @current_user.img,
-				:src_user_profile_url => "profile/#{@current_user.id}"
-			}
 			
-			notification.data = @data.to_json
-
-			if notification.save
-				logger.info "notification sent for follow user"
+			@notification = {
+				:user_id => follower_params[:follow_id],
+				:n_type => 'FOLLOW_USER',
+				:reference_id => @current_user.id,
+				:data =>{
+							:sender_id => @current_user.id.to_s,
+							:screen_name => @current_user.username,
+							:sender_img => @current_user.img,
+							:sender_profile_url => "profile/#{@current_user.id}"
+						}
+			}
+		
+			if Notification.sendNotification( @notification, {:consolidate => false} )
+				logger.info("Notification sent successfully")
 			end
 
 			@user = User.find(@follower.follow_id);

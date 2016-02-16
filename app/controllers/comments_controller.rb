@@ -31,49 +31,45 @@ class CommentsController < ApplicationController
 
 			if @comment.parent_id == nil
 				if post.user_id != @comment.user_id
-					notification = Notification.new()
-					notification.user_id = post.user_id
-					notification.notification_type = 'COMMENT_ON_POST'
-					notification.reference_id = post.id
 
-					@data = {
-						:src_user_id => @current_user.id,
-						:src_user_name => @current_user.username,
-						:src_user_img => @current_user.img,
-						:src_user_profile_url => "profile/#{@current_user.id}",
-						:post_id => post.id,
-						:post_name => post.title
+					@notification = {
+						:user_id => post.user_id,
+						:n_type => 'COMMENT_ON_POST',
+						:reference_id => post.id,
+						:data =>{
+									:sender_id => @current_user.id.to_s,
+									:screen_name => @current_user.username,
+									:sender_img => @current_user.img,
+									:sender_profile_url => "profile/#{@current_user.id}",
+									:post_id => post.id,
+									:post_name => post.title
+								}
 					}
-					notification.sent_time = Time.current.utc.iso8601		
-					notification.data = @data.to_json
 				
-					if notification.save
-						logger.info "notification sent for follow user"
+					if Notification.sendNotification( @notification, {:consolidate => false} )
+						logger.info("Notification sent successfully")
 					end
 				end				
 			else				
 				parent_comment = Comment.find(comment_params[:parent_id])
 				if parent_comment.user_id != @comment.user_id					
-					notification = Notification.new()
-					notification.user_id = parent_comment.user_id
-					notification.notification_type = 'REPLY_ON_COMMENT'
-					notification.reference_id = parent_comment.id
-
-					@data = {
-						:src_user_id => @current_user.id,
-						:src_user_name => @current_user.username,
-						:src_user_img => @current_user.img,
-						:src_user_profile_url => "profile/#{@current_user.id}",
-						:parent_comment_id => parent_comment.id,
-						:post_id => post.id,
-						:post_name => post.title
+					@notification = {
+						:user_id => parent_comment.user_id,
+						:n_type => 'REPLY_ON_COMMENT',
+						:reference_id => post.id,
+						:data =>{
+									:sender_id => @current_user.id.to_s,
+									:screen_name => @current_user.username,
+									:sender_img => @current_user.img,
+									:sender_profile_url => "profile/#{@current_user.id}",
+									:post_id => post.id,
+									:post_name => post.title,
+									:parent_comment_id => parent_comment.id
+								}
 					}
-
-					notification.sent_time = Time.current.utc.iso8601		
-					notification.data = @data.to_json
 				
-					if notification.save
-						logger.info "notification sent for follow user"
+					if Notification.sendNotification( @notification, {:consolidate => false} )
+						logger.info("Notification sent successfully")
 					end
 				end
 			end

@@ -7,6 +7,7 @@ class VotesController < ApplicationController
 	  @vote.user_id = @current_user.id
 	  #update the post associated
 	  post = Post.find(@vote.post_id)
+
 	  if @vote.save
 	  	if post.vote_count.nil?
 	  		post.vote_count = 0
@@ -20,25 +21,23 @@ class VotesController < ApplicationController
 
 		#send notifications to user who have posted a track
 		if post.user_id != @vote.user_id
-			notification = Notification.new()
-	  		notification.user_id = post.user_id
-			notification.notification_type = 'VOTED_YOUR_TRAK'
-			notification.reference_id = post.id
 
-			@data = {
-				:src_user_id => @current_user.id,
-				:src_user_name => @current_user.username,
-				:src_user_img => @current_user.img,
-				:src_user_profile_url => "profile/#{@current_user.id}",
-				:post_id => post.id,
-				:post_name => post.title
+			@notification = {
+				:user_id => post.user_id,
+				:n_type => 'VOTED_YOUR_TRAK',
+				:reference_id => post.id,
+				:data =>{
+							:sender_id => @current_user.id.to_s,
+							:screen_name => @current_user.username,
+							:sender_img => @current_user.img,
+							:sender_profile_url => "profile/#{@current_user.id}",
+							:post_id => post.id,
+							:post_name => post.title
+						}
 			}
-
-			notification.sent_time = Time.current.utc.iso8601		
-			notification.data = @data.to_json
 		
-			if notification.save
-				logger.info "notification sent for follow user"
+			if Notification.sendNotification( @notification, {:consolidate => true} )
+				logger.info("Notification sent successfully")
 			end
 		end
 
