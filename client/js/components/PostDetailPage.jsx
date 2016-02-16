@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
+var Router = require('react-router');
 var PostActions = require('../actions/PostActions.js');
 var PostStore = require('../stores/PostStore.js');
 var UserStore = require('../stores/UserStore.js');
@@ -11,7 +12,7 @@ var PostComment = require('./PostComment.jsx');
 var TrakfirePlayerProgress = require('./TrakfirePlayerProgress.jsx');
 var SoundCloudAudio = require('soundcloud-audio');
 var scPlayer = new SoundCloudAudio('9999309763ba9d5f60b28660a5813440');
-
+var Link = Router.Link;
 var OverlayTrigger = Bootstrap.OverlayTrigger;
 var Popover = Bootstrap.Popover;
 var UserStyle = { maxWidth:480, backgroundColor: '#1c1c1c', border:'1px solid #2b2b2b'};
@@ -284,9 +285,10 @@ var ProfilePage = React.createClass({
                   <div className="col-md-2"></div>
                   <div className="col-md-2">
                     <div className="tf-auther-panel">
-                      <a className="tf-link" href="/profile/2" >
-                        <img className="tf-author-img" src={post.author_img} />
-                      </a>
+                      {/*<a className="tf-link" href="/profile/2" >*/}
+                      <Link to={'/profile/'+post.author_id}>  
+                        <img className="tf-author-img" src={post.author_img}></img>
+                      </Link>
                     </div>
                   </div>
                   <div className="col-md-7">

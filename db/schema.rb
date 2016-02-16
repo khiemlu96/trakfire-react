@@ -42,6 +42,13 @@ ActiveRecord::Schema.define(version: 20160210165357) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "member_tags", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "comment_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.integer  "user_id"
     t.datetime "read_time"

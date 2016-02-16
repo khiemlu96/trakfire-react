@@ -10,7 +10,8 @@ var ProfileEditPage = require('./ProfileEditPage.jsx');
 function getAppState() {
     return {
         user: UserStore.getUser(),
-        showEditProfileWrapper: false
+        showEditProfileWrapper: false,
+        userid: null
     };
 }
 
@@ -29,6 +30,7 @@ var ProfilePage = React.createClass({
         componentDidMount: function() {
             UserStore.addChangeListener(this._onChange);
             var userid = this.props.params.id;
+            this.setState({userid:userid});
             this.getUser(userid);
             var user = this.state.user;
             if (user) {
@@ -96,7 +98,7 @@ var ProfilePage = React.createClass({
                         onUserFollowClick={this.followUser}
                         onUnFollowClick={this.unFollowUser}
                         isFollowing={isFollowing}
-                        currentUserId={this.props.currUser.id} />                    
+                        currentUserId={this.state.userid} />                    
                     
                     <ProfileEditPage
                         user= {user} 
