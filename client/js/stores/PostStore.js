@@ -226,21 +226,20 @@ var PostStore = assign({}, EventEmitter.prototype, {
   },
 
   getAllOfGenres: function(genres) {
-    var postsOfGenres = {};
-    for(genre in genres) {
-      console.log("GENRE", _genre[genre])      
-      for (var id in _posts ) {
-        /*var post_genres = _posts[id].genre.map(function(value){
-            return value.toUpperCase();
-        });*/
-        if(_posts[id].genre && _posts[id].genre.indexOf(_genre[genre]) > -1) {
-          postsOfGenres[id] = _posts[id];
-        }
-      }      
-    }
-    console.log("POSTS OF GENRES", postsOfGenres);
-    return postsOfGenres;
-  }, 
+   var postsOfGenres = {};
+   for(genre in genres) {
+     for (var id in _posts ) {
+       var post_genres = _posts[id].genre.map(function(value){
+           return value.toUpperCase();
+       });
+       if(_posts[id].genre && post_genres.indexOf(_genre[genre]) > -1) {
+         postsOfGenres[id] = _posts[id];
+       }
+     }      
+   }
+   console.log("POSTS OF GENRES", postsOfGenres);
+   return postsOfGenres;
+ },
 
   getSortedPosts: function() {
     return _songs;
