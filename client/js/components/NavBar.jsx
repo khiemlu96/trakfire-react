@@ -78,6 +78,9 @@ var searchIconStyle = {
   fontSize: '18px',
   marginRight: '15px'
 };
+
+var MenuIconStyle = {
+}
 var showMoreStyle = {
   display: 'none'
 };
@@ -104,7 +107,6 @@ var NavBar = React.createClass({
   },
 
   closeModal: function() {
-    console.log("HI");
     this.refs.searchInput.getDOMNode().value = "";
     this.setState({
           isVisible: true
@@ -121,19 +123,16 @@ var NavBar = React.createClass({
     console.log(searchkey);
 
     if(searchkey !== '')
-    {
-      console.log("NOT SPACE");
+    { 
       this.showSearchResult();
     }
-    else{
-      console.log("BLANK");
+    else{ 
       this.hideSearchResult();
     }
   },
 
 
-  hideSearchResult: function() {
-    console.log("HIDE")
+  hideSearchResult: function() { 
     document.getElementById("show-more-btn-container").style.display = "none";
   },
 
@@ -162,7 +161,6 @@ var NavBar = React.createClass({
   },
 
   showSearchResultPage: function() {
-    console.log("HI");
     console.log(searchKey);
     //this.setState({isVisible:false});
     
@@ -181,6 +179,24 @@ var NavBar = React.createClass({
             </OverlayTrigger>
   },
 
+  renderStaticInfo: function(){
+    var signinLink = '';
+    if(this.props.isLoggedIn) {
+        signinLink = <div className="tf-menu-popup-list-item tf-sign-out-link"><a href='#!'onClick={this.handleSignOut}><h6>SIGN OUT</h6></a></div>
+    }
+    return <OverlayTrigger trigger="click" rootClose placement="bottom" 
+              overlay={ 
+                        <Popover className="tf-menu-popup col-md-2" id="tf-post-detail-popup" style={MenuIconStyle} >
+                             <div className="tf-menu-popup-list-item"><Link to={'/leaderboard'}><h6>LEADERBOARD</h6></Link></div>                       
+                             <div className="tf-menu-popup-list-item"><Link to={'/about'}><h6>ABOUT TRAKFIRE</h6></Link></div>
+                             <div className="tf-menu-popup-list-item"><Link to={'/privacy'}><h6>PRIVACY POLICY</h6></Link></div>
+                             <div className="tf-menu-popup-list-item"><Link to={'/terms'}><h6>TERMS OF SERVICE</h6></Link></div>
+                             <div>{signinLink} </div>
+                        </Popover>
+                      }>
+              <span className="glyphicon glyphicon-option-horizontal tf-menu-link" ></span>
+            </OverlayTrigger>
+  },
 
   renderSearchBar: function() {
     this.setState({
@@ -204,12 +220,13 @@ var NavBar = React.createClass({
 
     if(this.props.isLoggedIn) {
       console.log("IN NAVBAR");
-      var signinLink = <a href="#!" onClick={this.handleSignOut}> SIGN OUT </a>
+      var signinLink = '';
       var profileLink = <span className="tf-menu">{this.renderUserInfo()}</span>
       //if(this.props.isAdmin || this.props.user.canPost) { 
         
       var postLink = <span className="tf-menu"><PostForm isVisible={true} origin={this.props.origin} /></span> 
       var searchIcon =  <span><span className = "glyphicon glyphicon-search" onClick={this.renderSearchBar} style = {searchIconStyle}></span> </span>
+      var menuIcon = <span >{this.renderStaticInfo()} </span>;
       /*} else {
         var tooltip = <Tooltip>Posting is invite only</Tooltip>;
         var postLink = <OverlayTrigger placement="left" overlay={tooltip}><a className="tf-inactive">POST</a></OverlayTrigger>;//<a href="" className="tf-inactive">POST</a>;
@@ -220,6 +237,7 @@ var NavBar = React.createClass({
       var profileLink = "";
       var postLink = '';
       var searchIcon = '';
+      var menuIcon = <span >{this.renderStaticInfo()} </span>;
       //var emailLink = <Link to='/email?id=1'>EMAIL</Link>;
     }
   
@@ -240,6 +258,7 @@ var NavBar = React.createClass({
                     </a>*/}
                     {signinLink}
                     {inviteLink}
+                    {menuIcon}
                   </div>
                 </div> 
               </div>
