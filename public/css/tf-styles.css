@@ -1091,6 +1091,10 @@ th.upvote-col {
 	display: inline-block;
 }
 
+ul.tf-filter-bar-ul {
+	list-style: none;
+}
+
 .tf-filter-bar a li{
 	margin-left: 17px;
 	margin-right: 17px;

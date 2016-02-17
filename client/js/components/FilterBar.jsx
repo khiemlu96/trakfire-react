@@ -152,7 +152,7 @@ var FilterBar = React.createClass({
         <div className="container "> 
           <div className="left"><h4>{title} </h4></div>
           <div className="row right">
-           <ul>
+           <ul className="tf-filter-bar-ul">
             <a href="#!" ref="electronic" className={(_genre.indexOf("ELECTRONIC") > -1 ) ? "is-active tf-left-filter" : "is-non-active tf-left-filter" } 
               onClick={this.handleElectronicClick}>
               <li >Electronic</li>
