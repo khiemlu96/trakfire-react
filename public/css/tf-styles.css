@@ -1092,12 +1092,13 @@ th.upvote-col {
 }
 
 ul.tf-filter-bar-ul {
-	list-style: none;
+	list-style-type: none;
 }
 
 .tf-filter-bar a li{
 	margin-left: 17px;
 	margin-right: 17px;
+	list-style-type: none;
 }
 
 /* grid post item */
