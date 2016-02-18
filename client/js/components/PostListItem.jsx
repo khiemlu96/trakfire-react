@@ -69,7 +69,7 @@ var PostListItem = React.createClass({
       this.props.onUpvote(this.props.post.id);
       var count = this.refs.count.getDOMNode();
       var upvotes = this.refs.upvotes.getDOMNode();
-      upvotes.className="" ;
+      upvotes.className=isUpvoted ;
       count.className = "";
 
       this.setState({hasUpvoted:true});
