@@ -55,6 +55,10 @@ var PostForm = React.createClass({
     console.log(this.state);
   }, 
 
+  reset: function() {
+    this.setState({step : 1})
+  },
+
   goBack: function() {
     console.log("regressing step");
     var currStep = this.state.step;
@@ -83,14 +87,14 @@ var PostForm = React.createClass({
   render: function() {
   	var postStep;
   	var step = this.state.step;
-    console.log("HI DATA");
-    console.log(this.props.data);
+
   	switch(this.state.step) {
   		case 1:
   			postStep = <PostFormFirst 
                       advanceStep={this.advanceStep}
                       updateData={this.updateData}
-                      data={this.props.data}/>
+                      data={this.props.data}
+                      reset={this.reset} />
   		break;
    		case 2:
   			postStep = <PostFormSecond 
@@ -98,13 +102,16 @@ var PostForm = React.createClass({
                       updateData={this.updateData}
                       goBack={this.goBack}
                       data={this.props.data}
-                      submit={this.submit}/>
+                      submit={this.submit}
+                      reset={this.reset} />
   		break;
       case 4:
         postStep = <PostFormLast 
                       advanceStep={this.advanceStep}
                       updateData={this.updateData}
-                      data={_data}/>
+                      data={_data}
+                      isInitialLoad={true}
+                      reset={this.reset} />
       break;
   		default:
   	}
