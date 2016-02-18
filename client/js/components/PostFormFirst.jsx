@@ -51,10 +51,11 @@ var PostFormFirst = React.createClass({
   }, 
 
   fetchScData: function(url) {
-    if(!this.state.isLoading) {
+    var url = this.refs.url_field.getDOMNode().value.trim();
+    if(url !== "" && !this.state.isLoading) {
       this.addLoading();
       console.log("FORM STATE", this.state);
-    	var url = this.refs.url_field.getDOMNode().value.trim();
+    	
     	var sc = new SoundCloudAudio('9999309763ba9d5f60b28660a5813440');
 
     	console.log("FETCHING SC DATA FROM ", url);
