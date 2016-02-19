@@ -50,5 +50,5 @@ class Post < ActiveRecord::Base
   		@votes
   	end
 
-	scope :ranking, -> { select("id, user_id, song_id, created_at, genre, date, genre, play_count, score, vote_count, img_url, title, artist, stream_url, duration,  hot_score(vote_count, created_at) as hot_score") }
+	scope :ranking, -> { select("id, user_id, song_id, created_at, genre, date, genre, play_count, score, vote_count, img_url, img_url_lg, title, artist, stream_url, duration,  hot_score(vote_count, created_at) as hot_score") }
 end
