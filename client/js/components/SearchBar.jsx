@@ -10,6 +10,7 @@
 var React = require('react');
 var Router = require('react-router');
 var Bootstrap = require('react-bootstrap');
+var Algolia = require('algoliasearch');
 var Link = Router.Link;
 var SearchResultModal = require('./SearchResult.jsx');
 
@@ -38,7 +39,7 @@ var SearchBar = React.createClass({
 	
 	componentDidMount: function() {
 		
-	  var search = instantsearch({
+	  var search = Algolia.instantsearch({
         appId: 'YX1WDN49CX',
         apiKey: '50d31a5aee4abf796b908e368f312027',
         indexName: 'posts',

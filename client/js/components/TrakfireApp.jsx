@@ -354,7 +354,7 @@ var TrakfireApp = React.createClass({
           </Modal>
           <div id="search-result">
           </div>
-          <Footer/>
+          {/*<Footer/>*/}
         </div>
     );
   },
