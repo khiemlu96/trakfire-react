@@ -541,8 +541,8 @@ th.upvote-col {
     z-index: 2;
 }
 
-.is-playing .tf-post-item--img:hover .tpf-play-button img{
-	display: none!important;
+.is-playing:hover .tf-post-item--img .tpf-play-button img{
+	display: none !important;
 }
 
 .tf-current-trak-content .tf-post-title {
