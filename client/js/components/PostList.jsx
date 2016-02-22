@@ -83,8 +83,7 @@ function toArray(obj) {
 function getComponentState() {
   return {
     isLoggedIn : UserStore.isSignedIn(), 
-    currentUser : UserStore.getCurrentUser(),
-    currentTrack : null,
+    currentUser : UserStore.getCurrentUser(),    
     posts : PostStore.getAll(), 
     sortedPosts : PostStore.getSortedPosts(), 
     getCurrentSong : PostStore.getCurrentSong()
@@ -128,6 +127,7 @@ var PostsList = React.createClass({
 
   getInitialState: function() {
     var storedState = getComponentState();
+    storedState.currentTrack = null;
     storedState["hasSetSongList"] = false;
     return storedState;
   }, 
@@ -180,7 +180,7 @@ var PostsList = React.createClass({
         pli.getDOMNode().className = "tf-post-item";
       } 
     }
-    this.state.currentTrack = track.id;
+    this.setState({currentTrack:track.id});
     this.props.onPostListItemClick(stream_url, track, idx);
   },
 
