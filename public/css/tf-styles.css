@@ -1533,6 +1533,26 @@ input[type=text], textarea{
 	margin-bottom: 20px;
 }
 
+.input-required {
+	border: 1px solid #FF0000 !important;
+}
+
+.input-required::-webkit-input-placeholder {
+	color: red !important;
+}
+ 
+.input-required:-moz-placeholder { /* Firefox 18- */
+	color: red !important;  
+}
+ 
+.input-required::-moz-placeholder {  /* Firefox 19+ */
+	color: red !important;  
+}
+ 
+.input-required:-ms-input-placeholder {  
+	color: red !important;  
+}
+
 .tf-newtrack-img {
 	text-align: left;
 	margin-right: 20px;

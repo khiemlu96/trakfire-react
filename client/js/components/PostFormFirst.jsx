@@ -52,6 +52,7 @@ var PostFormFirst = React.createClass({
 
   fetchScData: function(url) {
     var url = this.refs.url_field.getDOMNode().value.trim();
+    
     if(url !== "" && !this.state.isLoading) {
       this.addLoading();
       console.log("FORM STATE", this.state);
@@ -99,11 +100,23 @@ var PostFormFirst = React.createClass({
     						_submit = false;
     					}
     				});
-    this.rmLoading();
-    this.dataDidLoad();
-  } else {
-    console.log("LOADING!");
-  }
+      this.rmLoading();
+      this.dataDidLoad();
+    } else {
+      var url_field = this.refs.url_field.getDOMNode();
+      url_field.className += " input-required";
+      this.setState({isLoading:false});
+    }
+  },
+
+  onUrlInputChange: function(e) {
+      var url_field = this.refs.url_field.getDOMNode();
+      url_field.className = "tf-soundcloud-link";
+      
+      if( url_field.className.indexOf("input-required") !== -1 ){
+        url_field.className = "tf-soundcloud-link";
+        this.setState({isLoading:false});
+      }
   },
 
   addLoading: function() {
@@ -136,7 +149,7 @@ var PostFormFirst = React.createClass({
           <img src="/assets/img/nipple.png" className="nipple"></img>
           <div className="tf-newtrack-title"> ADD A SONG </div>
           <p className="tf-newtrack-description"> Post a link to a song on Soundcloud </p>
-          <input type="text" ref="url_field" className="tf-soundcloud-link" placeholder="paste a soundcloud link">
+          <input onChange={this.onUrlInputChange} type="text" ref="url_field" className="tf-soundcloud-link" placeholder="paste a soundcloud link">
             <div className={isLoading ? hide : show} ref="add" onClick={this.fetchScData}> ADD </div> 
           </input>
           <div className="align-left"> 
