@@ -2346,7 +2346,7 @@ label.ownsong-label {
 }
 
 .tf-notification-popup { 
-	left:60% !important;
+	left:61% !important;
 	margin-top: 20px !important;
 	font-size: 12px !important;
 }
@@ -2374,6 +2374,7 @@ label.ownsong-label {
 	font-size: 18px;
 	top: 5px;
 	padding-left: 15px;
+	padding-right: 15px;
 	cursor: pointer;
 }
 .tf-menu-popup{
@@ -2388,7 +2389,7 @@ label.ownsong-label {
     margin-right: 15px !important;
     padding-left: 10px;
     text-transform: uppercase;
-    left: 74% !important;
+    left: 78% !important;
     top: 53px !important;
     padding-left: 0px !important;
     border: 1px solid #2b2b2b !important;
