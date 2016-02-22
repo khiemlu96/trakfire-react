@@ -642,10 +642,13 @@ th.upvote-col {
 .tf-post-item--info {
 	height: 100px;
 	display: block;
-	padding-top: 33px;
+	padding-top: 22px;
 	margin-left: 100px;
 }
 
+.tf-search-item-content .tf-post-item--info {
+	padding-top: 30px !important;
+}
 /*#Post-list .tf-post-item .tf-post-item--info {
 	padding-left: 10px;
 }
@@ -675,7 +678,7 @@ th.upvote-col {
 
 /*tags*/
 
-.tf-post-item--tags {
+.tf-post-item-content .tf-post-item--tags {
 	position: absolute;
 	/*right: 0px;
 	bottom: 0px;*/
@@ -683,18 +686,20 @@ th.upvote-col {
 	text-align: left;
 	margin-bottom: -1px;
 	margin-right: -1px;
+	left: 245px;
+	top: 60px;
 }
 
 .tf-tag {
 	color: #ff0d60;
-	font-size: 8px;
+	font-size: 10px;
 	border: 1px solid #2F2F2F;
 	margin: 0px;
 	padding-left: 10px;
 	padding-right: 10px;
-	padding-top: 4px;
+	padding-top: 2px;
 	padding-bottom: 4px;
-	height: 30px;
+	height: 25px;
 	cursor: pointer;
 }
 
@@ -772,7 +777,7 @@ th.upvote-col {
 	height: 240px;
 	width: 240px;
 	left: 105px;
-	top: -10px;
+	top: -5px;
 	z-index: 1;
 	display: none;
 }
@@ -808,6 +813,7 @@ th.upvote-col {
 	height: 240px;
 	margin-left: 0px;
 	display: inline-block;
+	top: -5px
 }
 
 /*.tf-post-item--first .tf-post--author{
@@ -849,7 +855,7 @@ th.upvote-col {
 	left: 255px;
 	display: inline-block;
 	word-wrap: normal;
-	width: 100%;
+	width: 60%;
 }
 
 .tf-post-item--first .tf-post-item--votes {
@@ -1137,6 +1143,9 @@ ul.tf-filter-bar-ul {
 	left: -10px !important;
 	top: 101px;
 }
+.tf-post-trak-popup .tf-post-item--votes{
+	left: 10px !important;
+}
 
 .tf-post-grid .tf-post-item--info {
 	margin-top: 143px;
@@ -1305,11 +1314,12 @@ ul.tf-filter-bar-ul {
 }
 
 .tf-profile-wrapper .tf-back-link {
-    margin-left: 90px;
+    margin-left: 6%;
 }
 
 .tf-profile-wrapper .tf-back-link::before {
     top: 11px !important;
+    left: 6%;
 }
 
 .tf-profile-posts-wrapper {
@@ -1964,8 +1974,8 @@ label.ownsong-label {
 }
 
 .tf-author-img {
-	height: 30px;
-	width: 30px;
+	height: 25px;
+	width: 25px;
 	border-radius: 50%; 
 	margin-right: 10px;
 }
@@ -2034,7 +2044,7 @@ label.ownsong-label {
     color: #ff0d60 !important;
     content: "";
     display: block;
-    left: 7%;
+    left: 11%;
     position: absolute;
     top: 26px;
 }
@@ -2349,6 +2359,8 @@ label.ownsong-label {
 	left:61% !important;
 	margin-top: 20px !important;
 	font-size: 12px !important;
+	position: fixed;
+	top:55px !important;
 }
 
 .tf-notification-popup .arrow{
@@ -2426,6 +2438,7 @@ label.ownsong-label {
 }
 .tf-post-trak-popup{
 	left:48% !important;
+	top:60px !important;
 }
 .tf-notification-content{
 	background-color: #191818;
@@ -2844,7 +2857,7 @@ label.ownsong-label {
 }
 
 .tf-back-link {
-    margin-left: 90px;
+    margin-left: 11%;
     float: left;
     color: #FFFFFF !important;
     font-size: 10px;
@@ -2979,7 +2992,7 @@ label.ownsong-label {
     width: 50% !important;
     vertical-align: middle;
     text-align: center;
-    padding: 7px 0px 7px 0px;
+    /*padding: 7px 0px 7px 0px;*/
 }
 
 @media screen and (min-width: 768px) and (max-width: 1009px) {
