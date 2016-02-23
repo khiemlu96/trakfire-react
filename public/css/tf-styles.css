@@ -1371,7 +1371,7 @@ ul.tf-filter-bar-ul {
 
 #post-grid .tf-post-item--info {
     padding-left: 0px;
-    padding-right: 0px;
+    padding-right: 15px;
 }
 
 #post-grid .tf-post-item--tags {
