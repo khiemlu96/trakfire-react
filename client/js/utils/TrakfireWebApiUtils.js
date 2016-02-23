@@ -30,7 +30,7 @@ module.exports = {
       type: 'json',
       method: 'get',
       contentType: 'application/json',
-      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) { 
       	console.log(resp);
       	rawPosts = resp;
@@ -72,7 +72,7 @@ module.exports = {
       type: 'json',
       method: 'POST',
       contentType: 'application/json',
-      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         newPost = resp;
@@ -92,7 +92,7 @@ module.exports = {
       type: 'json',
       method: 'get',
       contentType: 'application/json',
-      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) { 
         console.log("SERVER RESPONSE FOR USER", resp);
         userPosts = resp;
@@ -116,7 +116,7 @@ module.exports = {
       type: 'json',
       method: 'POST',
       contentType: 'application/json',
-      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         newVote = resp;
@@ -139,7 +139,7 @@ module.exports = {
       type: 'json',
       method: 'DELETE',
       contentType: 'application/json',
-      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         //newVote = resp;
@@ -161,7 +161,7 @@ module.exports = {
       type: 'json',
       method: 'PUT',
       contentType: 'application/json',
-      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         //newVote = resp;
@@ -184,7 +184,7 @@ module.exports = {
       type: 'json',
       method: 'GET',
       contentType: 'application/json',
-      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         newUser = resp;
@@ -204,7 +204,7 @@ module.exports = {
       type: 'json',
       method: 'POST',
       contentType: 'application/json',
-      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         //UserServerActionCreators.recieveNewUser(newUser); 
@@ -241,7 +241,7 @@ module.exports = {
       type: 'json',
       method: 'POST',
       contentType: 'application/json',
-      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         UserServerActionCreators.addFollowers(resp);
@@ -261,7 +261,7 @@ module.exports = {
       type: 'json',
       method: 'delete',
       contentType: 'application/json',
-      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         //newVote = resp;
@@ -281,7 +281,7 @@ module.exports = {
       type: 'json',
       method: 'POST',
       contentType: 'application/json',
-      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         newComment = resp;
@@ -302,7 +302,7 @@ module.exports = {
       method: 'PUT',
       data: JSON.stringify(data),
       contentType: 'application/json',
-      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         UserServerActionCreators.recieveCurrentUser(resp); 
@@ -325,7 +325,7 @@ module.exports = {
       method: 'GET',
       data: params,
       contentType: 'application/json',
-      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         UserServerActionCreators.recieveUserNotifications(resp); 
@@ -348,7 +348,7 @@ module.exports = {
       method: 'GET',
       data: params,
       contentType: 'application/json',
-      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         UserServerActionCreators.recieveMoreUserNotifications(resp); 
