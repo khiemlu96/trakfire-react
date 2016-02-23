@@ -14,6 +14,7 @@ var PostActions = require('../actions/PostActions');
 var Link = require('react-router').Link;
 
 var classNames = require('classnames');
+var UserFlyOver = require('./UserFlyOver.jsx');
 
 var isPlaying = classNames("tf-post-item is-playing");
 var isNotPlaying = classNames("tf-post-item");
@@ -37,7 +38,8 @@ var PostListItem = React.createClass({
    rank: ReactPropTypes.string,
    currStreamUrl: ReactPropTypes.string, 
    showModal: ReactPropTypes.func, 
-   isFirst: ReactPropTypes.bool
+   isFirst: ReactPropTypes.bool,
+   origin: ReactPropTypes.string
   },
 
   getInitialState: function() {
@@ -135,7 +137,7 @@ var PostListItem = React.createClass({
     var aImg = this.props.post.author_img;
     var aName = this.props.post.author_name;
 
-    return <div><Link to={'/profile/'+aId} className="tf-link"><img className="tf-author-img" src={aImg}></img></Link></div>;
+    return(<div><Link to={'/profile/'+aId} className="tf-link"><UserFlyOver user = {this.props.post.user} origin={this.props.origin} /></Link></div>);
   }, 
 
   /**

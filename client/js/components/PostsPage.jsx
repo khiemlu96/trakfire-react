@@ -106,7 +106,8 @@ var PostsPage = React.createClass({
           onPostUpvote={this.upvote}
           currUser={this.props.currUser}
           showModal={this.props.showModal}
-          setSongList={this.props.setSongList}/>
+          setSongList={this.props.setSongList}
+          origin={this.props.origin} />
       </div>
     );
   },
