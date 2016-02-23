@@ -74,6 +74,7 @@ var CommentInput = React.createClass({
   	componentDidMount: function() {
 		PostStore.addChangeListener(this._onChange);
 		currUser = this.props.currUser;
+		console.log("THE CURRENT USER IS", currUser, this.state.currUser);
   	},
 
 	postComment: function() {
@@ -95,7 +96,10 @@ var CommentInput = React.createClass({
 	},
 
 	shouldComponentUpdate: function(nextProps){
-        return nextProps.comment_text !== this.refs.comment.getDOMNode().innerHTML;
+		if(this.refs.comment)
+        	return nextProps.comment_text !== this.refs.comment.getDOMNode().innerHTML;
+        else 
+        	return true;
     },
 
     emitChange: function(event){

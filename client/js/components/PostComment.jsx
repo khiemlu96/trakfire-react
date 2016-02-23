@@ -121,7 +121,7 @@ var PostComment = React.createClass({
 					</div>	
 					<div className="col-md-8 tf-user-profile-section">
 						<a className="tf-profile-link"> {comment.user.username}</a> 
-						<span className="tf-user-tbio"> - Trakfire Founder. </span>
+						<span className="tf-user-tbio"> - {comment.user.bio} </span>
 					</div>				
 					<div className="col-md-3 tf-comment-time right">
 						<span className="tf-reply-btn" id={"reply-btn-" + comment.id} onClick = {this.renderCommentReplyInput}>
