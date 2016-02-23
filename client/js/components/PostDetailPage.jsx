@@ -258,7 +258,7 @@ var ProfilePage = React.createClass({
               <div className="tf-current-trak-content">
                 <a className="tf-trak-detail-vote" href="/post/11">
                   <div className="tf-post-item--votes" >
-                    <span className="" ref="count">1</span>
+                    <span className="" ref="count">{post.vote_count}</span>
                   </div>
                 </a>
                 <div className="tf-post-item--img col-md-3">

@@ -101,7 +101,6 @@ var PostActions = {
   }, 
 
   postComment: function(origin, data) {
-    
     TfAPI.writePostComment(origin, data);
   },
 
