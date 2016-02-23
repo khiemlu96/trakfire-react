@@ -122,7 +122,8 @@ var PostsList = React.createClass({
     currStreamUrl: ReactPropTypes.string,
     currUser: ReactPropTypes.object, 
     showModal: ReactPropTypes.func,
-    setSongList: ReactPropTypes.func
+    setSongList: ReactPropTypes.func,
+    origin: ReactPropTypes.string
   },
 
   getInitialState: function() {
@@ -221,6 +222,7 @@ var PostsList = React.createClass({
         }*/
         var dateHeader = <PostListDateHeader key={'d_'+date} date={d}/>
         container.push(dateHeader);
+        
         var array = toArray(posts[dates[date]]).sort(sortScore);
         //console.log("THE ARRAY", array);
         for(key in array) {
@@ -250,7 +252,8 @@ var PostsList = React.createClass({
                         rank={key}
                         currStreamUrl={this.props.currStreamUrl}
                         showModal={this.props.showModal}
-                        first={f}/>
+                        first={f}
+                        origin={this.props.origin}/>
           container.push(post); 
           //console.log("HEYYA", songCount, array[key]);
           songList[songCount] = array[key];
@@ -274,6 +277,7 @@ var PostsList = React.createClass({
    */
   render: function() {
     var posts = this.props.posts;
+    
     var postsByDate = sortPostsByDate(posts); //sort posts into date keyed dict + array of date str for the headers
     //console.log("PDBD", postsByDate, posts);
     var dates = postsByDate[0].sort(sortDate); //sort dates in decending order

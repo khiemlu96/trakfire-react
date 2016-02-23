@@ -16,6 +16,7 @@ var Link = Router.Link;
 var OverlayTrigger = Bootstrap.OverlayTrigger;
 var Popover = Bootstrap.Popover;
 var UserStyle = { maxWidth:480, backgroundColor: '#1c1c1c', border:'1px solid #2b2b2b'};
+var UserFlyOver = require('./UserFlyOver.jsx');
 
 function getAppState() {
   return {
@@ -383,8 +384,8 @@ var ProfilePage = React.createClass({
         /*<a className="tf-link" href={"/profile/" + votes[key].user.id} >
           <img className="tf-author-img" src={votes[key].user.img} />
         </a>*/
-        <Link to={'/profile/'+votes[key].user.id}>  
-          <img className="tf-author-img" src={votes[key].user.img}></img>
+        <Link to={'/profile/'+votes[key].user.id}> 
+          <UserFlyOver user = {votes[key].user} origin={this.props.origin} />
         </Link>
       );                              
     }

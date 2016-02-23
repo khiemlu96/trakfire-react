@@ -19,6 +19,7 @@ var CommentInput = require('./CommentInput.jsx');
 var PostStore = require('../stores/PostStore.js');
 var UserStore = require('../stores/UserStore.js');
 var post_id;
+var UserFlyOver = require('./UserFlyOver.jsx');
 
 function compareCreatedAt(a, b) {
   if(a.created_at < b.created_at) return 1;
@@ -115,7 +116,7 @@ var PostComment = React.createClass({
 				<div className = "tf-comment-profile col-md-12">
 					<div className="col-md-0 tf-comment-auther-panel left">
 						<a className="tf-link" href={"/profile/" + comment.user.id} >
-							<img className="tf-author-img" src={comment.user.img} />
+							<UserFlyOver user = {comment.user} origin={this.props.origin} />
 						</a>
 					</div>	
 					<div className="col-md-8 tf-user-profile-section">
@@ -187,7 +188,7 @@ var PostComment = React.createClass({
 				<div className = "tf-comment-profile col-md-12">
 					<div className="col-md-0 tf-comment-auther-panel left">
 						<a className="tf-link" href={"/profile/"+reply.user.id} >
-							<img className="tf-author-img" src={reply.user.img} />
+							<UserFlyOver user = {reply.user} origin={this.props.origin} />
 						</a>
 					</div>	
 					<div className="col-md-8 tf-user-profile-section">
