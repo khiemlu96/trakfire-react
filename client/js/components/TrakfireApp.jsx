@@ -96,12 +96,12 @@ var TrakfireApp = React.createClass({
     //console.log('JWT: ', jwt, !!jwt);
     if (!!jwt) {
       //console.log('SET SESSION W JWT');
-      sessionStorage.setItem('jwt', jwt);
-    }
+      localStorage.setItem('jwt', jwt);
+    } 
   },
 
   componentDidMount: function() {
-    if (!!sessionStorage.getItem('jwt')) {
+    if (!!localStorage.getItem('jwt')) {
       //console.log('FETCHING USER');
       this.currentUserFromAPI();
     }

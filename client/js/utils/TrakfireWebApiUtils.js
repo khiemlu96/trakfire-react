@@ -51,7 +51,7 @@ module.exports = {
       type: 'json',
       method: 'get',
       contentType: 'application/json',
-      headers: {'Authorization': sessionStorage.getItem('jwt')},
+      headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) { 
         console.log("SERVER RESPONSE", resp);
         user = resp;
