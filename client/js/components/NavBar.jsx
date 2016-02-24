@@ -99,7 +99,9 @@ var NavBar = React.createClass({
 
   handleSignOut: function() {
     localStorage.setItem('jwt','');
-    location = '/';
+    //window.location.assign("localhost:8080");
+   // transitionTo
+   //location = "/";
   },
 
   showModal: function() {
@@ -182,7 +184,7 @@ var NavBar = React.createClass({
   renderStaticInfo: function(){
     var signinLink = '';
     if(this.props.isLoggedIn) {
-        signinLink = <div className="tf-menu-popup-list-item tf-sign-out-link"><a href='#!'onClick={this.handleSignOut}><h6>SIGN OUT</h6></a></div>
+        signinLink = <div className="tf-menu-popup-list-item tf-sign-out-link"><a href='/'onClick={this.handleSignOut}><h6>SIGN OUT</h6></a></div>
     }
     return <OverlayTrigger trigger="click" rootClose placement="bottom" 
               overlay={ 
