@@ -20,7 +20,7 @@ var UserFlyOverContent = React.createClass({
 		user: ReactPropTypes.object,
 		origin: ReactPropTypes.string
 	},
-	
+
     handle_follow_click: function(event) {
 
     	if( this.state.currentUser !== null || sessionStorage.getItem('jwt') !== null ) {
@@ -47,10 +47,6 @@ var UserFlyOverContent = React.createClass({
 
     unFollowUser: function(follow_id) {
         UserActions.unFollowUser(this.props.origin+ '/follower', follow_id);
-    },
-
-	getUser: function(userid) {
-        UserActions.getUser(this.props.origin + '/users/' + userid + '/', userid);
     },
 
 	componentDidMount: function() {

@@ -115,9 +115,7 @@ var PostComment = React.createClass({
 			<div className="col-md-12 tf-parent-comment-profile" id = {"comment_" + comment.id}>
 				<div className = "tf-comment-profile col-md-12">
 					<div className="col-md-0 tf-comment-auther-panel left">
-						<a className="tf-link" href={"/profile/" + comment.user.id} >
-							<UserFlyOver user = {comment.user} origin={this.props.origin} />
-						</a>
+						<UserFlyOver user = {comment.user} origin={this.props.origin} />
 					</div>	
 					<div className="col-md-8 tf-user-profile-section">
 						<a className="tf-profile-link"> {comment.user.username}</a> 
@@ -187,9 +185,7 @@ var PostComment = React.createClass({
     		<div className="col-md-12 tf-reply-comment-profile" id={"comment_"+ reply.id}>
 				<div className = "tf-comment-profile col-md-12">
 					<div className="col-md-0 tf-comment-auther-panel left">
-						<a className="tf-link" href={"/profile/"+reply.user.id} >
-							<UserFlyOver user = {reply.user} origin={this.props.origin} />
-						</a>
+						<UserFlyOver user = {reply.user} origin={this.props.origin} />
 					</div>	
 					<div className="col-md-8 tf-user-profile-section">
 						<a className="tf-profile-link"> {reply.user.username}</a>

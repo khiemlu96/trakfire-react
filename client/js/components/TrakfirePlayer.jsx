@@ -120,6 +120,7 @@ var TrakfirePlayer = React.createClass({
                         img={currTrack ? currTrack.img_url : ''}
                         artist={currTrack ? currTrack.artist : ''}
                         title={currTrack ? currTrack.title : ''}
+                        post = {currTrack}
                     />
                     </div>
 
