@@ -1090,6 +1090,14 @@ th.upvote-col {
 	
 }
 
+.tf-filter-bar .tf-today-header {
+	margin-left: 72px;
+}
+
+.tf-filter-bar .tf-filter-list {
+	margin-right: 72px;
+}
+
 .tf-filter-bar a{
 	font-family: "Benton Sans Black", sans-serif;
 	text-transform: uppercase;
@@ -3094,6 +3102,11 @@ label.ownsong-label {
 	background-color: #191818;
 	border: 1px solid #2b2b2b;
 	height: 180px;
+	left: -105px;
+    position: absolute;
+    top: -190px;
+    z-index: 100;
+    border-radius: 5px;
 }
 
 .tf-user-flyover .arrow:after {
@@ -3106,32 +3119,41 @@ label.ownsong-label {
 	padding: 0px;
 }
 
+.user-flyover-profile-info {
+	height: 85px;
+}
+
 .user-flyover-content {
-    padding: 15px;
+     padding: 15px 0px 0px 0px;
     text-align: center;
     height: 100%;
     width: 100%;
 }
 
 .user-flyover-profile-image img {
-	margin: 0px !important;
+	margin: 0px 5px 0px 5px !important;
 }
 
 .user-flyover-profile-name {
     font-size: 14px;
-    margin: 5px;
     font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.user-flyover-follow-btn {
+	padding-left: 45px;
+	float: left;
 }
 
 .user-flyover-follow-btn .tf-follow-button{
 	color: #FFFFFF;
-    position: absolute;
+    position: relative;
     width: 78px;
     height: 28px;
     text-align: center;
-    padding: 5px;
-    font-size: 11px;
-    margin-left: 45px;
+    padding: 3px;
+    font-size: 12px;
+    margin: 9px !important;
 }
 
 .user-flyover-profile-bio {
@@ -3141,4 +3163,14 @@ label.ownsong-label {
     line-height: 14px;
     font-size: 13px;
     overflow: hidden !important;
+}
+
+.arrow-down {
+	border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-top: 10px solid #252525;
+    height: 0;
+    position: relative;
+    top: 11px;
+    width: 0;
 }
