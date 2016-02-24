@@ -545,6 +545,10 @@ th.upvote-col {
 	display: none !important;
 }
 
+.tf-search-item-content:hover .tf-post-item--img .tpf-play-button img{
+	display: block !important;
+}
+
 .tf-current-trak-content .tf-post-title {
 	padding: 80px 50px !important;
 	line-height: 22px;
