@@ -108,6 +108,7 @@ var TrakfireApp = React.createClass({
     this.readPostsFromApi();
     //SongActions.setSongList({});
     scPlayer.on('ended', this.onTrackEnded);
+    $(document).on("ReactComponent:TrakfireApp:showModal", this.showModal);
     //console.log("POSTS RECIEVED", this.props.allPosts);
   },
   componentWillUnmount: function() {
@@ -121,7 +122,7 @@ var TrakfireApp = React.createClass({
     if(this.state.isPlaying && !_persist) {
       _persist = true;
     }
-  }, 
+  },
 
   onTrackEnded: function() {
       //console.log(scPlayer.track.title + ' just ended!');
@@ -216,6 +217,7 @@ var TrakfireApp = React.createClass({
   },
 
   showModal: function(showState) {
+    console.log("Test showModal");
     this.setState({showModal:showState});
   }, 
 

@@ -20,20 +20,25 @@ var UserFlyOverContent = React.createClass({
 		user: ReactPropTypes.object,
 		origin: ReactPropTypes.string
 	},
-
+	
     handle_follow_click: function(event) {
 
-        var currentUser_followings = [];
-        for(var key in this.state.currentUser.followings) {
-            currentUser_followings.push(this.state.currentUser.followings[key].id);
-        }
+    	if( this.state.currentUser !== null || sessionStorage.getItem('jwt') !== null ) {
+			var currentUser_followings = [];
+	        for(var key in this.state.currentUser.followings) {
+	            currentUser_followings.push(this.state.currentUser.followings[key].id);
+	        }
 
-        if(currentUser_followings.indexOf(this.state.user.id) > -1) {
-            this.unFollowUser(this.state.user.id);
-        } else {
-            this.followUser(this.state.user.id); 
-        }
-
+	        if(currentUser_followings.indexOf(this.state.user.id) > -1) {
+	            this.unFollowUser(this.state.user.id);
+	        } else {
+	            this.followUser(this.state.user.id); 
+	        }
+    	} else {
+    		// If user is not logged in and if he clicks on Follow User button
+    		// then forced user to login in to site to follow the user
+    		$(document).trigger("ReactComponent:TrakfireApp:showModal");
+    	}
     },
 
 	followUser: function(follow_id) {
@@ -53,25 +58,35 @@ var UserFlyOverContent = React.createClass({
     },
 
 	render: function() {
-		if ( this.state.currentUser !== undefined && this.state.currentUser !== null && this.state.currentUser.id !==  this.state.user.id) {
-			var currentUser_followings = [];
-	        
-	        for(var key in this.state.currentUser.followings) {
-	            currentUser_followings.push(this.state.currentUser.followings[key].id);
-	        }
+		var follow_text = "", className = "";
 
-	        if(currentUser_followings.indexOf(parseInt(this.state.user.id)) > -1) {
-                follow_text = "Following";
-                className = "button tf-follow-button";
-            } else {
-                follow_text = "Follow";
-                className = "button tf-follow-button tf-background";
-            }
+		if ( sessionStorage.getItem('jwt') !== '' && this.state.currentUser !== null) {			
+			if(this.state.currentUser.id !==  this.state.user.id) {
+				var currentUser_followings = [];
+	        
+		        for(var key in this.state.currentUser.followings) {
+		            currentUser_followings.push(this.state.currentUser.followings[key].id);
+		        }
+
+		        if(currentUser_followings.indexOf(parseInt(this.state.user.id)) > -1) {
+	                follow_text = "Following";
+	                className = "button tf-follow-button";
+	            } else {
+	                follow_text = "Follow";
+	                className = "button tf-follow-button tf-background";
+	            }
+				var follow_btn_Html = <div className = "user-flyover-follow-btn">
+	            						<div className={className} style={followBtnStyle} onClick={this.handle_follow_click}> {follow_text} </div>
+	        						</div>;
+			} else {
+				var follow_btn_Html = <div></div>;
+			}
+		} else {
+			follow_text = 'Follow';
+			className = "button tf-follow-button tf-background";
 			var follow_btn_Html = <div className = "user-flyover-follow-btn">
             						<div className={className} style={followBtnStyle} onClick={this.handle_follow_click}> {follow_text} </div>
-        						</div>
-		} else {
-			var follow_btn_Html = <div></div>
+        						</div>;
 		}
 
 		if( this.state.user !== null ) {
