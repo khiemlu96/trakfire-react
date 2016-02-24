@@ -1,13 +1,15 @@
 var React = require('react');
 var PostActions = require('../actions/PostActions');
 var ReactPropTypes = React.PropTypes;
+var Link = require('react-router').Link;
 
 var TrakfirePlayerInfo = React.createClass({
 
   propTypes: {
     img: ReactPropTypes.string,
     artist: ReactPropTypes.string,
-    title: ReactPropTypes.string
+    title: ReactPropTypes.string,
+    post: ReactPropTypes.object
   },
   
   /**
@@ -18,13 +20,15 @@ var TrakfirePlayerInfo = React.createClass({
    // console.log('RENDER TRACK INFO', this.props );
     return (
       <div className="tf-player-info">
-        <img className="tf-player-info-img" src={this.props.img}></img>
-        <div className="tf-player-info-text">
-          <div>
-            <p>{this.props.title}</p>
-            <p>{this.props.artist}</p>
+        <Link to={'/post/'+ this.props.post.id}>
+          <img className="tf-player-info-img" src={this.props.img}></img>
+          <div className="tf-player-info-text">
+            <div>
+              <p>{this.props.title}</p>
+              <p>{this.props.artist}</p>
+            </div>
           </div>
-        </div>
+        </Link>
       </div>
     );
   },

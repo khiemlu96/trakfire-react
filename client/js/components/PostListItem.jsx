@@ -137,8 +137,8 @@ var PostListItem = React.createClass({
     var aImg = this.props.post.author_img;
     var aName = this.props.post.author_name;
 
-    return(<div><Link to={'/profile/'+aId} className="tf-link"><UserFlyOver user = {this.props.post.user} origin={this.props.origin} /></Link></div>);
-  }, 
+    return(<div><UserFlyOver user = {this.props.post.user} origin={this.props.origin} /></div>);
+  },
 
   /**
    * @return {object}
@@ -158,36 +158,38 @@ var PostListItem = React.createClass({
     }
     var first = (this.props.first) ? isFirstNotPlaying : isNotPlaying;
     return (
-      <li className={first} ref="post">
-        <div className="tf-post-item-content">
-          <div className="tf-post-item--rank">{parseInt(this.props.rank) + 1}</div>
-          <div className={ upvoted ? isUpvoted : isNotUpvoted} ref="upvotes" onClick={this.upvote}>
-          <span className={upvoted ? "" : "tf-hide"} ref="count"><b>{upvoted ? _localVoteCount : post.vote_count}</b></span>
+      <li className={first} ref="post">  
+        <Link to={'/post/'+post.id}>    
+          <div className="tf-post-item-content">
+            <div className="tf-post-item--rank">{parseInt(this.props.rank) + 1}</div>
+            <div className={ upvoted ? isUpvoted : isNotUpvoted} ref="upvotes" onClick={this.upvote}>
+            <span className={upvoted ? "" : "tf-hide"} ref="count"><b>{upvoted ? _localVoteCount : post.vote_count}</b></span>
+            </div>
+            <div className="tf-post-item--img"> 
+              <div className="tf-post-play" onClick={this.playPauseTrack}>
+                <img className="tf-thumbnail" src={ img ? img : "assets/img/tf_placeholder.png" }/>
+              </div>
+              <div className="tf-overlay" onClick={this.playPauseTrack}> 
+              </div> 
+              <div className="tpf-play-button" onClick={this.playPauseTrack}> 
+                <img src={'assets/img/player-play-white.svg'} /> 
+              </div> 
+              <div className="tpf-pause-button" onClick={this.playPauseTrack}> 
+                <img src={'assets/img/player-pause-white.svg'} /> 
+              </div> 
+            </div>
+            <div className="tf-post-item--info">
+              <h5>{ post.title }</h5>
+              <small> {post.artist} </small>
+            </div>
+            <div className="tf-post-item--author">
+              {this.renderAuthor()}
+            </div>
+            <div className="tf-post-item--tags">
+              {this.renderTags()}
+            </div>
           </div>
-          <div className="tf-post-item--img"> 
-            <a href="#!" className="tf-post-play" onClick={this.playPauseTrack}>
-              <img className="tf-thumbnail" src={ img ? img : "assets/img/tf_placeholder.png" }/>
-            </a>
-            <div className="tf-overlay" onClick={this.playPauseTrack}> 
-            </div> 
-            <div className="tpf-play-button" onClick={this.playPauseTrack}> 
-              <img src={'assets/img/player-play-white.svg'} /> 
-            </div> 
-            <div className="tpf-pause-button" onClick={this.playPauseTrack}> 
-              <img src={'assets/img/player-pause-white.svg'} /> 
-            </div> 
-          </div>
-          <div className="tf-post-item--info">
-            <Link to={'/post/'+post.id}> <h5>{ post.title }</h5> </Link> 
-            <small> {post.artist} </small>
-          </div>
-          <div className="tf-post-item--author">
-            {this.renderAuthor()}
-          </div>
-          <div className="tf-post-item--tags">
-            {this.renderTags()}
-          </div>
-        </div>
+        </Link>      
       </li>
     );
   }
