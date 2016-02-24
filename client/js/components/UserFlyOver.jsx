@@ -57,9 +57,9 @@ var UserFlyOver = React.createClass({
 
 	hideFlyOver: function() {
 		var self = this;
-		/*setTimeout(function () {
+		setTimeout(function () {
 			self.hide();
-		}, 100);*/
+		}, 100);
 	},
 	renderUserProfile: function(event){
 	    event.preventDefault();
