@@ -99,9 +99,6 @@ var NavBar = React.createClass({
 
   handleSignOut: function() {
     localStorage.setItem('jwt','');
-    //window.location.assign("localhost:8080");
-   // transitionTo
-   //location = "/";
   },
 
   showModal: function() {

@@ -30,9 +30,9 @@ var ProfilePage = React.createClass({
         componentDidMount: function() {
             UserStore.addChangeListener(this._onChange);
             var userid = this.props.params.id;
-            this.setState({userid:userid});
             this.getUser(userid);
             var user = this.state.user;
+            this.setState({userid:userid, user:user});
             if (user) {
                 mixpanel.identify(userid);
                 mixpanel.track("Arrived on profile " + user.handle + "'s page {" + userid + "}");
@@ -77,7 +77,7 @@ var ProfilePage = React.createClass({
             
             if(user !== null) {
                 for(var key in user.followers) {
-                    if(user.followers[key].id === this.props.currUser.id) {
+                    if(this.props.currUser && user.followers[key].id === this.props.currUser.id) {
                         isFollowing = true;                        
                     }
                 }
@@ -98,7 +98,7 @@ var ProfilePage = React.createClass({
                         onUserFollowClick={this.followUser}
                         onUnFollowClick={this.unFollowUser}
                         isFollowing={isFollowing}
-                        currentUserId={this.props.currUser.id} />                    
+                        currentUserId={this.state.userid} />                    
                     
                     <ProfileEditPage
                         user= {user} 
