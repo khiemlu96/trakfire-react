@@ -1970,6 +1970,7 @@ label.ownsong-label {
 .tf-player-info-text {
 	display: inline-block;
 	vertical-align: middle;
+	width: 250px;
 }
 
 .tf-player-info-text p {
@@ -1977,6 +1978,7 @@ label.ownsong-label {
 	line-height: 1em;
 	margin-bottom: 5px;
 	color: #FFFFFF;
+	white-space: nowrap;
 }
 
 .tf-player-info-text .tf-player-title-info {
