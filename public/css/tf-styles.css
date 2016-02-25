@@ -3123,7 +3123,7 @@ label.ownsong-label {
 .user-flyover-container {
 	text-align: center;
 	height: 160px;
-	padding: 0px;
+	padding: 2px;
 }
 
 .user-flyover-profile-info {
@@ -3145,6 +3145,8 @@ label.ownsong-label {
     font-size: 14px;
     font-weight: 600;
     margin-bottom: 5px;
+    height: 20px;
+    overflow: hidden;
 }
 
 .user-flyover-follow-btn {

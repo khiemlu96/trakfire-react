@@ -33,17 +33,15 @@ var UserFlyOver = React.createClass({
 	},	
 
 	show: function() {
-		var self = this;
-		if(self.state.showCard !== true) {
-			self.setState({
+		if(this.state.showCard !== true) {
+			this.setState({
 				showCard: true
 			});
 		}		
 	},
 
 	hide: function() {
-		var self = this;
-		self.setState({
+		this.setState({
 			showCard: false
 		})
 	},
@@ -61,20 +59,26 @@ var UserFlyOver = React.createClass({
 			self.hide();
 		}, 100);
 	},
+
 	renderUserProfile: function(event){
 	    event.preventDefault();
-	    var self = this;
-	    var aId = self.props.user.id;
+	    var aId = this.props.user.id;
 	    location = '#/profile/'+aId;
   	},
-	render: function() {
-		var self = this;
-		var userId = self.props.user.id;
-		var userImg = self.props.user.img;
 
-		if(self.state.showCard === true) {
-			var userFlyOver = <div style={flyOverStyle} onMouseOver={self.showFlyOver} className="tf-user-flyover col-md-4">
-					<UserFlyOverContent origin = {self.props.origin} user = {self.props.user} />
+  	onClick: function(event) {
+  		event.preventDefault();
+  		var aId = this.props.user.id;
+	    location = '#/profile/'+aId;
+  	},
+
+	render: function() {
+		var userId = this.props.user.id;
+		var userImg = this.props.user.img;
+
+		if(this.state.showCard === true) {
+			var userFlyOver = <div style={flyOverStyle} onMouseOver={this.showFlyOver} className="tf-user-flyover col-md-4">
+					<UserFlyOverContent origin = {this.props.origin} user = {this.props.user} />
 					<center><div className="arrow-down"></div></center>
 				</div>;
 		} else {
@@ -82,9 +86,9 @@ var UserFlyOver = React.createClass({
 		}
 
 		return (
-          	<div className="user-flyover" onMouseOut={self.hideFlyOver}>
+          	<div className="user-flyover" onMouseOut={this.hideFlyOver} onClick={this.onClick}>
 				{userFlyOver}
-				<div onMouseOver={self.showFlyOver}>
+				<div onMouseOver={this.showFlyOver}>
 					<div className="tf-link" onClick={this.renderUserProfile}><img className='tf-author-img' src = {userImg}></img></div>
 				</div>
 			</div>
