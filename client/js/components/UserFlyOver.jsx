@@ -30,7 +30,7 @@ var UserFlyOver = React.createClass({
 	propTypes: {
 		user: ReactPropTypes.object,
 		origin: ReactPropTypes.string
-	},	
+	},
 
 	show: function() {
 		if(this.state.showCard !== true) {
@@ -40,36 +40,36 @@ var UserFlyOver = React.createClass({
 		}		
 	},
 
-	hide: function() {
-		this.setState({
-			showCard: false
-		})
+	hide: function() {		
+		if(this.state.showCard !== false) {
+			this.setState({
+				showCard: false
+			})
+		}
 	},
 
 	showFlyOver: function() {
 		var self = this;
-		setTimeout(function() { 
+		setTimeout(function() {
 			self.show();
-		}, 100);
+		}, 500);
 	},
 
 	hideFlyOver: function() {
 		var self = this;
 		setTimeout(function () {
 			self.hide();
-		}, 100);
+		}, 500);
 	},
 
 	renderUserProfile: function(event){
-	    event.preventDefault();
-	    var aId = this.props.user.id;
-	    location = '#/profile/'+aId;
+	    event.preventDefault();	    
+	    location = '#/profile/' + this.props.user.id;
   	},
 
   	onClick: function(event) {
   		event.preventDefault();
-  		var aId = this.props.user.id;
-	    location = '#/profile/'+aId;
+	    location = '#/profile/' + this.props.user.id;
   	},
 
 	render: function() {
@@ -77,19 +77,22 @@ var UserFlyOver = React.createClass({
 		var userImg = this.props.user.img;
 
 		if(this.state.showCard === true) {
-			var userFlyOver = <div style={flyOverStyle} onMouseOver={this.showFlyOver} className="tf-user-flyover col-md-4">
+			var userFlyOver = 
+				<div ref="userFlyOver" style={flyOverStyle} className="tf-user-flyover col-md-4" onClick={this.renderUserProfile}>
 					<UserFlyOverContent origin = {this.props.origin} user = {this.props.user} />
 					<center><div className="arrow-down"></div></center>
 				</div>;
 		} else {
-			var userFlyOver = <div></div>;
+			var userFlyOver = "";
 		}
 
 		return (
-          	<div className="user-flyover" onMouseOut={this.hideFlyOver} onClick={this.onClick}>
+          	<div className="user-flyover" onMouseOver = {this.showFlyOver} onMouseOut = {this.hideFlyOver} >
 				{userFlyOver}
-				<div onMouseOver={this.showFlyOver}>
-					<div className="tf-link" onClick={this.renderUserProfile}><img className='tf-author-img' src = {userImg}></img></div>
+				<div>
+					<div className="tf-link" onClick={this.renderUserProfile}>
+						<img className='tf-author-img' src={userImg}></img>
+					</div>
 				</div>
 			</div>
 		);

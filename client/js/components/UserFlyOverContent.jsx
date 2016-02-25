@@ -22,7 +22,7 @@ var UserFlyOverContent = React.createClass({
 	},
 
     handle_follow_click: function(event) {
-
+		event.preventDefault();
     	if( this.state.currentUser !== null || sessionStorage.getItem('jwt') !== null ) {
 			var currentUser_followings = [];
 	        for(var key in this.state.currentUser.followings) {

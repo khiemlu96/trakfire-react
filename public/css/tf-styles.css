@@ -3121,6 +3121,11 @@ label.ownsong-label {
     border-radius: 5px;
 }
 
+.user-flyover {
+	height: 25px;
+    width: 25px;
+}
+
 .tf-user-flyover .arrow:after {
 	border-top-color: #1C1C1C !important;
 }
