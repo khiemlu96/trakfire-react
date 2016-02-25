@@ -73,6 +73,11 @@ html, body {
 	background: url("../assets/img/player-backward.svg") no-repeat center;
 }
 
+.link-disabled {
+	cursor: not-allowed;
+	opacity: 0.25;
+}
+
 .tf-player-play {
 	width: 27px;
 	background: url("../assets/img/player-play.svg") no-repeat center;

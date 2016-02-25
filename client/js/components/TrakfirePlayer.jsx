@@ -48,7 +48,11 @@ var TrakfirePlayer = React.createClass({
     },
 
     handlePrevClick: function() {
-        this.props.onPrevClick();
+        if(this.props.currTrack.sortedIdx > 0) {
+            this.props.onPrevClick();
+        } else {
+            return false;
+        }       
     },
 
     handleNextClick: function() {
@@ -93,6 +97,12 @@ var TrakfirePlayer = React.createClass({
         var pause = <a className="tf-player-pause" href="#!" onClick={this.handlePlayPauseClick}></a>;
         var localUpvote = this.state.hasUpvoted; //pre refresh we upvoted this
         _localVoteCount = currTrack.vote_count + 1;
+
+        var previousLinkClass = " tf-player-backward ";
+        if(currTrack.sortedIdx === 0) {
+            previousLinkClass += " link-disabled ";
+        }
+
         return (
             <div className="tf-player-wrap">
                 <div className="tf-player-wrap-inner container">
@@ -100,7 +110,7 @@ var TrakfirePlayer = React.createClass({
                     { localUpvote ? _localVoteCount : currTrack.vote_count }
                     </div>
                     <div className="tf-player-controls-wrap">
-                    <a className="tf-player-backward" href="#!" onClick={this.handlePrevClick}></a>
+                    <a className={previousLinkClass} href="#!" onClick={this.handlePrevClick}></a>
                     {/*<a className="tf-player-play" href="#!" onClick={this.handlePlayPauseClick}>*/}
                     {!this.props.isPlaying ? play : pause}
                     
