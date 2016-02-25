@@ -128,7 +128,7 @@ var PostForm = React.createClass({
                        </span>
                      </Popover>
                    }>
-           <a>POST TRAK</a>
+           <a> + POST </a>
          </OverlayTrigger>
         </span>
 	   </span>
