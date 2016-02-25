@@ -20,15 +20,14 @@ var TrakfirePlayerInfo = React.createClass({
    // console.log('RENDER TRACK INFO', this.props );
     return (
       <div className="tf-player-info">
-        <Link to={'/post/'+ this.props.post.id}>
-          <img className="tf-player-info-img" src={this.props.img}></img>
+        
+          <Link to={'/post/'+ this.props.post.id}><img className="tf-player-info-img" src={this.props.img}></img></Link>
           <div className="tf-player-info-text">
             <div>
-              <p>{this.props.title}</p>
-              <p>{this.props.artist}</p>
+              <Link to={'/post/'+ this.props.post.id}><p className="tf-player-title-info">{this.props.title}</p></Link>
+              <Link to={'/post/'+ this.props.post.id}><p className="tf-player-artist-info">{this.props.artist}</p></Link>
             </div>
-          </div>
-        </Link>
+          </div>        
       </div>
     );
   },

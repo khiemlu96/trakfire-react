@@ -1966,10 +1966,17 @@ label.ownsong-label {
 	display: inline-block;
 	vertical-align: middle;
 }
+
 .tf-player-info-text p {
 	display: block;
 	line-height: 1em;
 	margin-bottom: 5px;
+	color: #FFFFFF;
+}
+
+.tf-player-info-text .tf-player-title-info {
+	text-transform: uppercase;
+	font-weight: 900;	
 }
 
 .tf-player-info-img {
