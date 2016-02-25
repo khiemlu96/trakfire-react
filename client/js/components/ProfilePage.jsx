@@ -98,7 +98,7 @@ var ProfilePage = React.createClass({
                         onUserFollowClick={this.followUser}
                         onUnFollowClick={this.unFollowUser}
                         isFollowing={isFollowing}
-                        currentUserId={this.props.currUser.id} />                    
+                        currentUserId={this.state.user.id} />                    
                     
                     <ProfileEditPage
                         user= {user} 
