@@ -49,14 +49,19 @@ var ProfileHeader = React.createClass({
     },
 
     follow_click: function() {
-        if(this.state.isFollowing === true) {
-            this.props.onUnFollowClick();
-        } else {
-            this.props.onUserFollowClick();            
-        }
-        this.setState({
-            isFollowing: !this.state.isFollowing
-        });
+        if(!this.props.currUser) {
+            $(document).trigger("ReactComponent:TrakfireApp:showModal");
+        } 
+        else {
+            if(this.state.isFollowing === true) {
+                this.props.onUnFollowClick();
+            } else {
+                this.props.onUserFollowClick();            
+            }
+            this.setState({
+                isFollowing: !this.state.isFollowing
+            });
+        }  
     },
 
     /**
@@ -76,15 +81,14 @@ var ProfileHeader = React.createClass({
             var follow_text = "Follow";
             followBtnStyle.backgroundColor = "#1C1C1C";
         }
-        console.log(followBtnStyle);
         var showEditLink = true;        
         followBtnStyle.display = 'none';
         
-        if(this.props.userId !== this.props.currentUserId) {
+        if(!this.props.currUser || this.props.userId !== this.props.currentUserId) {
             showEditLink = false;
             followBtnStyle.display = 'block';
         }
-
+        console.log("FOILLOW STYLE", followBtnStyle, this.props.currentUserId, this.props.userId);
         return ( 
             <div className = "tf-profile-wrapper" style={styleDisplay}>
                 <ProfileBar toggleProfileEdit = {this.props.toggleProfileEdit} showEditLink = {showEditLink} />
@@ -97,7 +101,7 @@ var ProfileHeader = React.createClass({
                         </div>
                         <div className="col-md-8 col-xs-8 col-sm-8">                    
                             <h1 className = "row tf-name" > {this.props.userName} </h1>
-                            <div className = "row tf-bio" > {this.props.userBio} The user profile page should open when user clicks on user image on trak row</div>
+                            <div className = "row tf-bio" > {this.props.userBio}</div>
                             
                             <div className = "row tf-social-icons" >
                                 <span>
