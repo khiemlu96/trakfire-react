@@ -25,7 +25,8 @@ var PostGridItem = React.createClass({
         post: ReactPropTypes.object,
         trackIdx: ReactPropTypes.number.isRequired,
         onClick: ReactPropTypes.func,
-        currStreamUrl: ReactPropTypes.string
+        currStreamUrl: ReactPropTypes.string,
+        showAuthor: ReactPropTypes.bool
     },
 
     getInitialState: function() {
@@ -75,7 +76,15 @@ var PostGridItem = React.createClass({
     render: function() {
         var post = this.props.post;
         var thisPlaying = (this.props.currStreamUrl == null || this.props.currStreamUrl == this.props.post.stream_url);
-        
+        if(this.props.showAuthor) {
+            var authorImg = <div className="tf-search-item-auth-img" ref="author_img">
+                                <span className="" ref="author_img">
+                                    <img className="author_img" src={ post.author_img ? post.author_img : "../assets/img/tf_placeholder.png" }/>
+                                </span>
+                            </div>
+        }
+        else { var authorImg = ''; }
+
         return ( 
             <li className = {(this.state.isPlaying && thisPlaying) ? isPlaying: isNotPlaying} ref = "post">
                 <div className="col-xs-12 col-md-4 col-sm-6">
@@ -109,11 +118,7 @@ var PostGridItem = React.createClass({
                                 <small> {post.artist } </small>
                             </div>                            
                         </div>
-                        <div className="tf-search-item-auth-img" ref="author_img">
-                            <span className="" ref="author_img">
-                                <img className="author_img" src={ post.author_img ? post.author_img : "../assets/img/tf_placeholder.png" }/>
-                            </span>
-                        </div> 
+                        { authorImg }
                         <div className="tf-post-item--tags">
                             {this.renderTags()}
                         </div>                      

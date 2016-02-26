@@ -45,14 +45,14 @@ var UserPostsGrid = React.createClass({
     var i = 0;
     for(key in upvoted) {
       var post = upvoted[key];
-      var item = <PostGridItem onClick={this.props.onPostItemClick} key={post.key} trackIdx={i} post={post} currStreamUrl={this.props.currStreamUrl}/>
+      var item = <PostGridItem onClick={this.props.onPostItemClick} key={post.key} trackIdx={i} post={post} currStreamUrl={this.props.currStreamUrl} showAuthor={true}/>
       upvotedPosts.push(item);
       i+=1;
     }
     i = 0;
     for(key in posted) {
       var post = posted[key];
-      var item = <PostGridItem onClick={this.props.onPostItemClick} key={post.key} trackIdx={i} post={post} currStreamUrl={this.props.currStreamUrl}/>
+      var item = <PostGridItem onClick={this.props.onPostItemClick} key={post.key} trackIdx={i} post={post} currStreamUrl={this.props.currStreamUrl} showAuthor={false}/>
       postedPosts.push(item);
     } 
     return (
