@@ -1519,6 +1519,33 @@ ul.tf-filter-bar-ul {
 	text-align: center;
 }
 
+.tf-newtrack-loader {
+	width: 585px;
+	height: 450px;
+	text-align: center;
+	padding: 190px;
+}
+
+.tf-newtrack-loader .loader-img {
+	height: 40px;
+	width: 40px;
+}
+
+.tf-newtrack-error {
+	width: 585px;
+	height: auto;
+	padding: 60px;
+	text-align: center;
+}
+
+.tf-newtrack-error .tf-newtrack-error-header {
+	color: #FF0000;
+}
+
+.tf-newtrack-error .tf-newtrack-error-content {
+	color: #FFFFFF;
+}
+
 .tf-newtrack-title {
 	font-family: "Benton Sans Black", sans-serif;
 	font-size: 20px;

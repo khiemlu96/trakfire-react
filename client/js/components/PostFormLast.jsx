@@ -15,7 +15,9 @@ var SearchContentStyle = {
 
 function getAppState() {
   return {
-    post: {}
+    error: null,
+    post: null,
+    loading: true
   };
 }
 var PostFormLast = React.createClass({
@@ -39,9 +41,29 @@ var PostFormLast = React.createClass({
       this.props.reset();
     }
   },
+
+  showError: function() {
+    this.props.isInitialLoad = false;
+    this.setState({
+      loading: false,
+      error: PostStore.getError()
+    });
+    console.log("Test 1 showError");
+  },
+
+  showTrackData: function() {
+    this.props.isInitialLoad = false;
+    this.setState({ 
+      loading: false, 
+      post : PostStore.getNewPost()
+    });
+  },
+
   componentDidMount: function() {
-    PostStore.addChangeListener(this._onChange);
+    //PostStore.addChangeListener(this._onChange);
     var postid = this.props;
+    $(document).on("ReactComponent:PostFormLast:showTrackData", this.showTrackData);
+    $(document).on("ReactComponent:PostFormLast:showError", this.showError);
     //this.getPost(postid);
   },
 
@@ -71,8 +93,8 @@ var PostFormLast = React.createClass({
   },
 
   render: function() {
-      var post = this.state.post;    
-      if (post != null)
+      var post = this.state.post; 
+      if (post != null && this.state.loading !== true)
       {
           return (
               <div className="tf-newtrack-wrapper">
@@ -126,17 +148,40 @@ var PostFormLast = React.createClass({
                 </div>
               </div>
           );
-      }
-      else{
-        return (<div></div>);
+      } else if(this.state.loading == true){
+          return (
+              <div className="tf-newtrack-loader">
+                  <center>
+                    <div className ="loader-img-container">
+                      <img className ="loader-img" src = "/assets/img/loading_spinner.gif"></img>
+                    </div>
+                  </center>
+              </div>
+          );
+      } else if(this.state.error !== null){
+          var error = this.state.error;
+          var errorMsg = error.response;
+
+          if(error.status === 422 && error.statusText === "Unprocessable Entity") {
+              errorMsg = "This url has already been taken";
+          }
+          return (
+              <div className="tf-newtrack-error">
+                  <div className="tf-newtrack-error-header">
+                      <center><h2>Error!!!</h2></center>
+                  </div>
+                  <div className="tf-newtrack-error-content">
+                      <center><h4>{errorMsg}</h4></center>
+                  </div>
+              </div>
+          );
       }
   },
 
-  _onChange: function() {
-    this.setState({post : PostStore.getNewPost()});
-    this.props.isInitialLoad = false;
-  }
+  /*_onChange: function() {   
 
+  }
+*/
 });
 
 module.exports = PostFormLast;

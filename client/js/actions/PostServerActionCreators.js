@@ -44,7 +44,8 @@ module.exports = {
     AppDispatcher.dispatch({
       actionType: PostConstants.RECIEVE_NEW_POST,
       response: response
-    });    
+    });
+    $(document).trigger("ReactComponent:PostFormLast:showTrackData"); 
   }, 
 
   recieveUserPosts: function(response) {
@@ -79,4 +80,12 @@ module.exports = {
       post_id: response.post_id
     });    
   },
+
+  showError: function(url, errorObj) {
+    AppDispatcher.dispatch({
+      actionType: PostConstants.ERROR_MESSAGE,
+      error: errorObj,
+    });    
+    $(document).trigger("ReactComponent:PostFormLast:showError");
+  }
 };

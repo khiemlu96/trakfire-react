@@ -26,6 +26,7 @@ var _genre = ["ELECTRONIC", "VOCALS", "HIPHOP"]; //"ALL";
 var _sort = "TOP";
 var _dayCount = 0; 
 var _current_new_post = {};
+var _error = {};
 
 function sortPostsByDate(posts) {
   var dates = {};
@@ -165,6 +166,10 @@ function _addPostComment(post_id, comment) {
   }
 }
 
+function _addErrorMessage(error) {
+  _error = error;
+}
+
 /**
  * Update all of the TODO items with the same object.
  * @param  {object} updates An object literal containing only the data to be
@@ -296,6 +301,10 @@ var PostStore = assign({}, EventEmitter.prototype, {
     this.emit(CHANGE_EVENT);
   },
 
+  getError: function() {
+    return _error;
+  },
+
   /**
    * @param {function} callback
    */
@@ -356,6 +365,8 @@ PostStore.dispatchToken = AppDispatcher.register(function(action) {
     case PostConstants.RECIEVE_NEW_COMMENT:
       _addPostComment(action.post_id, action.response);
       PostStore.emitChange();
+    case PostConstants.ERROR_MESSAGE:
+      _addErrorMessage(action.error);
     default:
       // no op
   }
