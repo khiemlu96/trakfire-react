@@ -39,7 +39,8 @@ var PostListItem = React.createClass({
    currStreamUrl: ReactPropTypes.string, 
    showModal: ReactPropTypes.func, 
    isFirst: ReactPropTypes.bool,
-   origin: ReactPropTypes.string
+   origin: ReactPropTypes.string, 
+   first: ReactPropTypes.bool
   },
 
   getInitialState: function() {
@@ -150,7 +151,7 @@ var PostListItem = React.createClass({
     var localUpvote = this.state.hasUpvoted; //pre refresh we upvoted this
     _localVoteCount = post.vote_count;
     var img;
-    if(this.props.first) {
+    if(this.props.isFirst) {
       img = post.img_url_lg;
       console.log("LARGE IMG", img);
     } else {
