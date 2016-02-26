@@ -302,7 +302,7 @@ var ProfilePage = React.createClass({
                     <div className="">
                       <div >
                         <i className="glyphicon glyphicon-fire tf-social-icons"></i> 
-                        <span><b>{voteCount = getLength(post.votes)} &nbsp;friends</b></span>
+                        <span>&nbsp;<b>{voteCount = getLength(post.votes) - 1 } &nbsp;people</b></span>
                         <span>&nbsp;&nbsp;upvoted</span>
                       </div>
                       <div>
@@ -380,14 +380,16 @@ var ProfilePage = React.createClass({
     var votes = post.votes;
     var voteHtml = [];
     for(key in votes) {
-      voteHtml.push(
-        /*<a className="tf-link" href={"/profile/" + votes[key].user.id} >
-          <img className="tf-author-img" src={votes[key].user.img} />
-        </a>*/
-        <Link to={'/profile/'+votes[key].user.id}> 
-          <UserFlyOver user = {votes[key].user} origin={this.props.origin} />
-        </Link>
-      );                              
+      if(votes[key].user.id != post.author_id) {
+        voteHtml.push(
+          /*<a className="tf-link" href={"/profile/" + votes[key].user.id} >
+            <img className="tf-author-img" src={votes[key].user.img} />
+          </a>*/
+          <Link to={'/profile/'+votes[key].user.id}> 
+            <UserFlyOver user = {votes[key].user} origin={this.props.origin} />
+          </Link>
+        );
+      }                              
     }
     return (voteHtml);
   },
