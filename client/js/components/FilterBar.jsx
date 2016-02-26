@@ -159,7 +159,7 @@ var FilterBar = React.createClass({
             </a>              
             <a href="#!" ref="hiphop" className={(_genre.indexOf("HIPHOP") > -1 ) ? "is-active " : "is-non-active" } 
               onClick={this.handleHipHopClick} >
-              <li>Hiphop</li>
+              <li>Rhymes</li>
             </a>    
             <a href="#!" ref="vocal" className={(_genre.indexOf("VOCALS") > -1 ) ? "is-active tf-right-filter" : "is-non-active tf-right-filter" } 
               onClick={this.handleVocalsClick} >

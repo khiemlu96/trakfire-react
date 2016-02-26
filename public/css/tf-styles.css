@@ -793,9 +793,9 @@ th.upvote-col {
 
 .tf-post-item--first .tpf-pause-button img {
 	position: absolute;
-    top: 120px;
+    top: 85px;
     display: none;
-    left: 100px;
+    left: 190px;
     cursor: pointer;
     border-radius: 33px;
     padding: 13px;
