@@ -453,7 +453,8 @@ var TrakfireApp = React.createClass({
       this.setState({
         currTrack:next, 
         currStreamUrl:next.stream_url,
-        currSongIdx: next.sortedIdx
+        currSongIdx: next.sortedIdx,
+        isPlaying: true
       });
       scPlayer.play({streamUrl: next.stream_url});
   }, 
@@ -464,7 +465,8 @@ var TrakfireApp = React.createClass({
       this.setState({
         currTrack:next, 
         currStreamUrl:next.stream_url,
-        currSongIdx: next.sortedIdx
+        currSongIdx: next.sortedIdx,
+        isPlaying: true
       });
       scPlayer.play({streamUrl: next.stream_url});
   }, 
