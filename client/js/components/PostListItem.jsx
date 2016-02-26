@@ -151,7 +151,7 @@ var PostListItem = React.createClass({
     var localUpvote = this.state.hasUpvoted; //pre refresh we upvoted this
     _localVoteCount = post.vote_count;
     var img;
-    if(this.props.isFirst) {
+    if(this.props.first) {
       img = post.img_url_lg;
       console.log("LARGE IMG", img);
     } else {
