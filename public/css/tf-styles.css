@@ -3232,8 +3232,9 @@ label.ownsong-label {
 	border-left: 15px solid transparent;
     border-right: 15px solid transparent;
     border-top: 10px solid #252525;
+    bottom: -10px;
     height: 0;
-    position: relative;
-    top: 11px;
+    left: 100px;
+    position: absolute;
     width: 0;
 }
