@@ -17,13 +17,19 @@ var OverlayTrigger = Bootstrap.OverlayTrigger;
 var Popover = Bootstrap.Popover;
 var UserStyle = { maxWidth:480, backgroundColor: '#1c1c1c', border:'1px solid #2b2b2b'};
 var UserFlyOver = require('./UserFlyOver.jsx');
+var classNames = require('classnames');
+var isUpvoted = classNames("tf-post-item--votes is-upvoted");
+var isNotUpvoted = classNames("tf-post-item--votes");
 
 function getAppState() {
   return {
     post: PostStore.getSinglePost(),
     currUser: UserStore.getCurrentUser(),
     isPlaying: false,
-    toggle:false
+    toggle:false,
+    hasUpvoted:false,
+    isUpvoted:false,
+    isLoggedIn: UserStore.isSignedIn()
   };
 }
 
@@ -56,7 +62,7 @@ function randomIntFromInterval(min,max) {
     return Math.floor(Math.random()*(max-min+1)+min);
 }
 
-var ProfilePage = React.createClass({
+var PostDetailPage = React.createClass({
 
   propTypes : {
     onPostItemClick: ReactPropTypes.func, //Playability
@@ -230,14 +236,46 @@ var ProfilePage = React.createClass({
   onProgressClick: function(millipos) {
     scPlayer.seekTo(millipos);
   },
+  
+  hasUpvoted: function(post) {
+    if(this.state.isLoggedIn && post.id !== undefined){
+      //console.log("POST TO UPVOTE", post);
+      var exists = post.voters.indexOf(this.props.currUser.id);
+      //console.log(post.id, exists);
+      return (exists != -1) ? true : false;
+    }
+  },
+
+  upvote: function() {
+    var post = this.state.post;
+    mixpanel.identify(this.state.currUser.id);
+    mixpanel.track("Upvote", {
+      "Title" : post.title,
+      "id" : post.id,
+      "artist" : post.artist,
+      "vote count" : post.vote_count
+    });
+
+    if(this.state.isLoggedIn && !this.hasUpvoted(post)){
+      PostActions.upvote(this.props.origin+'/votes', post.id);
+      var count = this.refs.count.getDOMNode();
+      var upvotes = this.refs.upvotes.getDOMNode();
+      upvotes.className = isUpvoted;
+      count.className = "";
+
+      this.setState({hasUpvoted:true});
+    } else if(!this.state.isLoggedIn) {
+      this.props.showModal(true);
+    }
+  },
 
   renderPost: function(){
 
     var post = this.state.post;
-    console.log("IMG URL LG", post);
     var active = this.state.isActive;
     var playing = this.state.isPlaying;
     var currTrack = this.state.currTrack;
+    var upvoted = this.hasUpvoted(post);
 
     var tfPlayer = <TrakfirePlayerProgress
                             duration={ post ? parseInt(post.duration) : 0 }
@@ -256,9 +294,9 @@ var ProfilePage = React.createClass({
     return <div className='tf-current-trak-top-panel container'>
             <div className="tf-current-trak col-md-12">
               <div className="tf-current-trak-content">
-                <a className="tf-trak-detail-vote" href="/post/11">
-                  <div className="tf-post-item--votes" >
-                    <span className="" ref="count">{post.vote_count}</span>
+                <a className="tf-trak-detail-vote">
+                  <div className="tf-post-item--votes"  className={ upvoted ? isUpvoted : isNotUpvoted} ref="upvotes" onClick={this.upvote}>
+                    <span className={upvoted ? "" : "tf-hide"} ref="count" className="">{post.vote_count}</span>
                   </div>
                 </a>
                 <div className="tf-post-item--img col-md-3">
@@ -449,5 +487,5 @@ var ProfilePage = React.createClass({
 
 });
 
-module.exports = ProfilePage;
+module.exports = PostDetailPage;
 

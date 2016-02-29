@@ -41,6 +41,7 @@ class VotesController < ApplicationController
 			end
 		end
 
+		@vote.user = @current_user.id
 		render json: @vote
 	  else
 		render json: @vote.errors, status: :unprocessable_entity

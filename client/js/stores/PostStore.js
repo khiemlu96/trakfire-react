@@ -141,8 +141,13 @@ function _addPostsToUser(userPosts) {
   _uposts['posted'] = userPosts.posted;
 }
 
-function _addVoteToPost(post_id) {
-  _posts[post_id].votes+=1;
+function _addVoteToPost(post_id, vote) {
+  _posts[post_id].vote_count += 1;  
+  if( _singlePost !== undefined ) {
+    _singlePost.votes.push(vote);
+    _singlePost.voters.push(vote.user_id);
+    _singlePost.vote_count += 1;
+  }  
 }
 
 function _markPostAsCurrent(song_id) {
@@ -346,8 +351,8 @@ PostStore.dispatchToken = AppDispatcher.register(function(action) {
       PostStore.emitChange();
       break;
     case PostConstants.RECIEVE_NEW_VOTE:
-      console.log('RECIEVE_NEW_VOTE', action.reponse);
-      _addVoteToPost(action.post_id);
+      console.log('RECIEVE_NEW_VOTE', action.response);
+      _addVoteToPost(action.post_id, action.response);
       PostStore.emitChange();
       break;
     case PostConstants.FILTER_POSTS:
