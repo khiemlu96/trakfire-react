@@ -629,6 +629,11 @@ th.upvote-col {
 
 .tf-current-trak-vote-section .tf-auther-panel {
 	padding: 5px !important;
+	display: inline-flex;
+}
+
+.tf-current-trak-vote-section .tf-auther-panel a {
+	margin-left: 5px;
 }
 
 .tf-comment-count-section {
