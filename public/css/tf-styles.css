@@ -3158,7 +3158,7 @@ label.ownsong-label {
 	background-color: #191818;
 	border: 1px solid #2b2b2b;
 	height: 180px;
-	left: 10px;
+	left: -105px;
     position: absolute;
     top: -190px;
     z-index: 100;
