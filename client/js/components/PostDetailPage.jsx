@@ -340,7 +340,7 @@ var PostDetailPage = React.createClass({
                     <div className="">
                       <div >
                         <i className="glyphicon glyphicon-fire tf-social-icons"></i> 
-                        <span>&nbsp;<b>{voteCount = getLength(post.votes) - 1 } &nbsp;people</b></span>
+                        <span>&nbsp;<b>{voteCount = getLength(post.votes)} &nbsp;people</b></span>
                         <span>&nbsp;&nbsp;upvoted</span>
                       </div>
                       <div>
