@@ -28,6 +28,7 @@ var ProfileHeader = React.createClass({
         userTwitterLink: ReactPropTypes.string,
         userBio: ReactPropTypes.string,
         userFacebookLink: ReactPropTypes.string,
+        userScloudLink:  ReactPropTypes.string,
         userImg: ReactPropTypes.string,
         isVisible:  ReactPropTypes.bool,
         toggleProfileEdit: ReactPropTypes.func,
@@ -107,8 +108,8 @@ var ProfileHeader = React.createClass({
                                 <span>
                                     <div className="tf-btn-follow btn btn-primary col-md-6" onClick={this.follow_click} style={followBtnStyle}>{follow_text}</div>
                                     <div className="col-md-6">
-                                        <a href = {this.props.userTwitterLink} target = "_blank" >
-                                            <img src="../assets/img/facebook_share.svg"></img>
+                                        <a href = {this.props.userScloudLink} target = "_blank" >
+                                            <img src="https://cdn2.iconfinder.com/data/icons/minimalism/512/soundcloud.png"></img>
                                         </a>
                                         <a href = {this.props.userTwitterLink} target = "_blank" >
                                             <img src = "../assets/img/twitter_share.svg"> </img> 

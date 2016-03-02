@@ -92,8 +92,8 @@ var ProfileEdit = React.createClass({
                                 <input type="text" name="email" ref="email" value={this.state.user.email} onChange={this.onChange}></input>
                             </div>
                             <div className="col-md-4 col-sm-4 col-xs-4 second-section"> 
-                                <label> FACEBOOK.COM/ </label>
-                                <input type="text" name="facebook_url" ref="facebook_url" value="" disabled></input>
+                                <label> SOUNDCLOUD.COM/ </label>
+                                <input type="text" name="soundCloud_url" ref="soundCloud_url" value={user.handle} disabled></input>
                                 <label> TWITTER.COM/ </label>
                                 <input type="text" name="twitter_url" ref="handle" value={user.handle} disabled></input>
                             </div>
