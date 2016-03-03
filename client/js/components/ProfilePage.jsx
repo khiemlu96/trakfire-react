@@ -37,6 +37,7 @@ var ProfilePage = React.createClass({
                 mixpanel.identify(userid);
                 mixpanel.track("Arrived on profile " + user.handle + "'s page {" + userid + "}");
             }
+            window.scrollTo(0,0);
         },
 
         componentDidUnmount: function() {
@@ -46,7 +47,6 @@ var ProfilePage = React.createClass({
         getUser: function(userid) {
             UserActions.getUser(this.props.origin + '/users/' + userid + '/', userid);
         },
-
 
         onPostListItemClick: function(pid) {
             this.props.onPostItemClick(pid);
@@ -84,6 +84,8 @@ var ProfilePage = React.createClass({
             }
 
             if(!user) { return (<div> Loading </div>); }
+
+            var scloudurl =  "https://soundcloud.com/" + user.handle;
             return (
                 <div>                   
                     
@@ -93,6 +95,7 @@ var ProfilePage = React.createClass({
                         userBio={user.bio}
                         userImg={user.img}
                         userTwitterLink={user.twturl}
+                        userScloudLink = {scloudurl}
                         isVisible= {!this.state.showEditProfileWrapper}
                         toggleProfileEdit={this.toggleProfileEdit} 
                         onUserFollowClick={this.followUser}
