@@ -1256,6 +1256,11 @@ ul.tf-filter-bar-ul {
 	margin-top: 146px;
 }
 
+.tf-posts-load-more-section {
+	text-align: center;
+	text-transform: uppercase;
+}
+
 /**************** START OF PROFILE PAGE ****************/
 
 .tf-profile-wrapper {

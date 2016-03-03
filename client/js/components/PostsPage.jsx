@@ -16,6 +16,7 @@ var PostList = require('./PostList.jsx');
 var FilterBar = require('./FilterBar.jsx');
 var PostActions = require('../actions/PostActions');
 var SongActions = require('../actions/SongActions');
+var page_count = 0;
 
 function getAppState() {
   return {
@@ -61,12 +62,34 @@ var PostsPage = React.createClass({
     console.log("PROPS", this.props);
     console.log("POSTPAGE POSTS", this.state.posts);
     //console.log("POSTPAGE MOUNT ", this.state.posts);
+
+    // On scrolling to the bottom of the Home page 
+    // call the load posts for next date
+    document.addEventListener('scroll', this.getMorePosts);
+  },
+
+  getMorePosts: function(event) {
+      // Get the scroll position on window
+      var bodyScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+      
+      if (document.body.scrollHeight === bodyScrollTop +  window.innerHeight) {
+          var url = this.props.origin + '/posts';
+          page_count += 1;
+          var data = {
+              page: page_count,
+              limit: 10
+          };
+          // Load more post for next subsequent day         
+          PostActions.loadMorePosts(url, data);
+      }
   },
 
   componentWillUnmount: function() {
     PostStore.removeChangeListener(this._onChange);
     UserStore.removeChangeListener(this._onChange);
     SongStore.removeChangeListener(this._onChange);
+    
+    document.removeEventListener('scroll', this.getMorePosts);
   }, 
 
   upvote: function(postid) {

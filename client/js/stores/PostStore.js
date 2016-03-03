@@ -175,6 +175,12 @@ function _addErrorMessage(error) {
   _error = error;
 }
 
+function _addLoadMorePosts(posts) {
+  for(key in posts) {
+    _addPost(posts[key]);
+  }  
+}
+
 /**
  * Update all of the TODO items with the same object.
  * @param  {object} updates An object literal containing only the data to be
@@ -372,6 +378,9 @@ PostStore.dispatchToken = AppDispatcher.register(function(action) {
       PostStore.emitChange();
     case PostConstants.ERROR_MESSAGE:
       _addErrorMessage(action.error);
+    case PostConstants.GET_MORE_POSTS:
+      _addLoadMorePosts(action.response);
+      PostStore.emitChange();
     default:
       // no op
   }

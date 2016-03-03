@@ -22,6 +22,7 @@ var _dayCount = 0;
 var _init = false;
 var _songList = {};
 var _songsSet = false;
+var postCountByDates = [];
 
 function sortPostsByDate(posts) {
   var dates = {};
@@ -108,6 +109,14 @@ function getSongList(posts) {
     return songList;
 }
 
+function getPostCountByDates(posts) {
+    var count_arr = [];
+    for(key in posts) {
+        count_arr[key] = getLength(posts[key]);
+    }
+    return count_arr;
+}
+
 var PostsList = React.createClass({
 
   propTypes: {
@@ -192,6 +201,40 @@ var PostsList = React.createClass({
       return (exists != -1) ? true : false;
   },
 
+  // load more post for each day
+  loadMorePosts: function(event) {
+    var testDate = new Date(event.currentTarget.id);
+    var date = moment(testDate).format('MM/DD/YYYY');
+    
+    // get total count of posts for that day 
+    // to get next subsequent post
+    var count = postCountByDates[event.currentTarget.id];
+
+    var url = this.props.origin + '/posts';
+
+    //get next subsequent posts for that day
+    var data = {
+        offset: count,
+        limit: 10,
+        date: date
+    };
+
+    //load the posts
+    PostActions.loadMorePosts(url, data);
+  },
+
+  //render load more link below each day
+  renderPostLoadMoreLink: function(date) {
+      return ( 
+          <div className = "row tf-posts-load-more-section">
+              <span>LOAD MORE FOR &nbsp;
+                  <a onClick = {this.loadMorePosts} id = {date} className = "tf-link tf-load-more-link"> {date} </a>  
+                  <a className = "tf-link tf-load-more-link"> &#9660; </a>
+              </span>
+          </div>
+      );
+  },
+
   renderPostsByDate: function(dates, posts) {
     //console.log(posts, dates);
     //console.log("USER", UserStore.isSignedIn(), UserStore.getCurrentUser());
@@ -259,6 +302,10 @@ var PostsList = React.createClass({
           songList[songCount] = array[key];
           songCount+=1;          
         }
+        //only render the load more link if there is more to load for that day
+        if(array.length > 10) {
+          container.push(this.renderPostLoadMoreLink(dates[date]));
+        }
       }
     /*console.log("setting the song list breh", songList);
     if(songCount > 0 && !_songsSet) {
@@ -283,6 +330,8 @@ var PostsList = React.createClass({
     var dates = postsByDate[0].sort(sortDate); //sort dates in decending order
   
     var posts = postsByDate[1] //date keyed dict
+
+    postCountByDates = getPostCountByDates( postsByDate[1] );
 
     _postListItems = [];
     _postListItems = this.renderPostsByDate(dates, posts); // return a list of <PostListDateHeader/> <PostListItems/>
