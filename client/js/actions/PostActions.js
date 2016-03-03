@@ -104,6 +104,9 @@ var PostActions = {
     TfAPI.writePostComment(origin, data);
   },
 
+  loadMorePosts: function(url, data) {
+      TfAPI.loadMorePostByDate(url, data);
+  }
 };
 
 module.exports = PostActions;

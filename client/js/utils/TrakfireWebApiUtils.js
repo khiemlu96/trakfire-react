@@ -357,6 +357,38 @@ module.exports = {
         console.error(url, error['response']);
       }
     });
+  },
+
+  loadMorePostByDate: function(url, data) {
+    var params = {
+        limit: data.limit,
+        offset: data.offset
+    };
+
+    if(data.page !== undefined) {
+        params.page = data.page;
+    }
+    if(data.date !== undefined) {
+        params.date = data.date;
+    }
+    
+    Reqwest({
+        url: url,
+        type: 'json',
+        method: 'GET',
+        data: params,
+        contentType: 'application/json',
+        headers: {
+            'Authorization': sessionStorage.getItem('jwt')
+        },
+        success: function(resp) {
+            console.log("SERVER RESPONSE", resp);
+            PostServerActionCreators.getMorePostsByDate(resp);
+        },
+        error: function(error) {
+            console.error(url, error['response']);
+        }
+    });
   }
 };
 

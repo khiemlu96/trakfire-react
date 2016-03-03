@@ -2,9 +2,56 @@ class PostsController < ApplicationController
 	before_action :authenticate_request, only: [:create]
 
 	def index
-	  @posts = Post.all.order(date: :desc).ranking.limit(50)
-	  #@posts = Post.where(status: "approved").order(date: :desc).ranking.limit(50)
-      render json: @posts, include: { tags:{}, votes:{}, comments:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :img_url_lg, :date, :created_at, :duration, :genre, :vote_count, :hot_score, :status] 
+	  # get all dates 
+
+		@dates = []
+		logger.info "--------------------------------"
+		logger.info params
+		# if date is set in the parameter then only select 10 posts
+		# which are posted on that date
+		# else select 
+		# 10 posts for each day initially
+		if( params[:date] != nil ) 
+			# get subsquent posts for perticular day
+			@dates.push(params[:date])
+			@offset = params[:offset]
+		else
+			# get posts for next subsequent day if date is not set
+			@offset = 0
+			page_num = params[:page] ? params[:page] : 0
+
+			# get dates of top 3 days			
+			if page_num == 0
+				offset = 0
+				limit = 3
+			else
+				# get the next subsequent date for each scroll
+				offset = 2 + page_num.to_i
+				limit = 1
+			end
+
+		  	sql = "	SELECT created_at::date as created
+		     		FROM posts
+						GROUP BY created_at::date
+						ORDER BY created_at::date DESC 
+						OFFSET " + offset.to_s + " LIMIT " + limit.to_s
+
+			Post.find_by_sql(sql).each do |row|
+			  	@dates.push(row.created)
+			end
+		end
+
+		@posts = []
+		@dates.each do |date|
+			#select only 10 posts on each days or selected date
+			posts = Post.where(["status = ? and created_at::date = ?", "approved", date]).order(created_at: :desc).ranking.offset(@offset).limit(10)
+			posts.each do |post|				
+				@posts.push(post)
+			end
+		end
+
+	  	# @posts = Post.where(status: "approved").order(date: :desc).ranking.limit(10)
+      	render json: @posts, include: { tags:{}, votes:{}, comments:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :img_url_lg, :date, :created_at, :duration, :genre, :vote_count, :hot_score, :status] 
 	end
 	
 	def create

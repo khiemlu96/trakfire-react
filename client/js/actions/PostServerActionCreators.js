@@ -87,5 +87,12 @@ module.exports = {
       error: errorObj,
     });    
     $(document).trigger("ReactComponent:PostFormLast:showError");
+  },
+
+  getMorePostsByDate: function(response) {
+      AppDispatcher.dispatch({
+          actionType: PostConstants.GET_MORE_POSTS,
+          response: response,
+      });
   }
 };
