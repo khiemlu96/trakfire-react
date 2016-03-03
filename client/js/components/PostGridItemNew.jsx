@@ -44,6 +44,7 @@ var PostGridItem = React.createClass({
 
     playPauseTrack: function(e) {
         e.preventDefault();
+        console.log("CLICKING", this.props.post.stream_url, this.props.post, null);
         this.props.onClick(this.props.post.stream_url, this.props.post);
         if (!this.state.isPlaying) {
             //this.refs.post.className += " is-playing";

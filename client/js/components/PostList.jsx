@@ -228,7 +228,7 @@ var PostsList = React.createClass({
       return ( 
           <div className = "row tf-posts-load-more-section">
               <span>LOAD MORE FOR &nbsp;
-                  <a onClick = {this.loadMorePosts} id = {date} className = "tf-link tf-load-more-link"> TODAY </a>  
+                  <a onClick = {this.loadMorePosts} id = {date} className = "tf-link tf-load-more-link"> {date} </a>  
                   <a className = "tf-link tf-load-more-link"> &#9660; </a>
               </span>
           </div>
@@ -302,7 +302,10 @@ var PostsList = React.createClass({
           songList[songCount] = array[key];
           songCount+=1;          
         }
-        container.push(this.renderPostLoadMoreLink(dates[date]));
+        //only render the load more link if there is more to load for that day
+        if(array.length > 10) {
+          container.push(this.renderPostLoadMoreLink(dates[date]));
+        }
       }
     /*console.log("setting the song list breh", songList);
     if(songCount > 0 && !_songsSet) {
