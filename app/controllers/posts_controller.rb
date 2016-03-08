@@ -44,7 +44,7 @@ class PostsController < ApplicationController
 		@posts = []
 		@dates.each do |date|
 			#select only 10 posts on each days or selected date
-			posts = Post.where(["status = ? and created_at::date = ?", "approved", date]).order(created_at: :desc).ranking.offset(@offset).limit(10)
+			posts = Post.where(["created_at::date = ?", date]).order(created_at: :desc).ranking.offset(@offset).limit(10)
 			posts.each do |post|				
 				@posts.push(post)
 			end
