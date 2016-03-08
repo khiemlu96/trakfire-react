@@ -299,7 +299,7 @@ var PostDetailPage = React.createClass({
                     <span className={upvoted ? "" : "tf-hide"} ref="count" className="">{post.vote_count}</span>
                   </div>
                 </a>
-                <div className="tf-post-item--img col-md-3">
+                <div className="tf-post-item--img col-xs-3 col-sm-3 col-md-3">
                   <div className="tf-trak-img">
                     <a href="#!" className="tf-post-play" onClick={this.onPlayBtnClick} >
                       <img className="tf-trak-detail-thumbnail" src={post.img_url_lg} />
@@ -310,19 +310,19 @@ var PostDetailPage = React.createClass({
                     </div>
                   </div>                  
                 </div>
-                <div className="tf-post-title col-md-6">
+                <div className="tf-post-title col-xs-6 col-sm-6 col-md-6">
                   <div className="tf-title"><b>{post.title}</b></div>
                   <div className="tf-author"><small>{post.artist}</small></div>
                 </div>
-                <div className="col-md-3 tf-key-container">
+                <div className="col-xs-3 col-sm-3 col-md-3 tf-key-container">
                   <div className="col-md-6 tf-post-genre-container">{this.renderGenre(post)}</div>
                   <div className="col-md-6 tf-post-tag-container">{this.renderTags(post)}</div>
                 </div>
               </div>
               <div className="tf-current-trak-vote-section col-md-12">
-                <div className="col-md-3">
-                  <div className="col-md-2"></div>
-                  <div className="col-md-2">
+                <div className="col-xs-5 col-sm-5 col-md-3">
+                  <div className="col-xs-2 col-sm-2 col-md-2"></div>
+                  <div className="col-xs-2 col-sm-2 col-md-2">
                     <div className="tf-auther-panel">
                       {/*<a className="tf-link" href="/profile/2" >*/}
                       <Link to={'/profile/'+post.author_id}>  
@@ -330,13 +330,13 @@ var PostDetailPage = React.createClass({
                       </Link>
                     </div>
                   </div>
-                  <div className="col-md-8">
+                  <div className="col-xs-8 col-sm-8 col-md-8">
                       <b>Song</b> posted By <br/>
                       <a className="tf-profile-link">{post.author_name}</a>
                   </div>
                 </div>
-                <div className="col-md-3">
-                  <div className="col-md-10">
+                <div className="col-xs-4 col-sm-4 col-md-3">
+                  <div className="col-md-11">
                     <div className="">
                       <div >
                         <i className="glyphicon glyphicon-fire tf-social-icons"></i> 
@@ -396,7 +396,7 @@ var PostDetailPage = React.createClass({
                     </div>
                   </div>*/}
                 </div>
-                <div className="col-md-2 right">
+                <div className="col-xs-3 col-sm-3 col-md-2 right">
                   {/*<div>
                                       <span><b>Share</b></span>
                                       <span>&nbsp;&nbsp;this song</span>
@@ -406,7 +406,7 @@ var PostDetailPage = React.createClass({
                                       <img className="tf-social-icons" src={'/assets/img/facebook_footer.svg'} /> 
                                       <img className="tf-social-icons tumbler-logo" src={'/assets/img/tumbler.png'} /> 
                                     </div>*/}
-                  <a href={this.buildTweet(post)}><div className="button btn-share-song"><img className="tf-social-icons" src={'/assets/img/twitter_footer.svg'} /> Tweet This Song</div></a>
+                  <a href={this.buildTweet(post)}><div className="button btn-share-song pull-right"><img className="tf-social-icons" src={'/assets/img/twitter_footer.svg'} /> Tweet This Song</div></a>
                 </div>
               </div>
 
