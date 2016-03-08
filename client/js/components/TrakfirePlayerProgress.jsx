@@ -96,9 +96,9 @@ var TrakfirePlayerProgress = React.createClass({
 
   advancePos: function() {
     var duration = this.props.duration; 
+
     var pos = this.state.currPos + 1000;
     if(this.state.currPos >= duration) {
-      //console.log("FUCK");
       pos = 0;
       this.setState({hasFinished:true});
       clearInterval(this.timer);
@@ -120,8 +120,13 @@ var TrakfirePlayerProgress = React.createClass({
     var style = {
       backgroundColor: this.props.color || '#ff0d55',
       width: value + '%',
-      transition: "width 200ms",
-      height: this.props.height || 3
+      transition: "width 100ms",
+      height: this.props.height || 5
+    };
+
+    var scrubberStyle = {
+      left: (value-1) + '%',
+      transition: "left 100ms"
     };
 
     if(this.props.showTrackDuration === true) {
@@ -136,8 +141,9 @@ var TrakfirePlayerProgress = React.createClass({
       <div>
         {timePassedHtml}
         {timeRemainedHtml}
-        <div className="tf-progress-container" ref="progressbar" onClick={this.handleClickAtPos}>
+        <div id="tf-progress-bar" className="tf-progress-container" ref="progressbar" onClick={this.handleClickAtPos}>
           <div className="tf-progress-inner" style={style}></div>
+          <div id="progress-scrubber" className="tf-progress-scrubber" style={scrubberStyle}></div>          
         </div>        
       </div>
     );
