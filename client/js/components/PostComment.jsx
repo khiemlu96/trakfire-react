@@ -20,6 +20,9 @@ var PostStore = require('../stores/PostStore.js');
 var UserStore = require('../stores/UserStore.js');
 var post_id;
 var UserFlyOver = require('./UserFlyOver.jsx');
+var classNames = require('classnames');
+var notLastReply = classNames("tf-comment-reply-vr-line");
+var hasReply = classNames("tf-comment-reply-vr-line-first");
 
 function compareCreatedAt(a, b) {
   if(a.created_at < b.created_at) return 1;
@@ -90,6 +93,10 @@ var PostComment = React.createClass({
 
   	componentDidMount: function() {
 		PostStore.addChangeListener(this._onChange);
+		/*var height = document.getElementById('comment-text').offsetHeight;
+		var replyheight = document.getElementById('reply-comment-text').offsetHeight;
+        console.log('COMMENT HEIGHT ==== '+height);
+        console.log('REPLY COMMENT HEIGHT ==== '+replyheight);*/
 		React.render(
 			<CommentInput origin={this.props.origin} post_id = {this.props.post_id} />,
 			document.getElementById("comment-input-container")
@@ -111,6 +118,13 @@ var PostComment = React.createClass({
   	},
 
     renderSingleComment: function(comment) {
+    	var replies = comment.replies;
+    	var vFirstLine = classNames("");
+ 
+    	if(replies.length != 0){
+    		vFirstLine = hasReply;
+    	}
+
 		return (
 			<div className="col-md-12 tf-parent-comment-profile" id = {"comment_" + comment.id}>
 				<div className = "tf-comment-profile col-md-12">
@@ -129,13 +143,14 @@ var PostComment = React.createClass({
 					</div>
 				</div>
 				
-				<div className="tf-comment-text col-md-12">					
-					<div  className="tf-comment-detail"  dangerouslySetInnerHTML={{__html: this.renderCommentText(comment)}} />
+				<div  id="comment-text" className="tf-comment-text col-md-12">					
+					<div className="tf-comment-detail"  dangerouslySetInnerHTML={{__html: this.renderCommentText(comment)}} />
+					<div className={vFirstLine}></div>
 				</div>
 
 				<div id = {"comment-reply-container-" + comment.id} className="tf-comment-reply-container">
 					<div id={"comment-reply-input-" + comment.id} className="reply-comment-input-box col-md-12">
-						
+
 					</div>
 					{this.renderCommentReplies(comment)}
 				</div>			
@@ -148,6 +163,7 @@ var PostComment = React.createClass({
 		var comment_id = parseInt(id.substring("reply-btn-".length));
 		var comment = {};
 		var comments = this.props.post.comments;
+
 		for(key in comments) {
 			if(comment_id === comments[key].id) {
 				comment = comments[key];
@@ -168,22 +184,34 @@ var PostComment = React.createClass({
     
     renderCommentReplies: function(comment) {
     	var replies = comment.replies;
-
+    	
     	if(replies !== undefined){
 	      replies = replies.sort(compareCreatedAt); //sort dates in decending order
 	    }
 
+		var length = replies.length;
     	var replyHtml = [];
+    	
     	for(key in replies) {
-    		replyHtml.push(this.renderSingleReply(replies[key]));
+    		replyHtml.push(this.renderSingleReply(replies[key],key,length));
     	}
+    	//console.log("reply HTML",replyHtml);
+    	
     	return replyHtml;
     },
 
-    renderSingleReply: function(reply) {
+    renderSingleReply: function(reply,key,length) {
+    	var vLine = notLastReply;
+    	
+        if(key == (length-1)){
+    		vLine = classNames("");
+        }
+
     	return (
     		<div className="col-md-12 tf-reply-comment-profile" id={"comment_"+ reply.id}>
+
 				<div className = "tf-comment-profile col-md-12">
+					<div className="tf-comment-reply-hr-line"></div>
 					<div className="col-md-0 tf-comment-auther-panel left">
 						<UserFlyOver user = {reply.user} origin={this.props.origin} />
 					</div>	
@@ -191,14 +219,15 @@ var PostComment = React.createClass({
 						<a className="tf-profile-link"> {reply.user.username}</a>
 						<span className="tf-user-tbio"> - Trakfire Founder. </span>
 					</div>				
-					<div className="col-md-3 tf-comment-time right">					
+					<div className="col-md-3 tf-comment-time right">				
 						<span className="">{moment(reply.created_at).fromNow()}</span>
 					</div>
 				</div>
 				
-				<div className="tf-comment-text col-md-12">
+				<div id="reply-comment-text" className="tf-comment-text col-md-12">
 					<div className="tf-comment-detail" dangerouslySetInnerHTML={{__html: this.renderCommentText(reply)}} />
 				</div>
+				<div className={vLine}></div>
 			</div>
     	);
     },

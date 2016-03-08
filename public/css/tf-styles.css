@@ -773,6 +773,19 @@ th.upvote-col {
 	margin-left: 105px;
 }
 
+.tf-post-item--first .tf-post-item-content .tf-post-item--tags{
+	right: auto!important;
+    width: auto!important;
+    left: 400px;
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+    width: 150px !important;
+    max-height: 60px;
+    overflow: hidden;
+    top: 180px;
+}
+
 .tf-post-item--first .tpf-play-button img {
 	position: absolute;
     top: 85px;
@@ -840,6 +853,7 @@ th.upvote-col {
 }*/
 
 .tf-post-item--first .tf-post-item--tags .tf-tag{
+	display: inline-block;
 	font-size: 9px;
 }
 
@@ -2366,6 +2380,33 @@ label.ownsong-label {
 	border-radius: 5px;
 }
 
+.tf-comment-reply-vr-line{
+	background-color: #4a4848;
+	height: calc(100% + 9px);
+	width: 2px;
+	position: absolute;
+	left: -24px;
+	top: 27px;
+}
+
+.tf-comment-reply-vr-line-first{
+	background-color: #4a4848;
+	height: calc(100% + 26px);
+	width: 2px;
+	position: absolute;
+	top: 7px;
+	left: 16px;
+}
+
+.tf-comment-reply-hr-line{
+	height: 2px;
+    width: 28px;
+    background-color: #4a4848;
+    left: -28px;
+    top: 14px;
+    position: relative;
+}
+
 .tf-reply-comment-profile {
 	margin-left: 15px;
 }
@@ -2374,7 +2415,9 @@ label.ownsong-label {
 }
 .tf-parent-comment-profile .tf-comment-detail {
 	margin-top: 10px;
-	margin-left: -15px;
+	margin-left: -23px;
+	width : 70%;
+	color: #cec8c8;
 }
 
 .tf-parent-comment-profile .tf-comment-text {
