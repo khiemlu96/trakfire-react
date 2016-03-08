@@ -2025,12 +2025,12 @@ label.ownsong-label {
 	border-radius: 50%; 
 	opacity: 1; 
 	margin-top: -11px; 
-	background-color: #ff0d55; 
+	background-color: #fff; 
 	position: relative;	
 	height: 12px; 
 	width: 12px;
 	display: none;
-	cursor: ew-resize;
+	/*cursor: ew-resize;*/
 }
 
 .tf-progress-container:hover .tf-progress-scrubber {
