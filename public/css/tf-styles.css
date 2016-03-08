@@ -2004,6 +2004,25 @@ label.ownsong-label {
             transition: width .2s ease-in;
 }
 
+.tf-progress-scrubber {
+	box-sizing: border-box; 
+	top: 50%; 
+	transition: opacity 150ms ease 0s; 
+	border-radius: 50%; 
+	opacity: 1; 
+	margin-top: -11px; 
+	background-color: #ff0d55; 
+	position: relative;	
+	height: 12px; 
+	width: 12px;
+	display: none;
+	cursor: ew-resize;
+}
+
+.tf-progress-container:hover .tf-progress-scrubber {
+	display: block;
+}
+
 .tf-player-info {
 	display: inline-block;
 	font-family: "Benton Sans RE", sans-serif;
