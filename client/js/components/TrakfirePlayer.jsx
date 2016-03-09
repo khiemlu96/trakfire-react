@@ -27,7 +27,8 @@ var TrakfirePlayer = React.createClass({
 
     componentDidMount: function() {
         this.state.isUpvoted = this.props.isUpvoted;
-    }, 
+        window.addEventListener("keyup", this.handleHotKeysEvent);
+    },
 
     componentDidUpdate: function(prevProps, prevState) {
         //console.log(prevProps.currTrack, this.props.currTrack);
@@ -35,12 +36,16 @@ var TrakfirePlayer = React.createClass({
             this.setState({toggle:true});
         } else if(this.state.toggle) {
             this.setState({toggle:false});
-        }
-    }, 
+        }    
+    },
+
+    componentWillUnmount: function() {
+        window.removeEventListener("keyup", this.handleHotKeysEvent);
+    },
 
     handleProgressClick: function(millipos) {
         this.props.onProgressClick(millipos);
-    }, 
+    },
 
     handlePlayPauseClick: function() {
         this.props.onPlayPauseClick();
@@ -86,6 +91,15 @@ var TrakfirePlayer = React.createClass({
         if(this.props.isLoggedIn && !this.hasUpvoted(post)){
           this.props.onUpvote(post.id);
           this.setState({hasUpvoted:true});
+        }
+    },
+
+    handleHotKeysEvent: function( event ){
+        event.preventDefault();
+        if (event.keyCode == 32){
+            this.handlePlayPauseClick();
+        } else if (event.keyCode == 85){
+            this.upvote(event);
         }
     },
 
