@@ -188,9 +188,9 @@ var PostsList = React.createClass({
   playPauseItem: function(stream_url, track, idx) {
     if(this.state.currentTrack != null) {
       var prevPli = this.state.currentTrack;
-      var pli = this.refs[prevPli];
+      var pli = this.refs[prevPli].refs.overlay;
       if(pli != null){ 
-        pli.getDOMNode().className = "tf-post-item";
+        pli.getDOMNode().className = "icon icon-controller-play";
       } 
     }
     this.setState({currentTrack:track.id});

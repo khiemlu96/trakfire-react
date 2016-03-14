@@ -8678,6 +8678,10 @@ img.zoom-img {
   text-align: center;
 }
 
+.tf-media-thumbnail-overlay span {
+  display: none;
+}
+
 .tf-media-thumbnail-overlay:hover span {
   display: inline-block;
   margin-top: 15px;
