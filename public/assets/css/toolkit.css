@@ -8675,7 +8675,15 @@ img.zoom-img {
   top: -64px;
   z-index: 1;
   display: none;
+  text-align: center;
 }
+
+.tf-media-thumbnail-overlay span {
+  display: inline-block;
+  margin-top: 15px;
+  font-size: 26px;
+  color: #ff0d60;
+} 
 
 .tf-media-wrap { 
   position: relative;
