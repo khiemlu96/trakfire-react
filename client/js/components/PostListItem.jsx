@@ -71,9 +71,11 @@ var PostListItem = React.createClass({
     if(this.props.isLoggedIn && !this.hasUpvoted(this.props.post)){
       this.props.onUpvote(this.props.post.id);
       var count = this.refs.count.getDOMNode();
-      var upvotes = this.refs.upvotes.getDOMNode();
-      upvotes.className=isUpvoted ;
-      count.className = "";
+      //var upvotes = this.refs.upvotes.getDOMNode();
+      //upvotes.className=isUpvoted ;
+      //count.className = "";
+      var count_old = count.innerHTML;
+      count.innerHTML = count_old + 1;
 
       this.setState({hasUpvoted:true});
     } else if(!this.props.isLoggedIn) {
@@ -176,7 +178,7 @@ var PostListItem = React.createClass({
           </div>
           <div className="media-body">
             <h4 className="tf-media-title">
-              <span className="pull-right"><a href="#"><span className="icon icon-chevron-up" voteStyle></span></a> <small>{post.vote_count}</small> </span>
+              <span className="pull-right"><a href="#" onClick={this.upvote}><span className="icon icon-chevron-up" voteStyle></span></a> <small ref="count">{post.vote_count}</small> </span>
               {post.title}
             </h4>
             <h6 className="tf-media-artist">{post.artist}
