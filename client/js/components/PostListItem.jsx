@@ -167,7 +167,7 @@ var PostListItem = React.createClass({
           <div className="tf-post-item-content">
             <div className="tf-post-item--rank">{parseInt(this.props.rank) + 1}</div>
             <div className={ upvoted ? isUpvoted : isNotUpvoted} ref="upvotes" onClick={this.upvote}>
-            <span className={upvoted ? "" : "tf-hide"} ref="count"><b>{upvoted ? _localVoteCount : post.vote_count}</b></span>
+            <span className={_localVoteCount > 0 ? "" : "tf-hide"} ref="count"><b>{upvoted ? _localVoteCount : post.vote_count}</b></span>
             </div>
             <div className="tf-post-item--img"> 
               <div className="tf-post-play" onClick={this.playPauseTrack}>

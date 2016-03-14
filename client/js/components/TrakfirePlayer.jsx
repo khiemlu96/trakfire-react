@@ -15,7 +15,6 @@ var TrakfirePlayer = React.createClass({
         onNextClick: ReactPropTypes.func,
         onPlayPauseClick: ReactPropTypes.func.isRequired, 
         onProgressClick: ReactPropTypes.func, 
-        isUpvoted: ReactPropTypes.bool,
         onUpvote: ReactPropTypes.func, 
         isLoggedIn: ReactPropTypes.bool, 
         userId: ReactPropTypes.number
@@ -26,7 +25,8 @@ var TrakfirePlayer = React.createClass({
     }, 
 
     componentDidMount: function() {
-        this.state.isUpvoted = this.props.isUpvoted;
+        if( this.props.currTrack !== undefined )
+            this.state.isUpvoted = this.hasUpvoted(this.props.currTrack);
     }, 
 
     componentDidUpdate: function(prevProps, prevState) {
@@ -91,12 +91,10 @@ var TrakfirePlayer = React.createClass({
 
 	render: function(){
         var currTrack = this.props.currTrack;
-        var upvoted = (this.state.isUpvoted || this.props.isUpvoted || this.state.hasUpvoted);
-        //console.log("IS UPVOTED?", upvoted);
+        var upvoted = this.hasUpvoted(currTrack);
         var play = <a className="tf-player-play" href="#!" onClick={this.handlePlayPauseClick}></a>;
         var pause = <a className="tf-player-pause" href="#!" onClick={this.handlePlayPauseClick}></a>;
         var localUpvote = this.state.hasUpvoted; //pre refresh we upvoted this
-        _localVoteCount = currTrack.vote_count + 1;
 
         var previousLinkClass = " tf-player-backward ";
         if(currTrack.sortedIdx === 0) {
@@ -107,7 +105,7 @@ var TrakfirePlayer = React.createClass({
             <div className="tf-player-wrap">
                 <div className="tf-player-wrap-inner container">
                     <div className={upvoted ? isUpvoted : isNotUpvoted} ref="upvote" onClick={this.upvote}>
-                    { localUpvote ? _localVoteCount : currTrack.vote_count }
+                    { currTrack.vote_count }
                     </div>
                     <div className="tf-player-controls-wrap">
                     <a className={previousLinkClass} href="#!" onClick={this.handlePrevClick}></a>

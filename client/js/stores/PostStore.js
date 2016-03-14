@@ -33,6 +33,7 @@ function sortPostsByDate(posts) {
   var dateKeys = [];
   for (var key in posts) {
     var dstr = posts[key].date.toDateString();
+
     if( !dates[dstr] ) {
       dates[dstr] = {};
       dateKeys.push(dstr);
@@ -43,7 +44,6 @@ function sortPostsByDate(posts) {
       dates[dstr][key] = posts[key];
     }
   }
-  //console.log(dates, dateKeys);
   return [dateKeys, dates];
 }
 
@@ -141,18 +141,20 @@ function _addPostsToUser(userPosts) {
   _uposts['posted'] = userPosts.posted;
 }
 
-function _addVoteToPost(post_id, vote) {
-  _posts[post_id].vote_count += 1;  
-  if( _singlePost !== undefined ) {
+function _addVoteToPost(post_id, vote) {  
+  if( _singlePost.id !== undefined && _singlePost.id !== null ) {
     _singlePost.votes.push(vote);
     _singlePost.voters.push(vote.user_id);
     _singlePost.vote_count += 1;
-  }  
+  } else {
+    _posts[post_id].votes.push(vote);
+    _posts[post_id].voters.push(vote.user_id);
+    _posts[post_id].vote_count += 1;
+  }
 }
 
 function _markPostAsCurrent(song_id) {
   _songs[song_id].current = true;
-  console.log(_songs[song_id].current);
 }
 
 function _addPostComment(post_id, comment) {
@@ -271,7 +273,7 @@ var PostStore = assign({}, EventEmitter.prototype, {
       }
     }
     return false;
-  }, 
+  },
 
   getNextSong: function() {
     var len = Object.keys(_songs).length;
@@ -370,17 +372,22 @@ PostStore.dispatchToken = AppDispatcher.register(function(action) {
       console.log("SET CURR POST", action.song_id);
       _markPostAsCurrent(action.song_id);
       PostStore.emitChange();
+      break;
     case PostConstants.GET_SINGLE_POST:
       _sPost(action.response);
       PostStore.emitChange();
+      break;
     case PostConstants.RECIEVE_NEW_COMMENT:
       _addPostComment(action.post_id, action.response);
       PostStore.emitChange();
+      break;
     case PostConstants.ERROR_MESSAGE:
       _addErrorMessage(action.error);
+      break;
     case PostConstants.GET_MORE_POSTS:
       _addLoadMorePosts(action.response);
       PostStore.emitChange();
+      break;
     default:
       // no op
   }
