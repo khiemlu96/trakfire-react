@@ -160,6 +160,7 @@ var PostListItem = React.createClass({
     } else {
       img = post.img_url;
     }
+    var profileLink = "/profile/"+post.author_id;
     var first = (this.props.first) ? isFirstNotPlaying : isNotPlaying;
     var voteStyle = { color: "#ff0d60 !important;" };
     return (
@@ -179,7 +180,7 @@ var PostListItem = React.createClass({
               {post.title}
             </h4>
             <h6 className="tf-media-artist">{post.artist}
-              <small className="pull-right"> posted by: <a href="#" className="tf-media-poster">{post.author}</a> </small>
+              <small className="pull-right"> posted by: <Link to={profileLink} className="tf-media-poster">{post.author}</Link> </small>
             </h6> 
           </div>
         </li>

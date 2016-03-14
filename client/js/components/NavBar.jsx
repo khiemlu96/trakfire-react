@@ -233,7 +233,7 @@ var NavBar = React.createClass({
         var postLink = <OverlayTrigger placement="left" overlay={tooltip}><a className="tf-inactive">POST</a></OverlayTrigger>;//<a href="" className="tf-inactive">POST</a>;
       }*/
     } else {
-      var signinLink = <a href="#" onClick={this.showModal}> SIGN IN </a>
+      var signinLink = <li><a href="#" onClick={this.showModal}> SIGN IN </a></li>
       var inviteLink = <a href="#" onClick={this.showSignupModal}> REQUEST INVITE </a>
       var profileLink = "";
       var postLink = '';
@@ -266,6 +266,7 @@ var NavBar = React.createClass({
             </a>
           </li>
           {profileLink}
+          {signinLink}
         </ul>
 
         <form className="navbar-form navbar-right app-search" role="search">
