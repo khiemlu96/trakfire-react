@@ -90,7 +90,7 @@ var PostListItem = React.createClass({
     var idx = this.props.idx;
     //idx = idx[1];
     this.props.onClick(this.props.post.stream_url, this.props.post, idx);
-    var post = this.refs.post.getDOMNode();
+    /*var post = this.refs.post.getDOMNode();
     //console.log("POST STATUS", this.state.isPlaying);
     if(!this.props.first) {
       if(!this.state.isPlaying) {
@@ -111,7 +111,7 @@ var PostListItem = React.createClass({
         post.className = isFirstNotPlaying;
         this.setState({isPlaying:false});
       }      
-    }
+    }*/
     //console.log("POST STATUS POST", this.props.rank, this.state.isPlaying);
   },
 
@@ -171,7 +171,7 @@ var PostListItem = React.createClass({
             <span className="tf-media-number">
               {this.props.idx + 1}
             </span>
-            <a href="#" className="tf-media-wrap">
+            <a href="#" className="tf-media-wrap" onClick={this.playPauseTrack}>
               <img className="media-object tf-media-thumbnail" width="64" src={post.img_url} alt="..."></img>
               <div className="tf-media-thumbnail-overlay"></div>
             </a>
