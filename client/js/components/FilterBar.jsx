@@ -149,7 +149,7 @@ var FilterBar = React.createClass({
     var title = "TODAY'S FIRE";
     return (
       <div className="tf-filter-bar">
-        <div className="container "> 
+        <div className="container"> 
           <div className="left tf-today-header"><h4>{title} </h4></div>
           <div className="row right tf-filter-list">
            <ul className="tf-filter-bar-ul">

@@ -161,40 +161,28 @@ var PostListItem = React.createClass({
       img = post.img_url;
     }
     var first = (this.props.first) ? isFirstNotPlaying : isNotPlaying;
+    var voteStyle = { color: "#ff0d60 !important;" };
     return (
-      <li className={first} ref="post">  
-        <Link to={'/post/'+post.id}>    
-          <div className="tf-post-item-content">
-            <div className="tf-post-item--rank">{parseInt(this.props.rank) + 1}</div>
-            <div className={ upvoted ? isUpvoted : isNotUpvoted} ref="upvotes" onClick={this.upvote}>
-            <span className={upvoted ? "" : "tf-hide"} ref="count"><b>{upvoted ? _localVoteCount : post.vote_count}</b></span>
-            </div>
-            <div className="tf-post-item--img"> 
-              <div className="tf-post-play" onClick={this.playPauseTrack}>
-                <img className="tf-thumbnail" src={ img ? img : "assets/img/tf_placeholder.png" }/>
-              </div>
-              <div className="tf-overlay" onClick={this.playPauseTrack}> 
-              </div> 
-              <div className="tpf-play-button" onClick={this.playPauseTrack}> 
-                <img src={'assets/img/player-play-white.svg'} /> 
-              </div> 
-              <div className="tpf-pause-button" onClick={this.playPauseTrack}> 
-                <img src={'assets/img/player-pause-white.svg'} /> 
-              </div> 
-            </div>
-            <div className="tf-post-item--info">
-              <h5>{ post.title }</h5>
-              <small> {post.artist} </small>
-            </div>
-            <div className="tf-post-item--author">
-              {this.renderAuthor()}
-            </div>
-            <div className="tf-post-item--tags">
-              {this.renderTags()}
-            </div>
+        <li className="media tf-media">
+          <div className="media-left">
+            <span className="tf-media-number">
+              {this.props.idx + 1}
+            </span>
+            <a href="#" className="tf-media-wrap">
+              <img className="media-object tf-media-thumbnail" width="64" src={post.img_url} alt="..."></img>
+              <div className="tf-media-thumbnail-overlay"></div>
+            </a>
           </div>
-        </Link>      
-      </li>
+          <div className="media-body">
+            <h4 className="tf-media-title">
+              <span className="pull-right"><a href="#"><span className="icon icon-chevron-up" voteStyle></span></a> <small>{post.vote_count}</small> </span>
+              {post.title}
+            </h4>
+            <h6 className="tf-media-artist">{post.artist}
+              <small className="pull-right"> posted by: <a href="#" className="tf-media-poster">{post.author}</a> </small>
+            </h6> 
+          </div>
+        </li>
     );
   }
 

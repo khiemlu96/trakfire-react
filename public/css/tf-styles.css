@@ -107,10 +107,10 @@ html, body {
 .tf-day-header {
 	color: #fff;
 	max-height: 30px;
-	font-family: "Benton Sans RE", sans-serif;
+	font-family: "Benton Sans RE", sans-serif !important;
 	text-align: left;
 	margin-bottom: 20px;
-	text-transform: capitalize;
+	text-transform: uppercase;
 }
 
 .tf-player-info {

@@ -218,11 +218,13 @@ var NavBar = React.createClass({
   render: function() {
 
     if(this.props.isLoggedIn) {
-      console.log("IN NAVBAR");
+      console.log("IN NAVBAR ", '/profile/'+this.props.user.id);
       var signinLink = '';
-      var profileLink = <span className="tf-menu">{this.renderUserInfo()}</span>
+
+      var profileLink = <li><button className="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover"><Link to={'/profile/'+this.props.user.id}><img className="img-circle" src={this.props.user.img} ></img></Link></button></li>
+      //<span className="tf-menu">{this.renderUserInfo()}</span>
       //if(this.props.isAdmin || this.props.user.canPost) { 
-        
+      
       var postLink = <span className="tf-menu"><PostForm isVisible={true} origin={this.props.origin} /></span> 
       var searchIcon =  <span><span className = "glyphicon glyphicon-search" onClick={this.renderSearchBar} style = {searchIconStyle}></span> </span>
       var menuIcon = <span >{this.renderStaticInfo()} </span>;
@@ -241,48 +243,55 @@ var NavBar = React.createClass({
     }
   
     return (
-            <div>
-              <div className="tf-navbar" role="navigation"> 
-                <div className="tf-navbar-inner container">   
-                  <div className="tf-logo"> 
-                    <Link to="/"><img src={"assets/img/logo.svg"}/></Link>
-                  </div> 
-                  
-                  <div className="right"> 
-                    {postLink}
-                    {searchIcon}
-                    {profileLink}
-                    {/*<a>             
-                      <img src={'assets/img/search.svg'}/> 
-                    </a>*/}
-                    {signinLink}
-                    {inviteLink}
-                    {menuIcon}
-                  </div>
-                </div> 
-              </div>
-              <div>
-                < div id="tf-search-bar" className = "tf-search-input-box col-sm-12 col-xs-12 col-md-12" style = {searchBoxStyle}>
-                  <div >
-                    <div> <img src="/assets/img/nipple.png" className="tf-search-input-box-nipple"></img></div>
-                    <input  ref="searchInput" type = "text" onKeyUp={this.showSearchResult} className = "tf-search-input" 
-                    placeholder = "WHAT ARE YOU LOOKING FOR?" style = {searchInputArea} >
-                    </input> 
-                    < div onClick = {() => this.closeModal()} role = "button" style = {closeButtonStyle} > &times; < /div> 
-                  < /div> 
-                  <div id="tf-search-result"></div>
-                  <div id="tf-search-count" > </div> 
-                  <Link to={'/searchresult/'+this.props.searchkey} params={{searchkey:"searchkey"}}>
-                    <div id="show-more-btn-container" className="row show-more-btn-container col-md-12 col-sm-12 col-xs-12" style={showMoreStyle}>
-                      <div className="show-more-result-btn btn btn-pimary" >
-                        <b>See more results(5)</b>
-                      </div>
-                    </div>
-                  </Link>
-                  </div>
-                  <div id="tf-search-result-stat"></div>
-              </div> 
-            </div>
+
+<nav className="navbar navbar-inverse navbar-fixed-top app-navbar">
+  <div className="container">
+    <div className="navbar-header">
+      <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-main">
+        <span className="sr-only">Toggle navigation</span>
+        <span className="icon-bar"></span>
+        <span className="icon-bar"></span>
+        <span className="icon-bar"></span>
+      </button>
+      <Link className="navbar-brand"  to="/" >
+        <img src="assets/img/logo.svg" height="100%;"alt="brand"></img>
+      </Link>
+    </div>
+    <div className="navbar-collapse collapse" id="navbar-collapse-main">
+
+        <ul className="nav navbar-nav navbar-right m-r-0 hidden-xs">
+          <li >
+            <a className="app-notifications" href="notifications/index.html">
+              <span className="icon icon-bell"></span>
+            </a>
+          </li>
+          {profileLink}
+        </ul>
+
+        <form className="navbar-form navbar-right app-search" role="search">
+          <div className="form-group">
+            <input type="text" className="form-control" data-action="grow" placeholder="Search"></input>
+          </div>
+        </form>
+
+        <ul className="nav navbar-nav hidden-sm hidden-md hidden-lg">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="profile/index.html">Profile</a></li>
+          <li><a href="notifications/index.html">Notifications</a></li>
+          <li><a data-toggle="modal" href="#msgModal">Messages</a></li>
+          <li><a href="docs/index.html">Docs</a></li>
+          <li><a href="#" data-action="growl">Growl</a></li>
+          <li><a href="login/index.html">Logout</a></li>
+        </ul>
+
+        <ul className="nav navbar-nav hidden">
+          <li><a href="#" data-action="growl">Growl</a></li>
+          <li><a href="login/index.html">Logout</a></li>
+        </ul>
+      </div>
+  </div>
+</nav>
+
       );
   }
 

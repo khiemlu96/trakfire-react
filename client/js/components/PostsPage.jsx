@@ -115,12 +115,6 @@ var PostsPage = React.createClass({
   render: function() {
     return (
       <div>
-        <FilterBar
-          onClick={this.filterPosts}
-          genre={this.props.genre}
-          sort={this.props.sort}
-          scrollToTop={this.props.scrollToTop} />
-          
         <PostList
           posts={this.state.posts}
           sort={this.props.sort}

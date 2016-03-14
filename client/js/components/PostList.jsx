@@ -13,6 +13,8 @@ var Moment = require('moment');
 var PostActions = require('../actions/PostActions');
 var PostListItem = require('./PostListItem.jsx');
 var PostListDateHeader = require('./PostListDateHeader.jsx'); 
+var PostListHeader = require('./PostListHeader.jsx');
+var FilterBar = require('./FilterBar.jsx');
 var PostStore = require('../stores/PostStore');
 var UserStore = require('../stores/UserStore');
 var SongActions = require('../actions/SongActions');
@@ -22,6 +24,7 @@ var _dayCount = 0;
 var _init = false;
 var _songList = {};
 var _songsSet = false;
+var _firstSong = null;
 var postCountByDates = [];
 
 function sortPostsByDate(posts) {
@@ -245,6 +248,7 @@ var PostsList = React.createClass({
     var count = 0;
     var songCount = 0;
     var first = 1;
+    var firstSong = {};
     for(date in dates) {
 
         var d;
@@ -279,6 +283,7 @@ var PostsList = React.createClass({
           if(first == 1) {
             first = -1;
             f = true;
+            firstSong = array[key];
           } else {
             f = false;
           }
@@ -316,7 +321,7 @@ var PostsList = React.createClass({
 
     //this.props.setSongList(songList);
     //_songList = songList;
-    return container;
+    return {"posts" : container, "firstSong" : firstSong };
   },
 
   /**
@@ -333,14 +338,27 @@ var PostsList = React.createClass({
 
     postCountByDates = getPostCountByDates( postsByDate[1] );
 
+    retVal = {}
     _postListItems = [];
-    _postListItems = this.renderPostsByDate(dates, posts); // return a list of <PostListDateHeader/> <PostListItems/>
-
+    firstSong = {};
+    retVal = this.renderPostsByDate(dates, posts); // return a list of <PostListDateHeader/> <PostListItems/>
+    _postListItems = retVal['posts'];
+    firstSong = retVal['firstSong'];
+    //console.log("THE FIRST SONG IS ", _postListItems, firstSong);
+    var postListStyle = { marginTop: 20+"px" };
     return (
-      <div className="container tf-content-container" >
-      <section id="main">
-        <ul id="Post-list" className="tf-post-list" >{_postListItems}</ul>
-      </section>
+      <div>
+
+      <PostListHeader post={firstSong}/>
+
+      <div className="container p-t-md" style={postListStyle}>
+        <div className="row">
+          <div className="col-md-8">
+            <ul className="media-list">{_postListItems}</ul>
+          </div>
+        </div>
+      </div>
+
       </div>
     );
   },
