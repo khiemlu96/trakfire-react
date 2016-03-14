@@ -8678,7 +8678,7 @@ img.zoom-img {
   text-align: center;
 }
 
-.tf-media-thumbnail-overlay span {
+.tf-media-thumbnail-overlay:hover span {
   display: inline-block;
   margin-top: 15px;
   font-size: 26px;

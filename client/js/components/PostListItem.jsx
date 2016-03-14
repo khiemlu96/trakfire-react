@@ -22,6 +22,8 @@ var isFirstPlaying = classNames("tf-post-item--first is-playing");
 var isFirstNotPlaying = classNames("tf-post-item--first");
 var isUpvoted = classNames("tf-post-item--votes is-upvoted");
 var isNotUpvoted = classNames("tf-post-item--votes");
+var playing = classNames("icon icon-controller-paus");
+var paused = classNames("icon icon-controller-play");
 var _localVoteCount = 0;
 
 var PostListItem = React.createClass({
@@ -89,7 +91,19 @@ var PostListItem = React.createClass({
     //var key = this.props.key;
     var idx = this.props.idx;
     //idx = idx[1];
-    this.props.onClick(this.props.post.stream_url, this.props.post, idx);
+    if(!this.state.isPlaying)
+      this.props.onClick(this.props.post.stream_url, this.props.post, idx);
+
+    var overlay = this.refs.overlay.getDOMNode();
+    console.log("OVERLAY", overlay);
+    if(!this.state.isPlaying) {
+      overlay.className = playing;
+      this.setState({isPlaying:true});
+    } else {
+      overlay.className = paused;
+      this.setState({isPlaying:false});
+    }
+
     /*var post = this.refs.post.getDOMNode();
     //console.log("POST STATUS", this.state.isPlaying);
     if(!this.props.first) {
@@ -173,7 +187,7 @@ var PostListItem = React.createClass({
             </span>
             <a href="#" className="tf-media-wrap" onClick={this.playPauseTrack}>
               <img className="media-object tf-media-thumbnail" width="64" src={post.img_url} alt="..."></img>
-              <div className="tf-media-thumbnail-overlay"><span className="icon icon-controller-play"></span></div>
+              <div className="tf-media-thumbnail-overlay"><span className={paused} ref="overlay"></span></div>
             </a>
           </div>
           <div className="media-body">
