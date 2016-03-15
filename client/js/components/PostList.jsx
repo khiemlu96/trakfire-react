@@ -249,24 +249,17 @@ var PostsList = React.createClass({
     var songCount = 0;
     var first = 1;
     var firstSong = {};
+
     for(date in dates) {
 
+        count = 0;
         var d;
         var today = new Date();
         var yesterday = new Date();
         yesterday.setDate(today.getDate()-1);
 
-        //console.log("TODAY IS", today.toDateString(), "YESTERDAY IS", yesterday.toDateString());
         d = moment(dates[date]).format('dddd, MMMM Do');
-        /*if(dates[date] == today.toDateString()) {
-          d = "Today";
-          count+=1;
-        } else if(dates[date] == yesterday.toDateString()) {
-          d = "Yesterday";
-          count+=1;
-        } else {
-          d = dates[date].toString();
-        }*/
+
         var dateHeader = <PostListDateHeader key={'d_'+date} date={d}/>
         container.push(dateHeader);
         
@@ -275,11 +268,12 @@ var PostsList = React.createClass({
         for(key in array) {
           if(isLoggedIn){
             var isUpvotedByUser = this.hasUpvoted(array[key], user.id);
-            //console.log("IS UPVOTED BY USER", isUpvotedByUser);
           }
           // console.log("ID: ", array[key].id);
           songList[array[key].id] = array[key];
+
           var f = false;
+
           if(first == 1) {
             first = -1;
             f = true;
@@ -287,6 +281,7 @@ var PostsList = React.createClass({
           } else {
             f = false;
           }
+
           var post = <PostListItem 
                         key={"p_"+songCount}
                         idx={songCount} 
@@ -301,11 +296,12 @@ var PostsList = React.createClass({
                         currStreamUrl={this.props.currStreamUrl}
                         showModal={this.props.showModal}
                         first={f}
-                        origin={this.props.origin}/>
+                        origin={this.props.origin}
+                        number={count}/>
           container.push(post); 
-          //console.log("HEYYA", songCount, array[key]);
           songList[songCount] = array[key];
-          songCount+=1;          
+          songCount += 1;    
+          count += 1;      
         }
         //only render the load more link if there is more to load for that day
         if(array.length > 10) {

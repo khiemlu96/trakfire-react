@@ -42,7 +42,8 @@ var PostListItem = React.createClass({
    showModal: ReactPropTypes.func, 
    isFirst: ReactPropTypes.bool,
    origin: ReactPropTypes.string, 
-   first: ReactPropTypes.bool
+   first: ReactPropTypes.bool, 
+   number: ReactPropTypes.number
   },
 
   getInitialState: function() {
@@ -184,7 +185,7 @@ var PostListItem = React.createClass({
         <li className="media tf-media">
           <div className="media-left">
             <span className="tf-media-number">
-              {this.props.idx + 1}
+              {this.props.number + 1}
             </span>
             <a href="#" className="tf-media-wrap" onClick={this.playPauseTrack}>
               <img className="media-object tf-media-thumbnail" width="64" src={post.img_url} alt="..."></img>
