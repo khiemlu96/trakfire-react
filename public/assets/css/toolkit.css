@@ -8696,3 +8696,13 @@ img.zoom-img {
 .tf-media-wrap:hover .tf-media-thumbnail-overlay {
   display: block !important;
 }
+
+.no-decor {
+  text-decoration: none;
+  color: #fff;
+}
+
+.no-decor:hover {
+  text-decoration: none;
+  color: #fff;
+}
