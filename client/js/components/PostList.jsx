@@ -357,21 +357,21 @@ var PostsList = React.createClass({
           <div className="col-md-4">
             <Carousel>
                 <CarouselItem>
-                  <img width={900} height={500} alt="900x500" src="/assets/carousel.png"/>
+                  <img width={900} height={500} alt="900x500" src="http://mag.face2facethemagazine.com/wp-content/uploads/2014/02/Isaiah_06516asdf.jpg"/>
                   <div className="carousel-caption">
                     <h3>First slide label</h3>
                     <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
                   </div>
                 </CarouselItem>
                 <CarouselItem>
-                  <img width={900} height={500} alt="900x500" src="/assets/carousel.png"/>
+                  <img width={900} height={500} alt="900x500" src="http://saintheron.com/wp-content/uploads/2014/06/Sango-Main.jpg"/>
                   <div className="carousel-caption">
                     <h3>Second slide label</h3>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
                   </div>
                 </CarouselItem>
                 <CarouselItem>
-                  <img width={900} height={500} alt="900x500" src="/assets/carousel.png"/>
+                  <img width={900} height={500} alt="900x500" src="http://cdn.pigeonsandplanes.com/wp-content/uploads/2015/10/11988448_414499872077079_1205743797496134248_n.jpg"/>
                   <div className="carousel-caption">
                     <h3>Third slide label</h3>
                     <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
