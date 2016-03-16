@@ -14,7 +14,8 @@ var TrakfirePlayer = React.createClass({
         onPrevClick: ReactPropTypes.func,
         onNextClick: ReactPropTypes.func,
         onPlayPauseClick: ReactPropTypes.func.isRequired, 
-        onProgressClick: ReactPropTypes.func, 
+        onProgressClick: ReactPropTypes.func,
+        onGetSongsLength: ReactPropTypes.func, 
         isUpvoted: ReactPropTypes.bool,
         onUpvote: ReactPropTypes.func, 
         isLoggedIn: ReactPropTypes.bool, 
@@ -56,7 +57,9 @@ var TrakfirePlayer = React.createClass({
     },
 
     handleNextClick: function() {
-        this.props.onNextClick();
+        if(this.props.currTrack.sortedIdx < (this.props.onGetSongsLength()-1)){
+            this.props.onNextClick();
+        }
     },  
 
     hasUpvoted: function(post) {
@@ -103,6 +106,11 @@ var TrakfirePlayer = React.createClass({
             previousLinkClass += " link-disabled ";
         }
 
+        var nextLinkClass = "tf-player-forward";
+        if(currTrack.sortedIdx === (this.props.onGetSongsLength()-1)){
+           nextLinkClass += " link-disabled ";
+        }
+
         return (
             <div className="tf-player-wrap">
                 <div className="tf-player-wrap-inner container">
@@ -114,7 +122,7 @@ var TrakfirePlayer = React.createClass({
                     {/*<a className="tf-player-play" href="#!" onClick={this.handlePlayPauseClick}>*/}
                     {!this.props.isPlaying ? play : pause}
                     
-                    <a className="tf-player-forward" href="#!" onClick={this.handleNextClick}></a>
+                    <a className={nextLinkClass} href="#!" onClick={this.handleNextClick}></a>
                     </div>
                     <div className="tf-player-controls-wrap">
                         <TrakfirePlayerProgress

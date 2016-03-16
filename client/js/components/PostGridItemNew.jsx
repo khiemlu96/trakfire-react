@@ -67,6 +67,9 @@ var PostGridItem = React.createClass({
         for(tag in t) {
             var tag = <div className="tf-tag tf-uppercase"> {t[tag].name} </div> 
             tags.push(tag);
+            if(tags.length > 3){
+                break;
+            }
         }
 
         return tags;
