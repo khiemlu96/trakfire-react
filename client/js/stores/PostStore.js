@@ -262,6 +262,11 @@ var PostStore = assign({}, EventEmitter.prototype, {
     return _songs;
   }, 
 
+  getSongsLength: function(){
+     var len = Object.keys(_songs).length;
+     return len;
+  },
+
   getCurrentSong: function() {
     var len = Object.keys(_songs).length;
     for(var i = 0; i < len; i++) {

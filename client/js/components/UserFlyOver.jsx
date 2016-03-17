@@ -91,7 +91,7 @@ var UserFlyOver = React.createClass({
 				{userFlyOver}
 				<div>
 					<div className="tf-link" onClick={this.renderUserProfile}>
-						<img className='tf-author-img' src={userImg}></img>
+						<img className='tf-author-img' src={userImg ? userImg : "assets/img/trakfirefavicon.ico"}></img>
 					</div>
 				</div>
 			</div>

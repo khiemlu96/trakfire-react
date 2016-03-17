@@ -1360,7 +1360,7 @@ ul.tf-filter-bar-ul {
 }
 
 .tf-profile-wrapper .tf-back-link {
-    margin-left: 6%;
+    margin-left: 90px;
 }
 
 .tf-profile-wrapper .tf-back-link::before {
@@ -2994,7 +2994,7 @@ label.ownsong-label {
 }
 
 .tf-back-link {
-    margin-left: 11%;
+    margin-left: 160px;
     float: left;
     color: #FFFFFF !important;
     font-size: 10px;

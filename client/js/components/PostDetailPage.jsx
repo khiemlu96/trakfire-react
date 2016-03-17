@@ -276,6 +276,8 @@ var PostDetailPage = React.createClass({
     var playing = this.state.isPlaying;
     var currTrack = this.state.currTrack;
     var upvoted = this.hasUpvoted(post);
+    var postDetailImage = post.img_url_lg;
+    var postAuthorImage = post.author_img;
 
     var tfPlayer = <TrakfirePlayerProgress
                             duration={ post ? parseInt(post.duration) : 0 }
@@ -302,7 +304,7 @@ var PostDetailPage = React.createClass({
                 <div className="tf-post-item--img col-xs-3 col-sm-3 col-md-3">
                   <div className="tf-trak-img">
                     <a href="#!" className="tf-post-play" onClick={this.onPlayBtnClick} >
-                      <img className="tf-trak-detail-thumbnail" src={post.img_url_lg} />
+                      <img className="tf-trak-detail-thumbnail" src={postDetailImage ? postDetailImage : "assets/img/tf_placeholder.png"} />
                     </a>                    
                     {!this.state.isPlaying ? play : pause}
                     <div className="tf-player-controls-wrap">                        
@@ -326,7 +328,7 @@ var PostDetailPage = React.createClass({
                     <div className="tf-auther-panel">
                       {/*<a className="tf-link" href="/profile/2" >*/}
                       <Link to={'/profile/'+post.author_id}>  
-                        <img className="tf-author-img" src={post.author_img}></img>
+                        <img className="tf-author-img" src={postAuthorImage ? postAuthorImage : "assets/img/trakfirefavicon.ico"}></img>
                       </Link>
                     </div>
                   </div>
