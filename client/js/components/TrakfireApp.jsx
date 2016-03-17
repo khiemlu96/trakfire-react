@@ -269,7 +269,6 @@ var TrakfireApp = React.createClass({
                       onGetSongsLength={this.onGetSongsLength}
                       isLoggedIn={this.state.isLoggedIn}
                       onUpvote={this.writeVoteToApi}
-                      isUpvoted={upvoted}
                       userId={currUserId}
                       />;
     //var tfEmailAcq = <EmailAcquirePage updateUserWithEmail={this.updateUserWithEmail}/>;
