@@ -184,7 +184,6 @@ var PostListItem = React.createClass({
     //var first = (this.props.first) ? isFirstNotPlaying : isNotPlaying;
     var voteStyle = { color: "#ff0d60 !important;" };
     return (
-<<<<<<< HEAD
         <li className="media tf-media">
           <div className="media-left">
             <span className="tf-media-number">
@@ -203,38 +202,6 @@ var PostListItem = React.createClass({
             <h6 className="tf-media-artist">{post.artist}
               <small className="pull-right"> posted by: <Link to={profileLink} className="tf-media-poster">{post.author}</Link> </small>
             </h6> 
-=======
-      <li className={first} ref="post">  
-        <Link to={'/post/'+post.id}>    
-          <div className="tf-post-item-content">
-            <div className="tf-post-item--rank">{parseInt(this.props.rank) + 1}</div>
-            <div className={ upvoted ? isUpvoted : isNotUpvoted} ref="upvotes" onClick={this.upvote}>
-            <span className={_localVoteCount > 0 ? "" : "tf-hide"} ref="count"><b>{upvoted ? _localVoteCount : post.vote_count}</b></span>
-            </div>
-            <div className="tf-post-item--img"> 
-              <div className="tf-post-play" onClick={this.playPauseTrack}>
-                <img className="tf-thumbnail" src={ img ? img : "assets/img/tf_placeholder.png" }/>
-              </div>
-              <div className="tf-overlay" onClick={this.playPauseTrack}> 
-              </div> 
-              <div className="tpf-play-button" onClick={this.playPauseTrack}> 
-                <img src={'assets/img/player-play-white.svg'} /> 
-              </div> 
-              <div className="tpf-pause-button" onClick={this.playPauseTrack}> 
-                <img src={'assets/img/player-pause-white.svg'} /> 
-              </div> 
-            </div>
-            <div className="tf-post-item--info">
-              <h5>{ post.title }</h5>
-              <small> {post.artist} </small>
-            </div>
-            <div className="tf-post-item--author">
-              {this.renderAuthor()}
-            </div>
-            <div className="tf-post-item--tags">
-              {this.renderTags()}
-            </div>
->>>>>>> 1ff34a5aa5b1e1a5db4ab17a5ca671bc90133b08
           </div>
         </li>
     );
