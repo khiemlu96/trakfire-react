@@ -95,11 +95,11 @@ var ProfileHeader = React.createClass({
                 <div className="profile-header text-center tf-background" style={headerStyle}>
                   <div className="container">
                     <div className="container-inner">
-                      <img className="img-circle media-object" src="https://pbs.twimg.com/profile_images/647909428717449216/cMF2Qgxe.jpg"></img>
+                      <img className="img-circle media-object" src={this.props.userImg}></img>
                       <div className="pull-right">
-                      <h3 className="profile-header-user">Grant Collins</h3>
+                      <h3 className="profile-header-user">{this.props.userName}</h3>
                       <p className="profile-header-bio">
-                        This shit is 2 die 4.
+                        {this.props.userBio}
                       </p>
                     </div>
                     </div>
@@ -108,10 +108,10 @@ var ProfileHeader = React.createClass({
                   <nav className="profile-header-nav">
                     <ul className="nav nav-tabs">
                       <li className="active">
-                        <a href="#">Upvotes</a>
+                        <a href="#upvoted" data-toggle="tab">Upvotes</a>
                       </li>
                       <li>
-                        <a href="#">Posts</a>
+                        <a href="#posted" data-toggle="tab">Posts</a>
                       </li>
                     </ul>
                   </nav>
