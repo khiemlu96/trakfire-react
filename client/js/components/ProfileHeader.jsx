@@ -90,39 +90,32 @@ var ProfileHeader = React.createClass({
             followBtnStyle.display = 'block';
         }
         console.log("FOILLOW STYLE", followBtnStyle, this.props.currentUserId, this.props.userId);
+        var headerStyle = {"padding" : 100 + 'px'};
         return ( 
-            <div className = "tf-profile-wrapper" style={styleDisplay}>
-                <ProfileBar toggleProfileEdit = {this.props.toggleProfileEdit} showEditLink = {showEditLink} />
-                <div className="row col-md-12 col-sm-12 col-xs-12">
-                    <div className="col-md-4 col-xs-4 col-sm-3">
+                <div className="profile-header text-center tf-background" style={headerStyle}>
+                  <div className="container">
+                    <div className="container-inner">
+                      <img className="img-circle media-object" src="https://pbs.twimg.com/profile_images/647909428717449216/cMF2Qgxe.jpg"></img>
+                      <div className="pull-right">
+                      <h3 className="profile-header-user">Grant Collins</h3>
+                      <p className="profile-header-bio">
+                        This shit is 2 die 4.
+                      </p>
                     </div>
-                    <div className="col-md-4 col-xs-6 col-sm-7 tf-profile-info-wrapper">
-                        <div className="col-md-4 col-xs-4 col-sm-4 tf-profile-img-wrapper" >
-                            <img src = {this.props.userImg} className = "tf-profile-image"> </img>
-                        </div>
-                        <div className="col-md-8 col-xs-8 col-sm-8">                    
-                            <h1 className = "row tf-name" > {this.props.userName} </h1>
-                            <div className = "row tf-bio" > {this.props.userBio}</div>
-                            
-                            <div className = "row tf-social-icons" >
-                                <span>
-                                    <div className="tf-btn-follow btn btn-primary col-md-6" onClick={this.follow_click} style={followBtnStyle}>{follow_text}</div>
-                                    <div className="col-md-6">
-                                        <a href = {this.props.userScloudLink} target = "_blank" >
-                                            <img src="https://cdn2.iconfinder.com/data/icons/minimalism/512/soundcloud.png"></img>
-                                        </a>
-                                        <a href = {this.props.userTwitterLink} target = "_blank" >
-                                            <img src = "../assets/img/twitter_share.svg"> </img> 
-                                        </a>
-                                    </div>
-                                </span>
-                            </div>
-                        </div>
                     </div>
-                    <div className="col-md-4 col-xs-2 col-sm-2">
-                    </div>                    
+                  </div>
+
+                  <nav className="profile-header-nav">
+                    <ul className="nav nav-tabs">
+                      <li className="active">
+                        <a href="#">Upvotes</a>
+                      </li>
+                      <li>
+                        <a href="#">Posts</a>
+                      </li>
+                    </ul>
+                  </nav>
                 </div>
-            </div>
         );
     },
 

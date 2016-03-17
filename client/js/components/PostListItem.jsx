@@ -92,7 +92,7 @@ var PostListItem = React.createClass({
     //var key = this.props.key;
     var idx = this.props.idx;
     //idx = idx[1];
-    if(!this.state.isPlaying)
+    //if(!this.state.isPlaying)
       this.props.onClick(this.props.post.stream_url, this.props.post, idx);
 
     var overlay = this.refs.overlay.getDOMNode();
@@ -194,7 +194,7 @@ var PostListItem = React.createClass({
           </div>
           <div className="media-body">
             <h4 className="tf-media-title">
-              <span className="pull-right"><a href="#" onClick={this.upvote}><span className="icon icon-chevron-up" voteStyle></span></a> <small ref="count">{post.vote_count}</small> </span>
+              <span className="pull-right"><a href="#" onClick={this.upvote}><span className="icon icon-chevron-up" style={voteStyle}></span></a> <small ref="count">{post.vote_count}</small> </span>
               <Link to={postLink} className="no-decor">{post.title}</Link>
             </h4>
             <h6 className="tf-media-artist">{post.artist}

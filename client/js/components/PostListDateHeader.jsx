@@ -22,7 +22,7 @@ var PostListDateHeader = React.createClass({
     var date = d[1];
     return (
       <li className="tf-day-header" key={this.props.key}>
-        <h3>{dayOfWeek} <small>{date}</small> </h3>
+        <h4>{dayOfWeek} <small>{date}</small> </h4>
       </li>
     );
   },
