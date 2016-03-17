@@ -2,7 +2,7 @@ var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var UserActions = require('../actions/UserActions.js');
 var UserStore = require('../stores/UserStore.js');
-var UserPostGrid = require('./UserPostGrid.jsx');
+var UserPostList = require('./UserPostList.jsx');
 var ProfileHeader = require('./ProfileHeader.jsx');
 var ProfileEditPage = require('./ProfileEditPage.jsx');
 
@@ -109,13 +109,12 @@ var ProfilePage = React.createClass({
                         toggleProfileEdit= {this.toggleProfileEdit} 
                         origin= {this.props.origin} />
 
-                    <div className="tf-profile-posts-wrapper"> 
-                        <UserPostGrid 
+                    <UserPostList
                         upvotedTracks={user.upvotes} 
                         postedTracks={user.posts}
                         onPostItemClick={this.props.onPostItemClick}
-                        currStreamUrl={this.props.currStreamUrl} />                    
-                    </div>
+                        currStreamUrl={this.props.currStreamUrl} />  
+
                 </div>
             );
         },

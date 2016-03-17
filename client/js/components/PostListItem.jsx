@@ -43,7 +43,8 @@ var PostListItem = React.createClass({
    isFirst: ReactPropTypes.bool,
    origin: ReactPropTypes.string, 
    first: ReactPropTypes.bool, 
-   number: ReactPropTypes.number
+   number: ReactPropTypes.number, 
+   showNumber: ReactPropTypes.bool
   },
 
   getInitialState: function() {
@@ -179,13 +180,14 @@ var PostListItem = React.createClass({
     }*/
     var profileLink = "/profile/"+post.author_id;
     var postLink = "/post/"+post.id;
+    var isNumbered = this.props.showNumber;
     //var first = (this.props.first) ? isFirstNotPlaying : isNotPlaying;
     var voteStyle = { color: "#ff0d60 !important;" };
     return (
         <li className="media tf-media">
           <div className="media-left">
             <span className="tf-media-number">
-              {this.props.number + 1}
+              { isNumbered ? this.props.number + 1 : "" }
             </span>
             <a href="#" className="tf-media-wrap" onClick={this.playPauseTrack}>
               <img className="media-object tf-media-thumbnail" width="64" src={post.img_url} alt="..."></img>
