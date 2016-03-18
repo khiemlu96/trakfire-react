@@ -7,6 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 require('../css/tf-styles.css');
+//require('../css/admin.css');
 
 var React = require('react');
 
@@ -28,9 +29,14 @@ var EmailAcquirePage = require('./components/EmailAcquirePage.jsx');
 var PostDetailPage = require('./components/PostDetailPage.jsx');
 var SearchResultPage = require('./components/SearchResultPage.jsx');
 var NotificationPage = require('./components/NotificationPage.jsx');
+var AdminPage = require('./components/admin/AdminPage.jsx');
+var DashBoardPage = require('./components/admin/DashBoardPage.jsx');
+var AdminUserPage = require('./components/admin/AdminUserPage.jsx');
+var AdminPostsPage = require('./components/admin/AdminPostsPage.jsx');
+var AdminBannerImagePage = require('./components/admin/AdminBannerImagePage.jsx');
 
 React.render(
-<Router history={hashHistory()}>
+  <Router history={hashHistory()}>
     <Route path='/' component={TrakfireApp}>
       <IndexRoute component={PostsPage}/>
       <Route path='/profile/(:id)' component={ProfilePage} />
@@ -42,7 +48,14 @@ React.render(
       <Route path='/post/(:id)' component={PostDetailPage} />
       <Route path='/searchresult/(:searchkey)' component={SearchResultPage} />
       <Route path='/notification' component={NotificationPage} />
-    </Route>
+      <Route name="base" path='/admin' component={AdminPage}>
+        <IndexRoute component={DashBoardPage} />
+        <Route name="admin.dashboard" path='/admin/dashboard' component={DashBoardPage} />
+        <Route name="admin.user" path='/admin/users' component={AdminUserPage} />
+        <Route name="admin.post" path='/admin/posts' component={AdminPostsPage} />
+        <Route name="admin.images" path='/admin/images' component={AdminBannerImagePage} />
+      </Route>
+    </Route>    
   </Router>,
 
   document.getElementById('trakfireapp')

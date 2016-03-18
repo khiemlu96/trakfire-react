@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   get 'access_token', to: 'tokens#access_token'
   get 'post/:id' => 'posts#show'
 
-  resources :posts, only: [:index, :create, :show]
+  resources :posts, only: [:index, :create, :show, :destroy]
   resources :votes, only: [:create, :destroy]
   resources :comments, only: [:index, :create, :destroy]
   resources :follower, only: [:create, :destroy]

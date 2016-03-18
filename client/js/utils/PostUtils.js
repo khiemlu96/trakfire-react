@@ -29,7 +29,8 @@ module.exports = {
       sortedIdx: -1,
       comments: (rawPost.comments !== undefined) ? rawPost.comments : rawPost.post_comments,
       votes: rawPost.post_votes,
-      user: rawPost.user
+      user: rawPost.user,
+      comment_count: rawPost.comment_count
     };
   },
 
