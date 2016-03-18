@@ -105,9 +105,9 @@ var TrakFireAdminPage = React.createClass({
 								<li> 
 									<Link to="/admin/users"><i className="fa fa-user fa-fw"></i> &nbsp;Users</Link>
 								</li>
-								<li> 
-									<Link to="/admin/images"><i className="fa fa-user fa-fw"></i> &nbsp;Banner Skins</Link>
-								</li> 
+								{/*<li> 
+								 									<Link to="/admin/images"><i className="fa fa-user fa-fw"></i> &nbsp;Banner Skins</Link>
+								 								</li>*/} 
 							</ul>
 						</div>
 					</div>

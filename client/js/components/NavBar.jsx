@@ -179,10 +179,15 @@ var NavBar = React.createClass({
   },
 
   renderStaticInfo: function(){
-    var signinLink = '';
+    var signinLink = '', adminConsoleLink = '';
     if(this.props.isLoggedIn) {
         signinLink = <div className="tf-menu-popup-list-item tf-sign-out-link"><a href='/'onClick={this.handleSignOut}><h6>SIGN OUT</h6></a></div>
     }
+
+    if(this.props.isAdmin !== undefined && this.props.isAdmin === true) {
+        adminConsoleLink = <div className="tf-menu-popup-list-item"><Link to={'/admin'}><h6>ADMIN CONSOLE</h6></Link></div>; 
+    }
+
     return <OverlayTrigger trigger="click" rootClose placement="bottom" 
               overlay={ 
                         <Popover className="tf-menu-popup col-md-2" id="tf-post-detail-popup" style={MenuIconStyle} >
@@ -190,6 +195,7 @@ var NavBar = React.createClass({
                              <div className="tf-menu-popup-list-item"><Link to={'/about'}><h6>ABOUT TRAKFIRE</h6></Link></div>
                              <div className="tf-menu-popup-list-item"><Link to={'/privacy'}><h6>PRIVACY POLICY</h6></Link></div>
                              <div className="tf-menu-popup-list-item"><Link to={'/terms'}><h6>TERMS OF SERVICE</h6></Link></div>
+                             <div>{adminConsoleLink} </div>
                              <div>{signinLink} </div>
                         </Popover>
                       }>
