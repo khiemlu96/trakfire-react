@@ -279,6 +279,11 @@ table.dataTable thead .sorting:after {
     color: rgba(50,50,50,.5);
 }
 
+table.dataTable .tf-preview-img {
+    height: 40px;
+    width: 40px;    
+}
+
 .btn-circle {
     width: 30px;
     height: 30px;
@@ -429,3 +434,4 @@ table.dataTable thead .sorting:after {
 .tf-search-button {
     margin-left: 10px;
 }
+

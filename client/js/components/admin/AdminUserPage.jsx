@@ -103,12 +103,12 @@ var AdminUserPage = React.createClass({
 
                                     <div className="row">
                                         <div className="col-sm-12">
-                                            <table className="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info">
+                                            <table className="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" role="grid">
                                                 <thead>
                                                     <tr role="row">
-                                                        <th className="sorting" tabIndex="0" aria-controls="dataTables-example" rowSpan="1" colSpan="1" aria-label="Browser: activate to sort column ascending" style={ {width: 321} }>User Name</th>
-                                                        <th className="sorting" tabIndex="0" aria-controls="dataTables-example" rowSpan="1" colSpan="1" aria-label="Platform(s): activate to sort column ascending" style={ {width: 299} }>Emails</th>
-                                                        <th className="center" tabIndex="0" aria-controls="dataTables-example" rowSpan="1" colSpan="1" aria-label="CSS grade: activate to sort column ascending" style={ {width: 180} }>?</th>
+                                                        <th className="" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 321} }>User Name</th>
+                                                        <th className="" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 299} }>Emails</th>
+                                                        <th className="center" tabIndex="0" rowSpan="1" colSpan="1"  style={ {width: 180} }>?</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>               

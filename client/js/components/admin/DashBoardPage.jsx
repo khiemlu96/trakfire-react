@@ -22,12 +22,8 @@ var StatWidget = require('./StatWidget.jsx');
 
 var DashBoardPage = React.createClass({
 
-    getInitialState: function() {
-
-    },
-
     componentDidMount: function() {
-        
+
     },
 
     render: function() {

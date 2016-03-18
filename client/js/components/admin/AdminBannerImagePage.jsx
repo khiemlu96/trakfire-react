@@ -41,25 +41,24 @@ var AdminBannerImagePage = React.createClass({
                                             <table className="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info">
                                                 <thead>
                                                     <tr role="row">
-                                                        <th className="sorting_asc" tabIndex="0" aria-controls="dataTables-example" rowSpan="1" colSpan="1" aria-label="Rendering engine: activate to sort column descending" aria-sort="ascending" style={ {width: 265} }>Title</th>
-                                                        <th className="sorting" tabIndex="0" aria-controls="dataTables-example" rowSpan="1" colSpan="1" aria-label="Browser: activate to sort column ascending" style={ {width: 321} }>Artist</th>
-                                                        <th className="sorting" tabIndex="0" aria-controls="dataTables-example" rowSpan="1" colSpan="1" aria-label="Platform(s): activate to sort column ascending" style={ {width: 299} }>Posted By</th>
-                                                        <th className="sorting" tabIndex="0" aria-controls="dataTables-example" rowSpan="1" colSpan="1" aria-label="Engine version: activate to sort column ascending" style={ {width: 231} }>Comments</th>
-                                                        <th className="sorting" tabIndex="0" aria-controls="dataTables-example" rowSpan="1" colSpan="1" aria-label="CSS grade: activate to sort column ascending" style={ {width: 180} }>Votes</th>
-                                                        <th className="" tabIndex="0" aria-controls="dataTables-example" rowSpan="1" colSpan="1" aria-label="CSS grade: activate to sort column ascending" style={ {width: 299} }>?</th>
+                                                        <th className="" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 265} }>Title</th>
+                                                        <th className="" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 299} }>Type</th>
+                                                        <th className="" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 231} }>Size(kb)</th>
+                                                        <th className="" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 180} }>Preview</th>
+                                                        <th className="" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 299} }>Delete?</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>               
                                                     <tr className="gradeA odd" role="row">
-                                                        <td className="sorting_1">Post1</td>
-                                                        <td>Graves and Yoshinabu</td>
-                                                        <td>Test Usr 1</td>
-                                                        <td className="center">5</td>
-                                                        <td className="center">10</td>
+                                                        <td className="sorting_1">Post Image</td>
+                                                        <td>JPEG</td>
+                                                        <td>596</td>
                                                         <td className="center">
-                                                            <div className="col-md-6">
-                                                                <a><span><i className="fa fa-pencil-square-o"></i></span>Edit</a>
+                                                            <div className="tf-preview-img-container">
+                                                                <img className="tf-preview-img" src="/assets/img/tf_placeholder.png"></img>
                                                             </div>
+                                                        </td>
+                                                        <td className="center">                                                            
                                                             <div className="col-md-6">
                                                                 <a><span><i className="fa fa-trash-o"></i></span>Del</a>
                                                             </div>

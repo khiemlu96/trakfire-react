@@ -200,15 +200,15 @@ var AdminPostsPage = React.createClass({
 
                                     <div className="row">
                                         <div className="col-sm-12">
-                                            <table className="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" role="grid" aria-describedby="dataTables-example_info">
+                                            <table className="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" role="grid">
                                                 <thead>
                                                     <tr role="row">
-                                                        <th className="aligned-left sorting_asc" tabIndex="0" aria-controls="dataTables-example" rowSpan="1" colSpan="1" aria-label="Rendering engine: activate to sort column descending" aria-sort="ascending" style={ {width: 265} }>Title</th>
-                                                        <th className="aligned-left sorting" tabIndex="0" aria-controls="dataTables-example" rowSpan="1" colSpan="1" aria-label="Browser: activate to sort column ascending" style={ {width: 321} }>Artist</th>
-                                                        <th className="aligned-left sorting" tabIndex="0" aria-controls="dataTables-example" rowSpan="1" colSpan="1" aria-label="Platform(s): activate to sort column ascending" style={ {width: 299} }>Posted By</th>
-                                                        <th className="aligned-centered sorting" tabIndex="0" aria-controls="dataTables-example" rowSpan="1" colSpan="1" aria-label="Engine version: activate to sort column ascending" style={ {width: 231} }>Comments</th>
-                                                        <th className="aligned-centered sorting" tabIndex="0" aria-controls="dataTables-example" rowSpan="1" colSpan="1" aria-label="CSS grade: activate to sort column ascending" style={ {width: 180} }>Votes</th>
-                                                        <th className="aligned-centered" tabIndex="0" aria-controls="dataTables-example" rowSpan="1" colSpan="1" aria-label="CSS grade: activate to sort column ascending" style={ {width: 299} }>Delete?</th>
+                                                        <th className="aligned-left" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 265} }>Title</th>
+                                                        <th className="aligned-left" tabIndex="0" rowSpan="1" colSpan="1"  style={ {width: 321} }>Artist</th>
+                                                        <th className="aligned-left" tabIndex="0" rowSpan="1" colSpan="1"  style={ {width: 299} }>Posted By</th>
+                                                        <th className="aligned-centered" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 231} }>Comments</th>
+                                                        <th className="aligned-centered" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 180} }>Votes</th>
+                                                        <th className="aligned-centered" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 299} }>Delete?</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>               
