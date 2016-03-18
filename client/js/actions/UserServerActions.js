@@ -39,6 +39,14 @@ module.exports = {
       response: response
     });      
   }, 
+
+  recieveAll: function(response){
+    console.log("RECIEVING ALL USER", response);
+    AppDispatcher.dispatch({
+      actionType: UserConstants.GET_ALL_USERS,
+      response: response
+    });
+  },
   
   recieveUserNotifications: function(response) {
     AppDispatcher.dispatch({

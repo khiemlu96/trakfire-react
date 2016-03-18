@@ -3,15 +3,82 @@
 var React = require("react");
 var Component = require("react").Component;
 var PropTypes = require("react").PropTypes;
+
 var Pagination = require("react-bootstrap").Pagination;
 var Panel = require("react-bootstrap").Panel;
 var Well = require("react-bootstrap").Well;
 var Button = require("react-bootstrap").Button;
 var PageHeader = require("react-bootstrap").PageHeader;
 
+var UserStore = require('../../stores/UserStore.js');
+var UserActions = require('../../actions/UserActions.js');
+
+function getAppState() {
+    return {
+        users : UserStore.getAllUsers()
+    };
+}
+
+function getLength(a) {
+    var i = 0;
+    for(key in a){
+        i++;
+    }
+    return i;
+}
+
 var AdminUserPage = React.createClass({
 
+    getInitialState: function(){
+         return getAppState();
+    },
+
+    getAllUsersFromApi: function(){
+        var data = {
+            limit: 10,
+            offset: 0
+        }
+        UserActions.getAllUsers(this.props.origin+'/users',data);
+    },
+
+    componentDidMount: function() {
+        this.getAllUsersFromApi();
+        UserStore.addChangeListener(this._onChange);
+    },
+
+    renderUserGrid: function(){
+        var users = this.state.users;
+        //console.log("====================== ADMIN USERS : ",users);
+
+        if( users !== undefined && getLength(users) > 0) {
+            var userGridHtml = [];
+            for( var id in users ) {
+                var user = users[id];
+                var row = 
+                    <tr className="gradeA odd" role="row">
+                        <td className="sorting_1">{user.name}</td>
+                        <td>{user.email}</td>
+                        <td className="center">
+                            <div className="col-md-6">
+                                <a><span><i className="fa fa-pencil-square-o"></i></span>Edit</a>
+                            </div>
+                        <div className="col-md-6">
+                            <a><span><i className="fa fa-trash-o"></i></span>Del</a>
+                        </div>
+                        </td>
+                    </tr>
+                userGridHtml.push(row);
+            } 
+            return userGridHtml;       
+        } else {
+            return <tr></tr>;
+        }       
+    },
+
+
     render: function() {
+        var userGridHtml = this.renderUserGrid();
+        //console.log("============= USER GRID HTML : ",userGridHtml);
         return (
             <div>
                 <div className="col-lg-12"> 
@@ -45,18 +112,7 @@ var AdminUserPage = React.createClass({
                                                     </tr>
                                                 </thead>
                                                 <tbody>               
-                                                    <tr className="gradeA odd" role="row">
-                                                        <td className="sorting_1">Test User 1</td>
-                                                        <td>test1@gmail.com</td>
-                                                        <td className="center">
-                                                        <div className="col-md-6">
-                                                        <a><span><i className="fa fa-pencil-square-o"></i></span>Edit</a>
-                                                        </div>
-                                                        <div className="col-md-6">
-                                                            <a><span><i className="fa fa-trash-o"></i></span>Del</a>
-                                                        </div>
-                                                        </td>
-                                                    </tr>
+                                                    {userGridHtml}
                                                 </tbody>
                                             </table>
                                         </div>
@@ -77,6 +133,9 @@ var AdminUserPage = React.createClass({
                 </div>
             </div>
         );
+    },
+    _onChange: function() {
+        this.setState(getAppState());
     }
 });
 

@@ -428,5 +428,30 @@ module.exports = {
       }
     });    
   },
+
+  getAllUsers: function(url,data) {
+    var params = {
+      limit: data.limit,
+      offset: data.offset
+    };
+
+    Reqwest({
+      url: url,
+      type: 'json',
+      method: 'get',
+      data: params,
+      contentType: 'application/json',
+      headers: {'Authorization': localStorage.getItem('jwt')},
+      success: function(resp) { 
+        console.log(resp);
+        users = resp;
+        UserServerActionCreators.recieveAll(users); 
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+        //location = '/';
+      }
+    });
+  }
 };
 

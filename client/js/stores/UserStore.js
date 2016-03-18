@@ -8,6 +8,7 @@ var CHANGE_EVENT = 'change';
 
 var _cUser = null;
 var _user = null;
+var _users = {};
 var _posts = null;
 var _notifications = null;
 
@@ -25,6 +26,17 @@ function _addCurrentUser(user) {
 
 function _addUser(user) {
   _user = UserUtils.convertRawUser(user);
+}
+
+function _addUsers(users) {
+  //console.log("============= -addUsers ========== users : ",users);
+  if(users !== undefined){
+    users.forEach(function(user){
+      if(!_users[user.id]){
+        _users[user.id] = UserUtils.convertRawUser(user);
+      }
+    });
+  }
 }
 
 function _addPostsToUser(userPosts) {
@@ -70,6 +82,10 @@ var UserStore = assign({}, EventEmitter.prototype, {
   getUser: function() {
     //console.log('USER ', _user);
     return _user;
+  },
+
+  getAllUsers: function(){
+    return _users;
   }, 
 
   isSignedIn: function() {
@@ -128,6 +144,11 @@ AppDispatcher.register(function(action) {
       //console.log('recieving the current user for session', action.response);
       _addUser(action.response);
       UserStore.emitChange();      
+      break;
+    case UserConstants.GET_ALL_USERS:
+       //console.log('recieving the all user for session', action.response);
+      _addUsers(action.response);
+      UserStore.emitChange();
       break;
     case UserConstants.GET_USER_POSTS:
       //console.log('Getting a users posts');
