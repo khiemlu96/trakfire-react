@@ -273,6 +273,7 @@ var NavBar = React.createClass({
           </li>
           {profileLink}
           {signinLink}
+          {menuIcon}
         </ul>
 
         <form className="navbar-form navbar-right app-search" role="search">
