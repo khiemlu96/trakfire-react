@@ -111,7 +111,7 @@ var TrakFireAdminPage = React.createClass({
 							</ul>
 						</div>
 					</div>
-					<div id="page-wrapper" className="page-wrapper" ref="pageWrapper">
+					<div id="page-wrapper" className="page-wrapper tf-background" ref="pageWrapper">
 						{Routes}
 					</div>
 				</div>

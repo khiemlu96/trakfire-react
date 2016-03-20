@@ -99,7 +99,7 @@ var AdminPostsPage = React.createClass({
             for( var id in posts ) {
                 var post = posts[id];
                 var row = 
-                    <tr className="gradeA odd" role="row">
+                    <tr className="gradeA odd tf-background" role="row">
                         <td className="aligned-left sorting_1">{post.title}</td>
                         <td className="aligned-left">{post.artist}</td>
                         <td className="aligned-left">{post.user.username}</td>
@@ -202,7 +202,7 @@ var AdminPostsPage = React.createClass({
                                         <div className="col-sm-12">
                                             <table className="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" role="grid">
                                                 <thead>
-                                                    <tr role="row">
+                                                    <tr role="row tf-background">
                                                         <th className="aligned-left" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 265} }>Title</th>
                                                         <th className="aligned-left" tabIndex="0" rowSpan="1" colSpan="1"  style={ {width: 321} }>Artist</th>
                                                         <th className="aligned-left" tabIndex="0" rowSpan="1" colSpan="1"  style={ {width: 299} }>Posted By</th>

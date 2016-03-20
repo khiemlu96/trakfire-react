@@ -55,7 +55,7 @@ var AdminUserPage = React.createClass({
             for( var id in users ) {
                 var user = users[id];
                 var row = 
-                    <tr className="gradeA odd" role="row">
+                    <tr className="gradeA odd tf-background" role="row">
                         <td className="sorting_1">{user.name}</td>
                         <td>{user.email}</td>
                         <td className="center">
