@@ -271,6 +271,7 @@ var NavBar = React.createClass({
               <span className="icon icon-bell"></span>
             </a>
           </li>
+          {postLink}
           {profileLink}
           {signinLink}
           {menuIcon}
