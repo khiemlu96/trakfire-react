@@ -300,7 +300,8 @@ var PostsList = React.createClass({
                         first={f}
                         origin={this.props.origin}
                         number={count}
-                        showNumber={true}/>
+                        showNumber={true}
+                        showAuthor={true}/>
           container.push(post); 
           songList[songCount] = array[key];
           songCount += 1;    

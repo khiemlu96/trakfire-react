@@ -4,7 +4,11 @@ class UsersController < ApplicationController
     @votes = Vote.where(user_id: @user.id)
     @user_posts = []
     @votes.each do |v|
-      @user_posts.push(Post.find(v.post_id))
+      post = Post.find(v.post_id)
+      user = User.find(post.user_id)
+      userPost = { post: post, author: user }
+      #@user_posts.push(Post.find(v.post_id))
+      @user_posts.push(userPost)
     end
     logger.info "USER POSTS"
     upvotes = {upvoted_posts: @user_posts}
