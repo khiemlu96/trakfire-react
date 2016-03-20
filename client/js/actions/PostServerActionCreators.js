@@ -94,5 +94,21 @@ module.exports = {
           actionType: PostConstants.GET_MORE_POSTS,
           response: response,
       });
+  },
+
+  getAdminPosts: function(response) {
+    AppDispatcher.dispatch({
+        actionType: PostConstants.GET_ADMIN_POSTS,
+        response: response,
+    });
+  },
+
+  deleteAdminPost: function(response) {
+    if(response.code === 0) {
+      AppDispatcher.dispatch({
+          actionType: PostConstants.DELETE_ADMIN_POST,
+          post_id: response.post_id
+      });
+    }    
   }
 };

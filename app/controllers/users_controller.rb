@@ -1,4 +1,14 @@
 class UsersController < ApplicationController
+
+  def index
+    
+    @offset = params[:offset]
+    @limit = params[:limit]
+    @users = User.order(created_at: :desc).ranking.offset(@offset).limit(@limit)
+
+    render json: @users
+  end  
+
   def posts
   	@user = User.find(params[:id])
     @votes = Vote.where(user_id: @user.id)

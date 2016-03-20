@@ -6,6 +6,14 @@ html, body {
 	height: 100%;
 }
 
+#main-container {
+	height: 100%;
+}
+
+#main-container > div{
+	height: 100%;
+}
+
 .tf-player-wrap {
 	width: 100%;
 	height: 50px;

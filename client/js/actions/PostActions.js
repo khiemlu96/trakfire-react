@@ -106,6 +106,14 @@ var PostActions = {
 
   loadMorePosts: function(url, data) {
       TfAPI.loadMorePostByDate(url, data);
+  },
+
+  getAdminPostsBatch: function(url, data) {
+      TfAPI.getAdminPostBatch(url, data);
+  },
+
+  deletePost: function(url) {
+      TfAPI.deletePost(url);
   }
 };
 
