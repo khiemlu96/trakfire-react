@@ -266,9 +266,9 @@ var TrakfireApp = React.createClass({
                       onProgressClick={this.onProgressClick} 
                       onNextClick={this.onNextCtrlClick}
                       onPrevClick={this.onPrevCtrlClick}
-                      onGetSongsLength={this.onGetSongsLength}
                       isLoggedIn={this.state.isLoggedIn}
                       onUpvote={this.writeVoteToApi}
+                      isUpvoted={upvoted}
                       userId={currUserId}
                       />;
     //var tfEmailAcq = <EmailAcquirePage updateUserWithEmail={this.updateUserWithEmail}/>;
@@ -397,7 +397,6 @@ var TrakfireApp = React.createClass({
         scPlayer.play({streamUrl : stream_url});
         isPlaying = true;
         isPaused = false;  
-        //SongActions.play();
         this.setState({
           isPlaying : isPlaying, 
           isPaused : isPaused, 
@@ -458,11 +457,6 @@ var TrakfireApp = React.createClass({
       });
       scPlayer.play({streamUrl: next.stream_url});
   }, 
-
-  onGetSongsLength: function(){
-      var songsLength = PostStore.getSongsLength();
-      return songsLength;
-  },
 
   onPrevCtrlClick: function() {
       var next = PostStore.getPrevSong();

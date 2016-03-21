@@ -6,15 +6,11 @@ class User < ActiveRecord::Base
   validates_presence_of :uid, :handle
 
   def upvotes=(votes)
-    logger.info "VOTES"
-    logger.info votes[0][:post].id
-
     voted_tracks = []
     @upvotes = votes.each do |vote|
       voted_tracks.push(Post.find(vote[:post].id))
     end
-
-    @upvotes = votes #voted_tracks
+    @upvotes = votes 
     logger.info "UPVOTES"
     logger.info @upvotes
   end

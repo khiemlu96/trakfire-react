@@ -80,7 +80,7 @@ var PostListItem = React.createClass({
       //upvotes.className=isUpvoted ;
       //count.className = "";
       var count_old = count.innerHTML;
-      count.innerHTML = count_old + 1;
+      count.innerHTML = parseInt(count_old) + 1;
 
       this.setState({hasUpvoted:true});
     } else if(!this.props.isLoggedIn) {
