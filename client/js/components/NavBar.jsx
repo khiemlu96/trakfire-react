@@ -106,11 +106,11 @@ var NavBar = React.createClass({
   },
 
   closeModal: function() {
-    this.refs.searchInput.getDOMNode().value = "";
+    this.refs.menuIcon.getDOMNode().value = "";
     this.setState({
           isVisible: true
         }); 
-        searchBoxStyle.display = 'none';
+        MenuIconStyle.display = 'none';
   }, 
 
   showSignupModal: function() {
@@ -191,12 +191,12 @@ var NavBar = React.createClass({
     return <OverlayTrigger trigger="click" rootClose placement="bottom" 
               overlay={ 
                         <Popover className="tf-menu-popup col-md-2" id="tf-post-detail-popup" style={MenuIconStyle} >
-                             <div className="tf-menu-popup-list-item"><Link to={'/leaderboard'}><h6>LEADERBOARD</h6></Link></div>                       
-                             <div className="tf-menu-popup-list-item"><Link to={'/about'}><h6>ABOUT TRAKFIRE</h6></Link></div>
-                             <div className="tf-menu-popup-list-item"><Link to={'/privacy'}><h6>PRIVACY POLICY</h6></Link></div>
-                             <div className="tf-menu-popup-list-item"><Link to={'/terms'}><h6>TERMS OF SERVICE</h6></Link></div>
-                             <div>{adminConsoleLink} </div>
-                             <div>{signinLink} </div>
+                             <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link to={'/leaderboard'}><h6>LEADERBOARD</h6></Link></div>                       
+                             <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link to={'/about'}><h6>ABOUT TRAKFIRE</h6></Link></div>
+                             <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link to={'/privacy'}><h6>PRIVACY POLICY</h6></Link></div>
+                             <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link to={'/terms'}><h6>TERMS OF SERVICE</h6></Link></div>
+                             <div onClick = {this.closeModal}>{adminConsoleLink} </div>
+                             <div onClick = {this.closeModal}>{signinLink} </div>
                         </Popover>
                       }>
               <span className="glyphicon glyphicon-option-horizontal tf-menu-link" ></span>
@@ -234,6 +234,8 @@ var NavBar = React.createClass({
       var postLink = <PostForm isVisible={true} origin={this.props.origin} />
       var searchIcon =  <span><span className = "glyphicon glyphicon-search" onClick={this.renderSearchBar} style = {searchIconStyle}></span> </span>
       var menuIcon = <li><a href="#" >{this.renderStaticInfo()} </a></li>;
+
+      //var menuIcon = <span ref="menuIcon" style= { MenuIconStyle }>{this.renderStaticInfo()} </span>;
       /*} else {
         var tooltip = <Tooltip>Posting is invite only</Tooltip>;
         var postLink = <OverlayTrigger placement="left" overlay={tooltip}><a className="tf-inactive">POST</a></OverlayTrigger>;//<a href="" className="tf-inactive">POST</a>;
@@ -246,6 +248,8 @@ var NavBar = React.createClass({
       var postLink = '';
       var searchIcon = '';
       var menuIcon = <li><a href="#">{this.renderStaticInfo()}</a></li>;
+
+      //var menuIcon = <span ref="menuIcon" style= { MenuIconStyle }>{this.renderStaticInfo()} </span>;
       //var emailLink = <Link to='/email?id=1'>EMAIL</Link>;
     }
   
@@ -301,7 +305,6 @@ var NavBar = React.createClass({
       </div>
   </div>
 </nav>
-
       );
   }
 

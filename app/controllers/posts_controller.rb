@@ -57,6 +57,10 @@ class PostsController < ApplicationController
 			@offset = params[:offset].to_i
 			@limit = params[:limit].to_i
 
+			page = params[:page].to_i
+			page_count = params[:limit].to_i
+			@offset = (page - 1) * page_count;
+
 			if ( params[:search_key] != nil )
 				@search_key = params[:search_key]
 				@posts = Post.where("lower(title) like ?", ('%'+@search_key.downcase+'%')).order(created_at: :desc).ranking.offset(@offset).limit(@limit)
@@ -69,12 +73,12 @@ class PostsController < ApplicationController
 			end
 
 			no_of_page = (total_count.to_f / @limit.to_f).round(2).ceil
-			current_page = params[:page].to_i
+			
 
 			@state = {
 				total_count: total_count,
 				page_count: page_count,
-				current_page: current_page,
+				current_page: page,
 				no_of_page: no_of_page,
 				limit: @limit,
 				offset: @offset
@@ -148,7 +152,7 @@ class PostsController < ApplicationController
 	def destroy
 		@post = Post.find(params[:id])
 		@error = {}
-		if (@post != nil)
+		if (@post != nil && @current_user.isAdmin == true )
 
 			# Delete votes of the post
 			@votes = Vote.where(post_id: @post.id)
@@ -165,10 +169,18 @@ class PostsController < ApplicationController
 			# Delete tags of the post
 			@taggings = Tagging.where(post_id: @post.id)
 			@taggings.each do |tagging|
-				tag = Tag.find(tagging.tag_id)
-				tag.destroy
-
-				tagging.destroy
+				tagging.destroy # Delete tagging first, then delete from tag table
+				
+				# Find corresponding tags from tag table.
+				# If same tag is used in another post, then
+				# Dont delete it
+				count = Tagging.where(tag_id: tagging.tag_id).count
+				if(count == 0)
+					tag = Tag.find(tagging.tag_id)				
+					if(tag != nil)
+						tag.destroy
+					end		
+				end		
 			end
 
 			@post.destroy
