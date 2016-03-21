@@ -186,7 +186,7 @@ module.exports = {
       contentType: 'application/json',
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
-        console.log("SERVER RESPONSE", resp);
+        console.log("USER SERVER RESPONSE", resp);
         newUser = resp;
         UserServerActionCreators.recieveNewUser(newUser); 
       },

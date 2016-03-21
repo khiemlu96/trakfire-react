@@ -52,14 +52,23 @@ class UsersController < ApplicationController
     logger.info 'FOUND USER'
     logger.info @user
     @votes = Vote.where(user_id: @user.id)
+    @uvotes = [];
     @votes.each do |v|
       post = Post.find(v.post_id)
-      if post.user_id == @user.id 
-        logger.info "KILL CONFIRMED"
-        @votes.delete(v)
-      end
+      user = User.find(post.user_id)
+      #if post.user_id != @user.id
+        userPost = { post: post, author: user }
+        @uvotes.push(userPost)
+      #end
+
+     #if post.user_id == @user.id 
+     #   logger.info "KILL CONFIRMED"
+     #  @votes.delete(v)
+     # end
+
     end
-    @user.upvotes = @votes
+
+    @user.upvotes = @uvotes #@votes
     logger.info "USER TO BE SERVED"
     logger.info @user.username
     
