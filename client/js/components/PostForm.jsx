@@ -117,8 +117,8 @@ var PostForm = React.createClass({
   	}
 
   	return (
-  	  <span>
-        <span className="tf-nav-buffer">
+  	  <li>
+        {/*<span className="tf-nav-buffer">*/}
   	  	  
         <OverlayTrigger trigger="click" rootClose placement="bottom"
            overlay={ 
@@ -128,10 +128,10 @@ var PostForm = React.createClass({
                        </span>
                      </Popover>
                    }>
-           <a> + POST </a>
+           <a href="#"> POST </a>
          </OverlayTrigger>
-        </span>
-	   </span>
+        {/*</span>*/}
+	   </li>
   	);
   }
 });

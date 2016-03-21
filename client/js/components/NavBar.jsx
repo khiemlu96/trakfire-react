@@ -231,20 +231,21 @@ var NavBar = React.createClass({
       //<span className="tf-menu">{this.renderUserInfo()}</span>
       //if(this.props.isAdmin || this.props.user.canPost) { 
       
-      var postLink = <span className="tf-menu"><PostForm isVisible={true} origin={this.props.origin} /></span> 
+      var postLink = <PostForm isVisible={true} origin={this.props.origin} />
       var searchIcon =  <span><span className = "glyphicon glyphicon-search" onClick={this.renderSearchBar} style = {searchIconStyle}></span> </span>
-      var menuIcon = <span >{this.renderStaticInfo()} </span>;
+      var menuIcon = <li><a href="#" >{this.renderStaticInfo()} </a></li>;
       /*} else {
         var tooltip = <Tooltip>Posting is invite only</Tooltip>;
         var postLink = <OverlayTrigger placement="left" overlay={tooltip}><a className="tf-inactive">POST</a></OverlayTrigger>;//<a href="" className="tf-inactive">POST</a>;
       }*/
     } else {
+
       var signinLink = <li><a href="#" onClick={this.showModal}> SIGN IN </a></li>
       var inviteLink = <a href="#" onClick={this.showSignupModal}> REQUEST INVITE </a>
       var profileLink = "";
       var postLink = '';
       var searchIcon = '';
-      var menuIcon = <span >{this.renderStaticInfo()} </span>;
+      var menuIcon = <li><a href="#">{this.renderStaticInfo()}</a></li>;
       //var emailLink = <Link to='/email?id=1'>EMAIL</Link>;
     }
   
