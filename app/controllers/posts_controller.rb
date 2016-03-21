@@ -165,10 +165,18 @@ class PostsController < ApplicationController
 			# Delete tags of the post
 			@taggings = Tagging.where(post_id: @post.id)
 			@taggings.each do |tagging|
-				tag = Tag.find(tagging.tag_id)
-				tag.destroy
-
-				tagging.destroy
+				tagging.destroy # Delete tagging first, then delete from tag table
+				
+				# Find corresponding tags from tag table.
+				# If same tag is used in another post, then
+				# Dont delete it
+				count = Tagging.where(tag_id: tagging.tag_id).count
+				if(count == 0)
+					tag = Tag.find(tagging.tag_id)				
+					if(tag != nil)
+						tag.destroy
+					end		
+				end		
 			end
 
 			@post.destroy
