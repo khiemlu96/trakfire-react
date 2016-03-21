@@ -107,7 +107,7 @@ var AdminPostsPage = React.createClass({
                         <td className="aligned-centered"><Link to={'/post/'+post.id}>{post.vote_count}</Link></td>
                         <td className="aligned-centered">                            
                             <div className="aligned-centered col-md-6">
-                                <a onClick={this.showDelPostPopup.bind(this, post.id)}><span><i className="fa fa-trash-o"></i></span>Delete</a>
+                                <a onClick={this.showDelPostPopup.bind(this, post.id)} className="tf-del-post-link"><span><i className="fa fa-trash-o"></i></span>Delete</a>
                             </div>
                         </td>
                     </tr>;
@@ -123,11 +123,12 @@ var AdminPostsPage = React.createClass({
         }       
     },
 
-    selectNextPage: function(event) {
+    selectNextPage: function(event, obj) {
+        console.log(obj.eventKey);
 
         var states = this.state.posts.state;        
         var offset = states.offset + states.limit;
-        var current_page = this.state.current_page + 1;
+        var current_page = obj.eventKey;
 
         var data = {
             limit: 20,
@@ -135,10 +136,11 @@ var AdminPostsPage = React.createClass({
             action_type: 'admin_post_batch',
             page: current_page
         };
+
         this.getAdminPostsBatch(data);
 
         this.setState({
-            current_page: current_page + 1
+            current_page: current_page
         });
     },
 
@@ -225,7 +227,7 @@ var AdminPostsPage = React.createClass({
                                             </div>
                                         </div>
                                         <div className="col-sm-6" pullRight >
-                                            <Pagination activePage={this.state.current_page} items={states.no_of_page} perPage={states.limit} first={true} last={true} prev={true} next={true} onSelect={ this.selectNextPage } />  
+                                            <Pagination activePage={this.state.current_page} items={states.no_of_page} perPage={states.limit} first={true} last={true} prev={true} next={true} onSelect={ this.selectNextPage.bind(this) } />  
                                         </div>
                                     </div>
                                 </div>
