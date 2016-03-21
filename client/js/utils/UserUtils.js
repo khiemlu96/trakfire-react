@@ -14,11 +14,29 @@ module.exports = {
       isAdmin: rawUser.isAdmin,
       canPost: rawUser.canPost,
       posts: rawUser.posts, 
-      upvotes: rawUser.upvotes,
+      upvotes: this.getUpvotes(rawUser.upvotes),
       email: rawUser.email,
       followers: rawUser.followers,
       followings: rawUser.followings
     };
-  }
+  }, 
+
+  getUpvotes: function(rawUpvotes) {
+      console.log("RAW UPVOTE ", rawUpvotes)
+      var upvotes = [];
+      var post, author, vote;
+      for(idx in rawUpvotes) {
+        console.log(vote);
+        vote = rawUpvotes[idx];
+        post = vote.post;
+        author = vote.author;
+        post.author_id = author.id;
+        post.author_name = author.username;
+        post.author = author.handle;
+        upvotes.push(post);
+      }
+      console.log("UPVOTES CLEAN ", upvotes);
+      return upvotes;
+    }
 
 };

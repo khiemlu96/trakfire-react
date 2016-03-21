@@ -14,7 +14,7 @@ class User < ActiveRecord::Base
       voted_tracks.push(Post.find(vote[:post].id))
     end
 
-    @upvotes = voted_tracks
+    @upvotes = votes #voted_tracks
     logger.info "UPVOTES"
     logger.info @upvotes
   end

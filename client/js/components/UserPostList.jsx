@@ -33,7 +33,7 @@ var UserPostList = React.createClass({
    * @return {object}
    */
   render: function() {
-    console.log("CREATING USER PROFILE TABS");
+    console.log("CREATING USER PROFILE TABS ", this.props.upvotedTracks);
     var upvoted = this.props.upvotedTracks;
     var posted = this.props.postedTracks;
     var upvotedPosts = [];
