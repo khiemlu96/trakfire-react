@@ -27,6 +27,7 @@ var _sort = "TOP";
 var _dayCount = 0; 
 var _current_new_post = {};
 var _error = {};
+var _adminPosts = {}, _adminPostsState = {};
 
 function sortPostsByDate(posts) {
   var dates = {};
@@ -181,6 +182,38 @@ function _addLoadMorePosts(posts) {
   }  
 }
 
+/*
+ *  Add post into admin page
+ */
+function addAdminPosts(data) {
+  var posts = data.posts; 
+  _adminPosts = {};
+  _adminPostsState = {};
+  _adminPostsState = data.state;
+  var i = 0;
+  for(var key in posts) {
+    _adminPosts[posts[key].id] = posts[key];
+    i++;
+  }
+}
+
+/*
+ *  get the post states 
+ */
+function getAdminPostsState() {
+    return _adminPostsState;
+}
+
+/*
+ *  Delete a post from admin List page
+ */
+function deleteAdminPosts(post_id) {
+  if(_adminPosts[post_id] !== null || _adminPosts[post_id] !== undefined) {
+    delete _adminPosts[post_id];
+    _adminPostsState.total_count--;
+  }
+}
+
 /**
  * Update all of the TODO items with the same object.
  * @param  {object} updates An object literal containing only the data to be
@@ -262,11 +295,6 @@ var PostStore = assign({}, EventEmitter.prototype, {
     return _songs;
   }, 
 
-  getSongsLength: function(){
-     var len = Object.keys(_songs).length;
-     return len;
-  },
-
   getCurrentSong: function() {
     var len = Object.keys(_songs).length;
     for(var i = 0; i < len; i++) {
@@ -319,6 +347,17 @@ var PostStore = assign({}, EventEmitter.prototype, {
 
   getError: function() {
     return _error;
+  },
+
+  getAdminPosts: function() {
+    var state = getAdminPostsState();
+    var posts = _adminPosts;
+    var data = {
+      posts: posts,
+      state: state
+    };
+
+    return data;
   },
 
   /**
@@ -375,17 +414,30 @@ PostStore.dispatchToken = AppDispatcher.register(function(action) {
       console.log("SET CURR POST", action.song_id);
       _markPostAsCurrent(action.song_id);
       PostStore.emitChange();
+      break;
     case PostConstants.GET_SINGLE_POST:
       _sPost(action.response);
       PostStore.emitChange();
+      break;
     case PostConstants.RECIEVE_NEW_COMMENT:
       _addPostComment(action.post_id, action.response);
       PostStore.emitChange();
+      break;
     case PostConstants.ERROR_MESSAGE:
       _addErrorMessage(action.error);
+      break;
     case PostConstants.GET_MORE_POSTS:
       _addLoadMorePosts(action.response);
       PostStore.emitChange();
+      break;
+    case PostConstants.GET_ADMIN_POSTS:
+      addAdminPosts(action.response);
+      PostStore.emitChange();
+      break;
+    case PostConstants.DELETE_ADMIN_POST:
+      deleteAdminPosts(action.post_id);
+      PostStore.emitChange();
+      break;
     default:
       // no op
   }

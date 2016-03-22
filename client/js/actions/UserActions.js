@@ -40,6 +40,15 @@ var UserActions = {
     TfAPI.getUser(origin, userid);    
   }, 
 
+  getAllUsers: function(origin,data){
+    console.log("GETTING ALL USER ");
+    AppDispatcher.dispatch({
+      actionType: UserConstants.GET_ALL_USERS
+    });
+
+    TfAPI.getAllUsers(origin,data);   
+  },
+
   sendUserApplication: function(origin, data) {
     console.log("SENDING USER APP ", data);
     AppDispatcher.dispatch({

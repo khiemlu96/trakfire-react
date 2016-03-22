@@ -389,6 +389,69 @@ module.exports = {
             console.error(url, error['response']);
         }
     });
+  },
+
+  getAdminPostBatch: function(url, data) {
+    Reqwest({
+        url: url,
+        type: 'json',
+        method: 'GET',
+        data: data,
+        contentType: 'application/json',
+        headers: {
+            'Authorization': sessionStorage.getItem('jwt')
+        },
+        success: function(resp) {
+            console.log("SERVER RESPONSE", resp);
+            PostServerActionCreators.getAdminPosts(resp);
+        },
+        error: function(error) {
+            console.error(url, error['response']);
+        }
+    });
+  },
+
+  deletePost: function(url) {
+    
+    Reqwest({
+      url: url,
+      type: 'json',
+      method: 'DELETE',
+      contentType: 'application/json',
+      headers: {'Authorization': localStorage.getItem('jwt')},
+      success: function(resp) {
+        PostServerActionCreators.deleteAdminPost(resp);  
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+        //location = '/';
+      }
+    });    
+  },
+
+  getAllUsers: function(url,data) {
+    var params = {
+      limit: data.limit,
+      offset: data.offset
+    };
+
+    Reqwest({
+      url: url,
+      type: 'json',
+      method: 'get',
+      data: params,
+      contentType: 'application/json',
+      headers: {'Authorization': localStorage.getItem('jwt')},
+      success: function(resp) { 
+        console.log(resp);
+        users = resp;
+        UserServerActionCreators.recieveAll(users); 
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+        //location = '/';
+      }
+    });
   }
 };
 
