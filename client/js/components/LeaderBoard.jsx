@@ -17,7 +17,7 @@ var classNames = require('classnames');
 var UserFlyOver = require('./UserFlyOver.jsx');
 var LeaderBoardItems = require('./LeaderBoardItems.jsx');
 
-function getAppState() {
+function getComponentState() {
   return {
    	users: UserStore.getAll()
   };
@@ -33,11 +33,16 @@ function sortScore(a, b) {
 
 var LeaderBoard = React.createClass({
 
+	propTypes = {
+		origin : ReactPropTypes.string
+	}, 
 
-  getInitialState: function() { return getAppState(); }, 
+  getInitialState: function() { return getComponentState(); }, 
 
   componentDidMount: function() {
   	console.log(this.state.users);
+  	UserStore.addChangeListener(this._onChange);
+  	UserActions.getAllUsers(this.props.origin+'/users/index', {limit:5, offset:0});
   },
 
   renderUserItems: function(sortedUsers) {
@@ -61,6 +66,10 @@ var LeaderBoard = React.createClass({
 	    	{ userItems }
 	    </ul>
     );
+  }, 
+
+  _onChange: function() {
+    this.setState(getComponentState());
   }
 
 });

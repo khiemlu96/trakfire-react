@@ -382,7 +382,7 @@ var PostsList = React.createClass({
                 </CarouselItem>
               </Carousel>
           </div>
-          <LeaderBoard/>
+          <LeaderBoard origin={this.props.origin}/>
         </div>
       </div>
 
