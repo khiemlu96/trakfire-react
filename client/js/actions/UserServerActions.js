@@ -76,5 +76,15 @@ module.exports = {
       actionType: UserConstants.REMOVE_FOLLOWER,
       response: response,
     });
+  },
+
+  deleteUser: function(response) {
+    //console.log("============ User Server Action - deleteUser ===========");
+    //console.log("============== response.user_id :",response.user_id);
+    AppDispatcher.dispatch({
+      actionType: UserConstants.DELETE_USER,
+      user_id : response.user_id,
+    });
   }
+
 };

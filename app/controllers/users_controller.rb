@@ -68,6 +68,48 @@ class UsersController < ApplicationController
     logger.info @user.as_json
     render json: @user
   end
+  
+  def destroy
+    logger.info "============= destroy"
+    @user = User.find(params[:id])
+    @error = {}
+    logger.info @user.as_json
+
+    if (@user != nil)
+
+      @posts = Post.where(user_id: @user.id)
+      logger.info "============= destroy posts"
+      @posts.each do |post| 
+        post.destroy
+      end
+
+      @votes = Vote.where(user_id: @user.id)
+      logger.info "============= destroy votes"
+      @votes.each do |vote|
+        vote.destroy
+      end
+
+      @notifications = Notification.where(user_id: @user.id)
+      logger.info "============= destroy notifications"
+      @notifications.each do |notification|
+        notification.destroy
+      end
+
+      @followers = Follower.where(user_id: @user.id, follow_id: @user.id)
+      logger.info "============= destroy followers"
+      @followers.each do |follower|
+        follower.destroy
+      end
+      
+      @user.destroy
+      logger.info "============= destroy user"
+      @error['message'] =  'delete successfully'
+      @error['user_id'] = @user.id
+      
+    end
+
+    render json: @error
+  end
 
   private 
   def user_params

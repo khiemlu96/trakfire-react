@@ -452,6 +452,27 @@ module.exports = {
         //location = '/';
       }
     });
+  },
+
+  deleteUser: function(url){
+
+    //console.log("=========== TrakFireWebApiUtils  - deleteUser=========="); 
+    Reqwest({
+      url: url,
+      type: 'json',
+      method: 'DELETE',
+      contentType: 'application/json',
+      headers: {'Authorization': localStorage.getItem('jwt')},
+      success: function(resp) {
+        //console.log("================== response -",resp); 
+        UserServerActionCreators.deleteUser(resp); 
+
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+        //location = '/';
+      }
+    });    
   }
 };
 

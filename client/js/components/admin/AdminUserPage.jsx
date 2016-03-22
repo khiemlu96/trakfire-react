@@ -9,9 +9,12 @@ var Panel = require("react-bootstrap").Panel;
 var Well = require("react-bootstrap").Well;
 var Button = require("react-bootstrap").Button;
 var PageHeader = require("react-bootstrap").PageHeader;
+var Modal = require("react-bootstrap").Modal;
 
 var UserStore = require('../../stores/UserStore.js');
 var UserActions = require('../../actions/UserActions.js');
+
+var delete_user_id;
 
 function getAppState() {
     return {
@@ -46,6 +49,26 @@ var AdminUserPage = React.createClass({
         UserStore.addChangeListener(this._onChange);
     },
 
+    showDelUserPopup: function(user_id){
+        delete_user_id = user_id;
+        //console.log("=========== delete user of user id = "+delete_user_id);
+        this.setState({
+            showDelUserPopup : true
+        });
+
+    },
+
+    deleteUser: function(){
+        UserActions.deleteUser(this.props.origin+'/users/'+delete_user_id);
+        this.hideDelUserPopup();
+    },
+
+    hideDelUserPopup: function(){
+        this.setState({
+            showDelUserPopup : false
+        });
+    },
+
     renderUserGrid: function(){
         var users = this.state.users;
         //console.log("====================== ADMIN USERS : ",users);
@@ -58,13 +81,17 @@ var AdminUserPage = React.createClass({
                     <tr className="gradeA odd" role="row">
                         <td className="sorting_1">{user.name}</td>
                         <td>{user.email}</td>
+                        <td>{user.handle}</td>
                         <td className="center">
                             <div className="col-md-6">
                                 <a><span><i className="fa fa-pencil-square-o"></i></span>Edit</a>
                             </div>
                         <div className="col-md-6">
-                            <a><span><i className="fa fa-trash-o"></i></span>Del</a>
+                            <a onClick={this.showDelUserPopup.bind(this, user.id)}><span><i className="fa fa-trash-o"></i></span>Del</a>
                         </div>
+                        </td>
+                        <td>
+                            <span><input type="checkbox"/><label></label></span>
                         </td>
                     </tr>
                 userGridHtml.push(row);
@@ -107,8 +134,10 @@ var AdminUserPage = React.createClass({
                                                 <thead>
                                                     <tr role="row">
                                                         <th className="" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 321} }>User Name</th>
-                                                        <th className="" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 299} }>Emails</th>
-                                                        <th className="center" tabIndex="0" rowSpan="1" colSpan="1"  style={ {width: 180} }>?</th>
+                                                        <th className="" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 299} }>Email</th>
+                                                        <th className="" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 150} }>Handle</th>
+                                                        <th className="center" tabIndex="0" rowSpan="1" colSpan="1"  style={ {width: 100} }>Edit / Delete?</th>
+                                                        <th className="" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 50} }>Verified?</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>               
@@ -123,7 +152,7 @@ var AdminUserPage = React.createClass({
                                         </div>
                                         <div className="col-sm-6" pullRight>
                                             <Pagination activePage={1} items={6} perPage={10} first={true} last={true}
-                                            prev={true} next={true} onSelect={ (pageNumber) => {} } />  
+                                            prev={true} next={true}  />  
                                         </div>
                                     </div>
                                 </div>
@@ -131,6 +160,20 @@ var AdminUserPage = React.createClass({
                         </div>
                     </Panel>
                 </div>
+
+                <div id="delete-modal-container">
+                    <Modal id="delete-modal" show={this.state.showDelUserPopup} onHide={this.hideDelPostPopup}>
+                        <Modal.Title>Confirm Delete?</Modal.Title>
+                        <Modal.Body closeButton className="tf-modal-body">
+                            <div className="row">Do you want to delete the User?</div>
+                            <div className="row">
+                                <Button onClick={this.deleteUser}>Yes</Button>
+                                <Button onClick={this.hideDelUserPopup}>Cancel</Button>
+                            </div>                            
+                        </Modal.Body>
+                    </Modal>
+                </div>
+
             </div>
         );
     },

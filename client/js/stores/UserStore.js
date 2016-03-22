@@ -29,7 +29,6 @@ function _addUser(user) {
 }
 
 function _addUsers(users) {
-  //console.log("============= -addUsers ========== users : ",users);
   if(users !== undefined){
     users.forEach(function(user){
       if(!_users[user.id]){
@@ -70,6 +69,13 @@ function _removeFollower(follower) {
     rowIdx++;
   }
   _cUser.followings = followings;
+} 
+
+function _deleteUser(user_id) {
+  //console.log("============= User Store - deleteUser =============");
+  if(_users[user_id] !== null && _users[user_id] !== undefined) {
+    delete _users[user_id];
+  }
 }
 
 var UserStore = assign({}, EventEmitter.prototype, {
@@ -174,6 +180,9 @@ AppDispatcher.register(function(action) {
       _removeFollower(action.response);    
       UserStore.emitChange();
       break;
+    case UserConstants.DELETE_USER:
+      _deleteUser(action.user_id);
+      UserStore.emitChange();
     default:
       // no op
   }

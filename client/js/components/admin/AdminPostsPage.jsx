@@ -106,8 +106,11 @@ var AdminPostsPage = React.createClass({
                         <td className="aligned-centered"><Link to={'/post/'+post.id}>{post.comment_count}</Link></td>
                         <td className="aligned-centered"><Link to={'/post/'+post.id}>{post.vote_count}</Link></td>
                         <td className="aligned-centered">                            
-                            <div className="aligned-centered col-md-6">
-                                <a onClick={this.showDelPostPopup.bind(this, post.id)} className="tf-del-post-link"><span><i className="fa fa-trash-o"></i></span>Delete</a>
+                            <div className="aligned-centered col-md-12">
+                                <a onClick={this.showDelPostPopup.bind(this, post.id)} className="tf-del-post-link">
+                                    <span><i className="fa fa-trash-o"></i></span>
+                                    Delete
+                                </a>
                             </div>
                         </td>
                     </tr>;
@@ -205,12 +208,12 @@ var AdminPostsPage = React.createClass({
                                             <table className="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" role="grid">
                                                 <thead>
                                                     <tr role="row">
-                                                        <th className="aligned-left" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 265} }>Title</th>
-                                                        <th className="aligned-left" tabIndex="0" rowSpan="1" colSpan="1"  style={ {width: 321} }>Artist</th>
-                                                        <th className="aligned-left" tabIndex="0" rowSpan="1" colSpan="1"  style={ {width: 299} }>Posted By</th>
-                                                        <th className="aligned-centered" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 231} }>Comments</th>
-                                                        <th className="aligned-centered" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 180} }>Votes</th>
-                                                        <th className="aligned-centered" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 299} }>Delete?</th>
+                                                        <th className="aligned-left" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 350} }>Title</th>
+                                                        <th className="aligned-left" tabIndex="0" rowSpan="1" colSpan="1"  style={ {width: 275} }>Artist</th>
+                                                        <th className="aligned-left" tabIndex="0" rowSpan="1" colSpan="1"  style={ {width: 175} }>Posted By</th>
+                                                        <th className="aligned-centered" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 100} }>Comments</th>
+                                                        <th className="aligned-centered" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 100} }>Votes</th>
+                                                        <th className="aligned-centered" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 100} }>Delete?</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>               
