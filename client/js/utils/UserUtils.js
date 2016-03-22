@@ -17,7 +17,8 @@ module.exports = {
       upvotes: this.getUpvotes(rawUser.upvotes),
       email: rawUser.email,
       followers: rawUser.followers,
-      followings: rawUser.followings
+      followings: rawUser.followings, 
+      score: rawUser.score
     };
   }, 
 
