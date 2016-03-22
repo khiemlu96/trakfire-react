@@ -93,8 +93,11 @@ var UserActions = {
   deleteUser: function(url) {
     //console.log("=========== User Action - deleteUser ==========");
     TfAPI.deleteUser(url);
-  }
+  },
 
+  getAdminState: function(url, data) {
+    TfAPI.getAdminState(url, data);
+  }
 };
 
 module.exports = UserActions;

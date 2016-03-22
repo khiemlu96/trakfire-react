@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::API
   before_action :allow_cross_origin_requests, if: proc { Rails.env.development? }
-  before_action :authenticate_request, only: [:current_user]
+  before_action :authenticate_request, only: [:current_user, :admin_state]
 
   def preflight
     render nothing: true
@@ -22,6 +22,27 @@ class ApplicationController < ActionController::API
 
   def index
     render file: 'public/index.html'
+  end
+  
+  # Method to define an admin statistics on Admin DashBoard Page
+  def admin_state
+
+    # Get the post count block on dashboard
+    post_count = Post.count
+
+    # Get the user count for block on dashboard
+    user_count = User.count
+
+    # Get the comment count for block on dashboard
+    comment_count = Comment.count
+
+    @admin_state = {
+      "posts"=> post_count,
+      "comments"=> comment_count,
+      "users" => user_count
+    }
+
+    render json: @admin_state
   end
   
 private

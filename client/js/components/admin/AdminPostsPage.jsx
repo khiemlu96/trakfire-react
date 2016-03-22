@@ -196,7 +196,7 @@ var AdminPostsPage = React.createClass({
                                                 <label>Search:
                                                     <div>
                                                         <span><input type="search" ref="searchInput" className="form-control input-sm" placeholder="" aria-controls="dataTables-example" /></span>
-                                                        <span><Button className="tf-search-button" onClick={this.search}>&#128269;</Button></span>
+                                                        <span><Button className="tf-search-button" onClick={this.search}><i className="fa fa-search"></i></Button></span>
                                                     </div>
                                                 </label>                                                
                                             </div>                                            

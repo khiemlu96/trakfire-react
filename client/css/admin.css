@@ -324,7 +324,11 @@ table.dataTable .tf-preview-img {
 }
 
 .huge {
-    font-size: 40px;
+    font-size: 30px;
+}
+ 
+.header-text {
+    margin-top: 10px;
 }
 
 .panel-green {

@@ -85,6 +85,13 @@ module.exports = {
       actionType: UserConstants.DELETE_USER,
       user_id : response.user_id,
     });
+  },
+
+  recieveAdminState: function(response) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.GET_ADMIN_STATE,
+      response: response,
+    });
   }
 
 };

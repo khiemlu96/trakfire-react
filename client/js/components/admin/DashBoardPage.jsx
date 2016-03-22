@@ -17,16 +17,38 @@ var Panel = require("react-bootstrap").Panel;
 var ListGroup = require("react-bootstrap").ListGroup;
 var ListGroupItem = require("react-bootstrap").ListGroupItem;
 var Button = require("react-bootstrap").Button;
-
+var UserActions = require('../../actions/UserActions.js');
+var UserStore = require('../../stores/UserStore.js');
 var StatWidget = require('./StatWidget.jsx');
 
 var DashBoardPage = React.createClass({
 
-    componentDidMount: function() {
+    getInitialState: function() {
+        return({
+            admin_state: {
+                posts: 0,
+                comments: 0,
+                users: 0
+            }
+        });
+    },
 
+    componentDidMount: function() {
+        this.getAdminState();
+        UserStore.addChangeListener(this._onChange);
+    },
+
+    getAdminState: function() {
+        var data = {
+            range_type: 'day'
+        };
+
+        UserActions.getAdminState(this.props.origin+'/admin_state', data);
     },
 
     render: function() {
+        var admin_state = this.state.admin_state;
+
         return ( 
             <div>
                 <div className = "row">
@@ -37,13 +59,13 @@ var DashBoardPage = React.createClass({
 
                 <div className = "row">
                     <div className = "col-lg-3 col-md-6">
-                        <StatWidget style = "primary" icon = "fa fa-music fa-5x" count = "26" headerText = "Traks!" footerText = "View Details" linkTo = "/" />
+                        <StatWidget style = "primary" icon = "fa fa-music fa-5x" count = {admin_state.posts} headerText = "Traks" footerText = "View All Posts" linkTo = "/admin/posts" />
                     </div> 
                     <div className = "col-lg-3 col-md-6">
-                        <StatWidget style = "panel-green" icon = "fa fa-user fa-5x" count = "12" headerText = "Users!" footerText = "View Details" linkTo = "/" />
+                        <StatWidget style = "panel-green" icon = "fa fa-user fa-5x" count = {admin_state.users} headerText = "Users" footerText = "View All Users" linkTo = "/admin/users" />
                     </div> 
                     <div className = "col-lg-3 col-md-6">
-                        <StatWidget style = "panel-yellow" icon = "fa fa-comments fa-5x" count = "124" headerText = "Comments!" footerText = "View Details" linkTo = "/" />
+                        <StatWidget style = "panel-yellow" icon = "fa fa-comments fa-5x" count = {admin_state.comments} headerText = "Comments" footerText = "View Details" linkTo = "/admin/posts" />
                     </div>     
                 </div>
 
@@ -55,20 +77,27 @@ var DashBoardPage = React.createClass({
                                     <i className = "fa fa-bar-chart-o fa-fw" > < /i> Posted Tracks 
                                     <div className = "pull-right" >
                                         <DropdownButton title = "Dropdown" bsSize = "xs" pullRight>
-                                        <MenuItem eventKey = "1"> Day </MenuItem> 
-                                        <MenuItem eventKey = "2"> Month </MenuItem> 
-                                        <MenuItem eventKey = "3"> Year </MenuItem> 
+                                            <MenuItem eventKey = "1"> Day </MenuItem> 
+                                            <MenuItem eventKey = "2"> Month </MenuItem> 
+                                            <MenuItem eventKey = "3"> Year </MenuItem> 
                                         </DropdownButton> 
                                     </div> 
                                 </span>
                             }> 
-                            <div>
+                            <div id = "chart-container">
+
                             </div>
                         </Panel>
                     </div>
                 </div> 
             </div>
         );
+    },
+
+    _onChange: function() {
+        this.setState({
+            admin_state: UserStore.getAdminState()
+        });        
     }
 });
 
