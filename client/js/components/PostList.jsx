@@ -20,6 +20,7 @@ var FilterBar = require('./FilterBar.jsx');
 var PostStore = require('../stores/PostStore');
 var UserStore = require('../stores/UserStore');
 var SongActions = require('../actions/SongActions');
+var LeaderBoard = require('./LeaderBoard.jsx');
 var moment = require('moment');
 var _postListItems = [];
 var _dayCount = 0; 
@@ -381,6 +382,7 @@ var PostsList = React.createClass({
                 </CarouselItem>
               </Carousel>
           </div>
+          <LeaderBoard/>
         </div>
       </div>
 
