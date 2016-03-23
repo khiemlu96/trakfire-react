@@ -108,9 +108,7 @@ var AdminUserPage = React.createClass({
         //console.log("============= USER GRID HTML : ",userGridHtml);
         return (
             <div>
-                <div className="col-lg-12"> 
-                    <PageHeader>All Users</PageHeader> 
-                </div>
+                <div className = "row"></div>
 
                 <div className="col-lg-12"> 
                     <Panel header={<span>Trak Starters</span>} >
@@ -127,7 +125,6 @@ var AdminUserPage = React.createClass({
                                             </div>
                                         </div>
                                     </div>
-
                                     <div className="row">
                                         <div className="col-sm-12">
                                             <table className="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" role="grid">

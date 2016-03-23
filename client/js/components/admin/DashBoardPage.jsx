@@ -21,6 +21,28 @@ var UserActions = require('../../actions/UserActions.js');
 var UserStore = require('../../stores/UserStore.js');
 var StatWidget = require('./StatWidget.jsx');
 
+//var Chart = require('react-d3-core').Chart;
+//var LineChart = require('react-d3-basic').LineChart;
+var LineChart = require("./react-chartjs/index.js").Line;
+
+var chartOptions = {
+    bezierCurve : false,
+    datasetFill : false,
+    pointDotStrokeWidth: 4,
+    scaleShowVerticalLines: false,
+    responsive: true
+};
+
+var styles = {
+    "graphContainer" : {
+        "backgroundColor" : "#fff",
+        "height" : "350px",
+        "width" : "850px",
+        "marginTop" : "15px",
+        "padding" : "20px"
+    }
+};
+
 var DashBoardPage = React.createClass({
 
     getInitialState: function() {
@@ -35,6 +57,7 @@ var DashBoardPage = React.createClass({
 
     componentDidMount: function() {
         this.getAdminState();
+        this.renderChart();
         UserStore.addChangeListener(this._onChange);
     },
 
@@ -45,6 +68,31 @@ var DashBoardPage = React.createClass({
 
         UserActions.getAdminState(this.props.origin+'/admin_state', data);
     },
+
+    renderChart: function() {
+        var chartData = {
+            labels: ["January", "February", "March", "April", "May", "June", "July"],
+            datasets: [
+                {
+                    fillColor: "#25BDFF",
+                    strokeColor: "#25BDFF",
+                    pointColor: "#25BDFF",
+                    pointStrokeColor: "#fff",
+                    pointHighlightFill: "#fff",
+                    pointHighlightStroke: "#25BDFF",
+                    data: [28, 48, 40, 19, 86, 27, 90]
+                }
+            ]
+        };
+
+        React.render(
+            <div style={styles.graphContainer}>
+                <LineChart data={chartData} options={chartOptions} width="200" height="150" />
+            </div>
+            ,document.getElementById('chart-container')
+        );
+    },
+
 
     render: function() {
         var admin_state = this.state.admin_state;

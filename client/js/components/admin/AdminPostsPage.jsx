@@ -180,9 +180,7 @@ var AdminPostsPage = React.createClass({
         
         return (
             <div>
-                <div className="col-lg-12"> 
-                    <PageHeader>All Posts</PageHeader>
-                </div>
+                <div className = "row"></div>
 
                 <div className="col-lg-12"> 
                     <Panel header={<span>All Posts</span>}>
