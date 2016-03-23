@@ -8697,6 +8697,17 @@ img.zoom-img {
   display: block !important;
 }
 
+.tf-user {
+  border: none !important;
+  background-color: #1f1f1f !important;
+  color: #fff !important;
+  text-transform: uppercase;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  font-size: 14px;
+  margin: 0px !important;
+}
+
 .no-decor {
   text-decoration: none;
   color: #fff;

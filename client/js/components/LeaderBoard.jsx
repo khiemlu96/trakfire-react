@@ -10,20 +10,20 @@
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var UserActions = require('../actions/UserActions');
-
+var UserStore = require('../stores/UserStore');
 var Link = require('react-router').Link;
 
 var classNames = require('classnames');
 var UserFlyOver = require('./UserFlyOver.jsx');
-var LeaderBoardItems = require('./LeaderBoardItems.jsx');
+var LeaderBoardItem = require('./LeaderBoardItem.jsx');
 
 function getComponentState() {
   return {
-   	users: UserStore.getAll()
+   	users: UserStore.getAllUsers()
   };
 }
 
-function sortScore(a, b) {
+function sortByScore(a, b) {
   if(a.score > b.score) return -1;
   else if(a.score < b.score) return 1;
   else if(a.score == b.score){
@@ -33,8 +33,8 @@ function sortScore(a, b) {
 
 var LeaderBoard = React.createClass({
 
-	propTypes = {
-		origin : ReactPropTypes.string
+	propTypes: {
+		origin: ReactPropTypes.string
 	}, 
 
   getInitialState: function() { return getComponentState(); }, 
@@ -42,12 +42,12 @@ var LeaderBoard = React.createClass({
   componentDidMount: function() {
   	console.log(this.state.users);
   	UserStore.addChangeListener(this._onChange);
-  	UserActions.getAllUsers(this.props.origin+'/users/index', {limit:5, offset:0});
+  	UserActions.getAllUsers(this.props.origin+'/users', {limit:5, offset:0});
   },
 
   renderUserItems: function(sortedUsers) {
   	var leaderBoardItems = [];
-  	for(i in sortedusers) {
+  	for(i in sortedUsers) {
   		var u = sortedUsers[i];
   		var uItem = <LeaderBoardItem user={u}/>
   		leaderBoardItems.push(uItem);
@@ -60,9 +60,10 @@ var LeaderBoard = React.createClass({
    */
   render: function() {
   	var users = this.state.users;
-  	var userItems = this.renderUserItems(users.sort(sortByScore));
+  	[].sort.call(users, sortByScore)
+  	var userItems = this.renderUserItems([].sort.call(users, sortByScore));
     return (
-	    <ul class="media-list media-list-users list-group">
+	    <ul className="media-list media-list-users list-group">
 	    	{ userItems }
 	    </ul>
     );

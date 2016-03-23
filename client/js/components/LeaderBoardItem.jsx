@@ -23,8 +23,6 @@ var LeaderBoardItem = React.createClass({
   	user : ReactPropTypes.object
   },
 
-  getInitialState: function() {}, 
-
   componentDidMount: function() {},
 
   componentWillMount: function() {}, 
@@ -35,19 +33,20 @@ var LeaderBoardItem = React.createClass({
    */
   render: function() {
   	var user = this.props.user;
+  	console.log(user);
     return (
 	  <li className="list-group-item tf-user">
 	    <div className="media">
 	      <a className="media-left" href="#">
-	        <img className="media-object img-circle" src={user.img}>
+	        <img className="media-object img-circle" src={user.img}></img>
 	      </a>
 	      <div className="media-body">
 	        <button className="btn btn-primary-outline btn-sm pull-right">
 	         Follow
 	        </button>
-	        <strong>{user.username}</strong>
-	        <br>
-	        <small>{user.score}</small>
+	        <strong>{ user.name }</strong>
+	        <br></br>
+	        <small>{ user.score ? user.score : 0 }</small>
 	      </div>
 	    </div>
 	  </li>
