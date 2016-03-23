@@ -8,10 +8,10 @@ var CHANGE_EVENT = 'change';
 
 var _cUser = null;
 var _user = null;
-var _users = {};
 var _posts = null;
 var _notifications = null;
-var _adminStates = null;
+var _users = {};
+var _userState = {};
 
 function _addCurrentUser(user) {
   _cUser = UserUtils.convertRawUser(user);
@@ -29,13 +29,20 @@ function _addUser(user) {
   _user = UserUtils.convertRawUser(user);
 }
 
-function _addUsers(users) {
-  if(users !== undefined){
-    users.forEach(function(user){
-      if(!_users[user.id]){
-        _users[user.id] = UserUtils.convertRawUser(user);
-      }
-    });
+function _addUsers(data) {
+  if(data !== undefined){
+    var users = data.users;
+    _users = {};
+    _userState = {};
+    _userState = data.state;
+    
+    if(users !== undefined){
+      users.forEach(function(user){
+        if(!_users[user.id]){
+          _users[user.id] = UserUtils.convertRawUser(user);
+        }
+      });
+    }
   }
 }
 
@@ -73,14 +80,9 @@ function _removeFollower(follower) {
 } 
 
 function _deleteUser(user_id) {
-  //console.log("============= User Store - deleteUser =============");
   if(_users[user_id] !== null && _users[user_id] !== undefined) {
     delete _users[user_id];
   }
-}
-
-function _addAdminState(response) {
-    _adminStates = response;
 }
 
 var UserStore = assign({}, EventEmitter.prototype, {
@@ -119,10 +121,6 @@ var UserStore = assign({}, EventEmitter.prototype, {
       return _cUser.notifications;
   },
 
-  getAdminState: function() {
-      return _adminStates;
-  },
-
   emitChange: function() {
     this.emit(CHANGE_EVENT);
   },
@@ -139,7 +137,12 @@ var UserStore = assign({}, EventEmitter.prototype, {
    */
   removeChangeListener: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
+  },
+
+  getUsersState: function() {
+    return _userState;
   }
+
 });
 
 // Register callback to handle all updates
@@ -192,11 +195,6 @@ AppDispatcher.register(function(action) {
     case UserConstants.DELETE_USER:
       _deleteUser(action.user_id);
       UserStore.emitChange();
-      break;
-    case UserConstants.GET_ADMIN_STATE:
-      _addAdminState(action.response);
-      UserStore.emitChange();
-      break;
     default:
       // no op
   }

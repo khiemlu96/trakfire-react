@@ -16,12 +16,6 @@ var UserActions = require('../../actions/UserActions.js');
 
 var delete_user_id;
 
-function getAppState() {
-    return {
-        users : UserStore.getAllUsers()
-    };
-}
-
 function getLength(a) {
     var i = 0;
     for(key in a){
@@ -33,25 +27,32 @@ function getLength(a) {
 var AdminUserPage = React.createClass({
 
     getInitialState: function(){
-         return getAppState();
+         return {
+            users : UserStore.getAllUsers(),
+            current_page : 1,
+            searchText : "",
+            userState : UserStore.getUsersState()
+        };
     },
 
-    getAllUsersFromApi: function(){
-        var data = {
-            limit: 10,
-            offset: 0
-        }
+    getAllUsersFromApi: function(data){
         UserActions.getAllUsers(this.props.origin+'/users',data);
     },
 
     componentDidMount: function() {
-        this.getAllUsersFromApi();
+        var data = {
+            limit: 20,
+            offset: 0,
+            page: this.state.current_page
+        };
+
+        this.getAllUsersFromApi(data);
         UserStore.addChangeListener(this._onChange);
     },
 
     showDelUserPopup: function(user_id){
         delete_user_id = user_id;
-        //console.log("=========== delete user of user id = "+delete_user_id);
+        
         this.setState({
             showDelUserPopup : true
         });
@@ -69,9 +70,49 @@ var AdminUserPage = React.createClass({
         });
     },
 
+    selectNextPage: function(event, obj) {
+        console.log(obj.eventKey);
+
+        var userStates = this.state.userState;
+        var offset = userStates.offset + userStates.limit;
+        var current_page = obj.eventKey;
+
+        var data = {
+            limit: 20,
+            offset: offset,
+            page: current_page
+        };
+
+        this.getAllUsersFromApi(data);
+
+        this.setState({
+            current_page: current_page
+        });
+
+    },
+
+    search: function(event) {
+        var searchText = this.refs.searchInput.getDOMNode().value.trim();
+
+        if( searchText !== "" ) {
+
+            this.setState({
+                searchText: searchText
+            });
+
+            var data = {
+                limit: 20,
+                offset: 0,
+                search_key: searchText,
+                page: 1
+            };
+
+            this.getAllUsersFromApi(data);
+        }        
+    },
+
     renderUserGrid: function(){
         var users = this.state.users;
-        //console.log("====================== ADMIN USERS : ",users);
 
         if( users !== undefined && getLength(users) > 0) {
             var userGridHtml = [];
@@ -105,10 +146,16 @@ var AdminUserPage = React.createClass({
 
     render: function() {
         var userGridHtml = this.renderUserGrid();
-        //console.log("============= USER GRID HTML : ",userGridHtml);
+        var userStates = this.state.userState;
+
+        var count = parseInt(userStates.offset) + parseInt(userStates.page_count);
+        var limit_count = ( count > userStates.total_count ? userStates.total_count: count);
+
         return (
             <div>
-                <div className = "row"></div>
+                <div className="col-lg-12"> 
+                    <PageHeader>All Users</PageHeader> 
+                </div>
 
                 <div className="col-lg-12"> 
                     <Panel header={<span>Trak Starters</span>} >
@@ -116,15 +163,16 @@ var AdminUserPage = React.createClass({
                             <div className="dataTable_wrapper">
                                 <div id="dataTables-example_wrapper" className="dataTables_wrapper form-inline dt-bootstrap no-footer">
                                     <div className="row">
-                                        <div className="col-sm-9">
-                                        </div>
-                                        <div className="col-sm-3">
+                                        <div className="col-sm-4 pull-right">
                                             <div id="dataTables-example_filter" className="dataTables_filter">
-                                                <label>Search:<input type="search" className="form-control input-sm" placeholder="" aria-controls="dataTables-example" />
+                                                <label>Search:
+                                                    <span><input type="search" ref="searchInput" className="form-control input-sm" placeholder="" aria-controls="dataTables-example" /></span>
+                                                    <span><Button className="tf-search-button" onClick={this.search}>&#128269;</Button></span>
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
+
                                     <div className="row">
                                         <div className="col-sm-12">
                                             <table className="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" role="grid">
@@ -145,11 +193,12 @@ var AdminUserPage = React.createClass({
                                     </div>
                                     <div className="row">
                                         <div className="col-sm-6">
-                                            <div className="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
+                                            <div className="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">
+                                                Showing {userStates.offset} to {limit_count} of {userStates.total_count} entries
+                                            </div>
                                         </div>
                                         <div className="col-sm-6" pullRight>
-                                            <Pagination activePage={1} items={6} perPage={10} first={true} last={true}
-                                            prev={true} next={true}  />  
+                                            <Pagination activePage={this.state.current_page} items={userStates.no_of_page} perPage={userStates.limit} first={true} last={true} prev={true} next={true} onSelect={ this.selectNextPage.bind(this) } />  
                                         </div>
                                     </div>
                                 </div>
@@ -174,8 +223,12 @@ var AdminUserPage = React.createClass({
             </div>
         );
     },
+
     _onChange: function() {
-        this.setState(getAppState());
+        this.setState({
+            users : UserStore.getAllUsers(),
+            userState : UserStore.getUsersState()
+        });
     }
 });
 

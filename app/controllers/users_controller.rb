@@ -2,11 +2,41 @@ class UsersController < ApplicationController
 
   def index
     
-    @offset = params[:offset]
-    @limit = params[:limit]
-    @users = User.order(created_at: :desc).ranking.offset(@offset).limit(@limit)
+    @offset = params[:offset].to_i
+    @limit = params[:limit].to_i
 
-    render json: @users
+    page = params[:page].to_i
+    page_count = params[:limit].to_i
+    @offset = (page - 1) * page_count;
+
+    if( params[:search_key] != nil )
+      @search_key = params[:search_key]
+      @users = User.where("lower(username) like ?", ('%'+@search_key.downcase+'%')).order(created_at: :desc).ranking.offset(@offset).limit(@limit)
+      page_count = @users.size
+      total_count = User.where("lower(username) like ?", ('%'+@search_key.downcase+'%')).distinct.count('id')
+    else
+      @users = User.order(created_at: :desc).ranking.offset(@offset).limit(@limit)
+      page_count = @users.size
+      total_count = User.distinct.count('id')
+    end
+  
+    no_of_page = (total_count.to_f / @limit.to_f).round(2).ceil
+  
+    @state = {
+        total_count: total_count,
+        page_count: page_count,
+        current_page: page,
+        no_of_page: no_of_page,
+        limit: @limit,
+        offset: @offset
+    }
+
+    @data = {
+      users: @users,
+      state: @state
+    }
+  
+    render json: @data
   end  
 
   def posts

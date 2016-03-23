@@ -430,33 +430,26 @@ module.exports = {
   },
 
   getAllUsers: function(url,data) {
-    var params = {
-      limit: data.limit,
-      offset: data.offset
-    };
 
     Reqwest({
       url: url,
       type: 'json',
       method: 'get',
-      data: params,
+      data: data,
       contentType: 'application/json',
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) { 
-        console.log(resp);
         users = resp;
         UserServerActionCreators.recieveAll(users); 
       },
       error: function(error) {
         console.error(url, error['response']);
-        //location = '/';
       }
     });
   },
 
   deleteUser: function(url){
 
-    //console.log("=========== TrakFireWebApiUtils  - deleteUser=========="); 
     Reqwest({
       url: url,
       type: 'json',
@@ -473,24 +466,6 @@ module.exports = {
         //location = '/';
       }
     });    
-  },
-
-
-  getAdminState: function(url, data) {
-    Reqwest({
-      url: url,
-      type: 'json',
-      method: 'get',
-      data: data,
-      contentType: 'application/json',
-      headers: {'Authorization': localStorage.getItem('jwt')},
-      success: function(resp) { 
-        UserServerActionCreators.recieveAdminState(resp); 
-      },
-      error: function(error) {
-        console.error(url, error['response']);
-      }
-    });
   }
 };
 
