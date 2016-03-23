@@ -152,6 +152,14 @@ body {
     }
 }
 
+#side-menu .selected a {
+    background-color: lightgrey;
+}
+
+#side-menu .selected a:hover {
+    background-color: lightgrey !important;
+}
+
 .btn-outline {
     color: inherit;
     background-color: transparent;

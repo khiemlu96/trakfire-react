@@ -98,6 +98,17 @@ var AdminPostsPage = React.createClass({
             var postGridHtml = [];
             for( var id in posts ) {
                 var post = posts[id];
+
+                //Set comment count to 0 if no any comment id posted
+                if( post.comment_count === null) {
+                    post.comment_count = 0;
+                }
+
+                //Set vote count to 0 if no any comment id posted
+                if( post.vote_count === null) {
+                    post.vote_count = 0;
+                }
+
                 var row = 
                     <tr className="gradeA odd" role="row">
                         <td className="aligned-left sorting_1">{post.title}</td>
