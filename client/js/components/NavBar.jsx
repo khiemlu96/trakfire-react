@@ -235,7 +235,6 @@ var NavBar = React.createClass({
       var searchIcon =  <span><span className = "glyphicon glyphicon-search" onClick={this.renderSearchBar} style = {searchIconStyle}></span> </span>
       var menuIcon = <li><a href="#" >{this.renderStaticInfo()} </a></li>;
 
-      //var menuIcon = <span ref="menuIcon" style= { MenuIconStyle }>{this.renderStaticInfo()} </span>;
       /*} else {
         var tooltip = <Tooltip>Posting is invite only</Tooltip>;
         var postLink = <OverlayTrigger placement="left" overlay={tooltip}><a className="tf-inactive">POST</a></OverlayTrigger>;//<a href="" className="tf-inactive">POST</a>;
@@ -248,8 +247,6 @@ var NavBar = React.createClass({
       var postLink = '';
       var searchIcon = '';
       var menuIcon = <li><a href="#">{this.renderStaticInfo()}</a></li>;
-
-      //var menuIcon = <span ref="menuIcon" style= { MenuIconStyle }>{this.renderStaticInfo()} </span>;
       //var emailLink = <Link to='/email?id=1'>EMAIL</Link>;
     }
   

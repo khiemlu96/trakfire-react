@@ -23,12 +23,13 @@ var PostStore = require('../../stores/PostStore.js');
 var UserStore = require('../../stores/UserStore.js');
 var NavBar = require('../NavBar.jsx');
 
+var currentRoute = "";
+
 function getAppState() {
   	return {
 		currentUser: UserStore.getCurrentUser(),
 		isLoggedIn: UserStore.isSignedIn(),
-		isAdmin: UserStore.isAdmin(),
-		posts: PostStore.getAll()
+		isAdmin: UserStore.isAdmin()
 	};
 }
 
@@ -42,14 +43,24 @@ var TrakFireAdminPage = React.createClass({
 	},
 
 	componentWillMount: function() {
+		currentRoute = window.location.hash;
+		var selectedMenu = "";
+		if( currentRoute.indexOf("admin/dashboard") !== -1 ) 
+			selectedMenu = 'dashboard';
+		else if(currentRoute.indexOf("admin/posts") !== -1 )
+			selectedMenu = 'post';
+		else if(currentRoute.indexOf("admin/users") !== -1 )
+			selectedMenu = 'user';
+		else if(currentRoute.indexOf("admin/images") !== -1 )
+			selectedMenu = 'carousal';
+
 		this.setState({
-			Height: $(document).height()
+			selectedMenu: selectedMenu
 		});
 	},
 
 	componentDidMount: function() {
 		UserStore.addChangeListener(this._onChange);
-		PostStore.addChangeListener(this._onChange);
 	},
 
 	componentWillUnmount: function() {
@@ -68,7 +79,32 @@ var TrakFireAdminPage = React.createClass({
 		this.setState({showSignupModal:true});
 	},
 
-	render: function() {
+	selectSideBar: function(key) {
+		var selectedMenu = "";
+
+		switch ( key ) {
+			case 'dashboard':
+				selectedMenu = key;
+				break;
+			case 'post':
+				selectedMenu = key;
+				break;
+			case 'user':
+				selectedMenu = key;
+				break;
+			case 'carousal':
+				selectedMenu = key;
+				break;
+			default:
+				throw new Error('pageType is not valid');
+		}
+
+		this.setState({
+			selectedMenu: selectedMenu
+		});
+	},
+
+	render: function() {		
 		/*
 		 * Render the basic structure for admin page
 		*/
@@ -76,11 +112,10 @@ var TrakFireAdminPage = React.createClass({
 		{ 
 			React.cloneElement(this.props.children, 
 			{ 
-				posts: this.state.posts,
 				currUser: this.state.currentUser,
 				origin: this.props.origin,
 			})
-		}</div>;
+		}</div>;	
 
 		if( this.state.currentUser !== null) {
 			return (
@@ -96,22 +131,22 @@ var TrakFireAdminPage = React.createClass({
 					<div className="navbar-default sidebar" role="navigation">
 						<div className="sidebar-nav navbar-collapse">
 							<ul className="nav in" id="side-menu">
-								<li>
-									<Link to="/admin/dashboard"><i className="fa fa-dashboard fa-fw"></i> &nbsp;Dashboard</Link>
+								<li id="dashboard-link" className={(this.state.selectedMenu === 'dashboard' ? 'selected': '')}>
+									<Link onClick = {this.selectSideBar.bind(this, 'dashboard')} to="/admin/dashboard"><i className="fa fa-dashboard fa-fw"></i> &nbsp;Dashboard</Link>
 								</li>
-								<li> 
-									<Link to="/admin/posts"><i className="fa fa-music fa-fw"></i> &nbsp;Posts</Link>
+								<li id="post-link" className={(this.state.selectedMenu === 'post' ? 'selected': '')}> 
+									<Link onClick = {this.selectSideBar.bind(this, 'post')} to="/admin/posts"><i className="fa fa-music fa-fw"></i> &nbsp;Posts</Link>
 								</li> 
-								<li> 
-									<Link to="/admin/users"><i className="fa fa-user fa-fw"></i> &nbsp;Users</Link>
+								<li id="user-link" className={(this.state.selectedMenu === 'user' ? 'selected': '')}> 
+									<Link onClick = {this.selectSideBar.bind(this, 'user')} to="/admin/users"><i className="fa fa-group fa-fw"></i> &nbsp;Users</Link>
 								</li>
-								<li> 
- 									<Link to="/admin/images"><i className="fa fa-user fa-fw"></i> &nbsp;Banner Skins</Link>
+								<li id="carousal-link" className={(this.state.selectedMenu === 'carousal' ? 'selected': '')}> 
+ 									<Link onClick = {this.selectSideBar.bind(this, 'carousal')} to="/admin/images"><i className="fa fa-list-alt fa-fw"></i> &nbsp;Banner Skins</Link>
  								</li>
 							</ul>
 						</div>
 					</div>
-					<div id="page-wrapper" className="page-wrapper tf-background" ref="pageWrapper">
+					<div id="page-wrapper" className="page-wrapper" ref="pageWrapper">
 						{Routes}
 					</div>
 				</div>

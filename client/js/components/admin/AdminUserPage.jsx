@@ -9,15 +9,12 @@ var Panel = require("react-bootstrap").Panel;
 var Well = require("react-bootstrap").Well;
 var Button = require("react-bootstrap").Button;
 var PageHeader = require("react-bootstrap").PageHeader;
+var Modal = require("react-bootstrap").Modal;
 
 var UserStore = require('../../stores/UserStore.js');
 var UserActions = require('../../actions/UserActions.js');
 
-function getAppState() {
-    return {
-        users : UserStore.getAllUsers()
-    };
-}
+var delete_user_id;
 
 function getLength(a) {
     var i = 0;
@@ -30,41 +27,112 @@ function getLength(a) {
 var AdminUserPage = React.createClass({
 
     getInitialState: function(){
-         return getAppState();
+         return {
+            users : UserStore.getAllUsers(),
+            current_page : 1,
+            searchText : "",
+            userState : UserStore.getUsersState()
+        };
     },
 
-    getAllUsersFromApi: function(){
-        var data = {
-            limit: 10,
-            offset: 0
-        }
+    getAllUsersFromApi: function(data){
         UserActions.getAllUsers(this.props.origin+'/users',data);
     },
 
     componentDidMount: function() {
-        this.getAllUsersFromApi();
+        var data = {
+            limit: 20,
+            offset: 0,
+            page: this.state.current_page
+        };
+
+        this.getAllUsersFromApi(data);
         UserStore.addChangeListener(this._onChange);
+    },
+
+    showDelUserPopup: function(user_id){
+        delete_user_id = user_id;
+        
+        this.setState({
+            showDelUserPopup : true
+        });
+
+    },
+
+    deleteUser: function(){
+        UserActions.deleteUser(this.props.origin+'/users/'+delete_user_id);
+        this.hideDelUserPopup();
+    },
+
+    hideDelUserPopup: function(){
+        this.setState({
+            showDelUserPopup : false
+        });
+    },
+
+    selectNextPage: function(event, obj) {
+        console.log(obj.eventKey);
+
+        var userStates = this.state.userState;
+        var offset = userStates.offset + userStates.limit;
+        var current_page = obj.eventKey;
+
+        var data = {
+            limit: 20,
+            offset: offset,
+            page: current_page
+        };
+
+        this.getAllUsersFromApi(data);
+
+        this.setState({
+            current_page: current_page
+        });
+
+    },
+
+    search: function(event) {
+        var searchText = this.refs.searchInput.getDOMNode().value.trim();
+
+        if( searchText !== "" ) {
+
+            this.setState({
+                searchText: searchText
+            });
+
+            var data = {
+                limit: 20,
+                offset: 0,
+                search_key: searchText,
+                page: 1
+            };
+
+            this.getAllUsersFromApi(data);
+        }        
     },
 
     renderUserGrid: function(){
         var users = this.state.users;
-        //console.log("====================== ADMIN USERS : ",users);
 
         if( users !== undefined && getLength(users) > 0) {
             var userGridHtml = [];
             for( var id in users ) {
                 var user = users[id];
                 var row = 
-                    <tr className="gradeA odd tf-background" role="row">
+                    <tr className="gradeA odd" role="row">
                         <td className="sorting_1">{user.name}</td>
                         <td>{user.email}</td>
+                        <td>{user.handle}</td>
                         <td className="center">
                             <div className="col-md-6">
                                 <a><span><i className="fa fa-pencil-square-o"></i></span>Edit</a>
                             </div>
                         <div className="col-md-6">
-                            <a><span><i className="fa fa-trash-o"></i></span>Del</a>
+                            <a onClick={this.showDelUserPopup.bind(this, user.id)}><span><i className="fa fa-trash-o"></i></span>Del</a>
                         </div>
+                        </td>
+                        <td>
+                            <span><input type="checkbox"/><label></label></span>
                         </td>
                     </tr>
                 userGridHtml.push(row);
@@ -78,7 +146,11 @@ var AdminUserPage = React.createClass({
 
     render: function() {
         var userGridHtml = this.renderUserGrid();
-        //console.log("============= USER GRID HTML : ",userGridHtml);
+        var userStates = this.state.userState;
+
+        var count = parseInt(userStates.offset) + parseInt(userStates.page_count);
+        var limit_count = ( count > userStates.total_count ? userStates.total_count: count);
+
         return (
             <div>
                 <div className="col-lg-12"> 
@@ -91,11 +163,11 @@ var AdminUserPage = React.createClass({
                             <div className="dataTable_wrapper">
                                 <div id="dataTables-example_wrapper" className="dataTables_wrapper form-inline dt-bootstrap no-footer">
                                     <div className="row">
-                                        <div className="col-sm-9">
-                                        </div>
-                                        <div className="col-sm-3">
+                                        <div className="col-sm-4 pull-right">
                                             <div id="dataTables-example_filter" className="dataTables_filter">
-                                                <label>Search:<input type="search" className="form-control input-sm" placeholder="" aria-controls="dataTables-example" />
+                                                <label>Search:
+                                                    <span><input type="search" ref="searchInput" className="form-control input-sm" placeholder="" aria-controls="dataTables-example" /></span>
+                                                    <span><Button className="tf-search-button" onClick={this.search}>&#128269;</Button></span>
                                                 </label>
                                             </div>
                                         </div>
@@ -107,8 +179,10 @@ var AdminUserPage = React.createClass({
                                                 <thead>
                                                     <tr role="row">
                                                         <th className="" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 321} }>User Name</th>
-                                                        <th className="" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 299} }>Emails</th>
-                                                        <th className="center" tabIndex="0" rowSpan="1" colSpan="1"  style={ {width: 180} }>?</th>
+                                                        <th className="" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 299} }>Email</th>
+                                                        <th className="" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 150} }>Handle</th>
+                                                        <th className="center" tabIndex="0" rowSpan="1" colSpan="1"  style={ {width: 100} }>Edit / Delete?</th>
+                                                        <th className="" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 50} }>Verified?</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>               
@@ -119,11 +193,12 @@ var AdminUserPage = React.createClass({
                                     </div>
                                     <div className="row">
                                         <div className="col-sm-6">
-                                            <div className="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">Showing 1 to 10 of 57 entries</div>
+                                            <div className="dataTables_info" id="dataTables-example_info" role="status" aria-live="polite">
+                                                Showing {userStates.offset} to {limit_count} of {userStates.total_count} entries
+                                            </div>
                                         </div>
                                         <div className="col-sm-6" pullRight>
-                                            <Pagination activePage={1} items={6} perPage={10} first={true} last={true}
-                                            prev={true} next={true} onSelect={ (pageNumber) => {} } />  
+                                            <Pagination activePage={this.state.current_page} items={userStates.no_of_page} perPage={userStates.limit} first={true} last={true} prev={true} next={true} onSelect={ this.selectNextPage.bind(this) } />  
                                         </div>
                                     </div>
                                 </div>
@@ -131,11 +206,29 @@ var AdminUserPage = React.createClass({
                         </div>
                     </Panel>
                 </div>
+
+                <div id="delete-modal-container">
+                    <Modal id="delete-modal" show={this.state.showDelUserPopup} onHide={this.hideDelPostPopup}>
+                        <Modal.Title>Confirm Delete?</Modal.Title>
+                        <Modal.Body closeButton className="tf-modal-body">
+                            <div className="row">Do you want to delete the User?</div>
+                            <div className="row">
+                                <Button onClick={this.deleteUser}>Yes</Button>
+                                <Button onClick={this.hideDelUserPopup}>Cancel</Button>
+                            </div>                            
+                        </Modal.Body>
+                    </Modal>
+                </div>
+
             </div>
         );
     },
+
     _onChange: function() {
-        this.setState(getAppState());
+        this.setState({
+            users : UserStore.getAllUsers(),
+            userState : UserStore.getUsersState()
+        });
     }
 });
 

@@ -88,6 +88,15 @@ var UserActions = {
 
   loadMoreUserNotifications: function(url, data) {
     TfAPI.loadMoreUserNotifications(url, data);
+  },
+
+  deleteUser: function(url) {
+    //console.log("=========== User Action - deleteUser ==========");
+    TfAPI.deleteUser(url);
+  },
+
+  getAdminState: function(url, data) {
+    TfAPI.getAdminState(url, data);
   }
 };
 

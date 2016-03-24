@@ -152,6 +152,14 @@ body {
     }
 }
 
+#side-menu .selected a {
+    background-color: lightgrey;
+}
+
+#side-menu .selected a:hover {
+    background-color: lightgrey !important;
+}
+
 .btn-outline {
     color: inherit;
     background-color: transparent;
@@ -324,7 +332,15 @@ table.dataTable .tf-preview-img {
 }
 
 .huge {
+<<<<<<< HEAD
     font-size: 40px;
+=======
+    font-size: 30px;
+}
+ 
+.header-text {
+    margin-top: 10px;
+>>>>>>> d65f33d9d66359dc7b2a61856c4dfe033a54c254
 }
 
 .panel-green {

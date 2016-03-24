@@ -439,19 +439,38 @@ module.exports = {
       url: url,
       type: 'json',
       method: 'get',
-      data: params,
+      data: data,
       contentType: 'application/json',
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) { 
-        console.log(resp);
         users = resp;
         UserServerActionCreators.recieveAll(users); 
       },
       error: function(error) {
         console.error(url, error['response']);
-        //location = '/';
       }
     });
+  },
+
+  deleteUser: function(url){
+
+    Reqwest({
+      url: url,
+      type: 'json',
+      method: 'DELETE',
+      contentType: 'application/json',
+      headers: {'Authorization': localStorage.getItem('jwt')},
+      success: function(resp) {
+        //console.log("================== response -",resp); 
+        UserServerActionCreators.deleteUser(resp); 
+
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+        //location = '/';
+      }
+    });    
+>>>>>>> d65f33d9d66359dc7b2a61856c4dfe033a54c254
   }
 };
 

@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-	before_action :authenticate_request, only: [:create]
+	before_action :authenticate_request, only: [:create, :destroy]
 
 	def index
 

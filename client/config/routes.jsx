@@ -9,6 +9,6 @@ var Route = Router.Route;
 module.exports = (
   <Route name="app" path="/" handler={PostPage}>
     <DefaultRoute name="posts" handler={PostPage} />
-    <Route name="about" handler={AboutPage} />
+    <Route name="about" handler={AboutPage}/>
   </Route>
 );

@@ -98,16 +98,30 @@ var AdminPostsPage = React.createClass({
             var postGridHtml = [];
             for( var id in posts ) {
                 var post = posts[id];
+
+                //Set comment count to 0 if no any comment id posted
+                if( post.comment_count === null) {
+                    post.comment_count = 0;
+                }
+
+                //Set vote count to 0 if no any comment id posted
+                if( post.vote_count === null) {
+                    post.vote_count = 0;
+                }
+
                 var row = 
-                    <tr className="gradeA odd tf-background" role="row">
+                    <tr className="gradeA odd" role="row">
                         <td className="aligned-left sorting_1">{post.title}</td>
                         <td className="aligned-left">{post.artist}</td>
                         <td className="aligned-left">{post.user.username}</td>
                         <td className="aligned-centered"><Link to={'/post/'+post.id}>{post.comment_count}</Link></td>
                         <td className="aligned-centered"><Link to={'/post/'+post.id}>{post.vote_count}</Link></td>
                         <td className="aligned-centered">                            
-                            <div className="aligned-centered col-md-6">
-                                <a onClick={this.showDelPostPopup.bind(this, post.id)} className="tf-del-post-link"><span><i className="fa fa-trash-o"></i></span>Delete</a>
+                            <div className="aligned-centered col-md-12">
+                                <a onClick={this.showDelPostPopup.bind(this, post.id)} className="tf-del-post-link">
+                                    <span><i className="fa fa-trash-o"></i></span>
+                                    Delete
+                                </a>
                             </div>
                         </td>
                     </tr>;
@@ -177,9 +191,7 @@ var AdminPostsPage = React.createClass({
         
         return (
             <div>
-                <div className="col-lg-12"> 
-                    <PageHeader>All Posts</PageHeader>
-                </div>
+                <div className = "row"></div>
 
                 <div className="col-lg-12"> 
                     <Panel header={<span>All Posts</span>}>
@@ -193,7 +205,7 @@ var AdminPostsPage = React.createClass({
                                                 <label>Search:
                                                     <div>
                                                         <span><input type="search" ref="searchInput" className="form-control input-sm" placeholder="" aria-controls="dataTables-example" /></span>
-                                                        <span><Button className="tf-search-button" onClick={this.search}>&#128269;</Button></span>
+                                                        <span><Button className="tf-search-button" onClick={this.search}><i className="fa fa-search"></i></Button></span>
                                                     </div>
                                                 </label>                                                
                                             </div>                                            
@@ -204,13 +216,13 @@ var AdminPostsPage = React.createClass({
                                         <div className="col-sm-12">
                                             <table className="table table-striped table-bordered table-hover dataTable no-footer" id="dataTables-example" role="grid">
                                                 <thead>
-                                                    <tr role="row tf-background">
-                                                        <th className="aligned-left" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 265} }>Title</th>
-                                                        <th className="aligned-left" tabIndex="0" rowSpan="1" colSpan="1"  style={ {width: 321} }>Artist</th>
-                                                        <th className="aligned-left" tabIndex="0" rowSpan="1" colSpan="1"  style={ {width: 299} }>Posted By</th>
-                                                        <th className="aligned-centered" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 231} }>Comments</th>
-                                                        <th className="aligned-centered" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 180} }>Votes</th>
-                                                        <th className="aligned-centered" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 299} }>Delete?</th>
+                                                    <tr role="row">
+                                                        <th className="aligned-left" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 350} }>Title</th>
+                                                        <th className="aligned-left" tabIndex="0" rowSpan="1" colSpan="1"  style={ {width: 275} }>Artist</th>
+                                                        <th className="aligned-left" tabIndex="0" rowSpan="1" colSpan="1"  style={ {width: 175} }>Posted By</th>
+                                                        <th className="aligned-centered" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 100} }>Comments</th>
+                                                        <th className="aligned-centered" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 100} }>Votes</th>
+                                                        <th className="aligned-centered" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 100} }>Delete?</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>               

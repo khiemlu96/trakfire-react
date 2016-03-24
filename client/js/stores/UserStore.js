@@ -11,6 +11,8 @@ var _user = null;
 var _users = {};
 var _posts = null;
 var _notifications = null;
+var _users = {};
+var _userState = {};
 
 function _addCurrentUser(user) {
   _cUser = UserUtils.convertRawUser(user);
@@ -28,14 +30,20 @@ function _addUser(user) {
   _user = UserUtils.convertRawUser(user);
 }
 
-function _addUsers(users) {
-  //console.log("============= -addUsers ========== users : ",users);
-  if(users !== undefined){
-    users.forEach(function(user){
-      if(!_users[user.id]){
-        _users[user.id] = UserUtils.convertRawUser(user);
-      }
-    });
+function _addUsers(data) {
+  if(data !== undefined){
+    var users = data.users;
+    _users = {};
+    _userState = {};
+    _userState = data.state;
+    
+    if(users !== undefined){
+      users.forEach(function(user){
+        if(!_users[user.id]){
+          _users[user.id] = UserUtils.convertRawUser(user);
+        }
+      });
+    }
   }
 }
 
@@ -70,6 +78,12 @@ function _removeFollower(follower) {
     rowIdx++;
   }
   _cUser.followings = followings;
+} 
+
+function _deleteUser(user_id) {
+  if(_users[user_id] !== null && _users[user_id] !== undefined) {
+    delete _users[user_id];
+  }
 }
 
 var UserStore = assign({}, EventEmitter.prototype, {
@@ -124,7 +138,12 @@ var UserStore = assign({}, EventEmitter.prototype, {
    */
   removeChangeListener: function(callback) {
     this.removeListener(CHANGE_EVENT, callback);
+  },
+
+  getUsersState: function() {
+    return _userState;
   }
+
 });
 
 // Register callback to handle all updates
@@ -174,6 +193,9 @@ AppDispatcher.register(function(action) {
       _removeFollower(action.response);    
       UserStore.emitChange();
       break;
+    case UserConstants.DELETE_USER:
+      _deleteUser(action.user_id);
+      UserStore.emitChange();
     default:
       // no op
   }
