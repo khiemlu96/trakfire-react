@@ -76,11 +76,7 @@ var AdminBannerImagePage = React.createClass({
                                             </div>
                                         </div>
                                         <div className="col-sm-6" pullRight >
-<<<<<<< HEAD
-                                            <Pagination activePage={1} items={6} perPage={10} first={true} last={true} prev={true} next={true} onSelect={ (pageNumber) => {} } />  
-=======
                                             <Pagination activePage={1} items={6} perPage={10} first={true} last={true} prev={true} next={true}  />  
->>>>>>> d65f33d9d66359dc7b2a61856c4dfe033a54c254
                                         </div>
                                     </div>
                                 </div>

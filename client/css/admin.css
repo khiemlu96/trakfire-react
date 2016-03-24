@@ -152,8 +152,6 @@ body {
     }
 }
 
-<<<<<<< HEAD
-=======
 #side-menu .selected a {
     background-color: lightgrey;
 }
@@ -162,7 +160,6 @@ body {
     background-color: lightgrey !important;
 }
 
->>>>>>> d65f33d9d66359dc7b2a61856c4dfe033a54c254
 .btn-outline {
     color: inherit;
     background-color: transparent;
@@ -335,15 +332,11 @@ table.dataTable .tf-preview-img {
 }
 
 .huge {
-<<<<<<< HEAD
-    font-size: 40px;
-=======
     font-size: 30px;
 }
  
 .header-text {
     margin-top: 10px;
->>>>>>> d65f33d9d66359dc7b2a61856c4dfe033a54c254
 }
 
 .panel-green {
@@ -453,4 +446,3 @@ table.dataTable .tf-preview-img {
 .tf-search-button {
     margin-left: 10px;
 }
-

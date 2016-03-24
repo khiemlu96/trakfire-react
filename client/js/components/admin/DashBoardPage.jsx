@@ -23,7 +23,7 @@ var StatWidget = require('./StatWidget.jsx');
 
 //var Chart = require('react-d3-core').Chart;
 //var LineChart = require('react-d3-basic').LineChart;
-var LineChart = require("./react-chartjs/index.js").Line;
+var LineChart = require("react-chartjs").Line;
 
 var chartOptions = {
     bezierCurve : false,

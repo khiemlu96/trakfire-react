@@ -470,7 +470,6 @@ module.exports = {
         //location = '/';
       }
     });    
->>>>>>> d65f33d9d66359dc7b2a61856c4dfe033a54c254
   }
 };
 

@@ -7,7 +7,14 @@ class UsersController < ApplicationController
 
     page = params[:page].to_i
     page_count = params[:limit].to_i
-    @offset = (page - 1) * page_count;
+
+    logger.info "PAGE_COUNT"
+    logger.info @offset
+
+    @offset = params[:page] ? (page - 1) * page_count : @offset;
+
+    logger.info "PAGE_COUNT"
+    logger.info @offset
 
     if( params[:search_key] != nil )
       @search_key = params[:search_key]
