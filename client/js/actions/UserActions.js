@@ -41,11 +41,6 @@ var UserActions = {
   }, 
 
   getAllUsers: function(origin,data){
-    console.log("GETTING ALL USER ");
-    AppDispatcher.dispatch({
-      actionType: UserConstants.GET_ALL_USERS
-    });
-
     TfAPI.getAllUsers(origin,data);   
   },
 
