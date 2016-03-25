@@ -21,16 +21,60 @@ var UserActions = require('../../actions/UserActions.js');
 var UserStore = require('../../stores/UserStore.js');
 var StatWidget = require('./StatWidget.jsx');
 
+var range_type = "1";
+
 //var Chart = require('react-d3-core').Chart;
 //var LineChart = require('react-d3-basic').LineChart;
-var LineChart = require("react-chartjs").Line;
+var LineChart = require("./react-chartjs/index.js").Line;
 
 var chartOptions = {
-    bezierCurve : false,
-    datasetFill : false,
-    pointDotStrokeWidth: 4,
-    scaleShowVerticalLines: false,
-    responsive: true
+        ///Boolean - Whether grid lines are shown across the chart
+    scaleShowGridLines : true,
+
+    //String - Colour of the grid lines
+    scaleGridLineColor : "rgba(0,0,0,.05)",
+
+    //Number - Width of the grid lines
+    scaleGridLineWidth : 1,
+
+    //Boolean - Whether to show horizontal lines (except X axis)
+    scaleShowHorizontalLines: true,
+
+    //Boolean - Whether to show vertical lines (except Y axis)
+    scaleShowVerticalLines: true,
+
+    //Boolean - Whether the line is curved between points
+    bezierCurve : true,
+
+    //Number - Tension of the bezier curve between points
+    bezierCurveTension : 0.4,
+
+    //Boolean - Whether to show a dot for each point
+    pointDot : true,
+
+    //Number - Radius of each point dot in pixels
+    pointDotRadius : 4,
+
+    //Number - Pixel width of point dot stroke
+    pointDotStrokeWidth : 1,
+
+    //Number - amount extra to add to the radius to cater for hit detection outside the drawn point
+    pointHitDetectionRadius : 20,
+
+    //Boolean - Whether to show a stroke for datasets
+    datasetStroke : true,
+
+    //Number - Pixel width of dataset stroke
+    datasetStrokeWidth : 2,
+
+    //Boolean - Whether to fill the dataset with a colour
+    datasetFill : true,
+
+    //String - A legend template
+    //legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"><%if(datasets[i].label){%><%=datasets[i].label%><%}%></span></li><%}%></ul>"
+
+    //Boolean - Whether to horizontally center the label and point dot inside the grid
+    offsetGridLines : false
 };
 
 var styles = {
@@ -57,45 +101,92 @@ var DashBoardPage = React.createClass({
 
     componentDidMount: function() {
         this.getAdminState();
-        this.renderChart();
+        //this.renderChart();
         UserStore.addChangeListener(this._onChange);
     },
 
     getAdminState: function() {
         var data = {
-            range_type: 'day'
+            range_type: range_type
         };
 
-        UserActions.getAdminState(this.props.origin+'/admin_state', data);
+        UserActions.getAdminState( this.props.origin+'/admin_state', data );
     },
 
     renderChart: function() {
-        var chartData = {
-            labels: ["January", "February", "March", "April", "May", "June", "July"],
-            datasets: [
-                {
-                    fillColor: "#25BDFF",
-                    strokeColor: "#25BDFF",
-                    pointColor: "#25BDFF",
-                    pointStrokeColor: "#fff",
-                    pointHighlightFill: "#fff",
-                    pointHighlightStroke: "#25BDFF",
-                    data: [28, 48, 40, 19, 86, 27, 90]
-                }
-            ]
-        };
+
+        var chartData = this.state.admin_state.chart_data;
+
+        if( range_type === "1" ) {
+            chartData = {
+                labels: chartData[0],
+                datasets: [
+                    {
+                        fillColor: "#25BDFF",
+                        strokeColor: "#25BDFF",
+                        pointColor: "#25BDFF",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "#25BDFF",
+                        data: chartData[1]
+                    }
+                ]
+            };
+        } else if( range_type === "2" ) {
+            chartData = {
+                labels: chartData[0],
+                datasets: [
+                    {
+                        fillColor: "#25BDFF",
+                        strokeColor: "#25BDFF",
+                        pointColor: "#25BDFF",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "#25BDFF",
+                        data: chartData[1]
+                    }
+                ]
+            };
+        } else if( range_type === "3" ) {
+            chartData = {
+                labels: chartData[0],
+                datasets: [
+                    {
+                        fillColor: "#25BDFF",
+                        strokeColor: "#25BDFF",
+                        pointColor: "#25BDFF",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "#25BDFF",
+                        data: chartData[1]
+                    }
+                ]
+            };
+        }
 
         React.render(
             <div style={styles.graphContainer}>
-                <LineChart data={chartData} options={chartOptions} width="200" height="150" />
+                <LineChart data={chartData} options={chartOptions} />
             </div>
             ,document.getElementById('chart-container')
         );
     },
 
+    select: function(event, eventKey) {
+        range_type = eventKey;
+        this.getAdminState();
+        this.renderChart();
+    },
 
     render: function() {
         var admin_state = this.state.admin_state;
+        
+        if( range_type === "1" ) 
+            var title = 'day';
+        else if( range_type === "2" ) 
+            var title = 'month';
+        else if( range_type === "3" ) 
+            var title = 'year';
 
         return ( 
             <div>
@@ -110,7 +201,7 @@ var DashBoardPage = React.createClass({
                         <StatWidget style = "primary" icon = "fa fa-music fa-5x" count = {admin_state.posts} headerText = "Traks" footerText = "View All Posts" linkTo = "/admin/posts" />
                     </div> 
                     <div className = "col-lg-3 col-md-6">
-                        <StatWidget style = "panel-green" icon = "fa fa-group fa-5x" count = {admin_state.users} headerText = "Users" footerText = "View All Users" linkTo = "/admin/users" />
+                        <StatWidget style = "panel-green" icon = "fa fa-user fa-5x" count = {admin_state.users} headerText = "Users" footerText = "View All Users" linkTo = "/admin/users" />
                     </div> 
                     <div className = "col-lg-3 col-md-6">
                         <StatWidget style = "panel-yellow" icon = "fa fa-comments fa-5x" count = {admin_state.comments} headerText = "Comments" footerText = "View Details" linkTo = "/admin/posts" />
@@ -119,15 +210,15 @@ var DashBoardPage = React.createClass({
 
                 <div className = "row">
                     <div className = "col-lg-12">
-                        <Panel
+                        <Panel id="Chart-panel"
                             header = {
                                 <span>
                                     <i className = "fa fa-bar-chart-o fa-fw" > < /i> Posted Tracks 
                                     <div className = "pull-right" >
-                                        <DropdownButton title = "Dropdown" bsSize = "xs" pullRight>
-                                            <MenuItem eventKey = "1"> Day </MenuItem> 
-                                            <MenuItem eventKey = "2"> Month </MenuItem> 
-                                            <MenuItem eventKey = "3"> Year </MenuItem> 
+                                        <DropdownButton title = {title} bsSize = "xs" pullRight id="dropdown_period">
+                                            <MenuItem eventKey = "1" onSelect={this.select.bind(this)}> Day </MenuItem> 
+                                            <MenuItem eventKey = "2" onSelect={this.select.bind(this)}> Month </MenuItem> 
+                                            <MenuItem eventKey = "3" onSelect={this.select.bind(this)}> Year </MenuItem> 
                                         </DropdownButton> 
                                     </div> 
                                 </span>
@@ -145,7 +236,8 @@ var DashBoardPage = React.createClass({
     _onChange: function() {
         this.setState({
             admin_state: UserStore.getAdminState()
-        });        
+        });
+        this.renderChart();       
     }
 });
 

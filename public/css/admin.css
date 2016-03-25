@@ -447,3 +447,16 @@ table.dataTable .tf-preview-img {
     margin-left: 10px;
 }
 
+/******** Start of Chart Style *************/
+
+#Chart-panel .panel-body {
+    height: 500px !important;
+    width: 900px !important;
+}
+
+#chart-container canvas {
+    width: 800px !important;
+    height: 350px !important;
+}
+
+/******** End of Chart Style *************/

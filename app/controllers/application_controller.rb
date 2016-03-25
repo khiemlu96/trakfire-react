@@ -26,20 +26,76 @@ class ApplicationController < ActionController::API
   
   # Method to define an admin statistics on Admin DashBoard Page
   def admin_state
-
     # Get the post count block on dashboard
     post_count = Post.count
-
     # Get the user count for block on dashboard
     user_count = User.count
-
     # Get the comment count for block on dashboard
     comment_count = Comment.count
+
+    @chart_data = []
+
+    #Get the data coordinates for the chart on the Dashboard
+    if( params[:range_type] == "1" )
+        sql = "SELECT count(id) as post_count, created_at::date AS posted_date
+                FROM posts 
+                WHERE created_at > current_date - interval '40' day
+                GROUP BY created_at::date
+                ORDER BY created_at::date ASC;"
+
+        post_counts = [0]
+        posted_dates = [0]
+        Post.find_by_sql(sql).each do |row|
+            posted_dates.push(row.posted_date)
+            post_counts.push(row.post_count)
+        end
+
+        @chart_data.push(posted_dates)
+        @chart_data.push(post_counts)
+
+    elsif( params[:range_type] == "2" )
+        
+        sql = "SELECT count(id) AS post_count, to_char(to_timestamp(to_char(EXTRACT(MONTH FROM created_at), '999'), 'MM'), 'Mon') AS posted_month
+                FROM posts
+                WHERE created_at >  CURRENT_DATE - INTERVAL '12 months'
+                GROUP BY EXTRACT(MONTH FROM created_at)
+                ORDER BY EXTRACT(MONTH FROM created_at) ASC;"
+
+        post_counts = [0]
+        posted_dates = [0]
+
+        Post.find_by_sql(sql).each do |row|
+            posted_dates.push(row.posted_month)
+            post_counts.push(row.post_count)
+        end
+
+        @chart_data.push(posted_dates)
+        @chart_data.push(post_counts)
+
+    elsif( params[:range_type] == "3" )
+      sql = "SELECT count(id) AS post_count, EXTRACT(YEAR FROM created_at) AS posted_year
+              FROM posts
+              WHERE created_at >  CURRENT_DATE - INTERVAL '6 years'
+              GROUP BY EXTRACT(YEAR FROM created_at)
+              ORDER BY EXTRACT(YEAR FROM created_at) ASC;"
+
+        post_counts = [0]
+        posted_dates = [0]
+
+        Post.find_by_sql(sql).each do |row|
+            posted_dates.push(row.posted_year)
+            post_counts.push(row.post_count)
+        end
+
+        @chart_data.push(posted_dates)
+        @chart_data.push(post_counts)
+    end
 
     @admin_state = {
       "posts"=> post_count,
       "comments"=> comment_count,
-      "users" => user_count
+      "users" => user_count,
+      "chart_data" => @chart_data
     }
 
     render json: @admin_state
