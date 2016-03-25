@@ -466,6 +466,23 @@ module.exports = {
         //location = '/';
       }
     });    
+  },
+
+  getAdminState: function(url, data) {
+    Reqwest({
+      url: url,
+      type: 'json',
+      method: 'get',
+      data: data,
+      contentType: 'application/json',
+      headers: {'Authorization': localStorage.getItem('jwt')},
+      success: function(resp) { 
+        UserServerActionCreators.recieveAdminState(resp); 
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+      }
+    });
   }
 };
 
