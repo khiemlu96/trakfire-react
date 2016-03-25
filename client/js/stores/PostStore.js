@@ -293,6 +293,11 @@ var PostStore = assign({}, EventEmitter.prototype, {
     return postsOfGenres;
   },
 
+  getSongsLength: function(){
+     var len = Object.keys(_songs).length;
+     return len;
+  },
+  
   getSortedPosts: function() {
     return _songs;
   }, 

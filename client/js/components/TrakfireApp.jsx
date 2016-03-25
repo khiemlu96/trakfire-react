@@ -249,6 +249,10 @@ var TrakfireApp = React.createClass({
     this.setState({currSongList:songs});
   },
 
+  onGetSongsLength: function(){
+      var songsLength = PostStore.getSongsLength();
+      return songsLength;
+  },
   /**
    * @return {object}
    */
@@ -270,6 +274,7 @@ var TrakfireApp = React.createClass({
                       onUpvote={this.writeVoteToApi}
                       isUpvoted={upvoted}
                       userId={currUserId}
+                      onGetSongsLength={this.onGetSongsLength}
                       />;
     //var tfEmailAcq = <EmailAcquirePage updateUserWithEmail={this.updateUserWithEmail}/>;
     var Routes =  <div>
