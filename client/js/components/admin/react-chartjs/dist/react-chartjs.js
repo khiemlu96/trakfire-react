@@ -135,7 +135,7 @@ return /******/ (function(modules) { // webpackBootstrap
 
 	    classData.initializeChart = function(nextProps) {
 	      var Chart = __webpack_require__(5);
-	      var el = React.findDOMNode(this);
+	      var el = ReactDOM.findDOMNode(this);
 	      var ctx = el.getContext("2d");
 	      var chart = new Chart(ctx)[chartType](nextProps.data, nextProps.options || {});
 	      this.state.chart = chart;

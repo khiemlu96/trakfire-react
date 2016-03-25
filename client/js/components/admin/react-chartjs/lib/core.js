@@ -55,7 +55,7 @@ module.exports = {
 
     classData.initializeChart = function(nextProps) {
       var Chart = require('chart.js');
-      var el = React.findDOMNode(this);
+      var el = ReactDOM.findDOMNode(this);
       var ctx = el.getContext("2d");
       var chart = new Chart(ctx)[chartType](nextProps.data, nextProps.options || {});
       this.state.chart = chart;
