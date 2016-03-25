@@ -47,6 +47,6 @@ class User < ActiveRecord::Base
     super( include: { posts: { except: [] }, votes: { except: [] } }, methods: ['upvotes', 'followers', 'followings'] )
   end
 
-  scope :ranking, -> { select("id, email, username, provider, uid, img, location, tbio, 'isAdmin', handle") }
+  scope :ranking, -> { select('id, email, username, provider, uid, img, location, tbio, "isAdmin", handle, "isVerified"') }
 
 end
