@@ -180,15 +180,15 @@ var AdminUserPage = React.createClass({
                         <td>{user.email}</td>
                         <td>{user.handle}</td>
                         <td className="center">
-                            <div className="col-md-6">
+                            <div className="tf-admin-activity-button col-md-6">
                                 <a><span><i className="fa fa-pencil-square-o"></i></span>Edit</a>
                             </div>
-                        <div className="col-md-6">
-                            <a onClick={this.showDelUserPopup.bind(this, user.id)}><span><i className="fa fa-trash-o"></i></span>Del</a>
-                        </div>
+                            <div className="tf-admin-activity-button col-md-6">
+                                <a onClick={this.showDelUserPopup.bind(this, user.id)}><span><i className="fa fa-trash-o"></i></span>Del</a>
+                            </div>
                         </td>
                         <td>
-                            <span><input id={user.id} type="checkbox" ref="verify" checked={isVerified} onClick={this.checkToVerifyUser.bind(this, user.id)}/></span>
+                            <div className="col-md-12 text-center"><input id={user.id} type="checkbox" ref="verify" checked={isVerified} onClick={this.checkToVerifyUser.bind(this, user.id)}/></div>
                         </td>
                     </tr>
                 userGridHtml.push(row);
@@ -209,9 +209,7 @@ var AdminUserPage = React.createClass({
 
         return (
             <div>
-                <div className="col-lg-12"> 
-                    <PageHeader>All Users</PageHeader> 
-                </div>
+                <div className = "row"></div>
 
                 <div className="col-lg-12"> 
                     <Panel header={<span>Trak Starters</span>} >
@@ -223,7 +221,7 @@ var AdminUserPage = React.createClass({
                                             <div id="dataTables-example_filter" className="dataTables_filter">
                                                 <label>Search:
                                                     <span><input type="search" ref="searchInput" className="form-control input-sm" placeholder="" aria-controls="dataTables-example" /></span>
-                                                    <span><Button className="tf-search-button" onClick={this.search}>&#128269;</Button></span>
+                                                    <span><Button className="tf-search-button" onClick={this.search}><i className="fa fa-search"></i></Button></span>
                                                 </label>
                                             </div>
                                         </div>

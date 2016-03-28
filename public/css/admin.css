@@ -25,11 +25,13 @@ body {
 
 @media(min-width:768px) {
     #page-wrapper {
-        position: inherit;
+        position: absolute;
         margin: 0 0 0 250px;
         padding: 0 30px;
-        height: 100%;
+        min-height: 100%;
+        height: auto;
         border-left: 1px solid #e7e7e7;
+        width: 81.50%
     }
 }
 
@@ -140,7 +142,7 @@ body {
 @media(min-width:768px) {
     .sidebar {
         z-index: 1;
-        position: absolute;
+        position: fixed;
         width: 250px;
         height: 100%;
     }
@@ -477,7 +479,6 @@ table.dataTable .tf-preview-img {
     margin-left: 10px;
 }
 
-
 /******** Start of Chart Style *************/
 
 #Chart-panel .panel-body {
@@ -491,3 +492,14 @@ table.dataTable .tf-preview-img {
 }
 
 /******** End of Chart Style *************/
+
+.tf-admin-activity-button {
+    padding: 0;
+}
+
+.tf-admin-activity-button i {
+    padding-right: 3px;
+}
+
+
+
