@@ -18,7 +18,8 @@ module.exports = {
       email: rawUser.email,
       followers: rawUser.followers,
       followings: rawUser.followings, 
-      score: rawUser.score
+      score: rawUser.score,
+      isVerified: rawUser.isVerified
     };
   }, 
 

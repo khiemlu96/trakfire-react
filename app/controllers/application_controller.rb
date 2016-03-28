@@ -26,20 +26,86 @@ class ApplicationController < ActionController::API
   
   # Method to define an admin statistics on Admin DashBoard Page
   def admin_state
-
     # Get the post count block on dashboard
     post_count = Post.count
-
     # Get the user count for block on dashboard
     user_count = User.count
-
     # Get the comment count for block on dashboard
     comment_count = Comment.count
 
+
+    @chart_data = []
+    #Get chart data accordinf to selected range time period
+
+    # If range type i.e. selected time period is 'day'
+    # get the count of posts for last 30 days    
+    if( params[:range_type] == "1" )
+        sql = "SELECT count(id) as post_count, to_char(created_at::date, 'DD-MM-YYYY') AS posted_date
+                FROM posts 
+                WHERE created_at > current_date - interval '40' day
+                GROUP BY created_at::date
+                ORDER BY created_at::date ASC;"
+
+        post_counts = [0]
+        posted_dates = [0]
+        
+        Post.find_by_sql(sql).each do |row|
+            posted_dates.push(row.posted_date)
+            post_counts.push(row.post_count)
+        end
+
+        @chart_data.push(posted_dates)
+        @chart_data.push(post_counts)
+
+    elsif( params[:range_type] == "2" )   
+        # If range type i.e. selected time period is 'month'        
+        # get the count of posts for last 12 months
+        
+        sql = "SELECT count(id) AS post_count, to_char(created_at, 'MON-YYYY') AS posted_month
+                FROM posts
+                WHERE created_at >  CURRENT_DATE - INTERVAL '12 months'
+                GROUP BY to_char(created_at, 'MON-YYYY')
+                ORDER BY to_date(to_char(created_at, 'MON-YYYY'), 'MON-YYYY') ASC;"
+
+        post_counts = [0]
+        posted_dates = [0]
+
+        Post.find_by_sql(sql).each do |row|
+            posted_dates.push(row.posted_month)
+            post_counts.push(row.post_count)
+        end
+
+        @chart_data.push(posted_dates)
+        @chart_data.push(post_counts)
+
+    elsif( params[:range_type] == "3" )   
+      # If range type i.e. selected time period is 'year'        
+      # get the count of posts for last 6 years
+
+      sql = "SELECT count(id) AS post_count, EXTRACT(YEAR FROM created_at) AS posted_year
+              FROM posts
+              WHERE created_at >  CURRENT_DATE - INTERVAL '6 years'
+              GROUP BY EXTRACT(YEAR FROM created_at)
+              ORDER BY EXTRACT(YEAR FROM created_at) ASC;"
+
+        post_counts = [0]
+        posted_dates = [0]
+
+        Post.find_by_sql(sql).each do |row|
+            posted_dates.push(row.posted_year)
+            post_counts.push(row.post_count)
+        end
+
+        @chart_data.push(posted_dates)
+        @chart_data.push(post_counts)
+    end
+
+    # Store stats data into an response object
     @admin_state = {
       "posts"=> post_count,
       "comments"=> comment_count,
-      "users" => user_count
+      "users" => user_count,
+      "chart_data" => @chart_data
     }
 
     render json: @admin_state

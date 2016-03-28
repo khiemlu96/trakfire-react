@@ -461,13 +461,45 @@ module.exports = {
       contentType: 'application/json',
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
-        //console.log("================== response -",resp); 
         UserServerActionCreators.deleteUser(resp); 
-
       },
       error: function(error) {
         console.error(url, error['response']);
-        //location = '/';
+      }
+    });    
+  },
+
+  getAdminState: function(url, data) {
+    Reqwest({
+      url: url,
+      type: 'json',
+      method: 'get',
+      data: data,
+      contentType: 'application/json',
+      headers: {'Authorization': localStorage.getItem('jwt')},
+      success: function(resp) { 
+        UserServerActionCreators.recieveAdminState(resp); 
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+      }
+    });
+  },
+
+  verifyUser: function(url, data) {
+
+    Reqwest({
+      url: url,
+      type: 'json',
+      method: 'PUT',
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      headers: {'Authorization': localStorage.getItem('jwt')},
+      success: function(resp) {
+        UserServerActionCreators.verifyUser(resp); 
+      },
+      error: function(error) {
+        console.error(url, error['response']);
       }
     });    
   }

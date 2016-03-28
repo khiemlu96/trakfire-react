@@ -13,6 +13,7 @@ var _posts = null;
 var _notifications = null;
 var _users = {};
 var _userState = {};
+var _adminStates = null;
 
 function _addCurrentUser(user) {
   _cUser = UserUtils.convertRawUser(user);
@@ -86,6 +87,16 @@ function _deleteUser(user_id) {
   }
 }
 
+function _addAdminState(response) {
+    _adminStates = response;
+}
+
+function _verifiedUserState(user){
+  if(_users[user.id] !== null && _users[user.id] !== undefined) {
+    _users[user.id].isVerified = user.isVerified;
+  }
+}
+
 var UserStore = assign({}, EventEmitter.prototype, {
 
   getCurrentUser: function() {
@@ -120,6 +131,10 @@ var UserStore = assign({}, EventEmitter.prototype, {
 
   getUserNotifications: function() {
       return _cUser.notifications;
+  },
+
+  getAdminState: function() {
+      return _adminStates;
   },
 
   emitChange: function() {
@@ -196,6 +211,15 @@ AppDispatcher.register(function(action) {
     case UserConstants.DELETE_USER:
       _deleteUser(action.user_id);
       UserStore.emitChange();
+      break;
+    case UserConstants.GET_ADMIN_STATE:
+      _addAdminState(action.response);
+      UserStore.emitChange();
+      break;
+    case UserConstants.VERIFY_USER:
+      _verifiedUserState(action.response);
+      UserStore.emitChange();
+      break;
     default:
       // no op
   }

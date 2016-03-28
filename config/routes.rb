@@ -13,7 +13,7 @@ Rails.application.routes.draw do
   resources :comments, only: [:index, :create, :destroy]
   resources :follower, only: [:create, :destroy]
   resources :notifications, only: [:index, :destroy]
-  resources :users, only: [:index, :update, :show] do
+  resources :users, only: [:index, :update, :show, :destroy] do
     member do
       get :posts
       get :votes

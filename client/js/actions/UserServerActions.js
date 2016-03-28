@@ -79,8 +79,6 @@ module.exports = {
   },
 
   deleteUser: function(response) {
-    //console.log("============ User Server Action - deleteUser ===========");
-    //console.log("============== response.user_id :",response.user_id);
     AppDispatcher.dispatch({
       actionType: UserConstants.DELETE_USER,
       user_id : response.user_id,
@@ -92,6 +90,12 @@ module.exports = {
       actionType: UserConstants.GET_ADMIN_STATE,
       response: response,
     });
-  }
+  },
 
+  verifyUser: function(response) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.VERIFY_USER,
+      response : response,
+    });
+  }
 };
