@@ -15,6 +15,8 @@ var UserStore = require('../../stores/UserStore.js');
 var UserActions = require('../../actions/UserActions.js');
 
 var delete_user_id;
+var verify_user_id;
+var verifyText = "";
 
 function getLength(a) {
     var i = 0;
@@ -52,7 +54,7 @@ var AdminUserPage = React.createClass({
 
     showDelUserPopup: function(user_id){
         delete_user_id = user_id;
-        
+
         this.setState({
             showDelUserPopup : true
         });
@@ -111,13 +113,67 @@ var AdminUserPage = React.createClass({
         }        
     },
 
+    
+    checkToVerifyUser: function(user_id){
+        var checkbox = document.getElementById(user_id);
+        var check = checkbox.checked;
+       
+        if(check){
+            verifyText = "Verify";
+            this.showVerifyUserPopup(user_id);
+        }
+        else
+        {
+            verifyText = "Unverify";
+            this.showVerifyUserPopup(user_id);    
+        }
+    },
+
+    showVerifyUserPopup: function(user_id){
+        verify_user_id  = user_id;
+
+        this.setState({
+            showVerifyUserPopup : true
+        });
+    },
+
+    verifyUser: function(){
+        var data = {            
+            user: {}
+        };
+        if(verifyText === "Verify"){
+            data['user']['isVerify'] = true;
+        }
+        else if(verifyText === "Unverify"){
+            data['user']['isVerify'] = null;
+        }
+
+        UserActions.verifyUser(this.props.origin+'/users/'+verify_user_id, data);
+        this.hideVerifyUserPopup();
+        UserStore.addChangeListener(this._onChange);
+    },
+
+
+    hideVerifyUserPopup: function(){
+        this.setState({
+            showVerifyUserPopup : false
+        });
+    },
+
     renderUserGrid: function(){
         var users = this.state.users;
 
         if( users !== undefined && getLength(users) > 0) {
             var userGridHtml = [];
+            
             for( var id in users ) {
                 var user = users[id];
+                var isVerified = "";
+    
+                if(user.isVerified === true){
+                    isVerified = "checked";
+                }
+
                 var row = 
                     <tr className="gradeA odd" role="row">
                         <td className="sorting_1">{user.name}</td>
@@ -132,7 +188,7 @@ var AdminUserPage = React.createClass({
                         </div>
                         </td>
                         <td>
-                            <span><input type="checkbox"/><label></label></span>
+                            <span><input id={user.id} type="checkbox" ref="verify" checked={isVerified} onClick={this.checkToVerifyUser.bind(this, user.id)}/></span>
                         </td>
                     </tr>
                 userGridHtml.push(row);
@@ -181,7 +237,7 @@ var AdminUserPage = React.createClass({
                                                         <th className="" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 321} }>User Name</th>
                                                         <th className="" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 299} }>Email</th>
                                                         <th className="" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 150} }>Handle</th>
-                                                        <th className="center" tabIndex="0" rowSpan="1" colSpan="1"  style={ {width: 100} }>Edit / Delete?</th>
+                                                        <th className="center" tabIndex="0" rowSpan="1" colSpan="1"  style={ {width: 150} }>Edit / Delete?</th>
                                                         <th className="" tabIndex="0" rowSpan="1" colSpan="1" style={ {width: 50} }>Verified?</th>
                                                     </tr>
                                                 </thead>
@@ -208,13 +264,26 @@ var AdminUserPage = React.createClass({
                 </div>
 
                 <div id="delete-modal-container">
-                    <Modal id="delete-modal" show={this.state.showDelUserPopup} onHide={this.hideDelPostPopup}>
+                    <Modal id="delete-modal" show={this.state.showDelUserPopup} onHide={this.hideDelUserPopup}>
                         <Modal.Title>Confirm Delete?</Modal.Title>
                         <Modal.Body closeButton className="tf-modal-body">
                             <div className="row">Do you want to delete the User?</div>
                             <div className="row">
                                 <Button onClick={this.deleteUser}>Yes</Button>
                                 <Button onClick={this.hideDelUserPopup}>Cancel</Button>
+                            </div>                            
+                        </Modal.Body>
+                    </Modal>
+                </div>
+
+                <div id="verify-modal-container">
+                    <Modal id="verify-modal" show={this.state.showVerifyUserPopup} onHide={this.hideVerifyUserPopup}>
+                        <Modal.Title>Confirm {verifyText}?</Modal.Title>
+                        <Modal.Body closeButton className="tf-modal-body">
+                            <div className="row">Do you want to {verifyText} the User?</div>
+                            <div className="row">
+                                <Button onClick={this.verifyUser}>Yes</Button>
+                                <Button onClick={this.hideVerifyUserPopup}>Cancel</Button>
                             </div>                            
                         </Modal.Body>
                     </Modal>

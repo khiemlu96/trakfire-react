@@ -443,20 +443,37 @@ table.dataTable .tf-preview-img {
     vertical-align: middle;
 }
 
+#verify-modal {
+    color: #000000;
+    text-align: center;
+}
+
+#verify-modal .modal-content {
+    background-color: #FFFFFF;
+}
+
+#verify-modal .tf-modal-body{
+    height: 150px;
+    padding: 30px;
+    color: #000000;
+    background-color: #FFFFFF;
+}
+
+#verify-modal .tf-modal-body .btn {
+    margin: 10px;
+}
+
+#verify-modal .modal-title {
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    color: #000000;
+    height: 50px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    vertical-align: middle;
+}
+
 .tf-search-button {
     margin-left: 10px;
 }
 
-/******** Start of Chart Style *************/
-
-#Chart-panel .panel-body {
-    height: 500px !important;
-    width: 900px !important;
-}
-
-#chart-container canvas {
-    width: 800px !important;
-    height: 350px !important;
-}
-
-/******** End of Chart Style *************/

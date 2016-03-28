@@ -90,6 +90,12 @@ function _addAdminState(response) {
     _adminStates = response;
 }
 
+function _verifiedUserState(user){
+  if(_users[user.id] !== null && _users[user.id] !== undefined) {
+    _users[user.id].isVerified = user.isVerified;
+  }
+}
+
 var UserStore = assign({}, EventEmitter.prototype, {
 
   getCurrentUser: function() {
@@ -207,6 +213,10 @@ AppDispatcher.register(function(action) {
       break;
     case UserConstants.GET_ADMIN_STATE:
       _addAdminState(action.response);
+      UserStore.emitChange();
+      break;
+    case UserConstants.VERIFY_USER:
+      _verifiedUserState(action.response);
       UserStore.emitChange();
       break;
     default:
