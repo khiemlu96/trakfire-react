@@ -191,9 +191,6 @@ var DashBoardPage = React.createClass({
         return ( 
             <div>
                 <div className = "row">
-                    <div className = "col-lg-12">
-                        <PageHeader> Dashboard </PageHeader> 
-                    </div> 
                 </div>
 
                 <div className = "row">
