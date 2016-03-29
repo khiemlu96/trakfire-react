@@ -13,7 +13,6 @@ body {
     font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
     font-size: 15px;
     height: 100%;
-    margin-top: 80px;
     width: 100%;
 }
 
@@ -28,7 +27,7 @@ body {
         position: inherit;
         margin: 0 0 0 250px;
         padding: 0 30px;
-        height: 100%;
+        height: auto;
         border-left: 1px solid #e7e7e7;
     }
 }
@@ -140,9 +139,9 @@ body {
 @media(min-width:768px) {
     .sidebar {
         z-index: 1;
-        position: absolute;
+        position: fixed;
         width: 250px;
-        height: 100%;
+        height: auto;
     }
 
     .navbar-top-links .dropdown-messages,
