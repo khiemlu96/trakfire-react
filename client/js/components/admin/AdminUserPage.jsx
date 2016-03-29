@@ -256,7 +256,7 @@ var AdminUserPage = React.createClass({
                                             </div>
                                         </div>
                                         <div className="col-sm-6" pullRight>
-                                            <Pagination activePage={this.state.current_page} items={userStates.no_of_page} perPage={userStates.limit} first={true} last={true} prev={true} next={true} onSelect={ this.selectNextPage.bind(this) } />  
+                                            <Pagination activePage={this.state.current_page} items={userStates.no_of_page} maxButtons={6} perPage={userStates.limit} first={true} last={true} prev={true} next={true} onSelect={ this.selectNextPage.bind(this) } />  
                                         </div>
                                     </div>
                                 </div>
