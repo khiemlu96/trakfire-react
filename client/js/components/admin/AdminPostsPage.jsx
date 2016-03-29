@@ -93,6 +93,10 @@ var AdminPostsPage = React.createClass({
         PostStore.addChangeListener(this._onChange);
     },
 
+    componentWillUnmount: function() {
+        PostStore.removeChangeListener(this._onChange);
+    },
+
     renderPostGrid: function(posts) {         
         if( posts !== undefined && getLength(posts) > 0 ) {
             var postGridHtml = [];

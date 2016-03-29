@@ -102,7 +102,11 @@ var DashBoardPage = React.createClass({
     componentDidMount: function() {
         this.getAdminState();
         //this.renderChart();
-        UserStore.addChangeListener(this._onChange);
+        UserStore.addChangeListener(this._onDashBoardStateChange);
+    },
+
+    componentWillUnmount: function() {
+        UserStore.removeChangeListener(this._onDashBoardStateChange);
     },
 
     getAdminState: function() {
@@ -230,7 +234,8 @@ var DashBoardPage = React.createClass({
         );
     },
 
-    _onChange: function() {
+    _onDashBoardStateChange: function() {       
+        
         this.setState({
             admin_state: UserStore.getAdminState()
         });

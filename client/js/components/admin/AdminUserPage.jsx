@@ -49,7 +49,11 @@ var AdminUserPage = React.createClass({
         };
 
         this.getAllUsersFromApi(data);
-        UserStore.addChangeListener(this._onChange);
+        UserStore.addChangeListener(this._onUserStateChange);
+    },
+
+    componentWillUnmount: function() {
+        UserStore.removeChangeListener(this._onUserStateChange);
     },
 
     showDelUserPopup: function(user_id){
@@ -291,7 +295,8 @@ var AdminUserPage = React.createClass({
         );
     },
 
-    _onChange: function() {
+    _onUserStateChange: function() {
+
         this.setState({
             users : UserStore.getAllUsers(),
             userState : UserStore.getUsersState()
