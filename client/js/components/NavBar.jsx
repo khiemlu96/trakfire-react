@@ -269,9 +269,9 @@ var NavBar = React.createClass({
 
         <ul className="nav navbar-nav navbar-right m-r-0 hidden-xs">
           <li >
-            <a className="app-notifications" href="notifications/index.html">
+            <Link className="app-notifications" to="/notification">
               <span className="icon icon-bell"></span>
-            </a>
+            </Link>
           </li>
           {postLink}
           {profileLink}
