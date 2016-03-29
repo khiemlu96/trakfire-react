@@ -141,7 +141,7 @@ body {
         z-index: 1;
         position: absolute;
         width: 250px;
-        height: 100%;
+        height: auto;
     }
 
     .navbar-top-links .dropdown-messages,
