@@ -23,6 +23,7 @@ body {
 }
 
 li a{
+    color: #ffffff ;
 }
 
 @media(min-width:768px) {
