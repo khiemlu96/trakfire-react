@@ -10,30 +10,69 @@
 
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
-var UserActions = require('../actions/UserActions');
+var UserActions = require('../actions/UserActions.js');
+var UserStore = require('../stores/UserStore.js');
 
 var Link = require('react-router').Link;
 
 var classNames = require('classnames');
 var UserFlyOver = require('./UserFlyOver.jsx');
 
+
 var LeaderBoardItem = React.createClass({
 
   propTypes: {
-  	user : ReactPropTypes.object
+  	user: ReactPropTypes.object,
+  	origin: ReactPropTypes.string,
+  	currentUser: ReactPropTypes.object
+  },
+
+  getInitialState: function(){
+  	return{
+  		isFollowing: false
+  	};
   },
 
   componentDidMount: function() {},
 
   componentWillMount: function() {}, 
-
-
+  
+  followUser: function() {
+  	var follow_id = this.props.user.id;
+  	UserActions.followUser(this.props.origin+ '/follower', follow_id);
+  },
+  
+  unFollowUser: function() {
+  	var follow_id = this.props.user.id;
+  	UserActions.unFollowUser(this.props.origin+ '/follower', follow_id);
+  },
+  
+  followClick: function(){
+  	if(!this.state.isFollowing){
+  		this.followUser();
+        this.state.isFollowing = true;
+  	}
+  	else{
+  		this.unFollowUser();
+  		this.state.isFollowing = false;
+  	}
+  },
   /**
    * @return {object}
    */
   render: function() {
   	var user = this.props.user;
+  	var currentUser = this.props.currentUser;
   	console.log(user);
+
+  	if(currentUser !== null && user !== null) {
+        for(var key in currentUser.followings) {
+            if(currentUser.followings[key].id === user.id) {
+                this.state.isFollowing = true;
+            }
+        }
+    }
+ 
     return (
 	  <li className="list-group-item tf-user">
 	    <div className="media">
@@ -41,8 +80,8 @@ var LeaderBoardItem = React.createClass({
 	        <img className="media-object img-circle" src={user.img}></img>
 	      </a>
 	      <div className="media-body">
-	        <button className="btn btn-primary-outline btn-sm pull-right">
-	         Follow
+	        <button className="btn btn-primary-outline btn-sm pull-right" onClick={this.followClick}>
+	         {this.state.isFollowing ? "Following" : "Follow"}
 	        </button>
 	        <strong>{ user.name }</strong>
 	        <br></br>
