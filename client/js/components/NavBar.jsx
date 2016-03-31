@@ -249,9 +249,9 @@ var NavBar = React.createClass({
       var menuIcon = <li><a href="#">{this.renderStaticInfo()}</a></li>;
       //var emailLink = <Link to='/email?id=1'>EMAIL</Link>;
     }
-  
+    console.log("SEARCH KEY", this.props.searchkey);
     return (
-
+<div>
 <nav className="navbar navbar-inverse navbar-fixed-top app-navbar">
   <div className="container">
     <div className="navbar-header">
@@ -281,7 +281,7 @@ var NavBar = React.createClass({
 
         <form className="navbar-form navbar-right app-search" role="search">
           <div className="form-group">
-            <input type="text" className="form-control" data-action="grow" placeholder="Search"></input>
+            <input type="text" id="tf-search-input" className="form-control tf-search-input" data-action="grow" placeholder="Search" ref="searchInput" onKeyUp={this.handleKeyUp}></input>
           </div>
         </form>
 
@@ -302,6 +302,17 @@ var NavBar = React.createClass({
       </div>
   </div>
 </nav>
+  <div id="tf-search-result"></div>
+  <div id="tf-search-count" > </div> 
+  <Link to={'/searchresult/'+searchkey} params={{searchkey:"searchkey"}}>
+    <div id="show-more-btn-container" className="row show-more-btn-container col-md-12 col-sm-12 col-xs-12" style={showMoreStyle}>
+      <div className="show-more-result-btn btn btn-pimary" >
+        <b>See more results(5)</b>
+      </div>
+    </div>
+  </Link>
+  <div id="tf-search-result-stat"></div>
+</div>
       );
   }
 

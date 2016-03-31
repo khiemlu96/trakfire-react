@@ -11,6 +11,7 @@ var React = require('react');
 var Router = require('react-router');
 var Bootstrap = require('react-bootstrap');
 var Algolia = require('algoliasearch');
+var instantsearch = require('instantsearch.js');
 var Link = Router.Link;
 var SearchResultModal = require('./SearchResult.jsx');
 
@@ -39,11 +40,11 @@ var SearchBar = React.createClass({
 	
 	componentDidMount: function() {
 		
-	  var search = Algolia.instantsearch({
+	 var search = instantsearch({
         appId: 'YX1WDN49CX',
         apiKey: '50d31a5aee4abf796b908e368f312027',
         indexName: 'posts',
-        urlSync: true,
+        urlSync: false,
         searchOnEmptyQuery: false,
         searchParameters: {query:this.props.searchKeyword}
       });
@@ -95,7 +96,7 @@ var SearchBar = React.createClass({
           item: hitTemplate
         },
         transformData: function(hit) {
-          console.log(hit);
+          console.log("ONE HIT", hit);
           document.getElementById("tf-search-result").style.display = "block";
           return hit;
         }
