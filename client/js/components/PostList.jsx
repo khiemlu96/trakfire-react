@@ -30,6 +30,12 @@ var _songsSet = false;
 var _firstSong = null;
 var postCountByDates = [];
 
+var Firebase = require("firebase");
+var TfFirebaseRef = new Firebase("https://trakfire.firebaseio.com/");
+
+var imagesInfoRef = TfFirebaseRef.child("carousal-images");
+var originalImgRef = TfFirebaseRef.child("original-carousal-images");
+
 function sortPostsByDate(posts) {
   var dates = {};
   var dateKeys = [];
@@ -123,6 +129,15 @@ function getPostCountByDates(posts) {
     return count_arr;
 }
 
+function getCarousalImageArray(images) {
+  var keys = [];
+
+  for (var key in images) {
+    keys.push(key);
+  }
+  return [keys, images];
+}
+
 var PostsList = React.createClass({
 
   propTypes: {
@@ -145,10 +160,34 @@ var PostsList = React.createClass({
     var storedState = getComponentState();
     storedState.currentTrack = null;
     storedState["hasSetSongList"] = false;
+    storedState.carousal_images = null;
     return storedState;
   }, 
 
   componentDidMount: function() {
+    var self = this;
+    var carousal_images = [];
+
+    imagesInfoRef.orderByPriority().limitToFirst(3).on("child_added", function(snapshot) {      
+      var carousal_image = snapshot.val();
+      var key = snapshot.key();
+      
+      carousal_images[key] = carousal_image;
+      var file_pre_key = carousal_image.file_ref_key;
+
+      originalImgRef.child(file_pre_key).on('value', function(snapshot) {      
+        var file = snapshot.val();
+
+        carousal_images[key].file = file.file;
+        
+        self.setState({
+          carousal_images: carousal_images
+        });
+      });
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
+
     //var posts = getSongList(p);
     //this.props.setSongList(this.state.posts);
     PostStore.addChangeListener(this._onChange);
@@ -346,7 +385,40 @@ var PostsList = React.createClass({
     _postListItems = retVal['posts'];
     firstSong = retVal['firstSong'];
     //console.log("THE FIRST SONG IS ", _postListItems, firstSong);
+
     var postListStyle = { marginTop: 20+"px" };
+    var carousalItemHtml = <CarouselItem></CarouselItem>;
+
+    if( this.state.carousal_images !== null ) {
+      carousal_items = getCarousalImageArray( this.state.carousal_images );
+      var keys = carousal_items[0];
+      var original_images = carousal_items[1];
+      carousalItemHtml = 
+          <Carousel>
+            <CarouselItem>
+              <img width={900} height={500} alt="900x500" src={original_images[keys[0]].file} />
+              <div className="carousel-caption">
+                <h3>First slide label</h3>
+                <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+              </div>
+            </CarouselItem>
+            <CarouselItem>
+              <img width={900} height={500} alt="900x500" src={original_images[keys[1]].file} />
+              <div className="carousel-caption">
+                <h3>Second slide label</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+              </div>
+            </CarouselItem>
+            <CarouselItem>
+              <img width={900} height={500} alt="900x500" src={original_images[keys[2]].file} />
+              <div className="carousel-caption">
+                <h3>Third slide label</h3>
+                <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
+              </div>
+            </CarouselItem>
+          </Carousel>;
+    }
+
     return (
       <div>
 
@@ -358,28 +430,8 @@ var PostsList = React.createClass({
             <ul className="media-list">{_postListItems}</ul>
           </div>
           <div className="col-md-4">
-            <Carousel>
-                <CarouselItem>
-                  <img width={900} height={500} alt="900x500" src="http://mag.face2facethemagazine.com/wp-content/uploads/2014/02/Isaiah_06516asdf.jpg"/>
-                  <div className="carousel-caption">
-                    <h3>First slide label</h3>
-                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                  </div>
-                </CarouselItem>
-                <CarouselItem>
-                  <img width={900} height={500} alt="900x500" src="http://saintheron.com/wp-content/uploads/2014/06/Sango-Main.jpg"/>
-                  <div className="carousel-caption">
-                    <h3>Second slide label</h3>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                  </div>
-                </CarouselItem>
-                <CarouselItem>
-                  <img width={900} height={500} alt="900x500" src="http://cdn.pigeonsandplanes.com/wp-content/uploads/2015/10/11988448_414499872077079_1205743797496134248_n.jpg"/>
-                  <div className="carousel-caption">
-                    <h3>Third slide label</h3>
-                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                  </div>
-                </CarouselItem>
+              <Carousel>
+                {carousalItemHtml}
               </Carousel>
 
               <LeaderBoard origin={this.props.origin}/>

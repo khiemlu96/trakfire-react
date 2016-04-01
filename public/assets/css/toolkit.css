@@ -273,13 +273,10 @@ textarea {
   font-size: inherit;
   line-height: inherit;
 }
-a {
-  color: #3097d1;
-  text-decoration: none;
-}
+
 a:hover,
 a:focus {
-  color: #216a94;
+  color: #ff0d60;
   text-decoration: underline;
 }
 a:focus {
@@ -3136,8 +3133,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .nav > li > a:hover,
 .nav > li > a:focus {
-  text-decoration: none;
-  background-color: #f5f8fa;
+  background-image: linear-gradient(#484e55, #3a3f44 60%, #313539);
 }
 .nav > li.disabled > a {
   color: #9da9b0;

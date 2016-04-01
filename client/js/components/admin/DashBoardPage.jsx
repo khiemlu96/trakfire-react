@@ -102,7 +102,11 @@ var DashBoardPage = React.createClass({
     componentDidMount: function() {
         this.getAdminState();
         //this.renderChart();
-        UserStore.addChangeListener(this._onChange);
+        UserStore.addChangeListener(this._onDashBoardStateChange);
+    },
+
+    componentWillUnmount: function() {
+        UserStore.removeChangeListener(this._onDashBoardStateChange);
     },
 
     getAdminState: function() {
@@ -198,7 +202,7 @@ var DashBoardPage = React.createClass({
                         <StatWidget style = "primary" icon = "fa fa-music fa-5x" count = {admin_state.posts} headerText = "Traks" footerText = "View All Posts" linkTo = "/admin/posts" />
                     </div> 
                     <div className = "col-lg-3 col-md-6">
-                        <StatWidget style = "panel-green" icon = "fa fa-user fa-5x" count = {admin_state.users} headerText = "Users" footerText = "View All Users" linkTo = "/admin/users" />
+                        <StatWidget style = "panel-green" icon = "fa fa-group fa-5x" count = {admin_state.users} headerText = "Users" footerText = "View All Users" linkTo = "/admin/users" />
                     </div> 
                     <div className = "col-lg-3 col-md-6">
                         <StatWidget style = "panel-yellow" icon = "fa fa-comments fa-5x" count = {admin_state.comments} headerText = "Comments" footerText = "View Details" linkTo = "/admin/posts" />
@@ -230,7 +234,8 @@ var DashBoardPage = React.createClass({
         );
     },
 
-    _onChange: function() {
+    _onDashBoardStateChange: function() {       
+        
         this.setState({
             admin_state: UserStore.getAdminState()
         });

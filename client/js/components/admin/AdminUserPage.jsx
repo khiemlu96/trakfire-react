@@ -49,7 +49,11 @@ var AdminUserPage = React.createClass({
         };
 
         this.getAllUsersFromApi(data);
-        UserStore.addChangeListener(this._onChange);
+        UserStore.addChangeListener(this._onUserStateChange);
+    },
+
+    componentWillUnmount: function() {
+        UserStore.removeChangeListener(this._onUserStateChange);
     },
 
     showDelUserPopup: function(user_id){
@@ -252,7 +256,7 @@ var AdminUserPage = React.createClass({
                                             </div>
                                         </div>
                                         <div className="col-sm-6" pullRight>
-                                            <Pagination activePage={this.state.current_page} items={userStates.no_of_page} perPage={userStates.limit} first={true} last={true} prev={true} next={true} onSelect={ this.selectNextPage.bind(this) } />  
+                                            <Pagination activePage={this.state.current_page} items={userStates.no_of_page} maxButtons={6} perPage={userStates.limit} first={true} last={true} prev={true} next={true} onSelect={ this.selectNextPage.bind(this) } />  
                                         </div>
                                     </div>
                                 </div>
@@ -291,7 +295,8 @@ var AdminUserPage = React.createClass({
         );
     },
 
-    _onChange: function() {
+    _onUserStateChange: function() {
+
         this.setState({
             users : UserStore.getAllUsers(),
             userState : UserStore.getUsersState()

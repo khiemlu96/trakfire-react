@@ -13,7 +13,6 @@ body {
     font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
     font-size: 15px;
     height: 100%;
-    margin-top: 80px;
     width: 100%;
 }
 
@@ -21,6 +20,10 @@ body {
     padding: 20px;    
     background-color: #fff;
     height: 100%;
+}
+
+li a{
+    color: #ffffff ;
 }
 
 @media(min-width:768px) {
@@ -155,11 +158,12 @@ body {
 }
 
 #side-menu .selected a {
-    background-color: lightgrey;
+    background-color: #272b30;
+    color: #ff0d60;
 }
 
 #side-menu .selected a:hover {
-    background-color: lightgrey !important;
+    background-color: #272b30 !important;
 }
 
 .btn-outline {
@@ -188,13 +192,6 @@ body {
     color: #d9534f;
 }
 
-.btn-primary.btn-outline:hover,
-.btn-success.btn-outline:hover,
-.btn-info.btn-outline:hover,
-.btn-warning.btn-outline:hover,
-.btn-danger.btn-outline:hover {
-    color: #fff;
-}
 
 .chat {
     margin: 0;

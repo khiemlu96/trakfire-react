@@ -93,6 +93,10 @@ var AdminPostsPage = React.createClass({
         PostStore.addChangeListener(this._onChange);
     },
 
+    componentWillUnmount: function() {
+        PostStore.removeChangeListener(this._onChange);
+    },
+
     renderPostGrid: function(posts) {         
         if( posts !== undefined && getLength(posts) > 0 ) {
             var postGridHtml = [];
@@ -143,7 +147,7 @@ var AdminPostsPage = React.createClass({
         var states = this.state.posts.state;        
         var offset = states.offset + states.limit;
         var current_page = obj.eventKey;
-
+        
         var data = {
             limit: 20,
             offset: offset,
@@ -239,7 +243,7 @@ var AdminPostsPage = React.createClass({
                                             </div>
                                         </div>
                                         <div className="col-sm-6" pullRight >
-                                            <Pagination activePage={this.state.current_page} items={states.no_of_page} perPage={states.limit} first={true} last={true} prev={true} next={true} onSelect={ this.selectNextPage.bind(this) } />  
+                                            <Pagination activePage={this.state.current_page} items={states.no_of_page} maxButtons={6} perPage={states.limit} first={true} last={true} prev={true} next={true} onSelect={ this.selectNextPage.bind(this) } />  
                                         </div>
                                     </div>
                                 </div>
