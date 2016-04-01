@@ -225,8 +225,9 @@ var NavBar = React.createClass({
 
     if(this.props.isLoggedIn) {
       console.log("IN NAVBAR ", '/profile/'+this.props.user.id);
+      var notificationLink = <li><a className="app-notifications" href="notifications/index.html"><span className="icon icon-bell"></span></a></li>
       var signinLink = '';
-
+      
       var profileLink = <li><button className="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover"><Link to={'/profile/'+this.props.user.id}><img className="img-circle" src={this.props.user.img} ></img></Link></button></li>
       //<span className="tf-menu">{this.renderUserInfo()}</span>
       //if(this.props.isAdmin || this.props.user.canPost) { 
@@ -240,7 +241,7 @@ var NavBar = React.createClass({
         var postLink = <OverlayTrigger placement="left" overlay={tooltip}><a className="tf-inactive">POST</a></OverlayTrigger>;//<a href="" className="tf-inactive">POST</a>;
       }*/
     } else {
-
+      var notificationLink = '';
       var signinLink = <li><a href="#" onClick={this.showModal}> SIGN IN </a></li>
       var inviteLink = <a href="#" onClick={this.showSignupModal}> REQUEST INVITE </a>
       var profileLink = "";
@@ -268,11 +269,7 @@ var NavBar = React.createClass({
     <div className="navbar-collapse collapse" id="navbar-collapse-main">
 
         <ul className="nav navbar-nav navbar-right m-r-0 hidden-xs">
-          <li >
-            <a className="app-notifications" href="notifications/index.html">
-              <span className="icon icon-bell"></span>
-            </a>
-          </li>
+          {notificationLink}
           {postLink}
           {profileLink}
           {signinLink}
