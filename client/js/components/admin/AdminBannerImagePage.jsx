@@ -176,6 +176,7 @@ var AdminBannerImagePage = React.createClass({
     },
 
     renderImages: function() {
+        var images = this.state.images;
 
         if( images !== undefined ) {
             var imagesGridHtml = [];            
