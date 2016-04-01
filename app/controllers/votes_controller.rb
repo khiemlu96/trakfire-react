@@ -5,31 +5,33 @@ class VotesController < ApplicationController
 	  logger.info params
 	  @vote = Vote.new(vote_params)
 	  @vote.user_id = @current_user.id
-
+	  
 	  #update the post and user associated
 	  post = Post.find(@vote.post_id)
 	  author = User.find(post.user_id)
-
+	  
 	  if @vote.save
 	  	if post.vote_count.nil?
 	  		post.vote_count = 0
 	  	end
 	  	vc = post.vote_count += 1
+
 	  	logger.info vc
 	  	logger.info post.vote_count
 		post.update( { 'vote_count' =>  vc } )
 		post.save
 
-		if author.score == nil
-			author.score = 0
-		end
+		#if author.score == nil
+			#author.score = 0
+		#end
 
-		newScore = author.score += 10
-		author.update( { 'score' => newScore } )
-		author.save
+	    #newScore = author.score += 10
+		#author.update( { 'score' => newScore } )
+		#author.save 
 
-		logger.info post.vote_count
-		logger.info author.score
+		#logger.info post.vote_count
+		#logger.info author.score 
+
 		#send notifications to user who have posted a track
 		if post.user_id != @vote.user_id
 
