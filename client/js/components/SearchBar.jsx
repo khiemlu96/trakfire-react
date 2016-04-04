@@ -39,14 +39,12 @@ var SearchBar = React.createClass({
 	},
 	
 	componentDidMount: function() {
-		
+	console.log("SEARCH IS VISIBLE?", this.props.isVisible);
 	 var search = instantsearch({
         appId: 'JINS7FFC4L',
         apiKey: '43a21d6dc61be940854d8f4dc4efad3e',
         indexName: 'getstarted_actors',
-        urlSync: false,
-        searchOnEmptyQuery: false,
-        searchParameters: {query:this.props.searchKeyword}
+        urlSync: false
       });
 
     search.addWidget(

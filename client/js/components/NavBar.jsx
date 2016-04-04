@@ -121,7 +121,7 @@ var NavBar = React.createClass({
     searchkey = e.target.value;
     console.log(searchkey);
 
-    if(searchkey !== '')
+    if(searchkey.length == 1)
     { 
       this.showSearchResult();
     }
@@ -151,7 +151,7 @@ var NavBar = React.createClass({
         }); 
         searchBoxStyle.display = 'block';
     }else{
-      document.getElementById("tf-search-result").style.display = "none";
+      document.getElementById("tf-search-results").style.display = "none";
     }
     this.props.searchkey = this.refs.searchInput.getDOMNode().value; 
     this.setState({isVisible:false});
@@ -250,6 +250,7 @@ var NavBar = React.createClass({
       //var emailLink = <Link to='/email?id=1'>EMAIL</Link>;s
     }
     console.log("SEARCH KEY", this.props.searchkey);
+    //onKeyUp={this.handleKeyUp}
     return (
 <div>
 <nav className="navbar navbar-inverse navbar-fixed-top app-navbar">
@@ -277,7 +278,7 @@ var NavBar = React.createClass({
 
         <form className="navbar-form navbar-right app-search" role="search">
           <div className="form-group">
-            <input type="text" id="tf-search-input" className="form-control tf-search-input" data-action="grow" placeholder="Search" ref="searchInput" onKeyUp={this.handleKeyUp}></input>
+            <input type="text" id="tf-search-input" className="form-control tf-search-input" data-action="grow" placeholder="Search" ref="searchInput" onKeyUp={this.handleKeyUp} ></input>
           </div>
         </form>
 
