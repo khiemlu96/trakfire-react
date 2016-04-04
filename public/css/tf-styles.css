@@ -2912,7 +2912,7 @@ label.ownsong-label {
 /*************************** Start of Search Result Popup ************************/
 
 #tf-search-results {
-    position: fixed; 
+    position: relative; 
     top: 52px ! important; 
     width: 100%;
     height: 100%;
