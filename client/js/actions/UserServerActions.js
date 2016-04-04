@@ -97,5 +97,26 @@ module.exports = {
       actionType: UserConstants.VERIFY_USER,
       response : response,
     });
+  },
+
+  getAdminCarousalFiles: function(response) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.GET_ADMIN_CAROUSAL_FILES,
+      response : response,
+    });
+  },
+
+  addAdminCarousalFile: function(response) {    
+    AppDispatcher.dispatch({
+      actionType: UserConstants.ADD_ADMIN_CAROUSAL_FILE,
+      response : response,
+    });
+  },
+
+  deleteCarousalFile: function(response) {    
+    AppDispatcher.dispatch({
+      actionType: UserConstants.DELETE_ADMIN_CAROUSAL_FILE,
+      response : response,
+    });
   }
 };
