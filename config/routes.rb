@@ -13,13 +13,15 @@ Rails.application.routes.draw do
   resources :comments, only: [:index, :create, :destroy]
   resources :follower, only: [:create, :destroy]
   resources :notifications, only: [:index, :destroy]
+  resources :tf_files, only: [:create, :index, :destroy]
+  
   resources :users, only: [:index, :update, :show, :destroy] do
     member do
       get :posts
       get :votes
     end
   end
-  resources :applications, only: [:create]
-  
+  resources :applications, only: [:create, :destroy]  
+
   match '*all', to: 'application#index', via: [:get]
 end

@@ -95,6 +95,18 @@ var UserActions = {
 
   verifyUser: function(url, data){
     TfAPI.verifyUser(url, data);
+  },
+
+  postFile: function(url, data) {
+    TfAPI.postFile(url, data);
+  },
+
+  getAdminCarousalFiles: function(url, data) {
+    TfAPI.getAdminCarousalFiles(url, data);
+  },
+
+  deleteCarousalFile: function(url) {
+    TfAPI.deleteCarousalFile(url);
   }
 };
 

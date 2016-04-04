@@ -20,6 +20,8 @@ var FilterBar = require('./FilterBar.jsx');
 var PostStore = require('../stores/PostStore');
 var UserStore = require('../stores/UserStore');
 var SongActions = require('../actions/SongActions');
+var UserActions = require('../actions/UserActions.js');
+
 var LeaderBoard = require('./LeaderBoard.jsx');
 var moment = require('moment');
 var _postListItems = [];
@@ -99,7 +101,8 @@ function getComponentState() {
     currentUser : UserStore.getCurrentUser(),    
     posts : PostStore.getAll(), 
     sortedPosts : PostStore.getSortedPosts(), 
-    getCurrentSong : PostStore.getCurrentSong()
+    getCurrentSong : PostStore.getCurrentSong(),
+    carousal_images : UserStore.getAdminCarousalFiles()
   };
 }
 
@@ -160,33 +163,48 @@ var PostsList = React.createClass({
     var storedState = getComponentState();
     storedState.currentTrack = null;
     storedState["hasSetSongList"] = false;
-    storedState.carousal_images = null;
     return storedState;
   }, 
+
+  getFile: function(key, fileKey) {
+      var self = this;
+
+      originalImgRef.child( fileKey ).on('value', function(snapshot) {
+          var file = snapshot.val();
+          carousal_images[key].file = file.file;
+          
+          self.setState({
+              carousal_images: carousal_images
+          });
+      });
+  },
+
+  getCarousalFilesFromIds: function() {
+    var self = this;
+    carousal_images = toArray(this.state.carousal_images);
+
+    if( carousal_images !== null || carousal_images !== undefined ) {
+      for(key in carousal_images ) {
+          var fileKey = carousal_images[key].file_firebase_key;
+          self.getFile(key, fileKey);
+      }
+    }
+  },
+
+  getAdminCarousalFiles: function() {
+    var data = {
+        limit: 3,
+        offset: 0,
+        page: 1
+    };
+    UserActions.getAdminCarousalFiles(this.props.origin + '/tf_files', data);
+  },
 
   componentDidMount: function() {
     var self = this;
     var carousal_images = [];
-
-    imagesInfoRef.orderByPriority().limitToFirst(3).on("child_added", function(snapshot) {      
-      var carousal_image = snapshot.val();
-      var key = snapshot.key();
-      
-      carousal_images[key] = carousal_image;
-      var file_pre_key = carousal_image.file_ref_key;
-
-      originalImgRef.child(file_pre_key).on('value', function(snapshot) {      
-        var file = snapshot.val();
-
-        carousal_images[key].file = file.file;
-        
-        self.setState({
-          carousal_images: carousal_images
-        });
-      });
-    }, function (errorObject) {
-      console.log("The read failed: " + errorObject.code);
-    });
+  
+    this.getAdminCarousalFiles();
 
     //var posts = getSongList(p);
     //this.props.setSongList(this.state.posts);
@@ -364,6 +382,7 @@ var PostsList = React.createClass({
     return {"posts" : container, "firstSong" : firstSong };
   },
 
+
   /**
    * @return {object}
    */
@@ -446,6 +465,7 @@ var PostsList = React.createClass({
 
   _onChange: function() {
     this.setState(getComponentState());
+    this.getCarousalFilesFromIds();
   }
 
 });
