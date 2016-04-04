@@ -43,7 +43,7 @@ var SearchBar = React.createClass({
 	 var search = instantsearch({
         appId: 'JINS7FFC4L',
         apiKey: '43a21d6dc61be940854d8f4dc4efad3e',
-        indexName: 'getstarted_actors',
+        indexName: 'posts',
         urlSync: false
       });
 
@@ -57,16 +57,16 @@ var SearchBar = React.createClass({
 					'<li class="media tf-media">' +
 					  '<div class="media-left">' +
 					    '<a href="#" class="tf-media-wrap">' +
-					      '<img class="media-object tf-media-thumbnail" width="64" src={post.img_url} alt="..."></img>' +
+					      '<img class="media-object tf-media-thumbnail" width="64" src={{img_url}} alt="..."></img>' +
 					    '</a>' +
 					  '</div>' +
 					  '<div class="media-body">' +
 					    '<h4 class="tf-media-title">' +
-					      '<span class="pull-right"><small ref="count">{post.vote_count}</small> </span>' +
-					      '<Link to={postLink} class="no-decor">{post.title}</Link>' +
+					      '<span class="pull-right"><small ref="count">{{vote_count}}</small> </span>' +
+					      '<Link to={postLink} class="no-decor">{{title}}</Link>' +
 					    '</h4>' +
-					    '<h6 class="tf-media-artist">{post.artist}' +
-					      '{ this.props.showAuthor ? <small class="pull-right"> posted by: <Link to={profileLink} class="tf-media-poster">{post.author_name}</Link> </small> : "" }' +
+					    '<h6 class="tf-media-artist">{{artist}}' +
+					      //'<small class="pull-right"> posted by: <Link to={profileLink} class="tf-media-poster">{post.author_name}</Link> </small>' +
 					    '</h6>' + 
 					  '</div>' +
 					'</li>';

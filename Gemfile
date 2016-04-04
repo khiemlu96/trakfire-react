@@ -34,6 +34,8 @@ gem 'jwt'
 
 gem "algoliasearch-rails"
 
+gem 'algoliasearch'
+
 group :production do
 
   gem 'rails_12factor'
