@@ -502,6 +502,58 @@ module.exports = {
         console.error(url, error['response']);
       }
     });    
+  },
+
+  postFile: function(url, fileData) {
+    Reqwest({
+      url: url,
+      data: JSON.stringify(fileData),
+      type: 'json',
+      method: 'POST',
+      contentType: 'application/json',
+      headers: {'Authorization': localStorage.getItem('jwt')},
+      success: function(resp) {
+        UserServerActionCreators.addAdminCarousalFile(resp);
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+      }
+    });
+  },
+
+  getAdminCarousalFiles: function(url, data) {
+    Reqwest({
+        url: url,
+        type: 'json',
+        method: 'GET',
+        data: data,
+        contentType: 'application/json',
+        headers: {
+          'Authorization': localStorage.getItem('jwt')
+        },
+        success: function(resp) {
+          UserServerActionCreators.getAdminCarousalFiles(resp);
+        },
+        error: function(error) {
+          console.error(url, error['response']);
+        }
+    });
+  },
+
+  deleteCarousalFile: function(url) {
+    Reqwest({
+      url: url,
+      type: 'json',
+      method: 'DELETE',
+      contentType: 'application/json',
+      headers: {'Authorization': localStorage.getItem('jwt')},
+      success: function(resp) {
+        UserServerActionCreators.deleteCarousalFile(resp); 
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+      }
+    });
   }
 };
 

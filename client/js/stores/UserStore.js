@@ -14,6 +14,8 @@ var _notifications = null;
 var _users = {};
 var _userState = {};
 var _adminStates = null;
+var _adminCarousalFiles = null;
+var _adminCarousalFilesState = null;
 
 function _addCurrentUser(user) {
   _cUser = UserUtils.convertRawUser(user);
@@ -97,6 +99,33 @@ function _verifiedUserState(user){
   }
 }
 
+/*
+ *  Add post into admin page
+ */
+function addAdminCarousalFiles(data) {
+  var files = data.files; 
+  _adminCarousalFiles = {};
+  _adminCarousalFilesState = {};
+  _adminCarousalFilesState = data.state;
+  for(var key in files) {
+    _adminCarousalFiles[files[key].id] = files[key];
+  }
+}
+
+function addIntoAdminCarousalFile(file) {
+  if( file !== null ){
+    _adminCarousalFiles[file.id] = file;
+    _adminCarousalFilesState.total_count++;
+  }
+}
+
+function deleteFromAdminCarousalFile(file_id) {
+  if( _adminCarousalFiles[file_id] !== null && _adminCarousalFiles[file_id] !== undefined ) {
+    delete _adminCarousalFiles[file_id];
+    _adminCarousalFilesState.total_count--;
+  }
+}
+
 var UserStore = assign({}, EventEmitter.prototype, {
 
   getCurrentUser: function() {
@@ -135,6 +164,17 @@ var UserStore = assign({}, EventEmitter.prototype, {
 
   getAdminState: function() {
       return _adminStates;
+  },
+
+  getAdminCarousalFiles: function() {
+    return _adminCarousalFiles;
+  },
+
+  /*
+   *  get the post states 
+   */
+  getAdminCarousalFilesState: function() {
+      return _adminCarousalFilesState;
   },
 
   emitChange: function() {
@@ -218,6 +258,18 @@ AppDispatcher.register(function(action) {
       break;
     case UserConstants.VERIFY_USER:
       _verifiedUserState(action.response);
+      UserStore.emitChange();
+      break;
+    case UserConstants.GET_ADMIN_CAROUSAL_FILES:
+      addAdminCarousalFiles(action.response);
+      UserStore.emitChange();
+      break;
+    case UserConstants.ADD_ADMIN_CAROUSAL_FILE:
+      addIntoAdminCarousalFile(action.response);
+      UserStore.emitChange();
+      break;
+    case UserConstants.DELETE_ADMIN_CAROUSAL_FILE:
+      deleteFromAdminCarousalFile(action.response);
       UserStore.emitChange();
       break;
     default:
