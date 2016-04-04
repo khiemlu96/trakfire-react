@@ -56,48 +56,40 @@ var SearchBar = React.createClass({
     );
 
     var hitTemplate =
-                      '<div class="hit media">' +
-                        '<div >'+
-                          '<div class="media-body tf-search-item-content">' +
-                          '<div class="tf-post-item--votes is-upvoted" ref="upvotes">'+
-                              '<span>'+
-                                  '<b>&#9650;</b>'+
-                              '</span>'+
-                              '<br/>'+
-                              '<span ref="count">'+
-                                  '<b>{{vote_count}}</b>'+
-                              '</span>'+
-                            '</div>'+
-                            '<div class="col-md-5 tf-thumbnail tf-search-panel"  style="background-image: url(\'{{img_url}}\');"></div>' + 
-                            '<div class="col-md-7 tf-post-item--info">'+
-                              '<h5 >{{{title}}} {{#stars}}<span class="ais-star-rating--star{{^.}}__empty{{/.}}"></span>{{/stars}}</h5>' +
-                              '<p class="year">{{artist}}</p><p class="genre">{{#genre}}<span class="badge">{{.}}</span> {{/genre}}</p>' +
-                            '</div>' +
-                            '<div class="tf-search-item-auth-img" ref="author_img">'+
-                              '<span class="" ref="author_img">'+
-                                '<img class="author_img" src="../assets/img/tf_placeholder.png" />'+
-                              '</span>'+
-                            '</div>'+
-                          '</div>' +
-                        '</div>' +
-                      '</div>';
+					'<li class="media tf-media">' +
+					  '<div class="media-left">' +
+					    '<a href="#" class="tf-media-wrap">' +
+					      '<img class="media-object tf-media-thumbnail" width="64" src={post.img_url} alt="..."></img>' +
+					    '</a>' +
+					  '</div>' +
+					  '<div class="media-body">' +
+					    '<h4 class="tf-media-title">' +
+					      '<span class="pull-right"><small ref="count">{post.vote_count}</small> </span>' +
+					      '<Link to={postLink} class="no-decor">{post.title}</Link>' +
+					    '</h4>' +
+					    '<h6 class="tf-media-artist">{post.artist}' +
+					      '{ this.props.showAuthor ? <small class="pull-right"> posted by: <Link to={profileLink} class="tf-media-poster">{post.author_name}</Link> </small> : "" }' +
+					    '</h6>' + 
+					  '</div>' +
+					'</li>';
+
+
     var noResultsTemplate =  '<div class="text-center">No results found matching <strong>{{query}}</strong>.</div>';
 
     search.addWidget(
       instantsearch.widgets.hits({
         container: '#tf-search-result',
-        hitsPerPage: 3,
-        cssClasses: {
-          item: 'col-md-4',
-          root:'row'
-        },
+        hitsPerPage: 5,
         templates: {
           empty: noResultsTemplate,
           item: hitTemplate
         },
         transformData: function(hit) {
-          console.log("ONE HIT", hit);
           document.getElementById("tf-search-result").style.display = "block";
+          document.getElementById("closeModal").style.display = "block";
+          document.getElementById("closeModal").onclick = function () {
+          	document.getElementById("tf-search-results").style.display = "none";
+          } 
           return hit;
         }
       })
@@ -108,7 +100,7 @@ var SearchBar = React.createClass({
 	    container: '#tf-search-result-stat',
 	    transformData: function(hit) {
 	    	console.log(hit.nbHits);
-	    	if(hit.nbHits > 3){
+	    	if(hit.nbHits > 5){
 	    		document.getElementById("show-more-btn-container").style.display = "block";
 	    	}
 	    	else{

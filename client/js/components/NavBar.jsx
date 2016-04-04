@@ -302,16 +302,21 @@ var NavBar = React.createClass({
       </div>
   </div>
 </nav>
-  <div id="tf-search-result"></div>
-  <div id="tf-search-count" > </div> 
-  <Link to={'/searchresult/'+searchkey} params={{searchkey:"searchkey"}}>
-    <div id="show-more-btn-container" className="row show-more-btn-container col-md-12 col-sm-12 col-xs-12" style={showMoreStyle}>
-      <div className="show-more-result-btn btn btn-pimary" >
-        <b>See more results(5)</b>
-      </div>
+  <div id="tf-search-results">
+    <a href="#" id="closeModal">CLOSE</a>
+    <div id="tf-search-result-container">
+      <ul id="tf-search-result"></ul>
     </div>
-  </Link>
-  <div id="tf-search-result-stat"></div>
+    <div id="tf-search-count"></div>
+    <Link to={'/searchresult/'+searchkey} params={{searchkey:"searchkey"}}>
+      <div id="show-more-btn-container" className="row show-more-btn-container col-md-12 col-sm-12 col-xs-12" style={showMoreStyle}>
+        <div className="show-more-result-btn btn btn-pimary" >
+          <b>See more results(5)</b>
+        </div>
+      </div>
+    </Link>
+    <div id="tf-search-result-stat"></div>
+  </div>
 </div>
       );
   }
