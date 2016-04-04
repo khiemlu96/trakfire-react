@@ -413,7 +413,7 @@ var PostsList = React.createClass({
       var keys = carousal_items[0];
       var original_images = carousal_items[1];
       carousalItemHtml = 
-          <Carousel>
+      <Carousel>
             <CarouselItem>
               <img width={900} height={500} alt="900x500" src={original_images[keys[0]] ? original_images[keys[0]].file : ""} alt="pure fire pic"/>
               <div className="carousel-caption">
@@ -449,9 +449,7 @@ var PostsList = React.createClass({
             <ul className="media-list">{_postListItems}</ul>
           </div>
           <div className="col-md-4">
-              <Carousel>
-                {carousalItemHtml}
-              </Carousel>
+              {carousalItemHtml}
 
               <LeaderBoard origin={this.props.origin}/>
               

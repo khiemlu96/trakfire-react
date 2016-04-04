@@ -85,6 +85,7 @@ var SearchBar = React.createClass({
           item: hitTemplate
         },
         transformData: function(hit) {
+          document.getElementById("tf-search-results").style.display = "block";
           document.getElementById("tf-search-result").style.display = "block";
           document.getElementById("closeModal").style.display = "block";
           document.getElementById("closeModal").onclick = function () {
