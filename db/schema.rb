@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160325081803) do
+ActiveRecord::Schema.define(version: 20160404062452) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -123,6 +123,18 @@ ActiveRecord::Schema.define(version: 20160325081803) do
     t.integer  "t_count"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "tf_files", force: :cascade do |t|
+    t.string   "name"
+    t.string   "file_firebase_key"
+    t.string   "preview_file_firebase_key"
+    t.integer  "size"
+    t.integer  "height"
+    t.integer  "width"
+    t.string   "file_type"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "users", force: :cascade do |t|

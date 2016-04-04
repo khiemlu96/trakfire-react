@@ -1,5 +1,5 @@
 class TfFilesController < ApplicationController
-	before_action :authenticate_request, only: [:create, :index, :destroy]
+	before_action :authenticate_request, only: [:create, :destroy]
 
 	def create
 		@file = TfFile.new(file_params)
