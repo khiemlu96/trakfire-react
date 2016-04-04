@@ -2925,7 +2925,10 @@ label.ownsong-label {
 
 #tf-search-results #closeModal {
 	display: none;
-	margin-left: 60px;
+	width: 100%;
+	text-align: right;
+	text-decoration: none;
+	color: #ff0d60;
 }
 
 #tf-search-result{

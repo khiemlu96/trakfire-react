@@ -300,7 +300,7 @@ var NavBar = React.createClass({
   </div>
 </nav>
   <div id="tf-search-results">
-    <a href="#" id="closeModal">CLOSE</a>
+    <a href="#" id="closeModal"><span className="icon icon-cross"> close </span></a>
     <div id="tf-search-result-container">
       <ul id="tf-search-result"></ul>
     </div>
