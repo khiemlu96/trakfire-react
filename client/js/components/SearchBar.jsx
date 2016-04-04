@@ -63,7 +63,7 @@ var SearchBar = React.createClass({
 					  '<div class="media-body">' +
 					    '<h4 class="tf-media-title">' +
 					      '<span class="pull-right"><small ref="count">{{vote_count}}</small> </span>' +
-					      '<Link to={postLink} class="no-decor">{{title}}</Link>' +
+					      '<a href="#/post/{{id}}" class="no-decor">{{title}}</a>' +
 					    '</h4>' +
 					    '<h6 class="tf-media-artist">{{artist}}' +
 					      //'<small class="pull-right"> posted by: <Link to={profileLink} class="tf-media-poster">{post.author_name}</Link> </small>' +
@@ -85,8 +85,11 @@ var SearchBar = React.createClass({
         transformData: function(hit) {
           document.getElementById("tf-search-results").style.display = "block";
           document.getElementById("tf-search-result").style.display = "block";
+          document.getElementById("tf-search-result").onclick = function() {
+          	document.getElementById("tf-search-results").style.display = "none";
+          }
           document.getElementById("closeModal").style.display = "block";
-          document.getElementById("closeModal").onclick = function () {
+          document.getElementById("closeModal").onclick = function() {
           	document.getElementById("tf-search-results").style.display = "none";
           } 
           return hit;
