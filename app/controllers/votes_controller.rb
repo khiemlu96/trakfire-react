@@ -21,16 +21,16 @@ class VotesController < ApplicationController
 		post.update( { 'vote_count' =>  vc } )
 		post.save
 
-		#if author.score == nil
-			#author.score = 0
-		#end
+		if author.score == nil
+			author.score = 0
+		end
 
-	    #newScore = author.score += 10
-		#author.update( { 'score' => newScore } )
-		#author.save 
+	    newScore = author.score += 10
+		author.update( { 'score' => newScore } )
+		author.save 
 
-		#logger.info post.vote_count
-		#logger.info author.score 
+		logger.info post.vote_count
+		logger.info author.score 
 
 		#send notifications to user who have posted a track
 		if post.user_id != @vote.user_id
