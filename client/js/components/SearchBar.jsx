@@ -77,7 +77,7 @@ var SearchBar = React.createClass({
     search.addWidget(
       instantsearch.widgets.hits({
         container: '#tf-search-result',
-        hitsPerPage: 5,
+        hitsPerPage: 20,
         templates: {
           empty: noResultsTemplate,
           item: hitTemplate
@@ -99,12 +99,12 @@ var SearchBar = React.createClass({
 	    container: '#tf-search-result-stat',
 	    transformData: function(hit) {
 	    	console.log(hit.nbHits);
-	    	if(hit.nbHits > 5){
+	    	/*if(hit.nbHits > 5){
 	    		document.getElementById("show-more-btn-container").style.display = "block";
 	    	}
 	    	else{
 	    		document.getElementById("show-more-btn-container").style.display = "none";
-	    	}
+	    	}*/
 	    	return hit;
 	    }
 	  })
