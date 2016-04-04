@@ -130,7 +130,6 @@ var NavBar = React.createClass({
     }
   },
 
-
   hideSearchResult: function() { 
     document.getElementById("show-more-btn-container").style.display = "none";
   },
@@ -187,8 +186,8 @@ var NavBar = React.createClass({
     if(this.props.isAdmin !== undefined && this.props.isAdmin === true) {
         adminConsoleLink = <div className="tf-menu-popup-list-item"><Link to={'/admin'}><h6>ADMIN CONSOLE</h6></Link></div>; 
     }
-
-    return <OverlayTrigger trigger="click" rootClose placement="bottom" 
+  
+    return <OverlayTrigger trigger="click" placement="bottom"
               overlay={ 
                         <Popover className="tf-menu-popup col-md-2" id="tf-post-detail-popup" style={MenuIconStyle} >
                              <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link to={'/leaderboard'}><h6>LEADERBOARD</h6></Link></div>                       
@@ -234,7 +233,7 @@ var NavBar = React.createClass({
       
       var postLink = <PostForm isVisible={true} origin={this.props.origin} />
       var searchIcon =  <span><span className = "glyphicon glyphicon-search" onClick={this.renderSearchBar} style = {searchIconStyle}></span> </span>
-      var menuIcon = <li><a href="#" >{this.renderStaticInfo()} </a></li>;
+      var menuIcon = <li><a href="#" onClick={function(e) {e.preventDefault();}}>{this.renderStaticInfo()}</a></li>;
 
       /*} else {
         var tooltip = <Tooltip>Posting is invite only</Tooltip>;
@@ -247,12 +246,12 @@ var NavBar = React.createClass({
       var profileLink = "";
       var postLink = '';
       var searchIcon = '';
-      var menuIcon = <li><a href="#">{this.renderStaticInfo()}</a></li>;
-      //var emailLink = <Link to='/email?id=1'>EMAIL</Link>;
+      var menuIcon = <li><a href="#" onClick={function(e) {e.preventDefault();}}>{this.renderStaticInfo()}</a></li>;
+      //var emailLink = <Link to='/email?id=1'>EMAIL</Link>;s
     }
-  
+    console.log("SEARCH KEY", this.props.searchkey);
     return (
-
+<div>
 <nav className="navbar navbar-inverse navbar-fixed-top app-navbar">
   <div className="container">
     <div className="navbar-header">
@@ -278,7 +277,7 @@ var NavBar = React.createClass({
 
         <form className="navbar-form navbar-right app-search" role="search">
           <div className="form-group">
-            <input type="text" className="form-control" data-action="grow" placeholder="Search"></input>
+            <input type="text" id="tf-search-input" className="form-control tf-search-input" data-action="grow" placeholder="Search" ref="searchInput" onKeyUp={this.handleKeyUp}></input>
           </div>
         </form>
 
@@ -299,6 +298,22 @@ var NavBar = React.createClass({
       </div>
   </div>
 </nav>
+  <div id="tf-search-results">
+    <a href="#" id="closeModal">CLOSE</a>
+    <div id="tf-search-result-container">
+      <ul id="tf-search-result"></ul>
+    </div>
+    <div id="tf-search-count"></div>
+    <Link to={'/searchresult/'+searchkey} params={{searchkey:"searchkey"}}>
+      <div id="show-more-btn-container" className="row show-more-btn-container col-md-12 col-sm-12 col-xs-12" style={showMoreStyle}>
+        <div className="show-more-result-btn btn btn-pimary" >
+          <b>See more results(5)</b>
+        </div>
+      </div>
+    </Link>
+    <div id="tf-search-result-stat"></div>
+  </div>
+</div>
       );
   }
 
