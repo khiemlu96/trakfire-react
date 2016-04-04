@@ -41,9 +41,9 @@ var SearchBar = React.createClass({
 	componentDidMount: function() {
 		
 	 var search = instantsearch({
-        appId: 'YX1WDN49CX',
-        apiKey: '50d31a5aee4abf796b908e368f312027',
-        indexName: 'posts',
+        appId: 'JINS7FFC4L',
+        apiKey: '43a21d6dc61be940854d8f4dc4efad3e',
+        indexName: 'getstarted_actors',
         urlSync: false,
         searchOnEmptyQuery: false,
         searchParameters: {query:this.props.searchKeyword}
