@@ -2916,12 +2916,14 @@ label.ownsong-label {
     top: 52px ! important; 
     width: 100%;
     z-index: 1000;
-    background-color: rgba(31, 31, 31, 0.85);
+    background-color: rgba(31, 31, 31, 0.95);
     display: none;
+    padding-right: 70px;
 }
 
 #tf-search-results #closeModal {
 	display: none;
+	margin-left: 60px;
 }
 
 #tf-search-result{
