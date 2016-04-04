@@ -113,6 +113,11 @@ var PostsPage = React.createClass({
    * @return {object}
    */
   render: function() {
+    var post = this.state.posts;
+    if(jQuery.isEmptyObject(post)) 
+    {  
+      return (<div className='tf-loader'> </div>); 
+    }
     return (
       <div>
         <PostList
