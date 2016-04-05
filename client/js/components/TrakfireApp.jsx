@@ -448,7 +448,8 @@ var TrakfireApp = React.createClass({
       isPlaying = false;
       isPaused = true;
       this.setState({isPlaying : isPlaying, isPaused : isPaused});
-    }    
+    }
+    $(document).trigger("ReactComponent:PostListItem:handlePlayPauseClick", [this.state.currTrack.id]);
   },
 
   onNextCtrlClick: function() {

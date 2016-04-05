@@ -55,6 +55,21 @@ var PostListItem = React.createClass({
   componentDidMount: function() {
     console.log("POST LIST ITEM PROPS", this.props);
     this.state.isUpvoted = this.props.isUpvoted;
+    $(document).on("ReactComponent:PostListItem:handlePlayPauseClick", this.updatePlayPauseState);
+  },
+
+  updatePlayPauseState: function(e, track_id) {    
+    if(this.props.post.id === track_id) {
+      var overlay = this.refs.overlay;
+
+      if(!this.state.isPlaying) {
+        overlay.className = playing;
+        this.setState({isPlaying:true});
+      } else {
+        overlay.className = paused;
+        this.setState({isPlaying:false});
+      }
+    }
   },
 
   componentWillMount: function() {
@@ -95,7 +110,7 @@ var PostListItem = React.createClass({
     var idx = this.props.idx;
     //idx = idx[1];
     //if(!this.state.isPlaying)
-      this.props.onClick(this.props.post.stream_url, this.props.post, idx);
+    this.props.onClick(this.props.post.stream_url, this.props.post, idx);
 
     var overlay = this.refs.overlay.getDOMNode();
     console.log("OVERLAY", overlay);
