@@ -97,21 +97,15 @@ var SearchBar = React.createClass({
       })
     );
 
-    search.addWidget(
+    /*search.addWidget(
 	  instantsearch.widgets.stats({
 	    container: '#tf-search-result-stat',
 	    transformData: function(hit) {
 	    	console.log(hit.nbHits);
-	    	/*if(hit.nbHits > 5){
-	    		document.getElementById("show-more-btn-container").style.display = "block";
-	    	}
-	    	else{
-	    		document.getElementById("show-more-btn-container").style.display = "none";
-	    	}*/
 	    	return hit;
 	    }
 	  })
-	);
+	);*/
 
     search.start();
 
