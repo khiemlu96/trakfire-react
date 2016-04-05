@@ -3352,3 +3352,8 @@ label.ownsong-label {
 	opacity: 0.4;
 	filter: alpha(opacity=40);
 }
+
+.tf-verified-symbol {
+	height: 18px;
+	width: 18px;
+}

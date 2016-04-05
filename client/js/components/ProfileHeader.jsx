@@ -35,7 +35,8 @@ var ProfileHeader = React.createClass({
         onUserFollowClick: ReactPropTypes.func,
         onUnFollowClick: ReactPropTypes.func,
         isFollowing: ReactPropTypes.bool,
-        currentUserId: ReactPropTypes.number
+        currentUserId: ReactPropTypes.number,
+        isUserVerified: ReactPropTypes.bool
     },
 
     getInitialState: function() {
@@ -91,13 +92,20 @@ var ProfileHeader = React.createClass({
         }
         console.log("FOILLOW STYLE", followBtnStyle, this.props.currentUserId, this.props.userId);
         var headerStyle = {"padding" : 100 + 'px'};
+
+        if( this.props.isUserVerified !== null && this.props.isUserVerified !== false ) {
+            var verifiedIcon =  <img className="tf-verified-symbol" src={"assets/img/Twitter-Verified.png"}></img>;
+        } else {
+            var verifiedIcon = "";
+        }
+
         return ( 
                 <div className="profile-header text-center tf-background" style={headerStyle}>
                   <div className="container">
                     <div className="container-inner">
                       <img className="img-circle media-object" src={this.props.userImg}></img>
                       <div className="pull-right">
-                      <h3 className="profile-header-user">{this.props.userName}</h3>
+                      <h3 className="profile-header-user">{this.props.userName}&nbsp;&nbsp;{verifiedIcon}</h3>
                       <p className="profile-header-bio">
                         {this.props.userBio}
                       </p>
