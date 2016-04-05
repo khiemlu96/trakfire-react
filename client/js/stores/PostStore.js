@@ -125,6 +125,7 @@ function _addPost(rawPost) {
   _current_new_post = post;
   //if(post.status == "approved")
   _posts[rawPost.id] = post; //PostUtils.convertRawPost(rawPost);
+  _songs = getSongList(_posts);
 }
 
 function _sPost(rawPost) {
