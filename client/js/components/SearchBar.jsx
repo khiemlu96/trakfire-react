@@ -85,11 +85,14 @@ var SearchBar = React.createClass({
         transformData: function(hit) {
           document.getElementById("tf-search-results").style.display = "block";
           document.getElementById("tf-search-result").style.display = "block";
+          $(document.body).addClass("search-open");
           document.getElementById("tf-search-result").onclick = function() {
+          	$(document.body).removeClass("search-open");
           	document.getElementById("tf-search-results").style.display = "none";
           }
           document.getElementById("closeModal").style.display = "block";
           document.getElementById("closeModal").onclick = function() {
+          	$(document.body).removeClass("search-open");
           	document.getElementById("tf-search-results").style.display = "none";
           } 
           return hit;
