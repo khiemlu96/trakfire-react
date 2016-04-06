@@ -2147,10 +2147,18 @@ label.ownsong-label {
 }
 
 #terms-of-use, #privacy-policy, #about-page{
-	margin-top: 106px;
-	margin-left: 50px;
-	margin-right: 50px;
-	height: 100%;
+
+}
+
+.tf-static-page-header{
+	display: block;
+    font-size: 2em;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+    text-align: center;
 }
 
 .tf-back-link::before{
