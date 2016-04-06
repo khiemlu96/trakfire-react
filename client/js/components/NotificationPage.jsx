@@ -126,10 +126,10 @@ var NotificationPage = React.createClass({
 	},
 
     renderSingleNotification: function(notification_data) {
-
+    	console.log("NOTE DATA", notification_data);
     	var sender_ids = notification_data.srcUserId.split(",");
 		var count_of_sender_ids = getLength(sender_ids);
-		var screen_names = notification_data.srcUserName.split(",");
+		var screen_names = notification_data.srcUserName ? notification_data.srcUserName.split(",") : "N/A" ;
 
 		var isNotificationRead = notification_data.read_time === null ? false : true;
 		if(isNotificationRead === false) {

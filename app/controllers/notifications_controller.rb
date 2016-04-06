@@ -7,7 +7,7 @@ class NotificationsController < ApplicationController
 			offset = params[:offset]
 		end
 
-		@notifications = Notification.where(user_id: @current_user.id).order(sent_time: :desc).limit(limit).offset(offset)
+		@notifications = Notification.where(user_id: @current_user.id).order(sent_time: :desc).limit(15).offset(0)
 
 		@notifications.each do |n|
 			n.json_data = n.data

@@ -24,7 +24,7 @@ module.exports = {
   },
 
   getPostBatch: function(url) {
-    console.log("geting a recieveBatch");
+    console.log("POSTIES", url);
   	Reqwest({
       url: url,
       type: 'json',
@@ -314,6 +314,7 @@ module.exports = {
   },
 
   getUserNotifications: function(url, data) {
+    console.log("NOTIES", url);
     var params = {
       limit: data.limit,
       offset: data.offset
@@ -323,7 +324,7 @@ module.exports = {
       url: url,
       type: 'json',
       method: 'GET',
-      data: params,
+      /*data: params,*/
       contentType: 'application/json',
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
