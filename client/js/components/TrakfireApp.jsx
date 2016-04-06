@@ -236,8 +236,9 @@ var TrakfireApp = React.createClass({
   isCurrentTrackUpvoted: function() {
     var track = this.state.currTrack;
     var user = this.state.currentUser;
+    console.log("USERRR", user, "TRACKKK", track);
     if(user && track)
-      var exists = track.voters.indexOf(user.id);
+      var exists = track.votes.indexOf(user.id);
     else 
       var exists = -1;
     //console.log(post.id, exists);

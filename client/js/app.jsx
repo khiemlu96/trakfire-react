@@ -47,7 +47,7 @@ React.render(
       <Route path='/privacy' component={PrivacyPolicy}/>
       <Route path='/post/(:id)' component={PostDetailPage} />
       <Route path='/searchresult/(:searchkey)' component={SearchResultPage} />
-      <Route path='/notification' component={NotificationPage} />
+      <Route path='/notifications' component={NotificationPage} />
       <Route name="base" path='/admin' component={AdminPage}>
         <IndexRoute component={DashBoardPage} />
         <Route name="admin.dashboard" path='/admin/dashboard' component={DashBoardPage} />

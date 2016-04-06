@@ -224,7 +224,7 @@ var NavBar = React.createClass({
 
     if(this.props.isLoggedIn) {
       console.log("IN NAVBAR ", '/profile/'+this.props.user.id);
-      var notificationLink = <li><Link className="app-notifications" to="/notification"><span className="icon icon-bell"></span></Link></li>
+      var notificationLink = <li><Link className="app-notifications" to="/notifications"><span className="icon icon-bell"></span></Link></li>
       var signinLink = '';
       
       var profileLink = <li><button className="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover"><Link to={'/profile/'+this.props.user.id}><img className="img-circle" src={this.props.user.img} ></img></Link></button></li>

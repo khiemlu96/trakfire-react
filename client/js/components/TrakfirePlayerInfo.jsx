@@ -17,7 +17,7 @@ var TrakfirePlayerInfo = React.createClass({
    * the this.props pieces are for passing in data remove {this.props.} and replace with static data if need be
    */
   render: function() {
-   // console.log('RENDER TRACK INFO', this.props );
+    console.log('RENDER TRACK INFO', this.props );
     var songTitle = this.props.title;
     if(songTitle.length > 35)
     {

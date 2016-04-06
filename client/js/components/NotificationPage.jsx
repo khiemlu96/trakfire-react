@@ -30,6 +30,11 @@ function getLength(arr) {
 
 var NotificationPage = React.createClass({
 	
+	propTypes: {
+		origin: ReactPropTypes.string,
+		currUser: ReactPropTypes.object
+	},
+
 	getInitialState: function(){
 		return {
 			notifications: UserStore.getUserNotifications(),
@@ -37,9 +42,8 @@ var NotificationPage = React.createClass({
 		};
 	},
 
-	propTypes: {
-		origin: ReactPropTypes.string,
-		currUser: ReactPropTypes.object
+	getDefaultProps: function() {
+	    return {origin: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : ''};
 	},
 
 	getUserNotifications: function() {

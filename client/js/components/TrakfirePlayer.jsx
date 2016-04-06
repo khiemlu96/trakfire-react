@@ -27,6 +27,7 @@ var TrakfirePlayer = React.createClass({
     }, 
 
     componentDidMount: function() {
+        console.log("CURRENT TRACK", this.props.currTrack);
         this.state.isUpvoted = this.props.isUpvoted;
         window.addEventListener("keyup", this.handleHotKeysEvent);
         if( this.props.currTrack !== undefined )
@@ -73,7 +74,7 @@ var TrakfirePlayer = React.createClass({
         if(this.props.isLoggedIn){
           //console.log("POST TO UPVOTE", post);
           if(this.props.userId != -1)
-            var exists = post.voters.indexOf(this.props.userId);
+            var exists = post.votes.indexOf(this.props.userId);
           else 
             var exists = -1;
           //console.log(post.id, exists);

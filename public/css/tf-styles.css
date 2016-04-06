@@ -64,8 +64,8 @@ body.search-open {
 .tf-player-controls-wrap-info {
 	display: inline-block;
 	vertical-align: middle;
-	top: 0px;
-	left: -4px;
+	top: -63px;
+	left: 110px;
 	position: relative;
 	float: right;
 }
@@ -123,10 +123,6 @@ body.search-open {
 	text-align: left;
 	margin-bottom: 20px;
 	text-transform: uppercase;
-}
-
-.tf-player-info {
-	z-index: 10001;
 }
 
 .tf-post {
