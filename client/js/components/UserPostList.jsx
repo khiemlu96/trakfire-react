@@ -45,6 +45,7 @@ var UserPostList = React.createClass({
       upvotedPosts.push(item);
       i+=1;
     }
+
     i = 0;
     for(key in posted) {
       var post = posted[key];
@@ -52,6 +53,12 @@ var UserPostList = React.createClass({
       postedPosts.push(item);
       i+=1;
     } 
+    var noPosts = <div> This user hasn't posted anything yet </div>;
+    var noUpvotes = <div> This user hasn't upvoted anything yet </div>;
+
+    upvotedPosts.length ? upvotedPosts : upvotedPosts = noUpvotes;
+    postedPosts.length ? postedPosts : postedPosts = noPosts;
+
     return (
       <div className="tab-content">
         <div role="tabpanel" className="tab-pane" id="posted">

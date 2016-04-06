@@ -86,6 +86,7 @@ var ProfilePage = React.createClass({
             if(!user) { return (<div> Loading </div>); }
 
             var scloudurl =  "https://soundcloud.com/" + user.handle;
+            
             return (
                 <div>                   
                     
