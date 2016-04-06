@@ -347,7 +347,7 @@ var PostDetailPage = React.createClass({
     return (
       <div>
         <div>
-         {this.renderPost()}
+         {/*this.renderPost()*/}
         </div>
         <div>
           {this.renderCommentCount(post)}

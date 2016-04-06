@@ -132,7 +132,7 @@ var PostDetailHeader = React.createClass({
                     <div className="row">
                       <div className="col-xs-6">
                         <p>Posted by <b><Link className="tf-profile-link nd">{post.author_name}</Link></b></p>
-                        <a href={this.buildTweet(post)}><div className="button btn-share-song"><img className="tf-social-icons" src={'/assets/img/twitter_footer.svg'} /> Tweet This Song</div></a>
+                        <a href={this.buildTweet(post)} className="nd"><div className="button btn-share-song"><img className="tf-social-icons" src={'/assets/img/twitter_footer.svg'} /> Tweet This Song</div></a>
                       </div>
                       <div className="col-xs-6">
                         <div >
