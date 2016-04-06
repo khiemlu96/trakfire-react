@@ -306,20 +306,6 @@ var PostDetailPage = React.createClass({
           <div className="tf-auther-panel">         
             {this.renderVotes(post)}                     
           </div>
-          {/*<div className="row">
-            <div className="col-md-8 col-md-offset-2">
-              <div className="tf-auther-panel">
-                <Link to={'/profile/'+post.author_id}>  
-                  <img className="tf-author-img" src={postAuthorImage ? postAuthorImage : "assets/img/trakfirefavicon.ico"}></img>
-                </Link>
-              </div>
-              <div className="col-xs-8 col-sm-8 col-md-8">
-                Posted By <br/>
-                <a className="tf-profile-link">{post.author_name}</a>
-              </div>
-            </div>
-          </div>*/}
-
         </div>
       </div>
     );
@@ -360,9 +346,7 @@ var PostDetailPage = React.createClass({
   renderCommentCount: function(post){
     var count = getCommentLength(post.comments);
     return <div className='container tf-comment-count-section'>
-            <div className="col-md-12">
               <span><h3><b>{count.comment_count} Comments, {count.reply_count} Replies</b></h3></span>
-            </div>
           </div>;
   },
   /**
