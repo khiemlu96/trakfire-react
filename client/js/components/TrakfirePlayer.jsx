@@ -6,6 +6,17 @@ var classNames = require('classnames');
 var isUpvoted = classNames("tf-player-wrap-inner-votes is-upvoted");
 var isNotUpvoted = classNames("tf-player-wrap-inner-votes");
 var _localVoteCount = 0;
+
+function keypressCheck(e) { 
+    var e = window.event||e; // Handle browser compatibility
+    var keyID = e.keyCode;
+
+    //space pressed
+    if (keyID === 32) {
+        e.preventDefault(); // Prevent the default action
+    }
+}
+
 var TrakfirePlayer = React.createClass({
 
     propTypes: {
@@ -29,10 +40,11 @@ var TrakfirePlayer = React.createClass({
     componentDidMount: function() {
         console.log("CURRENT TRACK", this.props.currTrack);
         this.state.isUpvoted = this.props.isUpvoted;
+        window.addEventListener("keypress", keypressCheck);
         window.addEventListener("keyup", this.handleHotKeysEvent);
         if( this.props.currTrack !== undefined )
             this.state.isUpvoted = this.hasUpvoted(this.props.currTrack);
-    }, 
+    },
 
     componentDidUpdate: function(prevProps, prevState) {
         //console.log(prevProps.currTrack, this.props.currTrack);
@@ -44,6 +56,7 @@ var TrakfirePlayer = React.createClass({
     },
 
     componentWillUnmount: function() {
+        window.removeEventListener("keypress", keypressCheck);
         window.removeEventListener("keyup", this.handleHotKeysEvent);
     },
 
