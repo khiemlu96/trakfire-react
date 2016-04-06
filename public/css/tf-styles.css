@@ -64,8 +64,8 @@ body.search-open {
 .tf-player-controls-wrap-info {
 	display: inline-block;
 	vertical-align: middle;
-	top: -63px;
-	left: 110px;
+	top: 0px;
+	left: 0px;
 	position: relative;
 	float: right;
 }
@@ -2015,7 +2015,7 @@ label.ownsong-label {
     padding-bottom: 1px;
     overflow: hidden;
     cursor: pointer;
-    margin-left: 85px;
+    margin-left: 25px;
 }
 
 .tf-progress-inner {

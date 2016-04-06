@@ -462,14 +462,9 @@ var PostDetailPage = React.createClass({
   render: function() {
    
     var post = this.state.post;
-    <div> Loading 
-    
-    </div>
+    <div> Loading </div>
     return (
       <div>
-        <div> 
-          <ProfileBar showEditLink={false}/>
-        </div>
         <div>
          {this.renderPost()}
         </div>
