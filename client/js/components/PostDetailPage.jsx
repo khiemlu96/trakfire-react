@@ -93,7 +93,7 @@ var PostDetailPage = React.createClass({
     }
   },
 
-  componentDidUnmount: function() {
+  componentWillUnmount: function() {
     PostStore.removeChangeListener(this._onChange);
   }, 
 
@@ -347,7 +347,7 @@ var PostDetailPage = React.createClass({
     return (
       <div>
         <div>
-         {/*this.renderPost()*/}
+         {this.renderPost()}
         </div>
         <div>
           {this.renderCommentCount(post)}

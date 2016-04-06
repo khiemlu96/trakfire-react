@@ -105,6 +105,7 @@ var PostDetailHeader = React.createClass({
   render: function() {
     var post = this.props.post;
     var background_img = { backgroundImage: "url("+post.img_url_lg+")" };
+    var profileLink = '/profile/' + post.author_id;
     return(
       <div className="container">
       <div className="detail-header text-center">
@@ -131,7 +132,7 @@ var PostDetailHeader = React.createClass({
                     <hr></hr>
                     <div className="row">
                       <div className="col-xs-6">
-                        <p>Posted by <b><Link className="tf-profile-link nd">{post.author_name}</Link></b></p>
+                        <p>Posted by <b><Link to={profileLink} className="tf-profile-link nd">{post.author_name}</Link></b></p>
                         <a href={this.buildTweet(post)} className="nd"><div className="button btn-share-song"><img className="tf-social-icons" src={'/assets/img/twitter_footer.svg'} /> Tweet This Song</div></a>
                       </div>
                       <div className="col-xs-6">
