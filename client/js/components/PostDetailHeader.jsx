@@ -57,7 +57,7 @@ var PostDetailHeader = React.createClass({
     var post = this.props.post;
     var background_img = { backgroundImage: "url("+post.img_url_lg+")" };
     return(
-      <div className="profile-header text-center">
+      <div className="detail-header text-center">
 
         <div className="tf-header-background" style={background_img}></div>
         <div className="tf-header-background-overlay">
@@ -78,18 +78,18 @@ var PostDetailHeader = React.createClass({
                 <div className="tf-header-info">
                     <h4>{post.title}</h4>
                     <h6>{post.artist}</h6>
-                    <br></br>
+                    {/*<br></br>
                     <div className="media">
                       <div className="media-left">
                         <a href="#">
-                          <img className="media-object" src={post.author_img} alt="..."></img>
+                          <img className="media-object img-circle" width="25" src={post.author_img} alt="..."></img>
                         </a>
                       </div>
                       <div className="media-body">
                         <h4 className="media-heading">Media heading</h4>
                         ...
                       </div>
-                    </div>
+                    </div>*/}
                 </div>
               </div>
 
