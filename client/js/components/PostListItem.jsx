@@ -62,13 +62,15 @@ var PostListItem = React.createClass({
   updatePlayPauseState: function(e, track_id) {    
     if(this.props.post.id === track_id) {
       var overlay = this.refs.overlay;
-      this.props.changeIcons(this.props.post.stream_url, this.props.post, idx, this.state.isPlaying);
-      
+
       if(!this.state.isPlaying) {
+        overlay.className = playing;
         this.setState({isPlaying:true});
       } else {
+        overlay.className = paused;
         this.setState({isPlaying:false});
       }
+      this.props.changeIcons(this.props.post.stream_url, this.props.post, idx);
     }
   },
 
