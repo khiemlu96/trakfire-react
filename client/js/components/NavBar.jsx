@@ -98,7 +98,7 @@ var NavBar = React.createClass({
   },
 
   handleSignOut: function() {
-    sessionStorage.setItem('jwt','');
+    localStorage.setItem('jwt','');
   },
 
   showModal: function() {
