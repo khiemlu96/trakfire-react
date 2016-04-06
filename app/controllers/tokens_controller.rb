@@ -12,7 +12,7 @@ class TokensController < ApplicationController
     if oauth.present?
       request_token = OAuth::RequestToken.new(TWITTER, oauth.token, oauth.secret)
       access_token = request_token.get_access_token(oauth_verifier: params[:oauth_verifier])
-      user_data = access_token.request(:get, "https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true")
+      user_data = access_token.request(:get, "https://api.twitter.com/1.1/account/verify_credentials.json")#access_token.request(:get, "https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true")
       j_user = JSON.parse(user_data.body)
       user = User.find_or_create_by(uid: access_token.params[:user_id]) do |u| 
         u.handle = access_token.params[:screen_name] 
@@ -20,10 +20,13 @@ class TokensController < ApplicationController
         u.img = j_user['profile_image_url_https']
         u.tbio = j_user['description']
         u.location = j_user['location']
-        u.email = j_user['email']
+        #u.email = j_user['email']
         logger.info 'THE NEW USER'
         logger.info u
         new_user = true
+      end
+      if j_user['profile_image_url_https']
+        user.img = j_user['profile_image_url_https']
       end
       jwt = JWT.encode({uid: user.uid, exp: 1.day.from_now.to_i}, Rails.application.secrets.secret_key_base)
       #if new_user
