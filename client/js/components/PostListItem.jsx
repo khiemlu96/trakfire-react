@@ -33,6 +33,7 @@ var PostListItem = React.createClass({
    post: ReactPropTypes.object,
    idx: ReactPropTypes.number,
    onClick: ReactPropTypes.func,
+   changeIcons: ReactPropTypes.func,
    onUpvote: ReactPropTypes.func,
    isLoggedIn: ReactPropTypes.bool, 
    userId: ReactPropTypes.number,
@@ -69,6 +70,7 @@ var PostListItem = React.createClass({
         overlay.className = paused;
         this.setState({isPlaying:false});
       }
+      this.props.changeIcons(this.props.post.stream_url, this.props.post, idx);
     }
   },
 

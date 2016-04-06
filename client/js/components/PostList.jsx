@@ -245,6 +245,17 @@ var PostsList = React.createClass({
     this.props.onPostUpvote(postid);
   },
 
+  updateIcons: function(stream_url, track, idx) {
+    if(this.state.currentTrack != null) {
+      var prevPli = this.state.currentTrack;
+      var pli = this.refs[prevPli].refs.overlay;
+      if(pli != null){ 
+        pli.getDOMNode().className = "icon icon-controller-play";
+      } 
+    }
+    this.setState({currentTrack:track.id});
+  }, 
+  
   playPauseItem: function(stream_url, track, idx) {
     if(this.state.currentTrack != null) {
       var prevPli = this.state.currentTrack;
@@ -359,7 +370,8 @@ var PostsList = React.createClass({
                         origin={this.props.origin}
                         number={count}
                         showNumber={true}
-                        showAuthor={true}/>
+                        showAuthor={true}
+                        changeIcons={this.updateIcons}/>
           container.push(post); 
           songList[songCount] = array[key];
           songCount += 1;    

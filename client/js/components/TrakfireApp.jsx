@@ -138,6 +138,7 @@ var TrakfireApp = React.createClass({
         currSongIdx: next.sortedIdx
       });
       scPlayer.play({streamUrl: next.stream_url});
+      $(document).trigger("ReactComponent:PostListItem:handlePlayPauseClick", [next.id]);
   }, 
 
   shouldComponentUpdate: function(nextProps, nextState) {
@@ -451,6 +452,8 @@ var TrakfireApp = React.createClass({
       this.setState({isPlaying : isPlaying, isPaused : isPaused});
     }
     $(document).trigger("ReactComponent:PostListItem:handlePlayPauseClick", [this.state.currTrack.id]);
+    //$(document).trigger("ReactComponent:PostListItem:handlePlayPauseClick", [this.state.currTrack.id]);
+
   },
 
   onNextCtrlClick: function() {
