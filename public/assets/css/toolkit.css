@@ -8709,6 +8709,10 @@ img.zoom-img {
   color: #fff;
 }
 
+.nd {
+  text-decoration: none !important;
+}
+
 .no-decor:hover {
   text-decoration: none;
   color: #fff;

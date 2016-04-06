@@ -218,7 +218,7 @@ var PostListItem = React.createClass({
               <Link to={postLink} className="no-decor">{post.title}</Link>
             </h4>
             <h6 className="tf-media-artist">{post.artist}
-              { this.props.showAuthor ? <small className="pull-right"> posted by: <Link to={profileLink} className="tf-media-poster">{post.author_name}</Link> </small> : "" }
+              { this.props.showAuthor ? <small className="pull-right"> posted by: <Link to={profileLink} className="tf-media-poster nd">{post.author_name}</Link> </small> : "" }
             </h6> 
           </div>
         </li>

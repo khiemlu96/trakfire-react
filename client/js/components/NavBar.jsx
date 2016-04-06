@@ -98,7 +98,7 @@ var NavBar = React.createClass({
   },
 
   handleSignOut: function() {
-    localStorage.setItem('jwt','');
+    sessionStorage.setItem('jwt','');
   },
 
   showModal: function() {
@@ -190,10 +190,10 @@ var NavBar = React.createClass({
     return <OverlayTrigger trigger="click" placement="bottom"
               overlay={ 
                         <Popover className="tf-menu-popup col-md-2" id="tf-post-detail-popup" style={MenuIconStyle} >
-                             <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link to={'/leaderboard'}><h6>LEADERBOARD</h6></Link></div>                       
-                             <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link to={'/about'}><h6>ABOUT TRAKFIRE</h6></Link></div>
-                             <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link to={'/privacy'}><h6>PRIVACY POLICY</h6></Link></div>
-                             <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link to={'/terms'}><h6>TERMS OF SERVICE</h6></Link></div>
+                             <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/leaderboard'}><h6>LEADERBOARD</h6></Link></div>                       
+                             <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/about'}><h6>ABOUT TRAKFIRE</h6></Link></div>
+                             <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/privacy'}><h6>PRIVACY POLICY</h6></Link></div>
+                             <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/terms'}><h6>TERMS OF SERVICE</h6></Link></div>
                              <div onClick = {this.closeModal}>{adminConsoleLink} </div>
                              <div onClick = {this.closeModal}>{signinLink} </div>
                         </Popover>
