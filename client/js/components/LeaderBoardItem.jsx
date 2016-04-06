@@ -72,7 +72,7 @@ var LeaderBoardItem = React.createClass({
             }
         }
     }
- 
+    var profileLink = '/profile/' + user.id;
     return (
 	  <li className="list-group-item tf-user">
 	    <div className="media">
@@ -83,7 +83,7 @@ var LeaderBoardItem = React.createClass({
 	        <button className="btn btn-primary-outline btn-sm pull-right" onClick={this.followClick}>
 	         {this.state.isFollowing ? "Following" : "Follow"}
 	        </button>
-	        <strong>{ user.name }</strong>
+	        <strong><Link to={profileLink}>{ user.name }</Link></strong>
 	        <br></br>
 	        <small>{ user.score ? user.score : 0 }</small>
 	      </div>
