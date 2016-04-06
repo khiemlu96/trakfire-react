@@ -139,7 +139,7 @@ var TrakfirePlayer = React.createClass({
                     
                     <a className={nextLinkClass} href="#!" onClick={this.handleNextClick}></a>
                     </div>
-                    <div className="tf-player-controls-wrap">
+                    <div className="tf-player-controls-wrap v-center-progress">
                         <TrakfirePlayerProgress
                             duration={ currTrack ? parseInt(currTrack.duration) : 0 }
                             isPlaying={this.props.isPlaying}
