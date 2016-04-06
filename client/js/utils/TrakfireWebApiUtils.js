@@ -443,6 +443,7 @@ module.exports = {
       contentType: 'application/json',
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) { 
+        console.log("RECIEVING USERS BRUH", resp);
         users = resp;
         UserServerActionCreators.recieveAll(users); 
       },
