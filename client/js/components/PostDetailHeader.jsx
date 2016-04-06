@@ -9,9 +9,13 @@
 
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
+var Link = require('react-router').Link;
+
+function randomIntFromInterval(min,max) {
+    return Math.floor(Math.random()*(max-min+1)+min);
+}
 
 var PostDetailHeader = React.createClass({
-
   propTypes: {
    post: ReactPropTypes.object,
   },
@@ -24,6 +28,19 @@ var PostDetailHeader = React.createClass({
     console.log("MOUNTING THE DETAIL HEADER");
   }, 
 
+  buildTweet: function(post) {
+    var surlines = ["premium unleaded gasoline", 
+                    "a tidal wave of pure fire", 
+                    "pure unadulterated fire", 
+                    "the next wave",
+                    "undeniable"];
+    var choice = randomIntFromInterval(0, 4);
+    var text = post.title + " by " + post.artist + " is " + surlines[choice];
+    var via = "trakfiremusic";
+    //var url = post.url  TODO ONCE SERVER RENDERING IS COMPLETE
+    var base = "https://twitter.com/intent/tweet?";
+    return base + "text=" + text + "&via=" + via; // TODO ES6 TEMPLATE STRINGS
+  }, 
   /*getInitialState: function() {
     return {isPlaying:false, isUpvoted:false, hasUpvoted:false};
   },*/
@@ -57,6 +74,7 @@ var PostDetailHeader = React.createClass({
     var post = this.props.post;
     var background_img = { backgroundImage: "url("+post.img_url_lg+")" };
     return(
+      <div className="container">
       <div className="detail-header text-center">
 
         <div className="tf-header-background" style={background_img}></div>
@@ -68,28 +86,19 @@ var PostDetailHeader = React.createClass({
           <div className="container-inner-home">
             <div className="row no-gutter">
 
-              <div className="col-md-offset-2 col-md-3">
+              <div className="col-md-3">
                 <div className="tf-header-thumbnail">
                     <img src={post.img_url_lg} alt="..."></img>
                 </div>
               </div>
 
-              <div className="col-md-7">
+              <div className="col-md-offset-1 col-md-8">
                 <div className="tf-header-info">
                     <h4>{post.title}</h4>
                     <h6>{post.artist}</h6>
-                    {/*<br></br>
-                    <div className="media">
-                      <div className="media-left">
-                        <a href="#">
-                          <img className="media-object img-circle" width="25" src={post.author_img} alt="..."></img>
-                        </a>
-                      </div>
-                      <div className="media-body">
-                        <h4 className="media-heading">Media heading</h4>
-                        ...
-                      </div>
-                    </div>*/}
+                    <hr></hr>
+                    <p>Posted by <b><Link className="tf-profile-link nd">{post.author_name}</Link></b></p>
+                    <a href={this.buildTweet(post)}><div className="button btn-share-song"><img className="tf-social-icons" src={'/assets/img/twitter_footer.svg'} /> Tweet This Song</div></a>
                 </div>
               </div>
 
@@ -97,6 +106,7 @@ var PostDetailHeader = React.createClass({
           </div>
         </div>
 
+      </div>
       </div> 
     );}
 

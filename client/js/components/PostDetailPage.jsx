@@ -298,7 +298,15 @@ var PostDetailPage = React.createClass({
       <div>
         <PostDetailHeader post={post}/>
         <div className="container">
-          <div className="row">
+          <div >
+            <i className="glyphicon glyphicon-fire tf-social-icons"></i> 
+            <span>&nbsp;<b>{voteCount = getLength(post.votes)} &nbsp;people</b></span>
+            <span>&nbsp;&nbsp;upvoted</span>
+          </div>
+          <div className="tf-auther-panel">         
+            {this.renderVotes(post)}                     
+          </div>
+          {/*<div className="row">
             <div className="col-md-8 col-md-offset-2">
               <div className="tf-auther-panel">
                 <Link to={'/profile/'+post.author_id}>  
@@ -310,7 +318,8 @@ var PostDetailPage = React.createClass({
                 <a className="tf-profile-link">{post.author_name}</a>
               </div>
             </div>
-          </div>
+          </div>*/}
+
         </div>
       </div>
     );

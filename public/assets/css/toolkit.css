@@ -8348,13 +8348,16 @@ img.zoom-img {
   position: relative;
   display: table;
   width: 100%;
+  max-width: 100% !important;
   height: 300px;
   padding-bottom: 48px;
+  margin-top: 50px !important;
   margin-bottom: 0;
   text-align: center;
   border: 0;
   overflow: hidden;
 }
+
 .detail-header .container,
 .detail-header .container-fluid { 
   display: table-cell;
@@ -8702,6 +8705,10 @@ img.zoom-img {
   text-align: left;
   padding-left: 20px;
   padding-top: 75px;
+}
+
+.detail-header .tf-header-info {
+  padding-top: 50px !important; 
 }
 
 .tf-header-info h4 {
