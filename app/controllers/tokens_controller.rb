@@ -26,11 +26,11 @@ class TokensController < ApplicationController
         new_user = true
       end
       jwt = JWT.encode({uid: user.uid, exp: 1.day.from_now.to_i}, Rails.application.secrets.secret_key_base)
-      if new_user
-        redirect_to ENV['ORIGIN'] + "/email?jwt=#{jwt}&id=#{user.id}&uname=#{user.username}"
-      else 
-        redirect_to ENV['ORIGIN'] + "?jwt=#{jwt}"
-      end
+      #if new_user
+       # redirect_to ENV['ORIGIN'] + "/email?jwt=#{jwt}&id=#{user.id}&uname=#{user.username}"
+      #else 
+      redirect_to ENV['ORIGIN'] + "?jwt=#{jwt}"
+      #end
     else
       redirect_to ENV['ORIGIN']
     end
