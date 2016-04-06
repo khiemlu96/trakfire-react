@@ -7,12 +7,12 @@ Rails.application.routes.draw do
   get 'access_token', to: 'tokens#access_token'
   get 'admin_state', to: 'application#admin_state'
   get 'post/:id' => 'posts#show'
+  get 'notifications/:user_id' => 'notifications#index'
 
   resources :posts, only: [:index, :create, :show, :destroy]
   resources :votes, only: [:create, :destroy]
   resources :comments, only: [:index, :create, :destroy]
   resources :follower, only: [:create, :destroy]
-  resources :notifications, only: [:index, :destroy]
   resources :tf_files, only: [:create, :index, :destroy]
   
   resources :users, only: [:index, :update, :show, :destroy] do

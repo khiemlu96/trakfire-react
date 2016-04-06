@@ -316,11 +316,11 @@ module.exports = {
   getUserNotifications: function(url, data) {
     var params = {
       limit: data.limit,
-      offset: data.offset
+      offset: data.offset,
+      user_id: data.user_id
     };
-    
     Reqwest({
-      url: url,
+      url: url+data.user_id,
       type: 'json',
       method: 'GET',
       data: params,
@@ -339,11 +339,12 @@ module.exports = {
   loadMoreUserNotifications: function(url, data) {
     var params = {
       limit: data.limit,
-      offset: data.offset
+      offset: data.offset,
+      user_id: data.user_id
     };
     
     Reqwest({
-      url: url,
+      url: url+data.user_id,
       type: 'json',
       method: 'GET',
       data: params,
