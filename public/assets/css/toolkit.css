@@ -8232,12 +8232,19 @@ img.zoom-img {
   vertical-align: middle;
 }
 
-.profile-header .tf-header-background,
-.profile-header .tf-header-background-overlay {
+.profile-header .tf-header-background {
   /*margin-bottom: 20px;*/
   display: table-cell;
   width: 100%;
   height: 100%;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.profile-header .tf-header-background-overlay {
+  display: table-cell;
+  width: 100%;
+  height: 350px;
   vertical-align: middle;
   text-align: center;
 }
