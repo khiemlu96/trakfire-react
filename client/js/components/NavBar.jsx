@@ -84,8 +84,6 @@ var MenuIconStyle = {
 var showMoreStyle = {
   display: 'none'
 };
- 
-
 var NavBar = React.createClass({
 
   propTypes: {
@@ -107,13 +105,12 @@ var NavBar = React.createClass({
     this.props.showModal(true);
   },
 
-  hideMenuPopup: function() {
-    /*this.refs.menuIcon.getDOMNode().value = "";
+  closeModal: function() {
+    this.refs.menuIcon.getDOMNode().value = "";
     this.setState({
           isVisible: true
         }); 
-        MenuIconStyle.display = 'none';*/
-    this.refs.menuPopup.hide();
+        MenuIconStyle.display = 'none';
   }, 
 
   showSignupModal: function() {
@@ -190,18 +187,18 @@ var NavBar = React.createClass({
         adminConsoleLink = <div className="tf-menu-popup-list-item"><Link to={'/admin'} className="nd"><h6>ADMIN CONSOLE</h6></Link></div>; 
     }
   
-    return <OverlayTrigger ref="menuPopup" trigger="click" rootClose placement="bottom"
+    return <OverlayTrigger trigger="click" placement="bottom"
               overlay={ 
-                        <Popover className="tf-menu-popup col-md-2" id="tf-post-detail-popup" style={MenuIconStyle}>
-                             <div className="tf-menu-popup-list-item" onClick = {this.hideMenuPopup}><Link className="nd" to={'/leaderboard'}><h6>LEADERBOARD</h6></Link></div>                       
-                             <div className="tf-menu-popup-list-item" onClick = {this.hideMenuPopup}><Link className="nd" to={'/about'}><h6>ABOUT TRAKFIRE</h6></Link></div>
-                             <div className="tf-menu-popup-list-item" onClick = {this.hideMenuPopup}><Link className="nd" to={'/privacy'}><h6>PRIVACY POLICY</h6></Link></div>
-                             <div className="tf-menu-popup-list-item" onClick = {this.hideMenuPopup}><Link className="nd" to={'/terms'}><h6>TERMS OF SERVICE</h6></Link></div>
-                             <div onClick = {this.hideMenuPopup}> {adminConsoleLink} </div>
-                             <div onClick = {this.hideMenuPopup}> {signinLink} </div>
+                        <Popover className="tf-menu-popup col-md-2" id="tf-post-detail-popup" style={MenuIconStyle} >
+                             <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/leaderboard'}><h6>LEADERBOARD</h6></Link></div>                       
+                             <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/about'}><h6>ABOUT TRAKFIRE</h6></Link></div>
+                             <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/privacy'}><h6>PRIVACY POLICY</h6></Link></div>
+                             <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/terms'}><h6>TERMS OF SERVICE</h6></Link></div>
+                             <div onClick = {this.closeModal}> {adminConsoleLink} </div>
+                             <div onClick = {this.closeModal}> {signinLink} </div>
                         </Popover>
                       }>
-              <span className="glyphicon glyphicon-option-horizontal tf-menu-link"></span>
+              <span className="glyphicon glyphicon-option-horizontal tf-menu-link" ></span>
             </OverlayTrigger>
   },
 
