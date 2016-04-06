@@ -2077,6 +2077,8 @@ label.ownsong-label {
 	max-height: 50px;
 	display: inline-block;
 	margin-right: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
 }
 
 .tf-post-item--author {
