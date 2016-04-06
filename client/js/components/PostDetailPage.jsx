@@ -295,19 +295,7 @@ var PostDetailPage = React.createClass({
                 </div>;
 
     return (
-      <div>
-        <PostDetailHeader post={post}/>
-        <div className="container">
-          <div >
-            <i className="glyphicon glyphicon-fire tf-social-icons"></i> 
-            <span>&nbsp;<b>{voteCount = getLength(post.votes)} &nbsp;people</b></span>
-            <span>&nbsp;&nbsp;upvoted</span>
-          </div>
-          <div className="tf-auther-panel">         
-            {this.renderVotes(post)}                     
-          </div>
-        </div>
-      </div>
+      <PostDetailHeader post={post}/>
     );
   },
 

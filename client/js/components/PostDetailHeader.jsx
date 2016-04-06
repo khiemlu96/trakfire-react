@@ -11,8 +11,22 @@ var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var Link = require('react-router').Link;
 
+var Bootstrap = require('react-bootstrap');
+var OverlayTrigger = Bootstrap.OverlayTrigger;
+var Popover = Bootstrap.Popover;
+var UserStyle = { maxWidth:480, backgroundColor: '#1c1c1c', border:'1px solid #2b2b2b'};
+var UserFlyOver = require('./UserFlyOver.jsx');
+
 function randomIntFromInterval(min,max) {
     return Math.floor(Math.random()*(max-min+1)+min);
+}
+
+function getLength(arr) {
+  var count = 0;
+  for(key in arr){
+    count++;
+  }
+  return count;
 }
 
 var PostDetailHeader = React.createClass({
@@ -41,6 +55,24 @@ var PostDetailHeader = React.createClass({
     var base = "https://twitter.com/intent/tweet?";
     return base + "text=" + text + "&via=" + via; // TODO ES6 TEMPLATE STRINGS
   }, 
+
+  renderVotes: function(post) {
+    var votes = post.votes;
+    var voteHtml = [];
+    for(key in votes) {
+      if(votes[key].user.id != post.author_id) {
+        voteHtml.push(
+          /*<a className="tf-link" href={"/profile/" + votes[key].user.id} >
+            <img className="tf-author-img" src={votes[key].user.img} />
+          </a>*/
+          <Link to={'/profile/'+votes[key].user.id}> 
+            <UserFlyOver user = {votes[key].user} origin={this.props.origin} />
+          </Link>
+        );
+      }                              
+    }
+    return (voteHtml);
+  },
   /*getInitialState: function() {
     return {isPlaying:false, isUpvoted:false, hasUpvoted:false};
   },*/
@@ -97,8 +129,22 @@ var PostDetailHeader = React.createClass({
                     <h4>{post.title}</h4>
                     <h6>{post.artist}</h6>
                     <hr></hr>
-                    <p>Posted by <b><Link className="tf-profile-link nd">{post.author_name}</Link></b></p>
-                    <a href={this.buildTweet(post)}><div className="button btn-share-song"><img className="tf-social-icons" src={'/assets/img/twitter_footer.svg'} /> Tweet This Song</div></a>
+                    <div className="row">
+                      <div className="col-xs-6">
+                        <p>Posted by <b><Link className="tf-profile-link nd">{post.author_name}</Link></b></p>
+                        <a href={this.buildTweet(post)}><div className="button btn-share-song"><img className="tf-social-icons" src={'/assets/img/twitter_footer.svg'} /> Tweet This Song</div></a>
+                      </div>
+                      <div className="col-xs-6">
+                        <div >
+                          <i className="glyphicon glyphicon-fire tf-social-icons"></i> 
+                          <span>&nbsp;<b>{voteCount = getLength(post.votes)} &nbsp;people</b></span>
+                          <span>&nbsp;&nbsp;upvoted</span>
+                        </div>
+                        <div className="tf-auther-panel">         
+                          {this.renderVotes(post)}                     
+                        </div>
+                      </div>
+                    </div>
                 </div>
               </div>
 
