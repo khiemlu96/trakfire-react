@@ -27,6 +27,7 @@
     "css-loader": "^0.9.1",
     "firebase": "^2.4.2",
     "flux": "^2.0.1",
+    "history": "^2.0.1",
     "howler": "1.1.27",
     "instantsearch.js": "^1.4.2",
     "jquery": "2.1.4",

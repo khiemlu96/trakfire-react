@@ -22,7 +22,7 @@ class UsersController < ApplicationController
       page_count = @users.size
       total_count = User.where("lower(username) like ?", ('%'+@search_key.downcase+'%')).distinct.count('id')
     else
-      @users = User.order(created_at: :desc).ranking.offset(@offset).limit(@limit)
+      @users = User.all #User.order(created_at: :desc).ranking.offset(@offset).limit(@limit)
       page_count = @users.size
       total_count = User.distinct.count('id')
     end

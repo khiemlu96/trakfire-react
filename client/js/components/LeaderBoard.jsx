@@ -66,9 +66,12 @@ var LeaderBoard = React.createClass({
   	[].sort.call(users, sortByScore)
   	var userItems = this.renderUserItems([].sort.call(users, sortByScore));
     return (
+      <div>
+      <h4 className="tf-media-list-header">TASTEMAKERS</h4>
 	    <ul className="media-list media-list-users list-group">
 	    	{ userItems }
 	    </ul>
+      </div>
     );
   }, 
 
