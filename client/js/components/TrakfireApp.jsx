@@ -314,7 +314,7 @@ var TrakfireApp = React.createClass({
           <div>
           {active ? tfPlayer : ''}
           </div>
-          <Modal show={this.state.showModal} onHide={this.closeModal}>
+          {/*<Modal show={this.state.showModal} onHide={this.closeModal}>
             <Modal.Body closeButton className={"tf-modal-body"}>
               <p><h2 className="tf-centered tf-uppercase">Sign In</h2></p>
               <p className="tf-centered">Fill in your invite code or sign up with Twitter or Facebook to upvote, post, and save tracks to your collection</p>
@@ -324,9 +324,9 @@ var TrakfireApp = React.createClass({
               <p className="tf-centered"> OR </p>
               <a href={this.props.origin+'/request_token'} className="btn btn-primary btn-block"> Sign in with Twitter </a>
             </Modal.Body>
-          </Modal>
+          </Modal>*/}
 
-          <Modal show={this.state.showSignupModal} onHide={this.closeSignupModal}>
+          <Modal show={this.state.showModal} onHide={this.closeModal}>
             <Modal.Body closeButton className={"tf-modal-body"}>
               <p> <h2 className="tf-centered tf-uppercase">Request Invite</h2></p>
               <p className="tf-centered">Wanna become an influencer? <br></br> Request an invite and become part of the community. </p>
