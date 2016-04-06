@@ -31,8 +31,8 @@ var TrakfirePlayerInfo = React.createClass({
           <Link to={'/post/'+ this.props.post.id}><img className="tf-player-info-img" src={this.props.img}></img></Link>
           <div className="tf-player-info-text">
             <div>
-              <Link to={'/post/'+ this.props.post.id}><p className="tf-player-title-info">{songTitle}</p></Link>
-              <Link to={'/post/'+ this.props.post.id}><p className="tf-player-artist-info">{this.props.artist}</p></Link>
+              <Link className="nd" to={'/post/'+ this.props.post.id}><p className="tf-player-title-info">{songTitle}</p></Link>
+              <Link className="nd" to={'/post/'+ this.props.post.id}><p className="tf-player-artist-info">{this.props.artist}</p></Link>
             </div>
           </div>        
       </div>

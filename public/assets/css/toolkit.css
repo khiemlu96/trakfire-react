@@ -3131,10 +3131,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   display: block;
   padding: 10px 15px;
 }
-.nav > li > a:hover,
+/*.nav > li > a:hover,
 .nav > li > a:focus {
   background-image: linear-gradient(#484e55, #3a3f44 60%, #313539);
-}
+}*/
 .nav > li.disabled > a {
   color: #9da9b0;
 }
@@ -3684,7 +3684,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .open > a:hover,
 .navbar-default .navbar-nav > .open > a:focus {
-  background-color: transparent;
+ /* background-color: transparent; */
   color: #333333;
 }
 @media (max-width: 767px) {

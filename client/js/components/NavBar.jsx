@@ -194,8 +194,8 @@ var NavBar = React.createClass({
                              <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/about'}><h6>ABOUT TRAKFIRE</h6></Link></div>
                              <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/privacy'}><h6>PRIVACY POLICY</h6></Link></div>
                              <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/terms'}><h6>TERMS OF SERVICE</h6></Link></div>
-                             <div onClick = {this.closeModal}>{adminConsoleLink} </div>
-                             <div onClick = {this.closeModal}>{signinLink} </div>
+                             <div className="nd" onClick = {this.closeModal}>{adminConsoleLink} </div>
+                             <div className="nd" onClick = {this.closeModal}>{signinLink} </div>
                         </Popover>
                       }>
               <span className="glyphicon glyphicon-option-horizontal tf-menu-link" ></span>

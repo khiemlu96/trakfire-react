@@ -2058,6 +2058,7 @@ label.ownsong-label {
 	display: inline-block;
 	vertical-align: middle;
 	width: 250px;
+	margin-top: 6px;
 }
 
 .tf-player-info-text p {
@@ -3366,4 +3367,9 @@ label.ownsong-label {
 	text-align: center;
 	margin-top: 40px !important;
 	margin-bottom: 0px !important;
+}
+
+.tf-no-posts {
+	width: 100%;
+	text-align: center;
 }
