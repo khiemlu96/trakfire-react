@@ -230,7 +230,7 @@ var NavBar = React.createClass({
       var profileLink = <li><button className="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover"><Link to={'/profile/'+this.props.user.id}><img className="img-circle" src={this.props.user.img} ></img></Link></button></li>
       //<span className="tf-menu">{this.renderUserInfo()}</span>
       //if(this.props.isAdmin || this.props.user.canPost) { 
-      
+      var requestInviteLink = '';
       var postLink = <PostForm isVisible={true} origin={this.props.origin} />
       var searchIcon =  <span><span className = "glyphicon glyphicon-search" onClick={this.renderSearchBar} style = {searchIconStyle}></span> </span>
       var menuIcon = <li><a href="#" onClick={function(e) {e.preventDefault();}}>{this.renderStaticInfo()}</a></li>;
@@ -241,7 +241,8 @@ var NavBar = React.createClass({
       }*/
     } else {
       var notificationLink = '';
-      var signinLink = <li><a href="#" onClick={this.showModal}> SIGN IN </a></li>
+      var signinLink = <li><a href={this.props.origin+'/request_token'}> SIGN IN </a></li>
+      var requestInviteLink = <li> <a href="#" onClick={this.showModal}> REQUEST INVITE </a> </li>
       var inviteLink = <a href="#" onClick={this.showSignupModal}> REQUEST INVITE </a>
       var profileLink = "";
       var postLink = '';
@@ -273,6 +274,7 @@ var NavBar = React.createClass({
           {postLink}
           {profileLink}
           {signinLink}
+          {requestInviteLink}
           {menuIcon}
         </ul>
 
