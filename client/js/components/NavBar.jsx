@@ -244,8 +244,8 @@ var NavBar = React.createClass({
       }*/
     } else {
       var notificationLink = '';
-      var signinLink = <li><a href={this.props.origin+'/request_token'}> SIGN IN </a></li>
-      var requestInviteLink = <li> <a href="#" onClick={this.showModal}> REQUEST INVITE </a> </li>
+      var signinLink = <li><a className="btn btn-navbar-link btn-primary-outline btn-sm pull-right" href={this.props.origin+'/request_token'}> SIGN IN </a></li>
+      var requestInviteLink = <li> <a href="#" className="btn btn-navbar-link btn-primary-outline btn-sm pull-right" onClick={this.showModal}> REQUEST INVITE </a> </li>
       var inviteLink = <a href="#" onClick={this.showSignupModal}> REQUEST INVITE </a>
       var profileLink = "";
       var postLink = '';

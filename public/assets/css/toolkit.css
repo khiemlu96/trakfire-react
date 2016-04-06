@@ -6014,6 +6014,18 @@ fieldset[disabled] .btn-primary-outline.active {
   color: #ffffff;
   background-color: #2a88bd;
 }
+
+.btn-navbar-link {
+    border-radius: 5px !important;
+    margin: 9px;
+    padding: 3px 10px 3px 10px !important;
+}
+
+.btn-navbar-link:hover {
+  background-color: #ff0d60 !important;
+  box-shadow: none;
+}
+
 .btn-success-outline {
   color: #44a762;
   background-color: transparent;
