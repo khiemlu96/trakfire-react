@@ -51,7 +51,7 @@ var NotificationPage = React.createClass({
             limit: 15,
             offset: 0
         };
-		UserActions.getUserNotifications(this.props.origin + '/notifications/', data);
+		UserActions.getUserNotifications(this.props.origin + '/notifications', data);
 		offset = 15;
 	},
 
@@ -60,7 +60,7 @@ var NotificationPage = React.createClass({
             limit: 7,
             offset: offset
         };
-		UserActions.loadMoreUserNotifications(this.props.origin + '/notifications/', data);
+		UserActions.loadMoreUserNotifications(this.props.origin + '/notifications', data);
 		offset = offset + 7;
 	},
 
