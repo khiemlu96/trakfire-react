@@ -3350,7 +3350,7 @@ label.ownsong-label {
 
 .tf-loader{
 	text-align: center;
-	position:absolute;
+	position:fixed;
 	top:0px;
 	right:0px;
 	width:100%;
@@ -3360,7 +3360,29 @@ label.ownsong-label {
 	background-repeat:no-repeat;
 	background-position:center;
 	z-index:10000000;
-	opacity: 0.4;
+	opacity: 0.6;
+	filter: alpha(opacity=40);
+}
+
+#tf-loader-region {
+	height: 100px;
+	width: 100%;
+	position: fixed;
+}
+
+.tf-loader-small{
+	text-align: center;
+	position:fixed;
+	top:0px;
+	right:0px;
+	width:100%;
+	height:100%;
+	background-color:#666;
+	background-image:url('/assets/img/spinner.gif');
+	background-repeat:no-repeat;
+	background-position:center;
+	z-index:10000000;
+	opacity: 0.6;
 	filter: alpha(opacity=40);
 }
 
