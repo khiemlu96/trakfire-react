@@ -25,7 +25,15 @@ var ProfilePage = React.createClass({
         },
 
         getInitialState: function() {
-            return getAppState();
+            var initailStates = getAppState();
+            
+            //If the user is not null and previous user value stored in Dispatcher
+            // is not same as new user, then set to null
+            if( initailStates.user && (initailStates.user.id !== parseInt(this.props.params.id)) ) {
+                initailStates.user = null;
+            }
+
+            return initailStates;
         },
         componentDidMount: function() {
             UserStore.addChangeListener(this._onChange);
@@ -83,12 +91,12 @@ var ProfilePage = React.createClass({
                 }
             }
 
-            if(!user) { return (<div> Loading </div>); }
+            if(!user) { return (<div className='tf-loader'> </div>); }
 
             var scloudurl =  "https://soundcloud.com/" + user.handle;
             
             return (
-                <div>                   
+                <div>
                     
                     <ProfileHeader
                         userId={user.id}
