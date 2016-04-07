@@ -25,15 +25,15 @@ var FollowStyle ={
 var NotificationLeaderBoardItem = React.createClass({
 
   propTypes: {
-  	user: ReactPropTypes.object,
-  	origin: ReactPropTypes.string,
-  	currentUser: ReactPropTypes.object
+    user: ReactPropTypes.object,
+    origin: ReactPropTypes.string,
+    currentUser: ReactPropTypes.object
   },
 
   getInitialState: function(){
-  	return{
-  		isFollowing: false
-  	};
+    return{
+      isFollowing: false
+    };
   },
 
   componentDidMount: function() {},
@@ -41,34 +41,34 @@ var NotificationLeaderBoardItem = React.createClass({
   componentWillMount: function() {}, 
   
   followUser: function() {
-  	var follow_id = this.props.user.id;
-  	UserActions.followUser(this.props.origin+ '/follower', follow_id);
+    var follow_id = this.props.user.id;
+    UserActions.followUser(this.props.origin+ '/follower', follow_id);
   },
   
   unFollowUser: function() {
-  	var follow_id = this.props.user.id;
-  	UserActions.unFollowUser(this.props.origin+ '/follower', follow_id);
+    var follow_id = this.props.user.id;
+    UserActions.unFollowUser(this.props.origin+ '/follower', follow_id);
   },
   
   followClick: function(){
-  	if(!this.state.isFollowing){
-  		this.followUser();
+    if(!this.state.isFollowing){
+      this.followUser();
         this.state.isFollowing = true;
-  	}
-  	else{
-  		this.unFollowUser();
-  		this.state.isFollowing = false;
-  	}
+    }
+    else{
+      this.unFollowUser();
+      this.state.isFollowing = false;
+    }
   },
   /**
    * @return {object}
    */
   render: function() {
-  	var user = this.props.user;
-  	var currentUser = this.props.currentUser;
-  	console.log(user);
+    var user = this.props.user;
+    var currentUser = this.props.currentUser;
+    console.log(user);
 
-  	if(currentUser !== null && user !== null) {
+    if(currentUser !== null && user !== null) {
         for(var key in currentUser.followings) {
             if(currentUser.followings[key].id === user.id) {
                 this.state.isFollowing = true;
@@ -77,34 +77,25 @@ var NotificationLeaderBoardItem = React.createClass({
     }
     var profileLink = '/profile/' + user.id;
     return (
-	  <li className="list-group-item tf-user">
-	    <div className="media">
-	      <Link to={profileLink} className="media-left">
-	        <img className="media-object img-circle" src={user.img}></img>
-	      </Link>
-	      <div className="media-body">
-<<<<<<< HEAD:client/js/components/NotificationLeaderBoardItem.jsx
+    <li className="list-group-item tf-user">
+      <div className="media">
+        <Link to={profileLink} className="media-left">
+          <img className="media-object img-circle" src={user.img}></img>
+        </Link>
+        <div className="media-body">
           <div>
-  	        <strong><Link to={profileLink} className="nd">{ user.name }</Link></strong>
-  	        <br></br>
-  	        <small>{ user.score ? user.score : 0 }</small>
+            <strong><Link to={profileLink} className="nd">{ user.name }</Link></strong>
+            <br></br>
+            <small>{ user.score ? user.score : 0 }</small>
           </div>
           <div className="media-body-actions" style={FollowStyle}>
             <button className="btn btn-primary-outline btn-sm pull-right" onClick={this.followClick}>
              {this.state.isFollowing ? "Following" : "Follow"}
             </button>
           </div>
-=======
-	        <button className="btn btn-primary-outline btn-sm pull-right" onClick={this.followClick}>
-	         {this.state.isFollowing ? "Following" : "Follow"}
-	        </button>
-	        <strong><Link to={profileLink} className="nd">{ user.name }</Link></strong>
-	        <br></br>
-	        <small>{ user.score ? user.score : 0 }</small>
->>>>>>> 8e5949148c7e9b6dbb42cb5471a7444e6bc9b562:client/js/components/LeaderBoardItem.jsx
-	      </div>
-	    </div>
-	  </li>
+        </div>
+      </div>
+    </li>
     );
   }
 
