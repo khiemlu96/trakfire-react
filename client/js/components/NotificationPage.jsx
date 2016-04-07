@@ -286,10 +286,7 @@ var NotificationPage = React.createClass({
 			return (
 				<div className="tf-notification-page-container container col-md-12">
 					<div className="tf-notification-page-content-container container">
-						<div className="row tf-notification-page-header">
-							<div className = "row">
-								<Link to="#!" className="tf-back-link"><h6>BACK</h6></Link>
-							</div>	
+						<div className="row tf-notification-page-header">	
 							<div className="tf-notification-heading">
 								<center><h1><b>NOTIFICATIONS</b></h1></center>
 							</div>
