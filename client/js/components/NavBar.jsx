@@ -121,6 +121,7 @@ var NavBar = React.createClass({
   }, 
 
   handleKeyUp: function(e) {
+    e.preventDefault();
     searchkey = e.target.value;
     console.log(searchkey);
 
