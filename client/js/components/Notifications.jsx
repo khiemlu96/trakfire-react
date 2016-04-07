@@ -144,7 +144,7 @@ var Notifications = React.createClass({
                                 <div> {notification_data.description} </div>
                             </div>
                             <div className = "col-md-2">
-                                <div className={notification_data.className} id={"followUser_"+ notification_data.srcUserId} style={followBtnStyle} onClick={this.handle_follow_click}> {notification_data.follow_text} </div>
+                                <button className={notification_data.className} id={"followUser_"+ notification_data.srcUserId} style={followBtnStyle} onClick={this.handle_follow_click}> {notification_data.follow_text} </button>
                             </div>
                         </div>
                     </Link>
@@ -195,10 +195,10 @@ var Notifications = React.createClass({
 
             if(currentUser_followings.indexOf(parseInt(data.sender_id)) > -1) {
                 follow_text = "Following";
-                className = "button tf-follow-button";
+                className = "button btn btn-primary-outline btn-sm pull-right tf-follow-button";
             } else {
                 follow_text = "Follow";
-                className = "button tf-follow-button tf-background";
+                className = "button btn btn-primary-outline btn-sm pull-right tf-follow-button tf-background";
             }
             notification_data.follow_text = follow_text;
             notification_data.className = className;

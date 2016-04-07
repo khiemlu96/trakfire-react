@@ -2855,6 +2855,12 @@ label.ownsong-label {
 	font-size: 12px;
 }
 
+.tf-notification-page-footer {
+	height: 80px;
+	text-align: center;
+	font-size: 12px;
+}
+
 .tf-notification-page-container .tf-notification-page-footer .tf-link {
     font-weight: 600;
     cursor: pointer;
@@ -3373,3 +3379,12 @@ label.ownsong-label {
 	width: 100%;
 	text-align: center;
 }
+.tf-notification-right-panel h5{
+	margin-top: 0px !important;
+	padding-top: 5px !important;
+}
+
+.tf-notification-right-panel .leaderboard{
+	background-color: #1f1f1f;
+    border-radius: 5px;
+    }
