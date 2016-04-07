@@ -289,7 +289,7 @@ var NotificationPage = React.createClass({
 	render: function() {
 
 		if(this.props.currUser !== undefined && this.state.notifications !== undefined) {
-				<div style={notificationStyle}>
+				return (<div style={notificationStyle}>
 					
 					<div className="container p-t-md">
 						<div className="row">
