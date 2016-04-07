@@ -19,7 +19,7 @@ var NotificationLeaderBoardItem = require('./NotificationLeaderBoardItem.jsx');
 
 function getComponentState() {
   return {
-   	users: UserStore.getAllUsers(),
+    users: UserStore.getAllUsers(),
     currentUser: UserStore.getCurrentUser()
   };
 }
@@ -34,27 +34,27 @@ function sortByScore(a, b) {
 
 var NotificationLeaderBoard = React.createClass({
 
-	propTypes: {
-		origin: ReactPropTypes.string
-	}, 
+  propTypes: {
+    origin: ReactPropTypes.string
+  }, 
 
   getInitialState: function() { return getComponentState(); }, 
 
   componentDidMount: function() {
-  	console.log(this.state.users);
-  	UserStore.addChangeListener(this._onChange);
-  	UserActions.getAllUsers(this.props.origin+'/users', {limit:5, offset:1});
+    console.log(this.state.users);
+    UserStore.addChangeListener(this._onChange);
+    UserActions.getAllUsers(this.props.origin+'/users', {limit:5, offset:1});
   },
 
   renderUserItems: function(sortedUsers) {
-  	var leaderBoardItems = [];
+    var leaderBoardItems = [];
   
-  	for(i in sortedUsers) {
-  		var u = sortedUsers[i];
-  		var uItem = <NotificationLeaderBoardItem user={u} origin={this.props.origin} currentUser={this.state.currentUser}/>
-  		leaderBoardItems.push(uItem);
-  	}
-  	return leaderBoardItems;
+    for(i in sortedUsers) {
+      var u = sortedUsers[i];
+      var uItem = <NotificationLeaderBoardItem user={u} origin={this.props.origin} currentUser={this.state.currentUser}/>
+      leaderBoardItems.push(uItem);
+    }
+    return leaderBoardItems;
   }, 
 
   /**
@@ -62,19 +62,15 @@ var NotificationLeaderBoard = React.createClass({
    */
   render: function() {
     
-  	var users = this.state.users;
-  	[].sort.call(users, sortByScore)
-  	var userItems = this.renderUserItems([].sort.call(users, sortByScore));
+    var users = this.state.users;
+    [].sort.call(users, sortByScore)
+    var userItems = this.renderUserItems([].sort.call(users, sortByScore));
     return (
       <div>
-<<<<<<< HEAD:client/js/components/NotificationLeaderBoard.jsx
       <h5 className="tf-media-list-header">TASTEMAKERS</h5>
-=======
-      <h4 className="tf-media-list-header">TASTEMAKERS</h4>
->>>>>>> 8e5949148c7e9b6dbb42cb5471a7444e6bc9b562:client/js/components/LeaderBoard.jsx
-	    <ul className="media-list media-list-users list-group">
-	    	{ userItems }
-	    </ul>
+      <ul className="media-list media-list-users list-group">
+        { userItems }
+      </ul>
       </div>
     );
   }, 
