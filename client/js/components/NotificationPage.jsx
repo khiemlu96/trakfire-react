@@ -11,6 +11,7 @@ var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var UserActions = require('../actions/UserActions.js');
 var UserStore = require('../stores/UserStore.js');
+var NotificationLeaderBoard = require('./NotificationLeaderBoard.jsx');
 var Link = require('react-router').Link;
 var moment = require('moment');
 
@@ -19,7 +20,10 @@ var offset = 0;
 var followBtnStyle = {
     border: '1px solid #ff0d60'
 };
-
+var notificationStyle ={
+	height:'auto',
+	backgroundColor:'#f5f8fa'
+}
 function getLength(arr) {
     var count = 0;
     for(key in arr){
@@ -49,18 +53,20 @@ var NotificationPage = React.createClass({
 	getUserNotifications: function() {
 		var data = {
             limit: 15,
-            offset: 0
+            offset: 0,
+            user_id: this.props.currUser.id
         };
-		UserActions.getUserNotifications(this.props.origin + '/notifications', data);
+		UserActions.getUserNotifications(this.props.origin + '/notifications/', data);
 		offset = 15;
 	},
 
 	loadMoreNotifications: function() {		
 		var data = {
             limit: 7,
-            offset: offset
+            offset: offset,
+            user_id: this.props.currUser.id
         };
-		UserActions.loadMoreUserNotifications(this.props.origin + '/notifications', data);
+		UserActions.loadMoreUserNotifications(this.props.origin + '/notifications/', data);
 		offset = offset + 7;
 	},
 
@@ -140,7 +146,7 @@ var NotificationPage = React.createClass({
 
 		if(count_of_sender_ids < 2) {
 			return(    		
-	    		<div id = {"notification-" + notification_data.notification_id} className = "tf-notification-list-item">
+	    		<div id = {"notification-" + notification_data.notification_id} className = "tf-notification-list-item list-group-item">
 					<Link to={notification_data.target_url}>
 						<div className="col-md-12">
 							<div className="left tf-notification-auther">
@@ -164,7 +170,7 @@ var NotificationPage = React.createClass({
 		} else {
 			var sender_imgs = notification_data.srcUserImg.split(",");
 			return(    		
-	    		<div id = {"notification-" + notification_data.notification_id} className = "tf-notification-list-item tf-consolidate-notification">
+	    		<div id = {"notification-" + notification_data.notification_id} className = "tf-notification-list-item tf-consolidate-notification list-group-item">
 					<Link to={notification_data.target_url}>
 						<div className="col-md-12">
 							<div className="left col-md-0 tf-consolidate-notifications-auther">
@@ -283,23 +289,36 @@ var NotificationPage = React.createClass({
 	render: function() {
 
 		if(this.props.currUser !== undefined && this.state.notifications !== undefined) {
-			return (
-				<div className="tf-notification-page-container container col-md-12">
-					<div className="tf-notification-page-content-container container">
-						<div className="row tf-notification-page-header">	
-							<div className="tf-notification-heading">
-								<center><h1><b>NOTIFICATIONS</b></h1></center>
+				<div style={notificationStyle}>
+					
+					<div className="container p-t-md">
+						<div className="row">
+							<div className="col-md-3">
+								<div className="list-group m-b-md">
+							        <a href="#" className="list-group-item">
+							          <span className="icon icon-chevron-thin-right pull-right"></span>
+							          Notifications
+							        </a>
+							        <a href="#" className="list-group-item">
+							          <span className="icon icon-chevron-thin-right pull-right"></span>
+							          Mentions
+							        </a>
+							     </div>
 							</div>
-						</div>
-						<div className="row tf-notification-page-content">
-							<div className="tf-notification-page-list">
-								{this.renderNotifications()}
+							<div className="col-md-6">
+						      <ul className="list-group media-list media-list-stream">
+						        <div className="list-group-item p-a">
+						          <h3 className="m-a-0">Notifications</h3>
+						        </div>
+					          	{this.renderNotifications()}
+								
+							  </ul>
 							</div>
-						</div>
-						<div className="row tf-notification-page-footer">						
-							<span>
-								LOAD MORE &nbsp; <a onClick={this.loadMoreNotifications} className="tf-link tf-load-more-link">NOTIFICATIONS &nbsp;&nbsp;&#9660;</a>
-							</span>
+							<div className="col-md-3 tf-notification-right-panel">
+							   <div className="leaderboard">
+									<NotificationLeaderBoard origin={this.props.origin}/>
+							   </div>
+							</div>
 						</div>
 					</div>
 				</div>
