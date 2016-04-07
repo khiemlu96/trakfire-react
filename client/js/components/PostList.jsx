@@ -245,12 +245,18 @@ var PostsList = React.createClass({
     this.props.onPostUpvote(postid);
   },
 
-  updateIcons: function(stream_url, track, idx) {
+  updateIcons: function(stream_url, track, idx, isPlaying) {
     if(this.state.currentTrack != null) {
       var prevPli = this.state.currentTrack;
       var pli = this.refs[prevPli].refs.overlay;
       if(pli != null){ 
-        pli.getDOMNode().className = "icon icon-controller-play";
+        // if state isPlaying is true then show pause icon in square,
+        // else show 'play' icon
+        if( isPlaying === true ) {
+          pli.getDOMNode().className = "icon icon-controller-paus";
+        } else {
+          pli.getDOMNode().className = "icon icon-controller-play";
+        }        
       } 
     }
     this.setState({currentTrack:track.id});
