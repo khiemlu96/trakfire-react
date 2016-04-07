@@ -2541,34 +2541,41 @@ label.ownsong-label {
 	padding-right: 15px;
 	cursor: pointer;
 }
-.tf-menu-popup{
+body .popover{
 	color: #ffffff;
     font-family: "Benton Sans Black",sans-serif;
-    font-size: 18px !important;
     letter-spacing: 1px;
-    background-color: #161616 !important;
+    background-color: #161616 !important;/*
     position: fixed;
     margin-bottom: 0;
     margin-top: 0;
     margin-right: 15px !important;
     padding-left: 10px;
     text-transform: uppercase;
-    left: 74.5% !important;
-    top: 53px !important;
+    left: 74.5% !important;*/
+    text-transform: uppercase;
+    top: 40px !important;
     padding-left: 0px !important;
     border: 1px solid #2b2b2b !important;
     border-bottom: 0px !important;
     cursor: pointer;
 }
 
-.tf-menu-popup .tf-sign-out-link h6{
+.popover h6{
+	color: #ffffff;
+    padding: 5px;
+    font-size: 10px !important;
+    font-weight: normal;
+}
+
+.popover .tf-sign-out-link h6{
 	color: #ff0d60 !important;
 }
 .tf-menu-popup .popover-content{
 	padding: 0px !important;
 }
 .tf-menu-popup-list-item{
-	height: 60px;
+	height: 55px;
 	padding: 2px 0px 0px 6px;
     border-bottom: 1px solid #2b2b2b;
     cursor: pointer;
@@ -2577,11 +2584,10 @@ label.ownsong-label {
 	color: #ffffff;
 	padding: 10px;
 }
-.tf-menu-popup .arrow{
-	left: 78% !important;
+.popover .arrow{
 	border-bottom-color: #1c1c1c !important;
 }
-.tf-menu-popup .arrow::after{
+.popover .arrow::after{
 	border-bottom-color: #1c1c1c !important;
 }
 .tf-post-trak-popup .arrow{
@@ -3379,6 +3385,7 @@ label.ownsong-label {
 	width: 100%;
 	text-align: center;
 }
+
 .tf-notification-right-panel h5{
 	margin-top: 0px !important;
 	padding-top: 5px !important;
@@ -3387,4 +3394,4 @@ label.ownsong-label {
 .tf-notification-right-panel .leaderboard{
 	background-color: #1f1f1f;
     border-radius: 5px;
-    }
+}
