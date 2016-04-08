@@ -14,6 +14,7 @@ var PostListHeader = React.createClass({
 
   propTypes: {
    post: ReactPropTypes.object,
+   reload: ReactPropTypes.bool
   },
 
   componentWillMount: function() {
@@ -24,38 +25,12 @@ var PostListHeader = React.createClass({
     console.log("MOUNTING THE HEADER");
   }, 
 
-  /*getInitialState: function() {
-    return {isPlaying:false, isUpvoted:false, hasUpvoted:false};
-  },*/
-
-  /*upvote: function(e) {
-    e.preventDefault();
-    this.PostActions.upvote(this.props.key);
-  },
-
-  playPauseTrack: function(e) {
-    e.preventDefault();
-    console.log("TRACK", this.props.trackIdx);
-    this.props.onClick(this.props.post.stream_url, this.props.post);
-    if(!this.state.isPlaying) {
-      //this.refs.post.className += " is-playing";
-      this.setState({isPlaying : true});
-      mixpanel.track("Track Play");
-    }
-    else {
-      //this.refs.post.className = isNotPlaying;
-      this.setState({isPlaying : false});
-      mixpanel.track("Track Pause");
-    }
-    console.log("POST", this.state.isPlaying, this.refs.post);
-  },*/
-
   /**
    * @return {object}
    */
   render: function() {
     var post = this.props.post;
-    var background_img = { backgroundImage: "url("+post.img_url_lg+")" };
+    var background_img = { backgroundImage: "url("+post.img_url_lg+"?time)" };
     return(
       <div className="profile-header text-center">
 
@@ -70,7 +45,7 @@ var PostListHeader = React.createClass({
 
               <div className="col-md-offset-2 col-md-3">
                 <div className="tf-header-thumbnail">
-                    <img src={post.img_url_lg} alt="..."></img>
+                    <img src={post.img_url_lg+"?time"} alt="..."></img>
                 </div>
               </div>
 
