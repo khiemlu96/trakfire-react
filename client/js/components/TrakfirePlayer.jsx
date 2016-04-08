@@ -6,6 +6,20 @@ var classNames = require('classnames');
 var isUpvoted = classNames("tf-player-wrap-inner-votes is-upvoted");
 var isNotUpvoted = classNames("tf-player-wrap-inner-votes");
 var _localVoteCount = 0;
+
+function keypressCheck(e) { 
+    var e = window.event||e; // Handle browser compatibility
+    var keyID = e.keyCode;
+
+    // Check that if key stroke is occured from Search input box
+    // then dont disable event on key
+    if( e.target.id === null || ( e.target.id !== null && e.target.id !== "tf-search-input" )) {
+        if( keyID === 32 ) {
+            e.preventDefault(); // Prevent the default action
+        }
+    }
+}
+
 var TrakfirePlayer = React.createClass({
 
     propTypes: {
@@ -29,7 +43,10 @@ var TrakfirePlayer = React.createClass({
     componentDidMount: function() {
         console.log("CURRENT TRACK", this.props.currTrack);
         this.state.isUpvoted = this.props.isUpvoted;
-        window.addEventListener("keyup", this.handleHotKeysEvent);
+
+        window.addEventListener("keypress", keypressCheck);
+        window.addEventListener("keydown", this.handleHotKeysEvent);
+        
         if( this.props.currTrack !== undefined )
             this.state.isUpvoted = this.hasUpvoted(this.props.currTrack);
     }, 
@@ -44,7 +61,8 @@ var TrakfirePlayer = React.createClass({
     },
 
     componentWillUnmount: function() {
-        window.removeEventListener("keyup", this.handleHotKeysEvent);
+        window.removeEventListener("keypress", keypressCheck);
+        window.removeEventListener("keydown", this.handleHotKeysEvent);
     },
 
     handleProgressClick: function(millipos) {
@@ -100,9 +118,8 @@ var TrakfirePlayer = React.createClass({
         }
     },
 
-    handleHotKeysEvent: function( event ){
-        event.preventDefault();
-        if (event.keyCode == 32){
+    handleHotKeysEvent: function( event ){        
+        if (event.keyCode == 32){            
             this.handlePlayPauseClick();
         } else if (event.keyCode == 85){
             this.upvote(event);

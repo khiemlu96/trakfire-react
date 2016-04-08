@@ -64,13 +64,14 @@ var PostListItem = React.createClass({
       var overlay = this.refs.overlay;
 
       if(!this.state.isPlaying) {
-        overlay.className = playing;
         this.setState({isPlaying:true});
       } else {
-        overlay.className = paused;
         this.setState({isPlaying:false});
       }
-      this.props.changeIcons(this.props.post.stream_url, this.props.post, idx);
+
+      // Call the function to update the icons on album square
+      // and pass stream_url, Post, id and State of playing as a arguments
+      this.props.changeIcons(this.props.post.stream_url, this.props.post, idx, this.state.isPlaying);
     }
   },
 

@@ -2147,10 +2147,18 @@ label.ownsong-label {
 }
 
 #terms-of-use, #privacy-policy, #about-page{
-	margin-top: 106px;
-	margin-left: 50px;
-	margin-right: 50px;
-	height: 100%;
+
+}
+
+.tf-static-page-header{
+	display: block;
+    font-size: 2em;
+    margin-top: 0.67em;
+    margin-bottom: 0.67em;
+    margin-left: 0;
+    margin-right: 0;
+    font-weight: bold;
+    text-align: center;
 }
 
 .tf-back-link::before{
@@ -3357,7 +3365,7 @@ body .popover{
 
 .tf-loader{
 	text-align: center;
-	position:absolute;
+	position:fixed;
 	top:0px;
 	right:0px;
 	width:100%;
@@ -3367,7 +3375,29 @@ body .popover{
 	background-repeat:no-repeat;
 	background-position:center;
 	z-index:10000000;
-	opacity: 0.4;
+	opacity: 0.6;
+	filter: alpha(opacity=40);
+}
+
+#tf-loader-region {
+	height: 100px;
+	width: 100%;
+	position: fixed;
+}
+
+.tf-loader-small{
+	text-align: center;
+	position:fixed;
+	top:0px;
+	right:0px;
+	width:100%;
+	height:100%;
+	background-color:#666;
+	background-image:url('/assets/img/spinner.gif');
+	background-repeat:no-repeat;
+	background-position:center;
+	z-index:10000000;
+	opacity: 0.6;
 	filter: alpha(opacity=40);
 }
 

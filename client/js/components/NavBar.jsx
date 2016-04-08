@@ -84,6 +84,8 @@ var MenuIconStyle = {
 var showMoreStyle = {
   display: 'none'
 };
+ 
+
 var NavBar = React.createClass({
 
   propTypes: {
@@ -105,12 +107,13 @@ var NavBar = React.createClass({
     this.props.showModal(true);
   },
 
-  closeModal: function() {
-    this.refs.menuIcon.getDOMNode().value = "";
+  hideMenuPopup: function() {
+    /*this.refs.menuIcon.getDOMNode().value = "";
     this.setState({
           isVisible: true
         }); 
-        MenuIconStyle.display = 'none';
+        MenuIconStyle.display = 'none';*/
+    this.refs.menuPopup.hide();
   }, 
 
   showSignupModal: function() {
@@ -118,6 +121,7 @@ var NavBar = React.createClass({
   }, 
 
   handleKeyUp: function(e) {
+    e.preventDefault();
     searchkey = e.target.value;
     console.log(searchkey);
 
@@ -241,8 +245,8 @@ var NavBar = React.createClass({
       }*/
     } else {
       var notificationLink = '';
-      var signinLink = <li><a href={this.props.origin+'/request_token'}> SIGN IN </a></li>
-      var requestInviteLink = <li> <a href="#" onClick={this.showModal}> REQUEST INVITE </a> </li>
+      var signinLink = <li><a className="btn btn-navbar-link btn-primary-outline btn-sm pull-right" href={this.props.origin+'/request_token'}> SIGN IN </a></li>
+      var requestInviteLink = <li> <a href="#" className="btn btn-navbar-link btn-primary-outline btn-sm pull-right" onClick={this.showModal}> REQUEST INVITE </a> </li>
       var inviteLink = <a href="#" onClick={this.showSignupModal}> REQUEST INVITE </a>
       var profileLink = "";
       var postLink = '';

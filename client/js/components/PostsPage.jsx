@@ -8,6 +8,7 @@
  */
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 var ReactPropTypes = React.PropTypes;
 var PostStore = require('../stores/PostStore.js');
 var UserStore = require('../stores/UserStore.js');
@@ -66,12 +67,13 @@ var PostsPage = React.createClass({
     // On scrolling to the bottom of the Home page 
     // call the load posts for next date
     document.addEventListener('scroll', this.getMorePosts);
+    $(document).on("ReactComponent:PostsPage:renderLoader", this.renderLoader);
+    $(document).on("ReactComponent:PostsPage:removeLoader", this.removeLoader);
   },
 
   getMorePosts: function(event) {
       // Get the scroll position on window
       var bodyScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-      
       if (document.body.scrollHeight === bodyScrollTop +  window.innerHeight) {
           var url = this.props.origin + '/posts';
           page_count += 1;
@@ -81,6 +83,7 @@ var PostsPage = React.createClass({
           };
           // Load more post for next subsequent day         
           PostActions.loadMorePosts(url, data);
+          $(document).trigger("ReactComponent:PostsPage:renderLoader");
       }
   },
 
@@ -90,7 +93,7 @@ var PostsPage = React.createClass({
     SongStore.removeChangeListener(this._onChange);
     
     document.removeEventListener('scroll', this.getMorePosts);
-  }, 
+  },
 
   upvote: function(postid) {
     PostActions.upvote(this.props.origin+'/votes', postid);
@@ -102,6 +105,14 @@ var PostsPage = React.createClass({
 
   filterPosts: function(genre, sort) {
     this.props.filterPosts(genre, sort);
+  },
+
+  renderLoader: function() {
+    React.render(<div className='tf-loader-small'></div>, document.getElementById('tf-loader-region'));
+  },
+
+  removeLoader: function() {
+    ReactDOM.unmountComponentAtNode(document.getElementById('tf-loader-region'));
   },
 
   readPostsFromApi: function(){
@@ -118,7 +129,8 @@ var PostsPage = React.createClass({
     if(jQuery.isEmptyObject(post)) 
     {  
       return (<div className='tf-loader'> </div>); 
-    }
+    }   
+
     return (
       <div>
         <PostList
@@ -131,6 +143,10 @@ var PostsPage = React.createClass({
           showModal={this.props.showModal}
           setSongList={this.props.setSongList}
           origin={this.props.origin} />
+        <div id="tf-loader-region">
+            //Show loader here when loadin more posts on Scrolling the page to bottom
+
+        </div>
       </div>
     );
   },
