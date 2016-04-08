@@ -132,7 +132,7 @@ var NotificationPage = React.createClass({
 	},
 
     renderSingleNotification: function(notification_data) {
-    	console.log("NOTE DATA", notification_data);
+
     	var sender_ids = notification_data.srcUserId.split(",");
 		var count_of_sender_ids = getLength(sender_ids);
 		var screen_names = notification_data.srcUserName ? notification_data.srcUserName.split(",") : "N/A" ;
@@ -153,14 +153,14 @@ var NotificationPage = React.createClass({
 		                       	{indicator}
 	                        	<img className="tf-author-img tf-notification-auther-img" src={notification_data.srcUserImg}></img>
 		                    </div>
-		                    <div className="col-md-10 tf-notification-profile">
+		                    <div className="col-md-9 tf-notification-profile">
 		                        <div className = "">
 		                        	<span className="tf-link">{notification_data.srcUserName}</span> 
 		                            <small className="tf-notification-sent-time"> &nbsp; - &nbsp;{moment(notification_data.sent_time).fromNow()} </small>
 		                        </div>
 		                        <div> {notification_data.description} </div>
 		                    </div>
-		                    <div className = "col-md-2 right">
+		                    <div className = "col-md-3 right">
 		                        <div className={notification_data.className} id={"followUser_"+ notification_data.srcUserId} style={followBtnStyle} onClick={this.handle_follow_click}> {notification_data.follow_text} </div>
 		                    </div>
 		                </div>
@@ -320,6 +320,12 @@ var NotificationPage = React.createClass({
 									<NotificationLeaderBoard origin={this.props.origin}/>
 							   </div>
 							</div>
+
+						</div>
+						<div className="row tf-notification-page-footer">						
+							<span>
+								LOAD MORE &nbsp; <a onClick={this.loadMoreNotifications} className="tf-link tf-load-more-link">NOTIFICATIONS &nbsp;&nbsp;&#9660;</a>
+							</span>
 						</div>
 					</div>
 				</div>
