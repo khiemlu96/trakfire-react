@@ -18,95 +18,107 @@ var Link = require('react-router').Link;
 var classNames = require('classnames');
 var UserFlyOver = require('./UserFlyOver.jsx');
 
-var FollowStyle ={
-  float:'left'
+var FollowStyle = {
+    float: 'left',
+    display: 'block'
 }
 var FollowButtonStyle = {
-  backgroundColor: 'transparent' 
+    backgroundColor: 'transparent'
 }
 var FollowingButtonStyle = {
-  backgroundColor: '#ff0d60' 
+    backgroundColor: '#ff0d60'
 }
 
 var NotificationLeaderBoardItem = React.createClass({
 
-  propTypes: {
-    user: ReactPropTypes.object,
-    origin: ReactPropTypes.string,
-    currentUser: ReactPropTypes.object
-  },
+    propTypes: {
+        user: ReactPropTypes.object,
+        origin: ReactPropTypes.string,
+        currentUser: ReactPropTypes.object
+    },
 
-  getInitialState: function(){
-    return{
-      isFollowing: false
-    };
-  },
+    getInitialState: function() {
+        return {
+            isFollowing: false
+        };
+    },
 
-  componentDidMount: function() {},
+    componentDidMount: function() {},
 
-  componentWillMount: function() {}, 
-  
-  followUser: function() {
-    var follow_id = this.props.user.id;
-    UserActions.followUser(this.props.origin+ '/follower', follow_id);
-  },
-  
-  unFollowUser: function() {
-    var follow_id = this.props.user.id;
-    UserActions.unFollowUser(this.props.origin+ '/follower', follow_id);
-  },
-  
-  followClick: function(){
-    if(!this.state.isFollowing){
-      this.followUser();
-        this.state.isFollowing = true;
-    }
-    else{
-      this.unFollowUser();
-      this.state.isFollowing = false;
-    }
-  },
-  /**
-   * @return {object}
-   */
-  render: function() {
-    var user = this.props.user;
-    var currentUser = this.props.currentUser;
-    console.log(user);
+    componentWillMount: function() {},
 
-    if(currentUser !== null && user !== null) {
-        for(var key in currentUser.followings) {
-            if(currentUser.followings[key].id === user.id) {
-                this.state.isFollowing = true;
+    followUser: function() {
+        var follow_id = this.props.user.id;
+        UserActions.followUser(this.props.origin + '/follower', follow_id);
+    },
+
+    unFollowUser: function() {
+        var follow_id = this.props.user.id;
+        UserActions.unFollowUser(this.props.origin + '/follower', follow_id);
+    },
+
+    followClick: function() {
+        if (!this.state.isFollowing) {
+            this.followUser();
+            this.setState({
+                isFollowing: true
+            });
+        } else {
+            this.unFollowUser();
+            this.setState({
+                isFollowing: false
+            });
+        }
+    },
+    /**
+     * @return {object}
+     */
+    render: function() {
+        var user = this.props.user;
+        var currentUser = this.props.currentUser;
+
+        if( currentUser.id === user.id ) {
+            FollowStyle.display = 'none';
+        } else {
+            FollowStyle.display = 'block';
+        }
+
+        var isFollowing = false;
+                      
+        if (currentUser !== null && user !== null && currentUser.id !== user.id) {
+            for (var key in currentUser.followings) {
+                if (currentUser.followings[key].id === user.id) {
+                    isFollowing = true;
+                }
             }
         }
-    }
-    var profileLink = '/profile/' + user.id;
-    return (
-    <li className="list-group-item tf-user">
-      <div className="media">
-        <Link to={profileLink} className="media-left">
-          <img className="media-object img-circle" src={user.img}></img>
-        </Link>
-        <div className="media-body">
-          <div>
-            <strong><Link to={profileLink} className="nd">{ user.name }</Link></strong>
-            <br></br>
-            <small>{ user.score ? user.score : 0 }</small>
-          </div>
-          <div className="media-body-actions" style={FollowStyle}>
-            <button className="btn btn-primary-outline btn-sm pull-right" style={this.state.isFollowing ? FollowingButtonStyle : FollowButtonStyle} onClick={this.followClick}>
-             {this.state.isFollowing ? "Following" : "Follow"}
-            </button>
-          </div>
-        </div>
-      </div>
-    </li>
-    );
-  }
+        var profileLink = '/profile/' + user.id;
+
+        return ( 
+                <li className = "list-group-item tf-user">
+                    <div className = "media">
+                        <Link to = {profileLink} className = "media-left">
+                            <img className = "media-object img-circle" src = {user.img}></img> 
+                        </Link> 
+                        <div className = "media-body">
+                            <div>
+                                <strong>
+                                    <Link to = {profileLink} className = "nd"> {user.name} </Link>
+                                </strong>
+                                <br></br> 
+                                <small> {user.score ? user.score : 0} < /small> 
+                            </div> 
+                            <div className = "media-body-actions" style = {FollowStyle}>
+                                <button className = "btn btn-primary-outline btn-sm pull-right" style = {isFollowing ? FollowingButtonStyle : FollowButtonStyle }
+                                onClick = {this.followClick}> {isFollowing ? "Following" : "Follow"} 
+                                </button> 
+                            </div>
+                        </div> 
+                    </div> 
+                </li>
+            );
+}
 
 });
 
 module.exports = NotificationLeaderBoardItem;
-
-
