@@ -75,6 +75,8 @@ var PostForm = React.createClass({
 
   updateData: function(data) {
     this.props.data = data;
+    _data = data;
+    console.log("DATA UPDATED", this.props.data, _data);
   }, 
 
   submit: function(data) {
@@ -93,7 +95,7 @@ var PostForm = React.createClass({
   			postStep = <PostFormFirst 
                       advanceStep={this.advanceStep}
                       updateData={this.updateData}
-                      data={this.props.data}
+                      data={_data}
                       reset={this.reset} />
   		break;
    		case 2:
@@ -101,7 +103,7 @@ var PostForm = React.createClass({
                       advanceStep={this.advanceStep}
                       updateData={this.updateData}
                       goBack={this.goBack}
-                      data={this.props.data}
+                      data={_data}
                       submit={this.submit}
                       reset={this.reset} />
   		break;

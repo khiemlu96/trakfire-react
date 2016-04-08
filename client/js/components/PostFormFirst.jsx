@@ -37,7 +37,7 @@ var PostFormFirst = React.createClass({
         _data['post']['status'] = "approved";
       else
         _data['post']['status'] = "pending";
-  		console.log(_data)
+  		console.log("data", _data)
   		//this.props.onSubmit(JSON.stringify(_data));
       this.props.updateData(_data);
       //this.props.data = _data;
@@ -78,7 +78,11 @@ var PostFormFirst = React.createClass({
   	  					title.value = track.title;
   	  					artist.value = track.user.username;
   	  					img.src = track.artwork_url;
-                var img_url_lg = track.artwork_url.replace("large", "crop"); //get the 300x300 version
+
+                if(track.artwork_url)
+                  var img_url_lg = track.artwork_url.replace("large", "crop"); //get the 300x300 version
+                else
+                  var img_url_lg = ""; //should replace with placeholder asset
 
   	  					_data = {
   	  						post : {
