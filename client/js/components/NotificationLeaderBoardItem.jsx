@@ -21,6 +21,12 @@ var UserFlyOver = require('./UserFlyOver.jsx');
 var FollowStyle ={
   float:'left'
 }
+var FollowButtonStyle = {
+  backgroundColor: 'transparent' 
+}
+var FollowingButtonStyle = {
+  backgroundColor: '#ff0d60' 
+}
 
 var NotificationLeaderBoardItem = React.createClass({
 
@@ -89,7 +95,7 @@ var NotificationLeaderBoardItem = React.createClass({
             <small>{ user.score ? user.score : 0 }</small>
           </div>
           <div className="media-body-actions" style={FollowStyle}>
-            <button className="btn btn-primary-outline btn-sm pull-right" onClick={this.followClick}>
+            <button className="btn btn-primary-outline btn-sm pull-right" style={this.state.isFollowing ? FollowingButtonStyle : FollowButtonStyle} onClick={this.followClick}>
              {this.state.isFollowing ? "Following" : "Follow"}
             </button>
           </div>
