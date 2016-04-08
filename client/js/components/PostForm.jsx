@@ -36,7 +36,7 @@ var PostForm = React.createClass({
 
   getDefaultProps: function() {
 
-    return {data:{'post': {}}};
+    return {data:{}};
   }, 
   componentDidMount: function() {
     mixpanel.track("Arrived at PostForm");
@@ -52,6 +52,7 @@ var PostForm = React.createClass({
   	}
   	this.setState({step : nextStep})
     console.log("ADVANCING STEP");
+    console.log(this.state);
   }, 
 
   reset: function() {
@@ -73,9 +74,7 @@ var PostForm = React.createClass({
   }, 
 
   updateData: function(data) {
-    
-    this.props.data.post = data.post;
-    
+    this.props.data = data;
   }, 
 
   submit: function(data) {
@@ -88,7 +87,7 @@ var PostForm = React.createClass({
   render: function() {
   	var postStep;
   	var step = this.state.step;
-    
+
   	switch(this.state.step) {
   		case 1:
   			postStep = <PostFormFirst 

@@ -77,12 +77,10 @@ var PostFormLast = React.createClass({
   
   renderTags: function() {
       t = this.state.post.tags;
-      var tags={};
+
       for(tag in t) {
           var tag = <div className="tf-tag tf-uppercase"> {t[tag].name} </div> 
           tags.push(tag);
-          console.log("============TAGS===============");
-          console.log(tags);
       }
 
       return tags;
@@ -96,8 +94,7 @@ var PostFormLast = React.createClass({
 
   render: function() {
       var post = this.state.post; 
-      
-      if (post != null )
+      if (post != null && this.state.loading !== true)
       {
           return (
               <div className="tf-newtrack-wrapper">
