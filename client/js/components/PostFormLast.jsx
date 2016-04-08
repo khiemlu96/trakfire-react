@@ -77,7 +77,7 @@ var PostFormLast = React.createClass({
   
   renderTags: function() {
       t = this.state.post.tags;
-
+      tags = [];
       for(tag in t) {
           var tag = <div className="tf-tag tf-uppercase"> {t[tag].name} </div> 
           tags.push(tag);

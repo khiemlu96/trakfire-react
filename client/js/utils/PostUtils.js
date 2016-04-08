@@ -34,6 +34,22 @@ module.exports = {
     };
   },
 
+  convertRawLocalPost: function(rawPost) {
+    return {
+      title: rawPost.title,
+      artist: rawPost.artist, 
+      genre: this.getGenres(rawPost.genre),
+      stream_url: rawPost.stream_url,
+      img_url: rawPost.img_url,
+      img_url_lg: rawPost.img_url_lg, 
+      duration: rawPost.duration,
+      vote_count: rawPost.vote_count, 
+      status: rawPost.status, 
+      date: new Date(), 
+      voters: []
+    }
+  }, 
+
   getGenres: function(genreStr) {
     //console.log(genreStr);
     if(!genreStr)

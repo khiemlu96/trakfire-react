@@ -128,6 +128,15 @@ function _addPost(rawPost) {
   _songs = getSongList(_posts);
 }
 
+function _addLocalPost(rawPost){
+  //console.log("ADDING POST", rawPost);
+  var post = PostUtils.convertRawLocalPost(rawPost);
+  _current_new_post = post;
+  //if(post.status == "approved")
+  _posts[1000] = post; //PostUtils.convertRawPost(rawPost);
+  _songs = getSongList(_posts);
+}
+
 function _sPost(rawPost) {
   if (rawPost !== undefined) {
     _singlePost = PostUtils.convertRawPost(rawPost);
@@ -238,21 +247,6 @@ var PostStore = assign({}, EventEmitter.prototype, {
   getAll: function() {
     //console.log('IN POST STORE GETTING '+_sort+' of type ', _genre);
     var posts;
-    /*switch(_genre) {
-      case "ALL":
-        posts = _posts;
-      break;
-      case "ELECTRONIC":
-        posts = this.getAllOfGenre("electronic");
-      break;
-      case "HIPHOP":
-        posts = this.getAllOfGenre("HipHop");
-      break;
-      case "VOCALS":
-        posts = this.getAllOfGenre("Vocals");
-      break;
-      default:
-    }*/
     console.log("GENRES", _genre);
     posts = this.getAllOfGenres(_genre);
     return posts;
@@ -398,7 +392,10 @@ PostStore.dispatchToken = AppDispatcher.register(function(action) {
       PostStore.emitChange();
       break;
     case PostConstants.WRITE_POST:
-      console.log('WRITE_POST');
+      var post = JSON.parse( action.data );
+      post = post.post;
+      console.log('WRITE_POST', post);
+      _addLocalPost(post);
       break;
     case PostConstants.UPVOTE_POST:
       console.log('UPVOTE POST');
