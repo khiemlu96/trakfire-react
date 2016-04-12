@@ -420,7 +420,7 @@ var PostsList = React.createClass({
     firstSong = {};
     retVal = this.renderPostsByDate(dates, posts); // return a list of <PostListDateHeader/> <PostListItems/>
     _postListItems = retVal['posts'];
-    firstSong = retVal['firstSong'];
+    firstSong = this.props.posts['dummy'] ? this.props.posts['dummy'] : retVal['firstSong'];
     //console.log("THE FIRST SONG IS ", _postListItems, firstSong);
 
     var postListStyle = { marginTop: 20+"px" };

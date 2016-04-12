@@ -130,7 +130,7 @@ class PostsController < ApplicationController
 		end
 
 
-	    render json: @post, include: { user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :created_at, :duration, :genre, :vote_count], status: :created, location: post_url(@post, format: :json)
+	    render json: @post, include: { user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :img_url_lg, :created_at, :duration, :genre, :vote_count], status: :created, location: post_url(@post, format: :json)
 	  else
 	    render json: @post.errors, status: :unprocessable_entity
 	  end

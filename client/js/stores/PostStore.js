@@ -123,6 +123,7 @@ function _addPost(rawPost) {
   //console.log("ADDING POST", rawPost);
   var post = PostUtils.convertRawPost(rawPost);
   _current_new_post = post;
+  console.log("CURRENT NEW POST", _current_new_post);
   //if(post.status == "approved")
   if(_posts["dummy"]) {
     delete _posts["dummy"];
