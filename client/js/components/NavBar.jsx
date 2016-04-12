@@ -197,7 +197,7 @@ var NavBar = React.createClass({
                      <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/leaderboard'}><h6>LEADERBOARD</h6></Link></div>                       
                      <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/about'}><h6>ABOUT TRAKFIRE</h6></Link></div>
                      <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/privacy'}><h6>PRIVACY POLICY</h6></Link></div>
-                     <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/terms'}><h6>TERMS OF SERVICE</h6></Link></div>
+                     <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/terms'}><h6>TERMS OF USE</h6></Link></div>
                      <div onClick = {this.closeModal}> {adminConsoleLink} </div>
                      <div onClick = {this.closeModal}> {signinLink} </div>
                   </Popover>
@@ -245,7 +245,7 @@ var NavBar = React.createClass({
       }*/
     } else {
       var notificationLink = '';
-      var signinLink = <li><a className="btn btn-navbar-link btn-primary-outline btn-sm pull-right" href={this.props.origin+'/request_token'}> SIGN IN </a></li>
+      var signinLink = <li><a className="btn btn-navbar-link btn-primary-outline btn-sm pull-right" href={this.props.origin+'/request_token'}> MEMBER SIGN IN </a></li>
       var requestInviteLink = <li> <a href="#" className="btn btn-navbar-link btn-primary-outline btn-sm pull-right" onClick={this.showModal}> REQUEST INVITE </a> </li>
       var inviteLink = <a href="#" onClick={this.showSignupModal}> REQUEST INVITE </a>
       var profileLink = "";
