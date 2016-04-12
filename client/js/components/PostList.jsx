@@ -336,7 +336,13 @@ var PostsList = React.createClass({
         yesterday.setDate(today.getDate()-1);
 
         d = moment(dates[date]).format('dddd, MMMM Do');
-
+        if(d == moment().format('dddd, MMMM Do')) {
+          console.log("TODAY");
+          d = "today";
+        } else if(d == moment().subtract(1, 'days').format('dddd, MMMM Do')) {
+          console.log("YESTERDAY");
+          d = "yesterday";
+        }
         var dateHeader = <PostListDateHeader key={'d_'+date} date={d}/>
         container.push(dateHeader);
         
