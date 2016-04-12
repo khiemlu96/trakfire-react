@@ -13,14 +13,17 @@ var Bootstrap = require('react-bootstrap');
 var ReactPropTypes = React.PropTypes;
 var Link = Router.Link;
 var PostActions = require('../actions/PostActions.js');
+var UserActions = require('../actions/UserActions.js');
 var UserStore = require('../stores/UserStore.js');
 var PostStore = require('../stores/PostStore.js');
+var Reqwest = require('reqwest');
 
 function getAppState() {
 	this.tagged_members = [];
 	return {
 		currUser: UserStore.getCurrentUser(),
-		comment_text: ''
+		comment_text: '',
+		memberCollection: UserStore.getAllUsers()
 	};	
 }
 
@@ -64,40 +67,134 @@ var CommentInput = React.createClass({
 	propTypes: {
         origin: ReactPropTypes.string,
         post_id: ReactPropTypes.number,
-        currUser: ReactPropTypes.object
+        currUser: ReactPropTypes.object        
     },
 
 	getInitialState: function() {
         return getAppState();
     },
 
+    addUserTagginng: function() {
+    	var self = this;
+    	self.tagged_members = [];
+		
+	    var memberData = $.map(self.state.memberCollection, function(member, i) {
+	      	return {
+      			'userId':member.id,
+		      	'name':member.name,
+		      	'email':member.email
+		    };
+	    });
+
+    	var at_config = {
+			at: "@",
+			data: memberData,
+			headerTpl: null,
+			insertTpl: "<span member_id='${userId}' data-value='${name}' class='member'>${name}</span>",
+			displayTpl: "<li data-value='${name}' member_id='${userId}'>${name}  (<small>${email}</small>)</li>",
+			limit: 10,
+			callbacks: {
+				beforeInsert: function(value, $li, e) {	
+					var sn = $li[0].attributes["data-value"].value;
+					sn = sn.replace('@', '');
+					var mem_id = $li[0].attributes.member_id.value;
+					var user = {username: sn, user_id: mem_id};
+
+					self.tagged_members.push(user);
+
+					return value;
+			  	},
+			  	afterMatchFailed: function() {
+
+			  	},
+			  	remoteFilter: function(params, callback) {			  		
+			  		var passback = [];			  		
+					var data = {
+			            limit: 20,
+			            search_key: params
+			        };
+
+			        var url = self.props.origin+'/users';
+					Reqwest({
+						url: url,
+						type: 'json',
+						method: 'GET',
+						data: data,
+						contentType: 'application/json',
+						headers: {'Authorization': localStorage.getItem('jwt')},
+						success: function(resp) { 
+							if(resp.users.length > 0 ) {
+								resp.users.forEach( function(user) {
+									passback.push({
+										'userId':user.id,
+		      							'name':user.username,
+	      								'email':user.email
+									});
+								});
+								callback(passback);
+							}
+						},
+						error: function(error) {
+							console.error(url, error['response']);
+						}
+					});
+			  	}
+			}
+		};
+
+    	$('#editable').atwho(at_config);
+    },
+
+    getUserCollection: function(data) {    	
+    	UserActions.getAllUsers(this.props.origin+'/users',data);
+    },
+
   	componentDidMount: function() {
-		PostStore.addChangeListener(this._onChange);
+		UserStore.addChangeListener(this._onChange);
+		var data = {
+            limit: 100
+        };
+        
+		this.getUserCollection(data);
+
 		currUser = this.props.currUser;
-		console.log("THE CURRENT USER IS", currUser, this.state.currUser);
+		this.addUserTagginng();
   	},
 
 	postComment: function() {
 		var self = this;
-		var postid = this.props.post_id;			
-		var comment_text = convertHtmlToText( this.state.comment_text.trim() );
+		var postid = this.props.post_id;
 
+		var commentContent = self.refs.comment.innerHTML.replace(/[<]br[^>]*[>]/gi,"\n");
+		var comment_text = commentContent.replace(/\&nbsp;/g," ");
+		comment_text = comment_text.replace(/<p>&nbsp;<\/p>/gi,'\n').replace(/<p>/gi,'').replace(/<\/p>/gi,'\n');
+
+		var $stagingDiv = $('#edit-comment-staging-div');
+
+		//Replace user tags with text
+		$stagingDiv.html(comment_text);
+
+		$stagingDiv.find('.atwho-inserted').each(function(){
+			$(this).replaceWith('@' + $(this).find('.member').text() + " ");
+		});		
+
+		var comment_body = $stagingDiv.html();
 		var data = {};
 
-		if(comment_text !== "") {
+		if(comment_body !== "") {
 			data['comment'] = {};
 			data['comment']['post_id'] = postid;
-			data['comment']['comment_detail'] = comment_text;
+			data['comment']['comment_detail'] = comment_body;
 			data['comment']['tagged_members'] = self.tagged_members;
 			PostActions.postComment(this.props.origin + '/comments', data);
 			this.setState({comment_text: ''});
-			this.refs.comment.getDOMNode().innerHTML = "";
+			this.refs.comment.innerHTML = "";
 		}
 	},
 
 	shouldComponentUpdate: function(nextProps){
 		if(this.refs.comment)
-        	return nextProps.comment_text !== this.refs.comment.getDOMNode().innerHTML;
+        	return nextProps.comment_text !== this.refs.comment.innerHTML;
         else 
         	return true;
     },
@@ -113,33 +210,25 @@ var CommentInput = React.createClass({
 
 	render: function() {
 		if( this.state.currUser && this.state.currUser !== null) {
+			
 			return (
-				<div className="col-md-12 tf-comment-add">
-					<div className="tf-comment-input-box">
-						<a href={"/profile/" + this.state.currUser.id} className="tf-link">
-							<img src={this.state.currUser.img} className="tf-author-img"> </img>
-						</a>
-					</div>
-					{/*<input ref="comment" className="tf-soundcloud-link" type="text" placeholder="Write a Comment..."></input> */}
-					<div className="col-md-10 tf-comment-input"
-						ref="comment"
-	        			onInput={this.emitChange} 
-	        			onBlur={this.emitChange}
-	        			contentEditable
-	        			onChange={this.handleChange}
-	        			placeholder="Write a Comment...">
-            		</div>
-					<div className="col-md-2 button tf-comment-button" onClick = {this.postComment}> Add Comment </div>
-				</div>
+				<div>
+					<div className="col-md-12 tf-comment-add">
+						<div ref="comment" id="editable" className="col-md-10 inputor" contentEditable="true">				             
+		  				</div>
+		  				<div id="edit-comment-staging-div" className="hidden" style={{display:'none'}}></div>
+	  					<div className="col-md-2 button tf-comment-button" onClick = {this.postComment}> Add Comment </div>
+  					</div>
+  				</div>
 			);
 		} else {
 			return (<div></div>);
-		}
-		
+		}		
 	},
 
-	_onChange: function() {
-		this.setState(getAppState());
+	_onChange: function() {		
+		this.setState(getAppState());		
+		this.addUserTagginng();
 	}
 });
 
