@@ -73,6 +73,16 @@ var PostDetailHeader = React.createClass({
     }
     return (voteHtml);
   },
+
+  personOrPeople: function(post) {
+    if (getLength(post.votes) === 1) {
+      return ("person");
+    }
+    else {
+      return ("people");
+    }
+  },
+
   /*getInitialState: function() {
     return {isPlaying:false, isUpvoted:false, hasUpvoted:false};
   },*/
@@ -138,8 +148,8 @@ var PostDetailHeader = React.createClass({
                       <div className="col-xs-6">
                         <div >
                           <i className="glyphicon glyphicon-fire tf-social-icons"></i> 
-                          <span>&nbsp;<b>{voteCount = getLength(post.votes)} &nbsp;people</b></span>
-                          <span>&nbsp;&nbsp;upvoted</span>
+                          <span>&nbsp;<b>{voteCount = getLength(post.votes)} {this.personOrPeople(post)}</b></span>
+                          <span>&nbsp;upvoted</span>
                         </div>
                         <div className="tf-auther-panel">         
                           {this.renderVotes(post)}                     
