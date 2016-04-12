@@ -8,6 +8,7 @@
  */
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 var Router = require('react-router');
 var Bootstrap = require('react-bootstrap');
 var ReactPropTypes = React.PropTypes;
@@ -91,12 +92,31 @@ var PostComment = React.createClass({
         return getAppState();
     },
 
+	processTaggedMembers: function(comment, taggedMembers) {
+		if(!comment && !taggedMembers)
+			return comment;
+
+		taggedMembers.forEach(function(taggedMember) {
+  			var user = taggedMember;  			
+  			var name = user.username;
+  			var regex;  			
+			var replace = "<a href = '/profile/" + user.id + "' class = 'tf-link'>" + user.username + "</a>";
+			
+			if( (comment.indexOf('@'+name) !== -1 ) || (comment.indexOf('@'+name) === 0 ) ){
+				regex = new RegExp('@'+name,"gm");
+				comment = comment.replace(regex, replace);
+			} else {
+				regex = new RegExp(name,"gm");
+				comment = comment.replace(regex, replace);
+			}
+  		});
+
+		comment = comment.replace(/(\r\n|\n|\r)/gm, '<br>');
+		return comment;
+	},
+
   	componentDidMount: function() {
-		PostStore.addChangeListener(this._onChange);
-		/*var height = document.getElementById('comment-text').offsetHeight;
-		var replyheight = document.getElementById('reply-comment-text').offsetHeight;
-        console.log('COMMENT HEIGHT ==== '+height);
-        console.log('REPLY COMMENT HEIGHT ==== '+replyheight);*/
+		PostStore.addChangeListener(this._onChange);		
 		React.render(
 			<CommentInput origin={this.props.origin} post_id = {this.props.post_id} />,
 			document.getElementById("comment-input-container")
@@ -105,14 +125,7 @@ var PostComment = React.createClass({
 
   	renderCommentText: function(comment) {
   		var comment_text = comment.comment_detail;
-
-  		for( key in comment.tagged_members ) {
-  			var user = comment.tagged_members[key];
-  			var html = "<Link to={'/profile/" + user.id + "'} className='tf-link'>" + user.username + "</Link>";
-  			var taggedHtml = "<a href = '/profile/" + user.id + "' class = 'tf-link'>" + user.username + "</a>";	
-
-  			comment_text = comment_text.replace("@" + user.username, taggedHtml);
-  		}
+  		comment_text = this.processTaggedMembers(comment_text, comment.tagged_members);
 
   		return (comment_text);
   	},
@@ -138,7 +151,7 @@ var PostComment = React.createClass({
 					<div className="col-md-3 tf-comment-time right">
 						<span className="tf-reply-btn" id={"reply-btn-" + comment.id} onClick = {this.renderCommentReplyInput}>
 							<img ref="replyBtn" src="../assets/img/reply-comment-icon.png"></img>
-						</span>						
+						</span>
 						<span className="">{moment(comment.created_at).fromNow()}</span>
 					</div>
 				</div>
@@ -170,9 +183,9 @@ var PostComment = React.createClass({
 			}
 		}
 
-		React.unmountComponentAtNode(document.getElementById('comment-input-container'));
+		ReactDOM.unmountComponentAtNode(document.getElementById('comment-input-container'));
 		
-		React.render(
+		ReactDOM.render(
 			<CommentReplyInput 
 				origin={this.props.origin} 
 				comment={comment} 
@@ -195,7 +208,6 @@ var PostComment = React.createClass({
     	for(key in replies) {
     		replyHtml.push(this.renderSingleReply(replies[key],key,length));
     	}
-    	//console.log("reply HTML",replyHtml);
     	
     	return replyHtml;
     },

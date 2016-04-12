@@ -2,20 +2,16 @@ class UsersController < ApplicationController
 
   def index
     
-    @offset = params[:offset].to_i
-    @limit = params[:limit].to_i
+    @offset = params[:offset] != nil ? params[:offset].to_i : 0
+    @limit = params[:limit] != nil ? params[:limit].to_i: 100
 
-    page = params[:page].to_i
-    page_count = params[:limit].to_i
+    page = params[:page].to_i != nil ? params[:page].to_i : 1
+    page_count = params[:limit] != nil ? params[:limit].to_i: 10
 
-    logger.info "PAGE_COUNT"
-    logger.info @offset
-
-    @offset = params[:page] ? (page - 1) * page_count : @offset;
-
-    logger.info "PAGE_COUNT"
-    logger.info @offset
-
+    @offset = params[:page] != nil ? (page - 1) * page_count : @offset;
+    total_count = 0
+    
+    @users = []
     if( params[:search_key] != nil )
       @search_key = params[:search_key]
       @users = User.where("lower(username) like ?", ('%'+@search_key.downcase+'%')).order(created_at: :desc).ranking.offset(@offset).limit(@limit)

@@ -2321,7 +2321,6 @@ label.ownsong-label {
     position: absolute;
 }
 .tf-comment-add{
-	background: #262626 none repeat scroll 0 0;
     border-radius: 5px;
     color: white;
     cursor: text;
@@ -2334,7 +2333,7 @@ label.ownsong-label {
 	height: 36px;
     padding-top: 9px;
     position: absolute;
-    right: 0px;
+    margin-left: 5px;
     text-align: center;
     top: 0px;
     width: 135px !important;
@@ -3424,4 +3423,39 @@ body .popover{
 .tf-notification-right-panel .leaderboard{
 	background-color: #1f1f1f;
     border-radius: 5px;
+}
+
+.inputor {  
+  width: 90%;
+  border: 1px solid #dadada;
+  border-radius: 4px;
+  padding: 5px 8px;
+  outline: 0 none;
+  margin: 0pc;
+  background: WHITE;
+  color: BLACK;
+  font-size: inherit;
+  overflow-y: auto;
+  cursor: text;
+  height: 37px;
+}
+
+.inputor:focus {
+  border: 1px solid rgb(6, 150, 247);
+}
+
+ul.doc {
+  list-style:none;
+}
+
+ul.doc li {
+  display:inline-block;
+  margin: 0 10px;
+}
+
+.atwho-inserted {
+	background: LIGHTGRAY;
+    height: 15px !important;
+    padding: 3px;
+    border-radius: 4px;
 }

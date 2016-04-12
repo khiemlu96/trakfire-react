@@ -8,12 +8,16 @@
  */
 
 var React = require('react');
+var ReactDOM = require('react-dom'); 
 var Router = require('react-router');
 var Bootstrap = require('react-bootstrap');
 var ReactPropTypes = React.PropTypes;
 var Link = Router.Link;
+var UserStore = require('../stores/UserStore.js');
 var PostActions = require('../actions/PostActions.js');
 var CommentInput = require('./CommentInput.jsx');
+var Reqwest = require('reqwest');
+
 var tagged_members = [];
 function convertHtmlToText(inputText) {
     var returnText = "" + inputText;
@@ -61,20 +65,81 @@ var CommentReplyInput = React.createClass({
 
 	getInitialState: function() {
 		var self = this;
-		self.tagged_members = [];	
+		self.tagged_members = [];
         return {
         	reply_text: '',
             comment : this.props.comment,
-            post_id : this.props.post_id
+            post_id : this.props.post_id,
+            memberCollection: UserStore.getAllUsers()
         };
     },
 
-	onChange: function(event) {
+    addUserTagginng: function() {
         var self = this;
 
-        self.setState({
-            reply_text : event.target.value
+        var memberData = $.map(self.state.memberCollection, function(value, i) {
+            return {
+                'id':i,
+                'userId':value.id,
+                'name':value.name,
+                'email':value.email
+            };
         });
+
+        var at_config = {
+            at: "@",
+            data: memberData,
+            headerTpl: '<div className="atwho-header">Member List<small>↑&nbsp;↓&nbsp;</small></div>',
+            insertTpl: "<span member_id='${userId}' data-value='${name}' class='member'>${name}</span>",
+            displayTpl: "<li data-value='${name}' member_id='${userId}'>${name}  (<small>${email}</small>)</li>",
+            limit: 10,
+            callbacks: {
+                beforeInsert: function(value, $li, e) { 
+                    var sn = $li[0].attributes["data-value"].value;
+                    sn = sn.replace('@', '');
+                    var mem_id = $li[0].attributes.member_id.value;
+                    var user = {username: sn, user_id: mem_id};
+
+                    self.tagged_members.push(user);
+
+                    return value;
+                },
+                remoteFilter: function(params, callback) {                  
+                    var passback = [];                  
+                    var data = {
+                        limit: 20,
+                        search_key: params
+                    };
+
+                    var url = self.props.origin+'/users';
+                    Reqwest({
+                        url: url,
+                        type: 'json',
+                        method: 'GET',
+                        data: data,
+                        contentType: 'application/json',
+                        headers: {'Authorization': localStorage.getItem('jwt')},
+                        success: function(resp) { 
+                            if(resp.users.length > 0 ) {
+                                resp.users.forEach( function(user) {
+                                    passback.push({
+                                        'userId':user.id,
+                                        'name':user.username,
+                                        'email':user.email
+                                    });
+                                });
+                                callback(passback);
+                            }
+                        },
+                        error: function(error) {
+                            console.error(url, error['response']);
+                        }
+                    });
+                }
+            }
+        };
+
+        $('#editable_reply').atwho(at_config);
     },
 
     shouldComponentUpdate: function(nextProps){
@@ -90,19 +155,36 @@ var CommentReplyInput = React.createClass({
 	    this.setState({reply_text: event.target.innerHTML});
 	},
 
-	postCommentReply: function() {
-		var self = this;
-		var comment_id = self.props.comment.id;
-		var postid = self.props.post_id;
-		
-		var comment_text = convertHtmlToText(self.state.reply_text.trim());
-		var data = {};
+    componentDidMount: function() {
+        currUser = this.props.currUser;
+        this.addUserTagginng();
+    },
 
-		if(comment_text !== "") {
+	postCommentReply: function() {
+        var self = this;
+        var comment_id = self.props.comment.id;
+        var postid = this.props.post_id;
+
+        var commentContent = self.refs.comment_reply.innerHTML.replace(/[<]br[^>]*[>]/gi,"\n");
+        var comment_text = commentContent.replace(/\&nbsp;/g," ");
+        comment_text = comment_text.replace(/<p>&nbsp;<\/p>/gi,'\n').replace(/<p>/gi,'').replace(/<\/p>/gi,'\n');
+
+        var $stagingDiv = $('#edit-comment-reply-staging-div');
+
+        //Replace user tags with text
+        $stagingDiv.html(comment_text);
+        $stagingDiv.find('.atwho-inserted').each(function(){
+            $(this).replaceWith('@' + $(this).find('.member').text() + " ");
+        });
+
+        var comment_body = $stagingDiv.html();
+        var data = {};
+
+		if(comment_body !== "") {
 		  	data['comment'] = {};
 			data['comment']['post_id'] = postid;
 			data['comment']['parent_id'] = comment_id;
-			data['comment']['comment_detail'] = comment_text;
+			data['comment']['comment_detail'] = comment_body;
 			data['comment']['tagged_members'] = self.tagged_members;
 			PostActions.postComment(self.props.origin + '/comments', data);
 
@@ -110,8 +192,9 @@ var CommentReplyInput = React.createClass({
 				reply_text : ''
 			});
 
-		  	React.unmountComponentAtNode(document.getElementById('comment-input-container'));
-			React.render(
+		  	ReactDOM.unmountComponentAtNode(document.getElementById('comment-input-container'));
+			
+            React.render(
 				<CommentInput origin={this.props.origin} post_id = {this.props.post_id} />,
 				document.getElementById("comment-input-container")
 			);
@@ -120,42 +203,24 @@ var CommentReplyInput = React.createClass({
 
 	render: function() {
 		var self = this;
+		var comment_user = "@" + this.props.comment.user.username;
 
-		var comment_user = "@" + this.props.comment.user.username + " ";
+        var user = {
+            username: this.props.comment.user.username, 
+            user_id: this.props.comment.user.id
+        };
+		self.tagged_members.push(user);
 
-		if( self.tagged_members.indexOf(this.props.comment.user.id) === -1 ) {
-			self.tagged_members.push(this.props.comment.user.id);
-		}
+        var user_tag =  <span className="atwho-inserted" data-atwho-at-query="@"><span member_id={this.props.comment.user.id} data-value={this.props.comment.user.username} className = "member">
+                            {this.props.comment.user.username}
+                        </span></span>;
 
-		var user_name = <span id = {"tag_user_" + this.props.comment.user.id}
-							contentEditable = "false"
-							className="tf-link">{comment_user}
-						</span>;
 		return (
 			<div className="col-md-12 tf-comment-add">
-				<div className="tf-comment-input-box">
-                    <a href={"/profile/" + this.props.currUser.id} className="tf-link">
-                      <img src={this.props.currUser.img} className="tf-author-img"> </img>
-                    </a>
-              	</div>
-				{/*<input
-						       		id = {"reply-comment-" + this.props.comment.id} 
-						       		className="col-md-7" 
-						       		type="text"
-						       		placeholder="Reply a Comment..."
-						       		value = {this.state.reply_text}
-						       		onChange = {this.onChange}>
-				       			</input>*/}
-				   			
-       			<div id = {"reply-comment-" + this.props.comment.id}
-       				className="col-md-10 tf-comment-input"
-					ref="comment"
-        			onInput={this.emitChange} 
-        			onBlur={this.emitChange}
-        			contentEditable
-        			onChange={this.handleChange}>
-        				{user_name}<br/>
-        		</div>
+                <div ref="comment_reply" id="editable_reply" className="col-md-10 inputor" contentEditable="true">
+                    {user_tag}&nbsp;
+                </div>
+                <div id="edit-comment-reply-staging-div" className="hidden" style={{display:'none'}}></div>			
    				<div className="col-md-2 button tf-comment-reply-button" onClick = {this.postCommentReply}> Add Reply 
    				</div>
    			</div>
