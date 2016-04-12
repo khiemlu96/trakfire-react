@@ -39,6 +39,7 @@ var _persist = false;
  * Retrieve the current post and user data from the PostStore
  */
 function getAppState() {
+  console.log("A CHANGE IN USER OR POST STORE");
   return {
     allPosts: PostStore.getAll(),
     currentUser: UserStore.getCurrentUser(),
@@ -95,7 +96,7 @@ var TrakfireApp = React.createClass({
     var jwt = new Uri(location.search).getQueryParamValue('jwt');
     //console.log('JWT: ', jwt, !!jwt);
     if (!!jwt) {
-      //console.log('SET SESSION W JWT');
+      console.log('SET SESSION W JWT');
       localStorage.setItem('jwt', jwt);
     } 
   },
@@ -238,7 +239,7 @@ var TrakfireApp = React.createClass({
     var track = this.state.currTrack;
     var user = this.state.currentUser;
     console.log("USERRR", user, "TRACKKK", track);
-    if(user && track)
+    if(user && track && track.votes)
       var exists = track.votes.indexOf(user.id);
     else 
       var exists = -1;

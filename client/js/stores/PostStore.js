@@ -124,6 +124,10 @@ function _addPost(rawPost) {
   var post = PostUtils.convertRawPost(rawPost);
   _current_new_post = post;
   //if(post.status == "approved")
+  if(_posts["dummy"]) {
+    delete _posts["dummy"];
+  }
+  
   _posts[rawPost.id] = post; //PostUtils.convertRawPost(rawPost);
   _songs = getSongList(_posts);
 }
@@ -133,7 +137,7 @@ function _addLocalPost(rawPost){
   var post = PostUtils.convertRawLocalPost(rawPost);
   _current_new_post = post;
   //if(post.status == "approved")
-  _posts[1000] = post; //PostUtils.convertRawPost(rawPost);
+  _posts["dummy"] = post; //PostUtils.convertRawPost(rawPost);
   _songs = getSongList(_posts);
 }
 

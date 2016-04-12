@@ -99,6 +99,10 @@ var NavBar = React.createClass({
     searchkey:ReactPropTypes.string
   },
 
+  componentDidMount: function() {
+    console.log("NAV PROPS", this.props);
+  }, 
+  
   handleSignOut: function() {
     localStorage.setItem('jwt','');
   },

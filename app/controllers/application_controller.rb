@@ -8,7 +8,7 @@ class ApplicationController < ActionController::API
 
   def current_user
     logger.info "Current User Requested"
-    logger.info @current_user
+    logger.info @current_user.username
     logger.info @current_user.posts
 
     @followers = Follower.where(follow_id: @current_user.id)

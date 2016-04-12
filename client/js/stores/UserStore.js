@@ -143,7 +143,7 @@ var UserStore = assign({}, EventEmitter.prototype, {
   }, 
 
   isSignedIn: function() {
-    //console.log('USER IS SIGNED IN?', _user ? true : false);
+    console.log('USER IS SIGNED IN?', _cUser ? true : false);
     return _cUser ? true : false;
   },
 
