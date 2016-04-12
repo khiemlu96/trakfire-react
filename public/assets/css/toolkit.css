@@ -5308,7 +5308,7 @@ button.close {
 }
 .popover.bottom > .arrow {
   left: 50%;
-  margin-left: -35px;
+  margin-left: -10px;
   border-top-width: 0;
   border-bottom-color: #99a9b5;
   border-bottom-color: #d4dbe0;
