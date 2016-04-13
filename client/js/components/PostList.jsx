@@ -90,8 +90,10 @@ function getLength(a) {
 function toArray(obj) {
   var array = [];
   for(key in obj) {
-    array.push(obj[key]);
+    if(obj[key].id !== undefined)
+      array.push(obj[key]);
   }
+
   return array.sort(compareCreatedAt);
 }
 
@@ -347,7 +349,7 @@ var PostsList = React.createClass({
         container.push(dateHeader);
         
         var array = toArray(posts[dates[date]]).sort(sortScore);
-        //console.log("THE ARRAY", array);
+      
         for(key in array) {
           if(isLoggedIn){
             var isUpvotedByUser = this.hasUpvoted(array[key], user.id);
@@ -412,7 +414,7 @@ var PostsList = React.createClass({
    */
   render: function() {
     var posts = this.props.posts;
-    
+  
     var postsByDate = sortPostsByDate(posts); //sort posts into date keyed dict + array of date str for the headers
     //console.log("PDBD", postsByDate, posts);
     var dates = postsByDate[0].sort(sortDate); //sort dates in decending order

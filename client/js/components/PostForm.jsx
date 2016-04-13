@@ -124,13 +124,13 @@ var PostForm = React.createClass({
   	  	  
         <OverlayTrigger trigger="click" rootClose placement="bottom"
            overlay={ 
-                     <Popover style={PostStyle} id="PostForm" className="tf-post-trak-popup"> 
-                       <span style={SpanStyle}>
+                     <Popover style={PostStyle} id="PostForm"> 
+                       {/*<span style={SpanStyle}>*/}
                          {postStep}
-                       </span>
+                       {/*</span>*/}
                      </Popover>
                    }>
-           <a href="#"> POST </a>
+           <a href="#"> + POST </a>
          </OverlayTrigger>
         {/*</span>*/}
 	   </li>
