@@ -35,7 +35,7 @@ function convertHtmlToText(inputText) {
     returnText = returnText.replace(/<script.*>[\w\W]{1,}(.*?)[\w\W]{1,}<\/script>/gi, "");
     returnText = returnText.replace(/<style.*>[\w\W]{1,}(.*?)[\w\W]{1,}<\/style>/gi, "");
     //-- remove all else
-    returnText = returnText.replace(/<(?:.|\s)*?>/g, "");
+    //returnText = returnText.replace(/<(?:.|\s)*?>/g, "");
 
     //-- get rid of more than 2 multiple line breaks:
     returnText = returnText.replace(/(?:(?:\r\n|\r|\n)\s*){2,}/gim, "\n\n");
@@ -43,10 +43,10 @@ function convertHtmlToText(inputText) {
     //-- get rid of more than 2 spaces:
     returnText = returnText.replace(/ +(?= )/g,'');
 
-    //-- get rid of html-encoded characters:
-    returnText = returnText.replace(/&nbsp;/gi," ");
-    returnText = returnText.replace(/&amp;/gi,"&");
-    returnText = returnText.replace(/&quot;/gi,'"');
+    ////-- get rid of html-encoded characters:
+    //returnText = returnText.replace(/&nbsp;/gi," ");
+    //returnText = returnText.replace(/&amp;/gi,"&");
+    //returnText = returnText.replace(/&quot;/gi,'"');
     returnText = returnText.replace(/&lt;/gi,'<');
     returnText = returnText.replace(/&gt;/gi,'>');
 
@@ -89,7 +89,7 @@ var CommentReplyInput = React.createClass({
         var at_config = {
             at: "@",
             data: memberData,
-            headerTpl: '<div className="atwho-header">Member List<small>↑&nbsp;↓&nbsp;</small></div>',
+            headerTpl: null,
             insertTpl: "<span member_id='${userId}' data-value='${name}' class='member'>${name}</span>",
             displayTpl: "<li data-value='${name}' member_id='${userId}'>${name}  (<small>${email}</small>)</li>",
             limit: 10,
@@ -97,14 +97,31 @@ var CommentReplyInput = React.createClass({
                 beforeInsert: function(value, $li, e) { 
                     var sn = $li[0].attributes["data-value"].value;
                     sn = sn.replace('@', '');
-                    var mem_id = $li[0].attributes.member_id.value;
-                    var user = {username: sn, user_id: mem_id};
+                    var member_id = $li[0].attributes.member_id.value;
+                    var user = {username: sn, user_id: member_id};
 
-                    self.tagged_members.push(user);
+                    var if_exists = false;
+                    self.tagged_members.forEach(function(tagged_member) {
+                        if(member_id === tagged_member.user_id) {
+                            if_exists = true;
+                        }
+                    });
+                    
+                    if(!if_exists) {
+                        self.tagged_members.push(user);
+                    }
 
                     return value;
                 },
-                remoteFilter: function(params, callback) {                  
+                beforeReposition: function(offset) {
+                    self.removeEmptyMsg();
+                    var correctOffset = $('#editable_reply').offset();
+                    offset.top = correctOffset.top + $('#editable_reply').height() + parseInt($('#editable_reply').css('paddingTop'), 10) + parseInt($('#editable_reply').css('paddingBottom'), 10) + parseInt($('#editable_reply').css('borderTopWidth'), 10) + parseInt($('#editable_reply').css('borderBottomWidth'), 10);
+                    
+                    return offset;
+                },
+                remoteFilter: function(params, callback) {
+                    self.removeEmptyMsg();              
                     var passback = [];                  
                     var data = {
                         limit: 20,
@@ -127,9 +144,14 @@ var CommentReplyInput = React.createClass({
                                         'name':user.username,
                                         'email':user.email
                                     });
-                                });
-                                callback(passback);
+                                });                             
                             }
+                            if(passback.length === 0) {
+                                self.removeEmptyMsg();
+                                $("body").append("<div class='empty-msg-atwho'>No Results</div>");
+                                $(".empty-msg-atwho").css('top', $("#editable_reply").offset().top + $("#editable_reply").height() + parseInt($('#editable_reply').css('paddingTop'), 10) + parseInt($('#editable_reply').css('paddingBottom'), 10) + parseInt($('#editable_reply').css('borderTopWidth'), 10) + parseInt($('#editable_reply').css('borderBottomWidth'), 10)).css('left', $("#editable_reply").offset().left);
+                            }
+                            callback(passback);
                         },
                         error: function(error) {
                             console.error(url, error['response']);
@@ -138,8 +160,31 @@ var CommentReplyInput = React.createClass({
                 }
             }
         };
-
         $('#editable_reply').atwho(at_config);
+    },
+
+    removeEmptyMsg: function() {
+        $(".empty-msg-atwho").remove();
+    },
+
+    handleBackspace: function(event) {
+        var keyCode = event.keyCode;
+
+        var tagged_members = [];
+        
+        if ( keyCode === 8 || keyCode === 46 ) {           
+            if( $("#editable_reply").children('span').length > 0 ) {  
+                $.each($(".member"), function(index, item) {
+                    var member_id = parseInt($(item).attr('member_id'));
+                    var name = $(item).attr('data-value');
+
+                    tagged_members.push({
+                        username: name, user_id: member_id
+                    });
+                });
+                this.tagged_members = tagged_members;             
+            }
+        }
     },
 
     shouldComponentUpdate: function(nextProps){
@@ -177,7 +222,8 @@ var CommentReplyInput = React.createClass({
             $(this).replaceWith('@' + $(this).find('.member').text() + " ");
         });
 
-        var comment_body = $stagingDiv.html();
+        var comment_body = convertHtmlToText($stagingDiv.html());
+        console.log("-----------tagged_members2-----------", self.tagged_members);
         var data = {};
 
 		if(comment_body !== "") {
@@ -216,12 +262,20 @@ var CommentReplyInput = React.createClass({
                         </span></span>;
 
 		return (
-			<div className="col-md-12 tf-comment-add">
-                <div ref="comment_reply" id="editable_reply" className="col-md-10 inputor" contentEditable="true">
-                    {user_tag}&nbsp;
+			<div className="col-md-11 tf-comment-add">
+                <div className="col-md-10 tf-comment-inner-div">
+                    <div className="tf-comment-input-box">
+                        <a href={"/profile/" + this.props.currUser.id} className="tf-link">
+                            <img src={this.props.currUser.img} className="tf-author-img" />
+                        </a>
+                    </div>
+                    <div ref="comment_reply" id="editable_reply" className="col-md-12 inputor" contentEditable="true"  onKeyUp={this.handleBackspace}>
+                        {user_tag}&nbsp;
+                    </div>
                 </div>
+
                 <div id="edit-comment-reply-staging-div" className="hidden" style={{display:'none'}}></div>			
-   				<div className="col-md-2 button tf-comment-reply-button" onClick = {this.postCommentReply}> Add Reply 
+                <div className="col-md-2 button tf-comment-reply-button" onClick = {this.postCommentReply}> Add Reply 
    				</div>
    			</div>
 		);
