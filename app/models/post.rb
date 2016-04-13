@@ -1,4 +1,5 @@
 class Post < ActiveRecord::Base
+	include AlgoliaSearch
 	belongs_to :user
 	has_one :song, :dependent => :destroy
 	has_many :votes, :dependent => :delete_all
@@ -7,6 +8,10 @@ class Post < ActiveRecord::Base
 	has_many :tags, through: :taggings, :dependent => :delete_all
 	validates :url, uniqueness: true
 	validates_presence_of :url
+
+	algoliasearch do
+    	#all attr
+  	end
 
 	def all_tags=(names)
 	  self.tags = names.split(",").map do |name|

@@ -16,8 +16,9 @@ var Link = require('react-router').Link;
 var classNames = require('classnames');
 var UserFlyOver = require('./UserFlyOver.jsx');
 
-var isPlaying = classNames("tf-post-item is-playing");
-var isNotPlaying = classNames("tf-post-item");
+var isPlaying = classNames("tf-media-thumbnail-overlay playing");
+var isPaused = classNames("tf-media-thumbnail-overlay paused");
+var isNotPlaying = classNames("tf-media-thumbnail-overlay");
 var isFirstPlaying = classNames("tf-post-item--first is-playing");
 var isFirstNotPlaying = classNames("tf-post-item--first");
 var isUpvoted = classNames("tf-post-item--votes is-upvoted");
@@ -116,12 +117,15 @@ var PostListItem = React.createClass({
     this.props.onClick(this.props.post.stream_url, this.props.post, idx);
 
     var overlay = this.refs.overlay.getDOMNode();
+    var bg = this.refs.overlaybg.getDOMNode();
     console.log("OVERLAY", overlay);
     if(!this.state.isPlaying) {
       overlay.className = playing;
+      bg.className = isPlaying;
       this.setState({isPlaying:true});
     } else {
       overlay.className = paused;
+      bg.className = isNotPlaying;
       this.setState({isPlaying:false});
     }
 
@@ -210,7 +214,7 @@ var PostListItem = React.createClass({
             </span>
             <a href="#" className="tf-media-wrap" onClick={this.playPauseTrack}>
               <img className="media-object tf-media-thumbnail" width="64" src={post.img_url} alt="..."></img>
-              <div className="tf-media-thumbnail-overlay"><span className={paused} ref="overlay"></span></div>
+              <div className="tf-media-thumbnail-overlay" ref="overlaybg"><span className={paused} ref="overlay"></span></div>
             </a>
           </div>
           <div className="media-body">
