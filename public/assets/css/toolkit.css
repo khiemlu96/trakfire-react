@@ -5258,7 +5258,7 @@ button.close {
   border-radius: 5px 5px 0 0;
 }
 .popover-content {
-  padding: 9px 14px;
+  padding: 0px 14px;
 }
 .popover > .arrow,
 .popover > .arrow:after {
@@ -8017,8 +8017,9 @@ fieldset[disabled] .btn-danger-outline.active {
   box-shadow: none !important;
 }
 .navbar-btn-avitar img {
-  height: 35px;
-  width: 35px;
+  height: 30px;
+  width: 30px;
+  margin-top: 4px;
 }
 .nav-bordered > li {
   float: left;

@@ -130,7 +130,7 @@ var PostForm = React.createClass({
                        </span>
                      </Popover>
                    }>
-           <a href="#"> POST </a>
+           <a href="#"> + POST </a>
          </OverlayTrigger>
         {/*</span>*/}
 	   </li>

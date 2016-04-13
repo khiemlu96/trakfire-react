@@ -2545,10 +2545,15 @@ label.ownsong-label {
 	color: #ff0d60;
 	font-size: 18px;
 	top: 5px;
-	padding-left: 15px;
-	padding-right: 15px;
+	padding-left: 0px;
+	padding-right: 0px;
 	cursor: pointer;
 }
+
+.tf-menu-link:hover{
+	color:#fff;
+}
+
 body .popover{
 	color: #ffffff;
     font-family: "Benton Sans Black",sans-serif;
@@ -2571,26 +2576,36 @@ body .popover{
 
 .popover h6{
 	color: #ffffff;
-    padding: 5px;
+    padding-top: 1px;
     font-size: 10px !important;
     font-weight: normal;
+}
+
+.popover h6:hover{
+	color:#ff0d60;
 }
 
 .popover .tf-sign-out-link h6{
 	color: #ff0d60 !important;
 }
+
+.popover .tf-sign-out-link h6:hover{
+	color: #fff !important;
+}
+
 .tf-menu-popup .popover-content{
 	padding: 0px !important;
 }
 .tf-menu-popup-list-item{
-	height: 55px;
-	padding: 2px 0px 0px 6px;
+	height: 40px;
+	padding: 2px 2px 0px 6px;
     border-bottom: 1px solid #2b2b2b;
     cursor: pointer;
 }
 .tf-menu-popup h6{
 	color: #ffffff;
 	padding: 10px;
+
 }
 .popover .arrow{
 	border-bottom-color: #1c1c1c !important;
@@ -3360,7 +3375,7 @@ body .popover{
     width: 0;
 }
 
-.tf-loader{
+.tf-loader {
 	text-align: center;
 	position:fixed;
 	top:0px;
@@ -3382,7 +3397,7 @@ body .popover{
 	position: fixed;
 }
 
-.tf-loader-small{
+.tf-loader-small {
 	text-align: center;
 	position:fixed;
 	top:0px;
@@ -3416,12 +3431,12 @@ body .popover{
 	text-align: center;
 }
 
-.tf-notification-right-panel h5{
+.tf-notification-right-panel h5 {
 	margin-top: 0px !important;
 	padding-top: 5px !important;
 }
 
-.tf-notification-right-panel .leaderboard{
+.tf-notification-right-panel .leaderboard {
 	background-color: #1f1f1f;
     border-radius: 5px;
 }

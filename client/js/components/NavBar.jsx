@@ -38,7 +38,7 @@ var searchButtonStyle = {
 }
 
 var searchBoxStyle = {
-    backgroundColor: '#161616',
+    backgroundColor: '#fff',
     border: '1px solid #2b2b2b',
     left: '0 !important',
     marginLeft: '2%',
@@ -194,8 +194,7 @@ var NavBar = React.createClass({
     return <OverlayTrigger trigger="click" rootClose placement="bottom" 
               overlay={
                   <Popover >
-                     <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/leaderboard'}><h6>LEADERBOARD</h6></Link></div>                       
-                     <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/about'}><h6>ABOUT TRAKFIRE</h6></Link></div>
+                     <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/about'}><h6>ABOUT</h6></Link></div>
                      <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/privacy'}><h6>PRIVACY POLICY</h6></Link></div>
                      <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/terms'}><h6>TERMS OF USE</h6></Link></div>
                      <div onClick = {this.closeModal}> {adminConsoleLink} </div>
