@@ -58,18 +58,17 @@ var PostDetailHeader = React.createClass({
 
   renderVotes: function(post) {
     var votes = post.votes;
+
     var voteHtml = [];
     for(key in votes) {
-      if(votes[key].user.id != post.author_id) {
-        voteHtml.push(
-          /*<a className="tf-link" href={"/profile/" + votes[key].user.id} >
-            <img className="tf-author-img" src={votes[key].user.img} />
-          </a>*/
-          <Link to={'/profile/'+votes[key].user.id}> 
-            <UserFlyOver user = {votes[key].user} origin={this.props.origin} />
-          </Link>
-        );
-      }                              
+      voteHtml.push(
+        /*<a className="tf-link" href={"/profile/" + votes[key].user.id} >
+          <img className="tf-author-img" src={votes[key].user.img} />
+        </a>*/
+        <Link to={'/profile/'+votes[key].user.id}> 
+          <UserFlyOver user = {votes[key].user} origin={this.props.origin} />
+        </Link>
+      );                            
     }
     return (voteHtml);
   },
