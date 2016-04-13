@@ -18,7 +18,12 @@ var Link = require('react-router').Link;
 var classNames = require('classnames');
 var UserFlyOver = require('./UserFlyOver.jsx');
 
-
+var FollowButtonStyle = {
+  backgroundColor: 'transparent' 
+}
+var FollowingButtonStyle = {
+  backgroundColor: '#ff0d60' 
+}
 var LeaderBoardItem = React.createClass({
 
   propTypes: {
@@ -80,9 +85,8 @@ var LeaderBoardItem = React.createClass({
 	        <img className="media-object img-circle" src={user.img}></img>
 	      </Link>
 	      <div className="media-body">
-	        <button className="btn btn-primary-outline btn-sm pull-right" onClick={this.followClick}>
-	         {this.state.isFollowing ? "Following" : "Follow"}
-	        </button>
+	        <button className="btn btn-primary-outline btn-sm pull-right" style={this.state.isFollowing ? FollowingButtonStyle : FollowButtonStyle} onClick={this.followClick}>{this.state.isFollowing ? "Following" : "Follow"}
+          </button>
 	        <strong><Link to={profileLink} className="nd">{ user.name }</Link></strong>
 	        <br></br>
 	        <small>{ user.score ? user.score : 0 }</small>

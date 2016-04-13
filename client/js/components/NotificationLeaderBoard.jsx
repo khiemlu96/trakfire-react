@@ -18,69 +18,72 @@ var UserFlyOver = require('./UserFlyOver.jsx');
 var NotificationLeaderBoardItem = require('./NotificationLeaderBoardItem.jsx');
 
 function getComponentState() {
-  return {
-    users: UserStore.getAllUsers(),
-    currentUser: UserStore.getCurrentUser()
-  };
+    return {
+        users: UserStore.getAllUsers(),
+        currentUser: UserStore.getCurrentUser()
+    };
 }
 
 function sortByScore(a, b) {
-  if(a.score > b.score) return -1;
-  else if(a.score < b.score) return 1;
-  else if(a.score == b.score){
-    return -1;
-  }
+    if (a.score > b.score) return -1;
+    else if (a.score < b.score) return 1;
+    else if (a.score == b.score) {
+        return -1;
+    }
 }
 
 var NotificationLeaderBoard = React.createClass({
 
-  propTypes: {
-    origin: ReactPropTypes.string
-  }, 
+    propTypes: {
+        origin: ReactPropTypes.string
+    },
 
-  getInitialState: function() { return getComponentState(); }, 
+    getInitialState: function() {
+        return getComponentState();
+    },
 
-  componentDidMount: function() {
-    console.log(this.state.users);
-    UserStore.addChangeListener(this._onChange);
-    UserActions.getAllUsers(this.props.origin+'/users', {limit:5, offset:1});
-  },
+    componentDidMount: function() {
+        console.log(this.state.users);
+        UserStore.addChangeListener(this._onChange);
+        UserActions.getAllUsers(this.props.origin + '/users', {
+            limit: 5,
+            offset: 1
+        });
+    },
 
-  renderUserItems: function(sortedUsers) {
-    var leaderBoardItems = [];
-  
-    for(i in sortedUsers) {
-      var u = sortedUsers[i];
-      var uItem = <NotificationLeaderBoardItem user={u} origin={this.props.origin} currentUser={this.state.currentUser}/>
-      leaderBoardItems.push(uItem);
-    }
-    return leaderBoardItems;
-  }, 
+    renderUserItems: function(sortedUsers) {
+        var leaderBoardItems = [];
 
-  /**
-   * @return {object}
-   */
-  render: function() {
-    
-    var users = this.state.users;
-    [].sort.call(users, sortByScore)
-    var userItems = this.renderUserItems([].sort.call(users, sortByScore));
-    return (
-      <div>
-      <h5 className="tf-media-list-header">TASTEMAKERS</h5>
-      <ul className="media-list media-list-users list-group">
-        { userItems }
-      </ul>
-      </div>
+        for (i in sortedUsers) {
+            var u = sortedUsers[i];
+            var uItem = < NotificationLeaderBoardItem user = {u} origin = {this.props.origin} currentUser = {this.state.currentUser} />
+            
+            leaderBoardItems.push(uItem);
+        }
+
+        return leaderBoardItems;
+    },
+
+    /**
+     * @return {object}
+     */
+    render: function() {
+        var users = this.state.users;
+        [].sort.call(users, sortByScore)
+        var userItems = this.renderUserItems([].sort.call(users, sortByScore));
+        return ( <div>
+                    <h5 className = "tf-media-list-header"> TASTEMAKERS </h5> 
+                    <ul className = "media-list media-list-users list-group"> 
+                    {userItems} 
+                    </ul> 
+                </div>
     );
-  }, 
+},
 
-  _onChange: function() {
+_onChange: function() {
     this.setState(getComponentState());
-  }
+}
 
 });
 
 module.exports = NotificationLeaderBoard;
-
-

@@ -2664,12 +2664,15 @@ body .popover{
 
 .tf-follow-button{
 	position: absolute;
-    width: 75px;
-    height: 25px;
+    width: auto;
+    height: 30px;
     text-align: center;
     padding: 5px;
-    font-size: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-size: 11px;
     margin: 11px;
+    font-family: inherit !important;
 }
 
 .tf-notification-auther{
@@ -2905,7 +2908,7 @@ body .popover{
     border-radius: 50%;
     float: right;
     height: 16px !important;
-    left: -10px !important;
+    left: -20px !important;
     position: relative;
     top: -4px !important;
     width: 16px !important;
