@@ -2320,20 +2320,20 @@ label.ownsong-label {
     overflow-y: hidden;
     position: absolute;
 }
-.tf-comment-add{
-    border-radius: 5px;
+.tf-comment-add{    
     color: white;
-    cursor: text;
-    height: 35px;
-    padding-top: 3px;
+    background-color: #1f1f1f;
     text-align: left;
+    left: 35px;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
 }
 .tf-comment-reply-button,
 .tf-comment-button{
 	height: 36px;
     padding-top: 9px;
     position: absolute;
-    margin-left: 5px;
+    margin-left: 17px;
     text-align: center;
     top: 0px;
     width: 135px !important;
@@ -2358,9 +2358,7 @@ label.ownsong-label {
 .tf-comment-input-box {
 	position: absolute;
 	z-index: 10;
-	margin-right: 10px;
-	left: 10px;
-	top: 6px;
+	margin-top: 5px;
 }
 
 .tf-comment-input {
@@ -2390,6 +2388,7 @@ label.ownsong-label {
     text-align: right;;
     left: 10px !important;
     color: #4b4b4b;
+    paddin
 }
 
 .tf-reply-comment-profile,
@@ -2407,7 +2406,7 @@ label.ownsong-label {
 	height: calc(100% + 9px);
 	width: 2px;
 	position: absolute;
-	left: -24px;
+	left: 0px;
 	top: 27px;
 }
 
@@ -2417,21 +2416,22 @@ label.ownsong-label {
 	width: 2px;
 	position: absolute;
 	top: 7px;
-	left: 16px;
+	left: 25px;
 }
 
 .tf-comment-reply-hr-line{
 	height: 2px;
     width: 28px;
     background-color: #4a4848;
-    left: -28px;
+    left: -30px;
     top: 14px;
     position: relative;
 }
 
 .tf-reply-comment-profile {
-	margin-left: 15px;
+	margin-left: 0px;
 }
+
 .tf-user-profile-section {
 	padding-left: 5px !important;
 }
@@ -2443,7 +2443,7 @@ label.ownsong-label {
 }
 
 .tf-parent-comment-profile .tf-comment-text {
-	padding: 0px 0px 0px 60px;
+	padding: 0px 0px 0px 70px;
 	margin-top: -10px;
 }
 
@@ -2473,6 +2473,10 @@ label.ownsong-label {
 .tf-comment-reply-container {
 	margin-top: 10px;
 	margin-left: 25px;
+}
+
+.tf-reply-comment-profile .tf-comment-time {
+	padding-right: 0px !important;
 }
 
 .tf-current-trak-inner input{
@@ -3446,21 +3450,17 @@ body .popover{
 
 .inputor {  
   width: 90%;
-  border: 1px solid #dadada;
-  border-radius: 4px;
+  border: 1px solid #1f1f1f;
   padding: 5px 8px;
   outline: 0 none;
   margin: 0pc;
-  background: WHITE;
-  color: BLACK;
-  font-size: inherit;
+  background: #1f1f1f;
+  color: #cec8c8;
+  font-size: 14px;
   overflow-y: auto;
   cursor: text;
-  height: 37px;
-}
-
-.inputor:focus {
-  border: 1px solid rgb(6, 150, 247);
+  height: 35px;
+  margin-left: 20px;
 }
 
 ul.doc {
@@ -3474,7 +3474,40 @@ ul.doc li {
 
 .atwho-inserted {
 	background: LIGHTGRAY;
-    height: 15px !important;
-    padding: 3px;
-    border-radius: 4px;
+    height: 17px !important;
+    padding: 4px;
+    color: #1f1f1f;
+    font-size: 12px;
+    border-radius: 10px;
+}
+
+.atwho-view{
+	border-radius: 1px;
+	background: #DDD;
+	font-family: "Georgia", san-serif;
+	font-size: 13px;
+}
+
+.atwho-view ul {
+	width: 450px;
+}
+
+.empty-msg-atwho {
+  font-size: 13px;
+  background: #FFF;
+  padding: 6px;
+  background-color: LIGHTGRAY;
+  border: 1px solid #c1c1c1;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -moz-box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  -webkit-box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.25);
+  position: absolute;
+  height: 32px;
+  width: 450px;
+  z-index: 20004;
+  /* to show up over bimodal */
+  text-align: center;
 }

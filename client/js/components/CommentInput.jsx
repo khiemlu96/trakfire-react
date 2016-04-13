@@ -43,7 +43,7 @@ function convertHtmlToText(inputText) {
     returnText = returnText.replace(/<script.*>[\w\W]{1,}(.*?)[\w\W]{1,}<\/script>/gi, "");
     returnText = returnText.replace(/<style.*>[\w\W]{1,}(.*?)[\w\W]{1,}<\/style>/gi, "");
     //-- remove all else
-    returnText = returnText.replace(/<(?:.|\s)*?>/g, "");
+    //returnText = returnText.replace(/<(?:.|\s)*?>/g, "");
 
     //-- get rid of more than 2 multiple line breaks:
     returnText = returnText.replace(/(?:(?:\r\n|\r|\n)\s*){2,}/gim, "\n\n");
@@ -52,9 +52,9 @@ function convertHtmlToText(inputText) {
     returnText = returnText.replace(/ +(?= )/g,'');
 
     //-- get rid of html-encoded characters:
-    returnText = returnText.replace(/&nbsp;/gi," ");
-    returnText = returnText.replace(/&amp;/gi,"&");
-    returnText = returnText.replace(/&quot;/gi,'"');
+    //returnText = returnText.replace(/&nbsp;/gi," ");
+    //returnText = returnText.replace(/&amp;/gi,"&");
+    //returnText = returnText.replace(/&quot;/gi,'"');
     returnText = returnText.replace(/&lt;/gi,'<');
     returnText = returnText.replace(/&gt;/gi,'>');
 
@@ -95,25 +95,40 @@ var CommentInput = React.createClass({
 			limit: 10,
 			callbacks: {
 				beforeInsert: function(value, $li, e) {	
+					self.removeEmptyMsg();
 					var sn = $li[0].attributes["data-value"].value;
 					sn = sn.replace('@', '');
-					var mem_id = $li[0].attributes.member_id.value;
-					var user = {username: sn, user_id: mem_id};
+					var member_id = $li[0].attributes.member_id.value;
+					var user = {username: sn, user_id: member_id};
 
-					self.tagged_members.push(user);
-
+					var if_exists = false;
+					self.tagged_members.forEach(function(tagged_member) {
+						if(member_id === tagged_member.user_id) {
+							if_exists = true;
+						}
+					});
+					
+					if(!if_exists) {
+						self.tagged_members.push(user);
+					}					
 					return value;
 			  	},
-			  	afterMatchFailed: function() {
 
+			  	beforeReposition: function(offset) {
+			  		self.removeEmptyMsg();
+			  		var correctOffset = $('#editable').offset();
+			  		offset.top = correctOffset.top + $('#editable').height() + parseInt($('#editable').css('paddingTop'), 10) + parseInt($('#editable').css('paddingBottom'), 10) + parseInt($('#editable').css('borderTopWidth'), 10) + parseInt($('#editable').css('borderBottomWidth'), 10);
+			  		
+			  		return offset;
 			  	},
-			  	remoteFilter: function(params, callback) {			  		
+
+			  	remoteFilter: function(params, callback) {
+			  		self.removeEmptyMsg();
 			  		var passback = [];			  		
 					var data = {
 			            limit: 20,
 			            search_key: params
 			        };
-
 			        var url = self.props.origin+'/users';
 					Reqwest({
 						url: url,
@@ -130,9 +145,14 @@ var CommentInput = React.createClass({
 		      							'name':user.username,
 	      								'email':user.email
 									});
-								});
-								callback(passback);
+								});								
 							}
+							if(passback.length === 0) {
+								self.removeEmptyMsg();
+                                $("body").append("<div class='empty-msg-atwho'>No Results</div>");
+                                $(".empty-msg-atwho").css('top', $("#editable").offset().top + $("#editable").height() + parseInt($('#editable').css('paddingTop'), 10) + parseInt($('#editable').css('paddingBottom'), 10) + parseInt($('#editable').css('borderTopWidth'), 10) + parseInt($('#editable').css('borderBottomWidth'), 10)).css('left', $("#editable").offset().left);
+                            }
+                            callback(passback);
 						},
 						error: function(error) {
 							console.error(url, error['response']);
@@ -143,6 +163,30 @@ var CommentInput = React.createClass({
 		};
 
     	$('#editable').atwho(at_config);
+    },
+
+    removeEmptyMsg: function() {
+    	$(".empty-msg-atwho").remove();
+    },
+
+    handleBackspace: function(event) {
+    	var keyCode = event.keyCode;
+
+    	var tagged_members = [];
+    	
+    	if ( keyCode === 8 || keyCode === 46 ) {           
+			if( $("#editable").children('span').length > 0 ) {	
+				$.each($(".member"), function(index, item) {
+					var member_id = parseInt($(item).attr('member_id'));
+					var name = $(item).attr('data-value');
+
+					tagged_members.push({
+						username: name, user_id: member_id
+					});
+				});
+				this.tagged_members = tagged_members;			
+			}
+    	}
     },
 
     getUserCollection: function(data) {    	
@@ -173,13 +217,15 @@ var CommentInput = React.createClass({
 
 		//Replace user tags with text
 		$stagingDiv.html(comment_text);
-
 		$stagingDiv.find('.atwho-inserted').each(function(){
 			$(this).replaceWith('@' + $(this).find('.member').text() + " ");
 		});		
 
-		var comment_body = $stagingDiv.html();
+		var comment_body = convertHtmlToText( $stagingDiv.html() );
 		var data = {};
+
+		console.log("-----------comment_body-----------", comment_body);
+		console.log("-----------tagged_members2-----------", self.tagged_members);
 
 		if(comment_body !== "") {
 			data['comment'] = {};
@@ -213,8 +259,15 @@ var CommentInput = React.createClass({
 			
 			return (
 				<div>
-					<div className="col-md-12 tf-comment-add">
-						<div ref="comment" id="editable" className="col-md-10 inputor" contentEditable="true">				             
+					<div className="col-md-11 tf-comment-add">
+						<div className="col-md-10 tf-comment-inner-div" style={{display: 'block'}}>
+							<div className="tf-comment-input-box">
+								<a href={"/profile/" + this.state.currUser.id} className="tf-link">
+									<img src={this.state.currUser.img} className="tf-author-img" />
+								</a>
+							</div>
+							<div ref="comment" id="editable" className="col-md-12 inputor" contentEditable="true" onKeyUp={this.handleBackspace}>				             
+			  				</div>
 		  				</div>
 		  				<div id="edit-comment-staging-div" className="hidden" style={{display:'none'}}></div>
 	  					<div className="col-md-2 button tf-comment-button" onClick = {this.postComment}> Add Comment </div>

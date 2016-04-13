@@ -229,7 +229,7 @@ var PostComment = React.createClass({
 					</div>	
 					<div className="col-md-8 tf-user-profile-section">
 						<a className="tf-profile-link"> {reply.user.username}</a>
-						<span className="tf-user-tbio"> - Trakfire Founder. </span>
+						<span className="tf-user-tbio"> {reply.user.bio} </span>
 					</div>				
 					<div className="col-md-3 tf-comment-time right">				
 						<span className="">{moment(reply.created_at).fromNow()}</span>
