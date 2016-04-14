@@ -335,10 +335,10 @@ var TrakfireApp = React.createClass({
               <p className="tf-centered">Wanna become an influencer? <br></br> Request an invite and become part of the community. </p>
                 <Row>
                   <Col xs={6}>
-                    <Input type="text" ref="nameField" label="Full Name" placeholder="First Last" />
+                    <Input type="text" ref="nameField" label="SoundCloud" placeholder="@soundcloud" />
                   </Col>
                   <Col xs={6}>
-                    <Input type="text" ref="handleField" label="Twitter Handle" placeholder="@handle" />
+                    <Input type="text" ref="handleField" label="Twitter Handle" placeholder="@twitter" />
                   </Col>
                 </Row>
                 <Row>
@@ -348,20 +348,20 @@ var TrakfireApp = React.createClass({
                 </Row>
                 <Row>
                   <Col xs={12}>
-                    <Input label="Five favorite emerging artists" >
-                      <textarea ref="artistField" placeholder="pure fire artists here" ></textarea>
-                    </Input>
+                    <Input type="text" ref="sc1" label="Track 1" placeholder="pure fire" />
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={12}>
-                    <Input label="Why do you deserve an invite?">
-                      <textarea ref="statementField" placeholder="why you're pure fire here" ></textarea>
-                    </Input>
+                    <Input type="text" ref="sc2" label="Track 2" placeholder="purer fire" />
                   </Col>
                 </Row>
-                <a href="#" className="btn tf-btn-rd btn-block" onClick={this.sendUserApplication}> Finish Account </a>
-                <a href="#" className="btn btn-link tf-btn-link btn-block"> Already have an account? </a>
+                <Row>
+                  <Col xs={12}>
+                    <Input type="text" ref="sc3" label="Track 3" placeholder="the purest fire" />
+                  </Col>
+                </Row>
+                <a href="#" className="btn tf-btn-rd btn-block" onClick={this.sendUserApplication}> Submit </a>
             </Modal.Body>
           </Modal>
           <div id="search-result">
