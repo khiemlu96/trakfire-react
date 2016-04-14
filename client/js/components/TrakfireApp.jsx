@@ -307,9 +307,11 @@ var TrakfireApp = React.createClass({
               isAdmin={this.state.isAdmin}
               user={this.state.currentUser}
               showSignupModal={this.showSignupModal}
-              showModal={this.showModal}/>
+              showModal={this.showModal}
+              showGrowl={this.showGrowlNotification}/>
           </div>
           <div id ="main-container">
+            <div ref="growl"></div>
             {Routes}
           </div>          
           <div>
@@ -484,6 +486,17 @@ var TrakfireApp = React.createClass({
   onProgressClick: function(millipos) {
     //console.log("SEEKING BOI");
     scPlayer.seekTo(millipos);
+  }, 
+
+  showGrowlNotification: function(text) {
+    console.log("ATTACHING GROWL");
+    var notif = '<div class="growl growl-static">'+
+      '<div class="alert alert-dark alert-dismissable" role="alert">'+
+       '<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+          '<span aria-hidden="true">×</span>'+
+        '</button>' + text +'</div></div>';
+    var notifDiv = this.refs.growl.getDOMNode();
+    notifDiv.innerHTML = notif;
   }, 
 
   /**

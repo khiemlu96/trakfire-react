@@ -96,7 +96,8 @@ var NavBar = React.createClass({
     showSignupModal: ReactPropTypes.func,
     onPostItemClick: ReactPropTypes.func,
     currStreamUrl: ReactPropTypes.string,
-    searchkey:ReactPropTypes.string
+    searchkey:ReactPropTypes.string, 
+    showGrowl: ReactPropTypes.func
   },
 
   componentDidMount: function() {
@@ -238,7 +239,7 @@ var NavBar = React.createClass({
       //<span className="tf-menu">{this.renderUserInfo()}</span>
       //if(this.props.isAdmin || this.props.user.canPost) { 
       var requestInviteLink = '';
-      var postLink = <PostForm isVisible={true} origin={this.props.origin} />
+      var postLink = <PostForm isVisible={true} origin={this.props.origin} showGrowl={this.props.showGrowl}/>
       var searchIcon =  <span><span className = "glyphicon glyphicon-search" onClick={this.renderSearchBar} style = {searchIconStyle}></span> </span>
       var menuIcon = <li><a href="#" onClick={function(e) {e.preventDefault();}}>{this.renderStaticInfo()}</a></li>;
 

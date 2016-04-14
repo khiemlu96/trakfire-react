@@ -27,7 +27,8 @@ var PostForm = React.createClass({
     onSubmit: ReactPropTypes.func,
     isSignedIn: ReactPropTypes.bool,
     closeModal: ReactPropTypes.func,
-    showModal: ReactPropTypes.bool
+    showModal: ReactPropTypes.bool, 
+    showGrowl: ReactPropTypes.func
   },
 
   getInitialState: function() {
@@ -83,7 +84,8 @@ var PostForm = React.createClass({
     console.log("submitting");
     PostActions.writePost(this.props.origin+'/posts', data);
     console.log("pushed.............");
-    this.setState({step : 4})
+    this.props.showGrowl("Posted track with success!");
+    this.setState({step : 1});
   }, 
 
   render: function() {

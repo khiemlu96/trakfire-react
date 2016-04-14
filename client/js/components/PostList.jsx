@@ -38,6 +38,12 @@ var TfFirebaseRef = new Firebase("https://trakfire.firebaseio.com/");
 var imagesInfoRef = TfFirebaseRef.child("carousal-images");
 var originalImgRef = TfFirebaseRef.child("original-carousal-images");
 
+var classNames = require('classnames');
+
+var isPlaying = classNames("tf-media-thumbnail-overlay playing");
+var isPaused = classNames("tf-media-thumbnail-overlay paused");
+var isNotPlaying = classNames("tf-media-thumbnail-overlay");
+
 function sortPostsByDate(posts) {
   var dates = {};
   var dateKeys = [];
@@ -90,10 +96,8 @@ function getLength(a) {
 function toArray(obj) {
   var array = [];
   for(key in obj) {
-    if(obj[key].id !== undefined)
-      array.push(obj[key]);
+    array.push(obj[key]);
   }
-
   return array.sort(compareCreatedAt);
 }
 
@@ -207,7 +211,7 @@ var PostsList = React.createClass({
     var carousal_images = [];
   
     this.getAdminCarousalFiles();
-
+    console.log("POSTS IN POST LIST", this.props.posts);
     //var posts = getSongList(p);
     //this.props.setSongList(this.state.posts);
     PostStore.addChangeListener(this._onChange);
@@ -227,7 +231,7 @@ var PostsList = React.createClass({
   },
 
   componentDidUpdate: function(prevProps, prevState) {
-    //console.log("WILL RECIEVE PROPS", prevProps.posts);
+    console.log("WILL RECIEVE PROPS", prevState.posts, this.state.posts);
     //console.log("HAS SET SONG LIST", this.state.hasSetSongList);
     if(Object.keys(prevProps.posts).length > 0 && !this.state.hasSetSongList) {
       //console.log("SETTING THE SONG LIST", this.state.hasSetSongList);
@@ -247,13 +251,13 @@ var PostsList = React.createClass({
     this.props.onPostUpvote(postid);
   },
 
-  updateIcons: function(stream_url, track, idx, isPlaying) {
+  updateIcons: function(track, isPlaying) {
     if(this.state.currentTrack != null) {
-      var prevPli = this.state.currentTrack;
-      var pli = this.refs[prevPli].refs.overlay;
+      var pli = this.refs[track.id].refs.overlay;
       if(pli != null){ 
         // if state isPlaying is true then show pause icon in square,
         // else show 'play' icon
+        console.log("TOGGLE THE TRACK", isPlaying, pli);
         if( isPlaying === true ) {
           pli.getDOMNode().className = "icon icon-controller-paus";
         } else {
@@ -264,14 +268,42 @@ var PostsList = React.createClass({
     this.setState({currentTrack:track.id});
   }, 
   
-  playPauseItem: function(stream_url, track, idx) {
+  playPauseItem: function(stream_url, track, idx, isPlaying) {
     if(this.state.currentTrack != null) {
       var prevPli = this.state.currentTrack;
       var pli = this.refs[prevPli].refs.overlay;
+      var pliBG = this.refs[prevPli].refs.overlaybg;
       if(pli != null){ 
         pli.getDOMNode().className = "icon icon-controller-play";
+        pliBG.getDOMNode().className = isNotPlaying;
       } 
     }
+    // deactivate other tracks 
+    
+    var posts = this.state.posts;
+    for(idx in posts) {
+      var post = posts[idx];
+      if(post.id != track.id) {
+        var p = this.refs[post.id];
+        p.refs.overlay.getDOMNode().classname = "icon icon-controller-play";
+        p.refs.overlaybg.getDOMNode().classname = isNotPlaying;
+      }
+    }
+
+    var nextTrack = track.id;
+    pli = this.refs[nextTrack].refs.overlay;
+    pliBG = this.refs[nextTrack].refs.overlaybg;
+
+    if(pli != null){ 
+      if( isPlaying == true ) {
+        pli.getDOMNode().className = "icon icon-controller-paus";
+        pliBG.getDOMNode().className = "tf-media-thumbnail-overlay playing";
+      } else {
+        pli.getDOMNode().className = "icon icon-controller-play";
+        pliBG.getDOMNode().className = "tf-media-thumbnail-overlay paused";
+      } 
+    }    
+
     this.setState({currentTrack:track.id});
     this.props.onPostListItemClick(stream_url, track, idx);
   },
@@ -349,7 +381,7 @@ var PostsList = React.createClass({
         container.push(dateHeader);
         
         var array = toArray(posts[dates[date]]).sort(sortScore);
-      
+        //console.log("THE ARRAY", array);
         for(key in array) {
           if(isLoggedIn){
             var isUpvotedByUser = this.hasUpvoted(array[key], user.id);
@@ -405,6 +437,8 @@ var PostsList = React.createClass({
 
     //this.props.setSongList(songList);
     //_songList = songList;
+
+    console.log("FIRST SONG IS ", firstSong, container);
     return {"posts" : container, "firstSong" : firstSong };
   },
 
@@ -413,8 +447,8 @@ var PostsList = React.createClass({
    * @return {object}
    */
   render: function() {
-    var posts = this.props.posts;
-  
+    var posts = this.state.posts;
+    
     var postsByDate = sortPostsByDate(posts); //sort posts into date keyed dict + array of date str for the headers
     //console.log("PDBD", postsByDate, posts);
     var dates = postsByDate[0].sort(sortDate); //sort dates in decending order
@@ -428,7 +462,7 @@ var PostsList = React.createClass({
     firstSong = {};
     retVal = this.renderPostsByDate(dates, posts); // return a list of <PostListDateHeader/> <PostListItems/>
     _postListItems = retVal['posts'];
-    firstSong = this.props.posts['dummy'] ? this.props.posts['dummy'] : retVal['firstSong'];
+    firstSong = retVal['firstSong'];
     //console.log("THE FIRST SONG IS ", _postListItems, firstSong);
 
     var postListStyle = { marginTop: 20+"px" };
