@@ -311,7 +311,7 @@ var TrakfireApp = React.createClass({
               showGrowl={this.showGrowlNotification}/>
           </div>
           <div id ="main-container">
-            <div ref="growl"></div>
+            <span ref="growl"></span>
             {Routes}
           </div>          
           <div>
