@@ -47,7 +47,7 @@ var PostListItem = React.createClass({
    first: ReactPropTypes.bool, 
    number: ReactPropTypes.number, 
    showNumber: ReactPropTypes.bool, 
-   showAuthor : ReactPropTypes.bool,
+   showAuthor : ReactPropTypes.bool
   },
 
   getInitialState: function() {
@@ -114,7 +114,6 @@ var PostListItem = React.createClass({
     var idx = this.props.idx;
     //idx = idx[1];
     //if(!this.state.isPlaying)
-    this.props.onClick(this.props.post.stream_url, this.props.post, idx);
 
     var overlay = this.refs.overlay.getDOMNode();
     var bg = this.refs.overlaybg.getDOMNode();
@@ -123,10 +122,14 @@ var PostListItem = React.createClass({
       overlay.className = playing;
       bg.className = isPlaying;
       this.setState({isPlaying:true});
+      this.props.onClick(this.props.post.stream_url, this.props.post, idx, true);
+      //this.props.changeIcons(this.props.post, true);
     } else {
       overlay.className = paused;
       bg.className = isNotPlaying;
       this.setState({isPlaying:false});
+      this.props.onClick(this.props.post.stream_url, this.props.post, idx, false);
+      //this.props.changeIcons(this.props.post, false);
     }
 
     /*var post = this.refs.post.getDOMNode();
