@@ -2121,6 +2121,10 @@ label.ownsong-label {
 	display: none;
 }
 
+.tf-show {
+	display: block !important;
+}
+
 .tf-header {
 	text-align: center;
 	width: 100%;

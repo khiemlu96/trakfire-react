@@ -16,11 +16,12 @@ var PostFormFirst = React.createClass({
     isSignedIn: ReactPropTypes.bool,
     advanceStep: ReactPropTypes.func,
     updateData: ReactPropTypes.func, 
-    data: ReactPropTypes.object
+    data: ReactPropTypes.object, 
+    submit: ReactPropTypes.func
   }, 
 
   getInitialState: function() {
-    return {dataDidLoad:false, isLoading:false, user:UserStore.getCurrentUser()};
+    return {dataDidLoad:false, isLoading:false, user:UserStore.getCurrentUser(), hasGenre:false};
   }, 
   componentDidMount: function() {
     mixpanel.track("PostForm step 1");
@@ -41,7 +42,9 @@ var PostFormFirst = React.createClass({
   		//this.props.onSubmit(JSON.stringify(_data));
       this.props.updateData(_data);
       //this.props.data = _data;
-      this.props.advanceStep();
+      //this.props.advanceStep();
+      this.submit();
+
   	}
   }, 
 
@@ -113,6 +116,50 @@ var PostFormFirst = React.createClass({
     }
   },
 
+  addTagsAndGenre: function() {
+    var data = _data.post;
+    var e = this.refs.edm.getDOMNode();
+    var h = this.refs.hiphop.getDOMNode();
+    var v = this.refs.vocals.getDOMNode();
+    var genres = [e, h, v];
+    var genre = "";
+    
+    if(e.checked) {
+      genre += (e.value + " ");
+    } 
+    if(h.checked) {
+      genre += (h.value + " ");
+    }
+    if(v.checked) {
+      genre += (v.value + " ");
+    }
+    console.log("genre", genre);
+
+    //var tags = this.refs.tags.getDOMNode().value;
+
+    //console.log(tags);
+
+    
+    //data["all_tags"] = tags;
+    data['genre'] = genre;
+    //console.log("add genre to data", data, "add tags", data.tags);
+
+    //this.setState({hasGenre:true});
+  }, 
+
+  setGenre: function() {
+    this.setState({hasGenre:true});
+  },
+
+  submit: function() {
+    console.log("invoke callback to submit");
+    this.addTagsAndGenre();
+    var data = _data;
+    console.log("POST DATA TO SUBMIT", data);
+    this.props.submit(JSON.stringify(data));
+    mixpanel.track('Complete PostForm');
+  }, 
+
   onUrlInputChange: function(e) {
       var url_field = this.refs.url_field.getDOMNode();
       url_field.className = "tf-soundcloud-link";
@@ -139,6 +186,7 @@ var PostFormFirst = React.createClass({
 
   dataDidLoad: function() {
     this.setState({dataDidLoad: true});
+    this.refs.genres.getDOMNode().className = "align-left tf-show";
   }, 
 
   render: function() {
@@ -167,9 +215,23 @@ var PostFormFirst = React.createClass({
               <input type="text" ref="title_field"></input>  
             </div>
           </div>
-          <div className={this.state.dataDidLoad ? enabled : disabled} onClick={this.handleClick}> CONTINUE </div>
-        </div> 	  	
-	   </div>
+          <div className="align-left tf-hide" ref="genres"> 
+            <div className="form-title"> GENRE </div>
+            <input type="checkbox" ref="hiphop" className="tf-checkbox" name="hiphop" id="hiphop" value="HIPHOP"></input>
+            <label className="tf-checkbox-label" htmlFor="hiphop" onClick={this.setGenre}>Rhymes</label>
+            <input type="checkbox" ref="vocals" className="tf-checkbox" id="vocals" name="vocals" value="VOCALS" onClick={this.setGenre}></input>
+            <label className="tf-checkbox-label" htmlFor="vocals" >Vocals</label>
+            <input type="checkbox" ref="edm" className="tf-checkbox" id="edm" name="edm" value="ELECTRONIC" onClick={this.setGenre}></input>
+            <label className="tf-checkbox-label" htmlFor="edm" >Electronic</label> <br></br> <br></br> <br></br>
+            {/*<input type="checkbox" className="ownsong-checkbox" id="ownsong" name="ownsong" value="ownsong"></input> 
+            <label className="ownsong-label" for="ownsong" >This is my own song</label>
+            <label htmlFor="tags">#TAGS (optional - comma separated)</label>
+            <input type="text" name="tags" ref="tags"></input>*/}
+          </div>
+          <div className={this.state.dataDidLoad && this.state.hasGenre ? enabled : disabled} onClick={this.handleClick}> CONTINUE </div>
+        </div>
+     </div>
+
   	);
   }
 });

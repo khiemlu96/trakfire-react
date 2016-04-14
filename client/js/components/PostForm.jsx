@@ -98,6 +98,7 @@ var PostForm = React.createClass({
                       advanceStep={this.advanceStep}
                       updateData={this.updateData}
                       data={_data}
+                      submit={this.submit}
                       reset={this.reset} />
   		break;
    		case 2:
