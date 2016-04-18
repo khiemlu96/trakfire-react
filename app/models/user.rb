@@ -5,14 +5,21 @@ class User < ActiveRecord::Base
   has_many :followers
   validates_presence_of :uid, :handle
 
+  def posts=(user_id)
+    posted_tracks = []
+    @posts = Post.where(user_id: user_id)
+  end
+
+  def posts
+    @posts
+  end
+
   def upvotes=(votes)
     voted_tracks = []
     @upvotes = votes.each do |vote|
       voted_tracks.push(Post.find(vote[:post].id))
     end
-    @upvotes = votes 
-    logger.info "UPVOTES"
-    logger.info @upvotes
+    @upvotes = votes
   end
 
   def upvotes
@@ -44,7 +51,7 @@ class User < ActiveRecord::Base
   end
 
   def as_json(options={})
-    super( include: { posts: { except: [] }, votes: { except: [] } }, methods: ['upvotes', 'followers', 'followings'] )
+    super( include: { votes: { except: [] } }, methods: ['posts', 'upvotes', 'followers', 'followings'] )
   end
 
   scope :ranking, -> { select('id, email, username, provider, uid, img, location, tbio, "isAdmin", handle, "isVerified"') }

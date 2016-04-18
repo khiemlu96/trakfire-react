@@ -107,6 +107,14 @@ var UserActions = {
 
   deleteCarousalFile: function(url) {
     TfAPI.deleteCarousalFile(url);
+  },
+
+  getUserPostedTraks: function(url, data) {
+    TfAPI.getUserPostedTraks(url, data);
+  },
+
+  getUserUpvotedTraks: function(url, data) {
+    TfAPI.getUserUpvotedTraks(url, data);
   }
 };
 

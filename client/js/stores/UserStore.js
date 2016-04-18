@@ -2,6 +2,7 @@ var AppDispatcher = require('../dispatcher/AppDispatcher');
 var EventEmitter = require('events').EventEmitter;
 var UserConstants = require('../constants/UserConstants');
 var UserUtils = require('../utils/UserUtils');
+var PostUtils = require('../utils/PostUtils');
 var assign = require('object-assign');
 
 var CHANGE_EVENT = 'change';
@@ -16,6 +17,9 @@ var _userState = {};
 var _adminStates = null;
 var _adminCarousalFiles = null;
 var _adminCarousalFilesState = null;
+var _userPostedTraks = [];
+var _posted_trak_stats = null, _upvoted_trak_stats = null; 
+var _userUpvotedTraks = [];
 
 function _addCurrentUser(user) {
   _cUser = UserUtils.convertRawUser(user);
@@ -126,6 +130,23 @@ function deleteFromAdminCarousalFile(file_id) {
   }
 }
 
+function addUserPostedTraks(response) {
+  var posted_traks = response.posts;
+  _posted_trak_stats = response.stats;
+  for(var key in posted_traks) {
+    _userPostedTraks.push( PostUtils.convertRawPost(posted_traks[key]) );
+  }
+}
+
+function addUserUpvotedTraks(response) {
+  var upvoted_traks = response.posts;
+  _upvoted_trak_stats = response.stats;
+
+  for(var key in upvoted_traks) {
+    _userUpvotedTraks.push( PostUtils.convertRawPost(upvoted_traks[key]) );
+  }
+}
+
 var UserStore = assign({}, EventEmitter.prototype, {
 
   getCurrentUser: function() {
@@ -175,6 +196,22 @@ var UserStore = assign({}, EventEmitter.prototype, {
    */
   getAdminCarousalFilesState: function() {
       return _adminCarousalFilesState;
+  },
+
+  getUserPostedTraks: function() {
+      return _userPostedTraks;
+  },
+
+  getUserPostedTraksStats: function() {
+    return _posted_trak_stats;
+  },
+
+  getUserUpvotedTraks: function() {
+      return _userUpvotedTraks;
+  },
+
+  getUserUpvotedTraksStats: function() {
+    return _upvoted_trak_stats;
   },
 
   emitChange: function() {
@@ -270,6 +307,14 @@ AppDispatcher.register(function(action) {
       break;
     case UserConstants.DELETE_ADMIN_CAROUSAL_FILE:
       deleteFromAdminCarousalFile(action.response);
+      UserStore.emitChange();
+      break;
+    case UserConstants.GET_USER_POSTED_TRAKS:
+      addUserPostedTraks(action.response);
+      UserStore.emitChange();
+      break;
+    case UserConstants.GET_USER_UPVOTED_TRAKS:
+      addUserUpvotedTraks(action.response);
       UserStore.emitChange();
       break;
     default:
