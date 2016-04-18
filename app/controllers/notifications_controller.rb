@@ -11,9 +11,10 @@ class NotificationsController < ApplicationController
 
 		@notifications.each do |n|
 			n.json_data = n.data
-		end
+			n.sender = n.sender_id
+		end	
 
-		render json: @notifications
+		render json: @notifications, methods: ['sender']
 	end
 
 	def destroy

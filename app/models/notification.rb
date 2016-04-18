@@ -27,7 +27,8 @@ class Notification < ActiveRecord::Base
 			n[:sent_time] = Time.current.utc.iso8601
 			n[:read_time] = nil
 			n[:data] = notification[:data].to_json
-
+			n[:sender_id] = notification[:sender_id]
+			
 			if n.save			
 				return true
 			else
@@ -61,6 +62,22 @@ class Notification < ActiveRecord::Base
 		end
 	end
 
+	def sender=(sender_id)
+	    #@sender_ids = User.where(user.id: sender_id)
+	    users = []
+	    logger.info "-------------------"
+	    logger.info sender_id
+	    #@sender_ids = @sender_ids.each do |user|
+	      user = User.find(sender_id)
+	      #users.push(user)
+	    #end
+	    @sender = user
+  	end
+  	
+  	def sender
+		@sender
+	end
+
 	def json_data=(data)
 		@data = JSON.parse(data)
 	end
@@ -70,6 +87,6 @@ class Notification < ActiveRecord::Base
 	end
 
 	def as_json(options={})
-  		super({ methods: ['json_data', 'sendNotification'] })
+  		super({ methods: ['json_data', 'sendNotification', 'sender'] })
 	end
 end

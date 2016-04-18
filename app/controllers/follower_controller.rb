@@ -20,7 +20,8 @@ class FollowerController < ApplicationController
 									:screen_name => @current_user.username,
 									:sender_img => @current_user.img,
 									:sender_profile_url => "profile/#{@current_user.id}"
-								}
+								},
+						:sender_id => @current_user.id.to_s
 					}
 				
 					if Notification.sendNotification( @notification, {:consolidate => false} )
