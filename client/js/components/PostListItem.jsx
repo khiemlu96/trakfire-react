@@ -9,16 +9,16 @@
 
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
-var PostActions = require('../actions/PostActions');
 
 var Link = require('react-router').Link;
-
+var UserActions = require('../actions/UserActions.js');
+var UserStore = require('../stores/UserStore.js');
 var classNames = require('classnames');
-var UserFlyOver = require('./UserFlyOver.jsx');
-
-var isPlaying = classNames("tf-media-thumbnail-overlay playing");
-var isPaused = classNames("tf-media-thumbnail-overlay paused");
-var isNotPlaying = classNames("tf-media-thumbnail-overlay");
+var Bootstrap = require('react-bootstrap');
+var OverlayTrigger = Bootstrap.OverlayTrigger;
+var Popover = Bootstrap.Popover;
+var isPlaying = classNames("tf-post-item is-playing");
+var isNotPlaying = classNames("tf-post-item");
 var isFirstPlaying = classNames("tf-post-item--first is-playing");
 var isFirstNotPlaying = classNames("tf-post-item--first");
 var isUpvoted = classNames("tf-post-item--votes is-upvoted");
@@ -26,7 +26,9 @@ var isNotUpvoted = classNames("tf-post-item--votes");
 var playing = classNames("icon icon-controller-paus");
 var paused = classNames("icon icon-controller-play");
 var _localVoteCount = 0;
-
+var hoverStyle = {
+  positionLeft: '53%'
+}
 var PostListItem = React.createClass({
 
   propTypes: {
@@ -47,17 +49,31 @@ var PostListItem = React.createClass({
    first: ReactPropTypes.bool, 
    number: ReactPropTypes.number, 
    showNumber: ReactPropTypes.bool, 
-   showAuthor : ReactPropTypes.bool
+   showAuthor : ReactPropTypes.bool,
+   artistId: ReactPropTypes.string 
   },
 
   getInitialState: function() {
-    return {isPlaying:false, isUpvoted:false, hasUpvoted:false};
+    return {
+              isPlaying:false, 
+              isUpvoted:false, 
+              hasUpvoted:false, 
+              isFollowing:false,
+              currentUser: UserStore.getCurrentUser() 
+            };
   }, 
 
   componentDidMount: function() {
     console.log("POST LIST ITEM PROPS", this.props);
     this.state.isUpvoted = this.props.isUpvoted;
     $(document).on("ReactComponent:PostListItem:handlePlayPauseClick", this.updatePlayPauseState);
+    $(document).on("ReactComponent:PostListItem:followClick", this.followClick);
+    //$(document).on("ReactComponent:PostListItem:showFlyOver", this.showFlyOver);
+    UserStore.addChangeListener(this._onChange);
+    /*$(".followUser").on('click', function(event){
+        alert("The paragraph was clicked.");
+    });*/
+    this.props.artistId = "";
   },
 
   updatePlayPauseState: function(e, track_id) {    
@@ -83,8 +99,6 @@ var PostListItem = React.createClass({
   upvote: function(e) {
     e.preventDefault();
     var post = this.props.post;
-    //console.log('upvoting '+this.props.key);
-    //PostActions.upvote('http://localhost:3000'+'/votes', this.props.post.id);
     mixpanel.identify(this.props.userid);
     mixpanel.track("Upvote", {
       "Title" : post.title,
@@ -95,11 +109,6 @@ var PostListItem = React.createClass({
     if(this.props.isLoggedIn && !this.hasUpvoted(this.props.post)){
       this.props.onUpvote(this.props.post.id);
       var count = this.refs.count.getDOMNode();
-      //var upvotes = this.refs.upvotes.getDOMNode();
-      //upvotes.className=isUpvoted ;
-      //count.className = "";
-      //var count_old = count.innerHTML;
-      //count.innerHTML = parseInt(count_old) + 1;
 
       this.setState({hasUpvoted:true});
     } else if(!this.props.isLoggedIn) {
@@ -114,47 +123,17 @@ var PostListItem = React.createClass({
     var idx = this.props.idx;
     //idx = idx[1];
     //if(!this.state.isPlaying)
+    this.props.onClick(this.props.post.stream_url, this.props.post, idx);
 
     var overlay = this.refs.overlay.getDOMNode();
-    var bg = this.refs.overlaybg.getDOMNode();
     console.log("OVERLAY", overlay);
     if(!this.state.isPlaying) {
       overlay.className = playing;
-      bg.className = isPlaying;
       this.setState({isPlaying:true});
-      this.props.onClick(this.props.post.stream_url, this.props.post, idx, true);
-      //this.props.changeIcons(this.props.post, true);
     } else {
       overlay.className = paused;
-      bg.className = isNotPlaying;
       this.setState({isPlaying:false});
-      this.props.onClick(this.props.post.stream_url, this.props.post, idx, false);
-      //this.props.changeIcons(this.props.post, false);
     }
-
-    /*var post = this.refs.post.getDOMNode();
-    //console.log("POST STATUS", this.state.isPlaying);
-    if(!this.props.first) {
-      if(!this.state.isPlaying) {
-        post.className = isPlaying;
-        this.setState({isPlaying:true});
-      }
-      else {
-        post.className = isNotPlaying;
-        this.setState({isPlaying:false});
-      }
-    } 
-    else if(this.props.first) {
-      if(!this.state.isPlaying) {
-        post.className = isFirstPlaying;
-        this.setState({isPlaying:true});
-      }
-      else {
-        post.className = isFirstNotPlaying;
-        this.setState({isPlaying:false});
-      }      
-    }*/
-    //console.log("POST STATUS POST", this.props.rank, this.state.isPlaying);
   },
 
   hasUpvoted: function(post) {
@@ -180,13 +159,152 @@ var PostListItem = React.createClass({
     return tags;
   },
 
-  renderAuthor: function() {
-    var aId = this.props.post.author_id;
-    var aImg = this.props.post.author_img;
-    var aName = this.props.post.author_name;
-
-    return(<div><UserFlyOver user = {this.props.post.user} origin={this.props.origin} /></div>);
+  followUser: function(userid,artist_id) {
+    var follow_id = userid;
+    console.log("=========followUser=========");
+    UserActions.followUser(this.props.origin+ '/follower', follow_id);
+    //this.showFlyOver(artist_id);
+    this.setState({isFollowing:true});
   },
+  
+  unFollowUser: function(userid,artist_id) {
+    var follow_id = userid;
+    console.log("=========unFollowUser=========");
+    UserActions.unFollowUser(this.props.origin+ '/follower', follow_id);
+    //this.showFlyOver(artist_id);
+    this.setState({isFollowing:false});
+  },
+
+  followClick: function(userid,artist_id){
+    console.log("=========followClick=========");
+    event.preventDefault();
+      if( this.state.currentUser !== null || sessionStorage.getItem('jwt') !== null ) {
+      var currentUser_followings = [];
+          for(var key in this.state.currentUser.followings) {
+              currentUser_followings.push(this.state.currentUser.followings[key].id);
+          }
+
+          if(currentUser_followings.indexOf(userid) > -1) {
+              this.unFollowUser(userid,artist_id);
+          } else {
+              this.followUser(userid,artist_id); 
+          }
+      } else {
+        // If user is not logged in and if he clicks on Follow User button
+        // then forced user to login in to site to follow the user
+        $(document).trigger("ReactComponent:TrakfireApp:showModal");
+      }
+    /*if(!this.state.isFollowing){
+      this.followUser(userid,artist_id);
+      this.state.isFollowing = true;
+    }
+    else{
+      this.unFollowUser(userid);
+      this.state.isFollowing = false;
+    }*/
+  },
+
+  handle_follow_click: function(event) {
+    event.preventDefault();
+      if( this.state.currentUser !== null || sessionStorage.getItem('jwt') !== null ) {
+      var currentUser_followings = [];
+          for(var key in this.state.currentUser.followings) {
+              currentUser_followings.push(this.state.currentUser.followings[key].id);
+          }
+
+          if(currentUser_followings.indexOf(this.state.user.id) > -1) {
+              this.unFollowUser(this.state.user.id);
+          } else {
+              this.followUser(this.state.user.id); 
+          }
+      } else {
+        // If user is not logged in and if he clicks on Follow User button
+        // then forced user to login in to site to follow the user
+        $(document).trigger("ReactComponent:TrakfireApp:showModal");
+      }
+    },
+
+  showFlyOver: function(artist_id) {
+
+        var self = this;
+        artist_id = artist_id.replace(".", "");
+        var CurrentPost = this.props.post;
+        console.log("===========USER PROPS===========");
+        var follow_text = "", className = "";
+        console.log("===========this.state.currentUser=============");
+        console.log(this.state.currentUser);
+        if ( sessionStorage.getItem('jwt') !== '' && this.state.currentUser !== null) {     
+          if(this.state.currentUser.id !==  null) {
+            var currentUser_followings = [];
+              
+                for(var key in this.state.currentUser.followings) {
+                    currentUser_followings.push(this.state.currentUser.followings[key].id);
+                }
+
+                if(currentUser_followings.indexOf(parseInt(this.props.post.user.id)) > -1) {
+                      follow_text = "Following";
+                      className = "button tf-follow-button";
+                  } else {
+                      follow_text = "Follow";
+                      className = "button tf-follow-button tf-background";
+                  }
+            var follow_btn_Html = <div className = "user-flyover-follow-btn">
+                              <div className={className} onClick={this.handle_follow_click}> {follow_text} </div>
+                          </div>;
+          } else {
+            var follow_btn_Html = <div></div>;
+          }
+        } 
+        
+        var follow_id = "followUser"+artist_id;
+        var popoverTemplate = ['<div class="timePickerWrapper popover">',
+                                '<div class="arrow"></div>',
+                                '<div class="popover-content">',                                    
+                                '</div>',
+                            '</div>'].join('');
+        var content = ['<div class = "col-md-12 user-flyover-content">',
+                    '<div class = "user-flyover-profile-image">',
+                      '<img class="tf-author-img" src='+CurrentPost.user.img+'></img>',
+                    '</div>',
+                    '<div class = "media-object img-circle">',
+                      '<div class="nd">'+CurrentPost.author_name+'</div>',
+                      '<div class="user-flyover-profile-bio">'+CurrentPost.user.tbio+'</div>',             
+                    '</div>',
+                    '<button class="btn btn-primary-outline btn-sm pull-right" id='+follow_id+' >'+follow_text +'',
+                    '</button>',
+                  '</div>',].join('');
+        $("."+artist_id).popover({
+          selector: '[rel=popover]',
+            trigger: 'hover',
+            content : content,
+            template: popoverTemplate,
+            placement: "top",
+            html: true
+        }).on("hover", function(e) {
+          e.preventDefault();
+        }).on("mouseenter", function() {
+          var _this = this;
+          $(this).popover("show");
+          console.log(follow_id);
+          $("#"+follow_id).on('click', function(event){
+              self.followClick(CurrentPost.author_id,artist_id);
+              //$(document).trigger("ReactComponent:PostListItem:followClick", [CurrentPost.author_id]);
+          });
+          $(this).siblings(".popover").on("mouseleave", function() {
+            $(_this).popover('hide');
+          });
+        }).on("mouseleave", function() {
+          var _this = this;
+          setTimeout(function() {
+            if (!$(".popover:hover").length) {
+              $(_this).popover("hide")
+            }
+          }, 100);
+        });
+
+      // /} 
+  },
+
 
   /**
    * @return {object}
@@ -198,17 +316,22 @@ var PostListItem = React.createClass({
     var localUpvote = this.state.hasUpvoted; //pre refresh we upvoted this
     _localVoteCount = post.vote_count;
     var img = post.img_url;
-    /*if(this.props.first) {
-      img = post.img_url_lg;
-      console.log("LARGE IMG", img);
-    } else {
-      img = post.img_url;
-    }*/
+    var followBtnStyle = {
+        border: '1px solid #ff0d60'
+    };
+    var userImgLink = post.user.img;
+    var autherName = post.author_name;
     var profileLink = "/profile/"+post.author_id;
     var postLink = "/post/"+post.id;
     var isNumbered = this.props.showNumber;
-    //var first = (this.props.first) ? isFirstNotPlaying : isNotPlaying;
+    
+    var artist_id = "tf-media-artist-" + post.id;
+    
     var voteStyle = { color: "#ff0d60 !important;" };
+    
+    console.log("==============CurrentUser Followings==============");
+    console.log(this.state.currentUser);
+
     return (
         <li className="media tf-media">
           <div className="media-left">
@@ -217,7 +340,7 @@ var PostListItem = React.createClass({
             </span>
             <a href="#" className="tf-media-wrap" onClick={this.playPauseTrack}>
               <img className="media-object tf-media-thumbnail" width="64" src={post.img_url} alt="..."></img>
-              <div className="tf-media-thumbnail-overlay" ref="overlaybg"><span className={paused} ref="overlay"></span></div>
+              <div className="tf-media-thumbnail-overlay"><span className={paused} ref="overlay"></span></div>
             </a>
           </div>
           <div className="media-body">
@@ -225,16 +348,20 @@ var PostListItem = React.createClass({
               <span className="pull-right"><a href="#" onClick={this.upvote}><span className="icon icon-chevron-up" style={voteStyle}></span></a> <small ref="count">{(post.vote_count !== null) ? post.vote_count : 0}</small> </span>
               <Link to={postLink} className="no-decor">{post.title}</Link>
             </h4>
-            <h6 className="tf-media-artist">{post.artist}
-              { this.props.showAuthor ? <small className="pull-right"> posted by: <Link to={profileLink} className="tf-media-poster nd">{post.author_name}</Link> </small> : "" }
-            </h6> 
+            <div onMouseEnter ={this.showFlyOver.bind(this,artist_id)}  className={artist_id} data-trigger="hover" data-toggle="popover" data-placement="top" >{post.artist}
+                { this.props.showAuthor ? <small className="pull-right"> posted by: <Link to={profileLink} className="tf-media-poster nd">{post.author_name}</Link> </small> : "" }
+            </div>
           </div>
         </li>
     );
-  }
+  },
+
+  _onChange: function() {
+        this.setState({
+          currentUser: UserStore.getCurrentUser()
+        });
+    }
 
 });
 
 module.exports = PostListItem;
-
-
