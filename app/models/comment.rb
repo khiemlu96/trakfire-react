@@ -30,6 +30,8 @@ class Comment < ActiveRecord::Base
   def tagged_members=(comment_id)
     @tagged_member_ids = MemberTag.select("user_id").where(comment_id: comment_id)
     users = []
+    logger.info "-------------------"
+    logger.info comment_id
     @tagged_member_ids = @tagged_member_ids.each do |user|
       user = User.find(user.user_id)
       users.push(user)
