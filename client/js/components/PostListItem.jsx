@@ -64,7 +64,6 @@ var PostListItem = React.createClass({
   }, 
 
   componentDidMount: function() {
-    console.log("POST LIST ITEM PROPS", this.props);
     this.state.isUpvoted = this.props.isUpvoted;
     $(document).on("ReactComponent:PostListItem:handlePlayPauseClick", this.updatePlayPauseState);
     $(document).on("ReactComponent:PostListItem:followClick", this.followClick);
@@ -126,7 +125,6 @@ var PostListItem = React.createClass({
     this.props.onClick(this.props.post.stream_url, this.props.post, idx);
 
     var overlay = this.refs.overlay.getDOMNode();
-    console.log("OVERLAY", overlay);
     if(!this.state.isPlaying) {
       overlay.className = playing;
       this.setState({isPlaying:true});
@@ -161,7 +159,6 @@ var PostListItem = React.createClass({
 
   followUser: function(userid,artist_id) {
     var follow_id = userid;
-    console.log("=========followUser=========");
     UserActions.followUser(this.props.origin+ '/follower', follow_id);
     //this.showFlyOver(artist_id);
     this.setState({isFollowing:true});
@@ -169,14 +166,12 @@ var PostListItem = React.createClass({
   
   unFollowUser: function(userid,artist_id) {
     var follow_id = userid;
-    console.log("=========unFollowUser=========");
     UserActions.unFollowUser(this.props.origin+ '/follower', follow_id);
     //this.showFlyOver(artist_id);
     this.setState({isFollowing:false});
   },
 
   followClick: function(userid,artist_id){
-    console.log("=========followClick=========");
     event.preventDefault();
       if( this.state.currentUser !== null || sessionStorage.getItem('jwt') !== null ) {
       var currentUser_followings = [];
@@ -224,87 +219,83 @@ var PostListItem = React.createClass({
       }
     },
 
-  showFlyOver: function(artist_id) {
-
+    showFlyOver: function(artist_id) {
         var self = this;
         artist_id = artist_id.replace(".", "");
         var CurrentPost = this.props.post;
-        console.log("===========USER PROPS===========");
-        var follow_text = "", className = "";
-        console.log("===========this.state.currentUser=============");
-        console.log(this.state.currentUser);
-        if ( sessionStorage.getItem('jwt') !== '' && this.state.currentUser !== null) {     
-          if(this.state.currentUser.id !==  null) {
-            var currentUser_followings = [];
-              
-                for(var key in this.state.currentUser.followings) {
+        var follow_text = "",
+            className = "";
+        var follow_btn_Html = '';
+
+        if (sessionStorage.getItem('jwt') !== '' && this.state.currentUser !== null && 
+            this.state.currentUser.id !== this.props.post.user.id) {
+            if (this.state.currentUser.id !== null) {
+                var currentUser_followings = [];
+                var follow_id = "followUser" + artist_id;
+
+                for (var key in this.state.currentUser.followings) {
                     currentUser_followings.push(this.state.currentUser.followings[key].id);
                 }
 
-                if(currentUser_followings.indexOf(parseInt(this.props.post.user.id)) > -1) {
-                      follow_text = "Following";
-                      className = "button tf-follow-button";
-                  } else {
-                      follow_text = "Follow";
-                      className = "button tf-follow-button tf-background";
-                  }
-            var follow_btn_Html = <div className = "user-flyover-follow-btn">
-                              <div className={className} onClick={this.handle_follow_click}> {follow_text} </div>
-                          </div>;
-          } else {
-            var follow_btn_Html = <div></div>;
-          }
-        } 
+                if (currentUser_followings.indexOf(parseInt(this.props.post.user.id)) > -1) {
+                    follow_text = "Following";
+                    className = "button user-flyover-follow-btn tf-follow-button";
+                } else {
+                    follow_text = "Follow";
+                    className = "button user-flyover-follow-btn btn-primary-outline tf-follow-button tf-background";
+                }
+                var follow_btn_Html = '<button class="btn ' + className + '" id=' + follow_id + '>' + follow_text + '</button>'          
+            }
+        }
         
-        var follow_id = "followUser"+artist_id;
-        var popoverTemplate = ['<div class="timePickerWrapper popover">',
-                                '<div class="arrow"></div>',
-                                '<div class="popover-content">',                                    
-                                '</div>',
-                            '</div>'].join('');
-        var content = ['<div class = "col-md-12 user-flyover-content">',
-                    '<div class = "user-flyover-profile-image">',
-                      '<img class="tf-author-img" src='+CurrentPost.user.img+'></img>',
-                    '</div>',
-                    '<div class = "media-object img-circle">',
-                      '<div class="nd">'+CurrentPost.author_name+'</div>',
-                      '<div class="user-flyover-profile-bio">'+CurrentPost.user.tbio+'</div>',             
-                    '</div>',
-                    '<button class="btn btn-primary-outline btn-sm pull-right" id='+follow_id+' >'+follow_text +'',
-                    '</button>',
-                  '</div>',].join('');
-        $("."+artist_id).popover({
-          selector: '[rel=popover]',
+        var popoverTemplate = ['<div class="popover">',
+            '<div class="arrow"></div>',
+                '<div class="popover-content">',
+                '</div>',
+            '</div>'
+        ].join('');
+
+        var content = [
+            '<div class = "col-md-12 user-flyover-content">',
+                '<div class = "user-flyover-profile-image">',
+                    '<img class="tf-author-img" src=' + CurrentPost.user.img + '></img>',
+                '</div>',
+                '<div class = "media-object img-circle">',
+                    '<div class="nd">' + CurrentPost.author_name + '</div>',
+                    '<div class="user-flyover-profile-bio">' + CurrentPost.user.tbio + '</div>',
+                '</div>'
+                + follow_btn_Html +
+            '</div>',
+        ].join('');        
+
+        $("#" + artist_id).popover({
+            selector: '[rel=popover]',
             trigger: 'hover',
-            content : content,
+            content: content,
             template: popoverTemplate,
             placement: "top",
             html: true
         }).on("hover", function(e) {
-          e.preventDefault();
+            e.preventDefault();
         }).on("mouseenter", function() {
-          var _this = this;
-          $(this).popover("show");
-          console.log(follow_id);
-          $("#"+follow_id).on('click', function(event){
-              self.followClick(CurrentPost.author_id,artist_id);
-              //$(document).trigger("ReactComponent:PostListItem:followClick", [CurrentPost.author_id]);
-          });
-          $(this).siblings(".popover").on("mouseleave", function() {
-            $(_this).popover('hide');
-          });
+            var _this = this;
+            $(this).popover("show");
+            $("#" + follow_id).on('click', function(event) {
+                //call the followClick function of current Component using 'self'
+                self.followClick(CurrentPost.author_id, artist_id);
+            });
+            $(this).siblings(".popover").on("mouseleave", function() {
+                $(_this).popover('destroy');
+            });
         }).on("mouseleave", function() {
-          var _this = this;
-          setTimeout(function() {
-            if (!$(".popover:hover").length) {
-              $(_this).popover("hide")
-            }
-          }, 100);
+            var _this = this;
+            setTimeout(function() {
+                if (!$(".popover:hover").length) {
+                    $(_this).popover("destroy");
+                }
+            }, 100);
         });
-
-      // /} 
-  },
-
+    },
 
   /**
    * @return {object}
@@ -328,9 +319,6 @@ var PostListItem = React.createClass({
     var artist_id = "tf-media-artist-" + post.id;
     
     var voteStyle = { color: "#ff0d60 !important;" };
-    
-    console.log("==============CurrentUser Followings==============");
-    console.log(this.state.currentUser);
 
     return (
         <li className="media tf-media">
@@ -348,20 +336,29 @@ var PostListItem = React.createClass({
               <span className="pull-right"><a href="#" onClick={this.upvote}><span className="icon icon-chevron-up" style={voteStyle}></span></a> <small ref="count">{(post.vote_count !== null) ? post.vote_count : 0}</small> </span>
               <Link to={postLink} className="no-decor">{post.title}</Link>
             </h4>
-            <div onMouseEnter ={this.showFlyOver.bind(this,artist_id)}  className={artist_id} data-trigger="hover" data-toggle="popover" data-placement="top" >{post.artist}
-                { this.props.showAuthor ? <small className="pull-right"> posted by: <Link to={profileLink} className="tf-media-poster nd">{post.author_name}</Link> </small> : "" }
+            <div className="col-md-12">
+                <div className="col-md-6">{post.artist}</div>
+                <div className="col-md-6">
+                    {this.props.showAuthor ? 
+                        <small>posted by:
+                            <Link to={profileLink} className="tf-media-poster nd">
+                                <span onMouseEnter={this.showFlyOver.bind(this,artist_id)} id={artist_id} data-trigger="hover" data-toggle="popover" data-placement="top">
+                                    <small>{post.author_name}</small>
+                                </span>
+                            </Link>
+                        </small>: ""}
+                </div>
             </div>
           </div>
         </li>
     );
   },
 
-  _onChange: function() {
+    _onChange: function() {
         this.setState({
           currentUser: UserStore.getCurrentUser()
         });
     }
-
 });
 
 module.exports = PostListItem;

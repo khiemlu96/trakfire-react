@@ -3336,6 +3336,7 @@ body .popover{
     text-align: center;
     height: 100%;
     width: 100%;
+    min-height: 170px !important;
 }
 
 .user-flyover-profile-image img {
@@ -3353,6 +3354,8 @@ body .popover{
 .user-flyover-follow-btn {
 	padding-left: 45px;
 	float: left;
+	left: 65px !important;
+	padding: 4px 15px !important;
 }
 
 .user-flyover-follow-btn .tf-follow-button{
