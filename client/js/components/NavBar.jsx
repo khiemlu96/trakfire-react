@@ -200,6 +200,7 @@ var NavBar = React.createClass({
               overlay={
                   <Popover >
                      <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/about'}><h6>ABOUT</h6></Link></div>
+                     <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/FAQ'}><h6>FAQ</h6></Link></div>
                      <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/privacy'}><h6>PRIVACY POLICY</h6></Link></div>
                      <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/terms'}><h6>TERMS OF USE</h6></Link></div>
                      <div onClick = {this.closeModal}> {adminConsoleLink} </div>
