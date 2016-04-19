@@ -29,16 +29,18 @@ var LeaderBoardItem = React.createClass({
   propTypes: {
   	user: ReactPropTypes.object,
   	origin: ReactPropTypes.string,
-  	currentUser: ReactPropTypes.object
   },
 
   getInitialState: function(){
   	return{
-  		isFollowing: false
+  		isFollowing: false,
+      currentUser: UserStore.getCurrentUser()
   	};
   },
 
-  componentDidMount: function() {},
+  componentDidMount: function() {
+    UserStore.addChangeListener(this._onChange);
+  },
 
   componentWillMount: function() {}, 
   
@@ -67,14 +69,14 @@ var LeaderBoardItem = React.createClass({
    */
   render: function() {
   	var user = this.props.user;
-  	var currentUser = this.props.currentUser;
-  	console.log(user);
+  	var currentUser = this.state.currentUser;
 
+    var isFollowing = false;
   	if(currentUser !== null && user !== null) {
         for(var key in currentUser.followings) {
-            if(currentUser.followings[key].id === user.id) {
-                this.state.isFollowing = true;
-            }
+          if(currentUser.followings[key].id === user.id) {
+            isFollowing = true;
+          }
         }
     }
     var profileLink = '/profile/' + user.id;
@@ -85,7 +87,7 @@ var LeaderBoardItem = React.createClass({
 	        <img className="media-object img-circle" src={user.img}></img>
 	      </Link>
 	      <div className="media-body">
-	        <button className="btn btn-primary-outline btn-sm pull-right" style={this.state.isFollowing ? FollowingButtonStyle : FollowButtonStyle} onClick={this.followClick}>{this.state.isFollowing ? "Following" : "Follow"}
+	        <button className="btn btn-primary-outline btn-sm pull-right" style={isFollowing ? FollowingButtonStyle : FollowButtonStyle} onClick={this.followClick}>{isFollowing ? "Following" : "Follow"}
           </button>
 	        <strong><Link to={profileLink} className="nd">{ user.name }</Link></strong>
 	        <br></br>
@@ -94,8 +96,12 @@ var LeaderBoardItem = React.createClass({
 	    </div>
 	  </li>
     );
+  },
+  _onChange: function() {
+      this.setState({
+        currentUser: UserStore.getCurrentUser()
+      });
   }
-
 });
 
 module.exports = LeaderBoardItem;
