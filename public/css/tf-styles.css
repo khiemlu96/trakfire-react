@@ -2150,8 +2150,13 @@ label.ownsong-label {
 	background-color: #161616;
 }
 
-#terms-of-use, #privacy-policy, #about-page{
+#terms-of-use, #privacy-policy, #about-page {
 
+}
+
+.tf-faq a{
+	color: #ff0d60 !important;
+	text-decoration: none !important;
 }
 
 .tf-static-page-header{
