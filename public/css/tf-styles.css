@@ -38,26 +38,23 @@ body.search-open {
 .tf-player-wrap-inner-votes {
 	display: inline-block;
 	position: relative;
-	top: -23px;
-	left: -32px;
+	top: -9px;
+	left: 990px;
 	width: 64px;
 	height: 64px;
-	border: 2px solid #ff0d60;
-	border-radius: 50%;
-	background: black url("../assets/img/votes-arrow.svg") no-repeat center 15px;
-	background-size: 12px;
-	padding-top: 29px;
+	padding-top: 32px;
 	padding-left: 1px;
 	text-align: center;
 	letter-spacing: 0.07em;
     cursor: pointer;
+    font-family: "Benton Sans Black", sans-serif !important;
 }
 
 .tf-player-controls-wrap {
 	display: inline-block;
 	vertical-align: middle;
 	top: -10px;
-	left: -4px;
+	left: -67px;
 	position: relative;
 }
 
@@ -68,8 +65,8 @@ body.search-open {
 .tf-player-controls-wrap-info {
 	display: inline-block;
 	vertical-align: middle;
-	top: 0px;
-	left: 0px;
+	top: 5px;
+	left: -36px;
 	position: relative;
 	float: right;
 }
@@ -2019,7 +2016,7 @@ label.ownsong-label {
     padding-bottom: 1px;
     overflow: hidden;
     cursor: pointer;
-    margin-left: 25px;
+    margin-left: 39px;
 }
 
 .tf-progress-inner {
@@ -2075,7 +2072,7 @@ label.ownsong-label {
 }
 
 .tf-player-info-img {
-	max-height: 50px;
+	max-height: 37px;
 	display: inline-block;
 	margin-right: 10px;
 	padding-top: 5px;

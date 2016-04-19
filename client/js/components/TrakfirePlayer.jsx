@@ -143,6 +143,8 @@ var TrakfirePlayer = React.createClass({
            nextLinkClass += " link-disabled ";
         }
 
+        var voteStyle = { color: "#ff0d60 !important;" };
+
         return (
             <div className="tf-player-wrap">
                 <div className="tf-player-wrap-inner container">
