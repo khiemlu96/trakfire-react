@@ -328,7 +328,7 @@ var PostListItem = React.createClass({
             </span>
             <a href="#" className="tf-media-wrap" onClick={this.playPauseTrack}>
               <img className="media-object tf-media-thumbnail" width="64" src={post.img_url} alt="..."></img>
-              <div className="tf-media-thumbnail-overlay"><span className={paused} ref="overlay"></span></div>
+              <div className="tf-media-thumbnail-overlay" ref="overlaybg"><span className={paused} ref="overlay"></span></div>
             </a>
           </div>
           <div className="media-body">
