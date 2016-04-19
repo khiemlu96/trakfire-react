@@ -4342,7 +4342,7 @@ a.thumbnail.active {
 .media-right,
 .media-body {
   display: table-cell;
-  vertical-align: bottom;
+  vertical-align: top;
 }
 .media-middle {
   vertical-align: middle;
