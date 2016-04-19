@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160405230244) do
+ActiveRecord::Schema.define(version: 20160418070830) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(version: 20160405230244) do
   create_table "comments", force: :cascade do |t|
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.integer  "parent_id"
     t.integer  "post_id"
+    t.integer  "parent_id"
     t.integer  "user_id"
     t.string   "comment_detail"
   end
@@ -56,6 +56,7 @@ ActiveRecord::Schema.define(version: 20160405230244) do
     t.integer  "reference_id"
     t.string   "notification_type"
     t.text     "data"
+    t.integer  "sender_id"
   end
 
   create_table "oauths", force: :cascade do |t|
@@ -91,8 +92,6 @@ ActiveRecord::Schema.define(version: 20160405230244) do
     t.integer  "comment_count"
     t.string   "img_url_lg"
   end
-
-  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 
   create_table "songs", force: :cascade do |t|
     t.string   "stream_url"
@@ -152,8 +151,8 @@ ActiveRecord::Schema.define(version: 20160405230244) do
     t.boolean  "isAdmin"
     t.string   "handle"
     t.boolean  "canPost"
+    t.float    "score"
     t.boolean  "isVerified"
-    t.integer  "score"
   end
 
   add_index "users", ["uid"], name: "index_users_on_uid", using: :btree

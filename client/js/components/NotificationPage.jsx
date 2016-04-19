@@ -197,7 +197,8 @@ var NotificationPage = React.createClass({
 		var vote_notification = {};
 		var currentUser = this.state.currentUser;
 		var currentUser_followings = [];
-
+		console.log("====================Notifications======================");
+		console.log(this.state.notifications);
 		for(key in currentUser.followings) {
             currentUser_followings.push(currentUser.followings[key].id);
         }
@@ -205,6 +206,7 @@ var NotificationPage = React.createClass({
 		for( key in user_notifications ) {
 			var notification = user_notifications[key];
 			var data = notification.json_data;     
+			var sender = notification.sender;
 			var follow_text = "";
 	        var notification_data = {};	        
 		
@@ -224,7 +226,7 @@ var NotificationPage = React.createClass({
 				notification_data.notification_id = notification.id;
 				notification_data.srcUserId = data.sender_id;
 	            notification_data.srcUserName = data.screen_name;
-	            notification_data.srcUserImg = data.sender_img;
+	            notification_data.srcUserImg = sender.img;
 	            notification_data.description = <span className="tf-notification-desc">Started following you</span>;
 	            notification_data.sent_time = notification.sent_time;
 	            notification_data.read_time = notification.read_time;
@@ -235,7 +237,7 @@ var NotificationPage = React.createClass({
 				notification_data.notification_id = notification.id;
 	            notification_data.srcUserId = data.sender_id;
 	            notification_data.srcUserName = data.screen_name;
-	            notification_data.srcUserImg = data.sender_img;
+	            notification_data.srcUserImg = sender.img;
 	            notification_data.description = <span className="tf-notification-desc">Commented on <span className="tf-link"> your track </span>:<i> {data.comment_text} </i></span>;	
 				notification_data.post_id = data.post_id;
 				notification_data.sent_time = notification.sent_time;
@@ -247,7 +249,7 @@ var NotificationPage = React.createClass({
 				notification_data.notification_id = notification.id;
 	            notification_data.srcUserId = data.sender_id;
 	            notification_data.srcUserName = data.screen_name;
-	            notification_data.srcUserImg = data.sender_img;
+	            notification_data.srcUserImg = sender.img;
 	            notification_data.description = <span className="tf-notification-desc">Replied on your comment:<i> {data.comment_text} </i></span>;
 	            notification_data.post_id = data.post_id;
 	            notification_data.sent_time = notification.sent_time;
@@ -259,7 +261,7 @@ var NotificationPage = React.createClass({
 				notification_data.notification_id = notification.id;
 	            notification_data.srcUserId = data.sender_id;
 	            notification_data.srcUserName = data.screen_name;
-	            notification_data.srcUserImg = data.sender_img;
+	            notification_data.srcUserImg = sender.img;
 	            notification_data.description = <span className="tf-notification-desc">Posted a <span className = "tf-link"> new track </span></span>;
 				notification_data.post_id = data.post_id;
 				notification_data.sent_time = notification.sent_time;
@@ -271,7 +273,7 @@ var NotificationPage = React.createClass({
 				notification_data.notification_id = notification.id;			
 	            notification_data.srcUserId = data.sender_id;
 	            notification_data.srcUserName = data.screen_name;
-	            notification_data.srcUserImg = data.sender_img;
+	            notification_data.srcUserImg = sender.img;
 	            notification_data.description = <span className="tf-notification-desc">Liked your track</span>;
 	            notification_data.post_id = data.post_id;
 	            notification_data.sent_time = notification.sent_time;
