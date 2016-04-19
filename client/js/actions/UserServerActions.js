@@ -118,5 +118,19 @@ module.exports = {
       actionType: UserConstants.DELETE_ADMIN_CAROUSAL_FILE,
       response : response,
     });
+  },
+
+  getUserPostedTraks: function(response) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.GET_USER_POSTED_TRAKS,
+      response : response,
+    });
+  },
+
+  getUserUpvotedTraks: function(response) {
+    AppDispatcher.dispatch({
+        actionType: UserConstants.GET_USER_UPVOTED_TRAKS,
+        response : response,
+    });
   }
 };

@@ -557,6 +557,45 @@ module.exports = {
         console.error(url, error['response']);
       }
     });
+  },
+
+  getUserPostedTraks: function(url, data) {
+
+    Reqwest({
+      url: url,
+      type: 'json',
+      method: 'GET',
+      data: data,
+      contentType: 'application/json',
+      headers: {
+        'Authorization': localStorage.getItem('jwt')
+      },
+      success: function(resp) {
+        UserServerActionCreators.getUserPostedTraks(resp);
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+      }
+    });
+  },
+
+  getUserUpvotedTraks: function(url, data) {
+    Reqwest({
+      url: url,
+      type: 'json',
+      method: 'GET',
+      data: data,
+      contentType: 'application/json',
+      headers: {
+        'Authorization': localStorage.getItem('jwt')
+      },
+      success: function(resp) {
+        UserServerActionCreators.getUserUpvotedTraks(resp);
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+      }
+    });
   }
 };
 
