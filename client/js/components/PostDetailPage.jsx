@@ -322,15 +322,24 @@ var PostDetailPage = React.createClass({
       var count = getCommentLength(post.comments);
       console.log("COMM COUNT", count.comment_count);
       if (count.comment_count === 0){
-        return (<div className='container tf-comment-count-section'>No comments yet.</div>);
-      }
-      return (
+        return (<div>
+                  <div className='container tf-comment-count-section'>No comments yet.</div>
+                  <PostComment 
+                    post = {post} 
+                    post_id = {post.id}
+                    origin = {this.props.origin} 
+                    currUser = {this.state.currUser} />
+                </div>
+               ); 
+      }else{
+        return (
         <PostComment 
           post = {post} 
           post_id = {post.id}
           origin = {this.props.origin} 
           currUser = {this.state.currUser} />
         );
+      }
     } else {
       return (<div>This post does not exist bruh.</div>);
     }    

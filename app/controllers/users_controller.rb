@@ -38,25 +38,112 @@ class UsersController < ApplicationController
       users: @users,
       state: @state
     }
-  
+
     render json: @data
   end  
 
   def posts
-  	@user = User.find(params[:id])
-    @votes = Vote.where(user_id: @user.id)
-    @user_posts = []
-    @votes.each do |v|
-      post = Post.find(v.post_id)
-      user = User.find(post.user_id)
-      userPost = { post: post, author: user }
-      #@user_posts.push(Post.find(v.post_id))
-      @user_posts.push(userPost)
+    #check that which posts are demanded
+    if params[:action_type] == 'posted_trak'
+        @limit = params[:limit].to_i
+        page = params[:page].to_i
+        page_count = params[:limit].to_i
+        @offset = (page - 1) * page_count;
+
+        #if posted_traks are demanded, then take only those posts which are posted by that User
+        @user = User.find(params[:id])
+
+        if @user != nil            
+            @posts = Post.includes(:user).where(user_id: @user.id).order(created_at: :desc).offset(@offset).limit(@limit)           
+
+            # Get total count and page count and total number of pages for the data
+            total_posted_posts_count = Post.where(user_id: @user.id).count('id')
+
+            page_count = @posts.size
+            total_count = total_posted_posts_count
+            no_of_page = (total_count.to_f / @limit.to_f).round(2).ceil     
+        end
+
+        @stats = {
+            total_count: total_count,
+            page_count: page_count,
+            current_page: page,
+            no_of_page: no_of_page,
+            limit: @limit,
+            offset: @offset
+        }
+
+        @data = {
+            posts: @posts,
+            stats: @stats
+        }
+        render json: @data, include: {user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }
+
+    elsif params[:action_type] == 'upvoted_trak'
+        @limit = params[:limit].to_i
+        page = params[:page].to_i
+        page_count = params[:limit].to_i
+        @offset = (page - 1) * page_count;
+
+        #if upvoted_trak are demanded, then take only those posts which are upvoted by that User
+        @user = User.find( params[:id] )
+
+        if @user != nil
+            sql = "SELECT p.* FROM posts p
+                    LEFT JOIN votes v ON p.id = v.post_id                    
+                    WHERE v.user_id = " + @user.id.to_s + "
+                    AND p.user_id <> v.user_id
+                    ORDER BY v.created_at DESC
+                    LIMIT " + @limit.to_s + "
+                    OFFSET " + @offset.to_s
+
+            @posts = Post.includes(:user).find_by_sql(sql)
+
+            #get the total count of traks that are upvoted by that user
+            count_sql = "SELECT p.id FROM posts p
+                    LEFT JOIN votes v ON p.id = v.post_id                    
+                    WHERE v.user_id = " + @user.id.to_s + "
+                    AND p.user_id <> v.user_id"
+
+            total_upvoted_posts_count = Post.find_by_sql(count_sql).size
+
+            # Get total count and page count and total number of pages for the data
+            page_count = @posts.size
+            total_count = total_upvoted_posts_count
+            no_of_page = (total_count.to_f / @limit.to_f).round(2).ceil   
+        end
+
+        @stats = {
+            total_count: total_count,
+            page_count: page_count,
+            current_page: page,
+            no_of_page: no_of_page,
+            limit: @limit,
+            offset: @offset
+        }
+
+        @data = {
+            posts: @posts,
+            stats: @stats
+        }
+        render json: @data, include: {user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }
+
+    else
+
+        @user = User.find(params[:id])
+        @votes = Vote.where(user_id: @user.id)
+        @user_posts = []
+        @votes.each do |v|
+            post = Post.find(v.post_id)
+            user = User.find(post.user_id)
+            userPost = { post: post, author: user }
+            #@user_posts.push(Post.find(v.post_id))
+            @user_posts.push(userPost)
+        end
+        upvotes = {upvoted_posts: @user_posts}
+        logger.info @user.merge(upvotes)
+        render json: @user.merge(upvotes), include: { posts: { except: [] }}
     end
-    logger.info "USER POSTS"
-    upvotes = {upvoted_posts: @user_posts}
-    logger.info @user.merge(upvotes)
-  	render json: @user.merge(upvotes), include: { posts: { except: [] }}
   end
 
   def votes
@@ -89,10 +176,9 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    logger.info 'FOUND USER'
-    logger.info @user
     @votes = Vote.where(user_id: @user.id)
     @uvotes = [];
+    
     @votes.each do |v|
       post = Post.find(v.post_id)
       user = User.find(post.user_id)
@@ -100,17 +186,10 @@ class UsersController < ApplicationController
         userPost = { post: post, author: user }
         @uvotes.push(userPost)
       #end
-
-     #if post.user_id == @user.id 
-     #   logger.info "KILL CONFIRMED"
-     #  @votes.delete(v)
-     # end
-
     end
 
-    @user.upvotes = @uvotes #@votes
-    logger.info "USER TO BE SERVED"
-    logger.info @user.username
+    #@user.posts = @user.id
+    #@user.upvotes = @uvotes #@votes
     
     @followers = Follower.where(follow_id: @user.id)
     @user.followers = @followers
@@ -118,7 +197,6 @@ class UsersController < ApplicationController
     @followings = Follower.where(user_id: @user.id)
     @user.followings = @followings
 
-    logger.info @user.as_json
     render json: @user
   end
   
@@ -126,7 +204,6 @@ class UsersController < ApplicationController
    
     @user = User.find(params[:id])
     @error = {}
-    logger.info @user.as_json
 
     if (@user != nil)
 

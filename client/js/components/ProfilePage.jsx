@@ -119,12 +119,11 @@ var ProfilePage = React.createClass({
                         toggleProfileEdit= {this.toggleProfileEdit} 
                         origin= {this.props.origin} />
 
-                    <UserPostList
-                        upvotedTracks={user.upvotes} 
-                        postedTracks={user.posts}
+                    <UserPostList                        
                         onPostItemClick={this.props.onPostItemClick}
-                        currStreamUrl={this.props.currStreamUrl} />  
-
+                        currStreamUrl={this.props.currStreamUrl}   
+                        user= {user} 
+                        origin={this.props.origin} />
                 </div>
             );
         },

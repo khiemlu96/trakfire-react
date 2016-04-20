@@ -38,26 +38,23 @@ body.search-open {
 .tf-player-wrap-inner-votes {
 	display: inline-block;
 	position: relative;
-	top: -23px;
-	left: -32px;
+	top: -9px;
+	left: 990px;
 	width: 64px;
 	height: 64px;
-	border: 2px solid #ff0d60;
-	border-radius: 50%;
-	background: black url("../assets/img/votes-arrow.svg") no-repeat center 15px;
-	background-size: 12px;
-	padding-top: 29px;
+	padding-top: 32px;
 	padding-left: 1px;
 	text-align: center;
 	letter-spacing: 0.07em;
     cursor: pointer;
+    font-family: "Benton Sans Black", sans-serif !important;
 }
 
 .tf-player-controls-wrap {
 	display: inline-block;
 	vertical-align: middle;
 	top: -10px;
-	left: -4px;
+	left: -67px;
 	position: relative;
 }
 
@@ -68,8 +65,8 @@ body.search-open {
 .tf-player-controls-wrap-info {
 	display: inline-block;
 	vertical-align: middle;
-	top: 0px;
-	left: 0px;
+	top: 5px;
+	left: -36px;
 	position: relative;
 	float: right;
 }
@@ -2019,7 +2016,7 @@ label.ownsong-label {
     padding-bottom: 1px;
     overflow: hidden;
     cursor: pointer;
-    margin-left: 25px;
+    margin-left: 39px;
 }
 
 .tf-progress-inner {
@@ -2075,7 +2072,7 @@ label.ownsong-label {
 }
 
 .tf-player-info-img {
-	max-height: 50px;
+	max-height: 37px;
 	display: inline-block;
 	margin-right: 10px;
 	padding-top: 5px;
@@ -2150,8 +2147,13 @@ label.ownsong-label {
 	background-color: #161616;
 }
 
-#terms-of-use, #privacy-policy, #about-page{
+#terms-of-use, #privacy-policy, #about-page {
 
+}
+
+.tf-faq a{
+	color: #ff0d60 !important;
+	text-decoration: none !important;
 }
 
 .tf-static-page-header{
@@ -3336,6 +3338,7 @@ body .popover{
     text-align: center;
     height: 100%;
     width: 100%;
+    min-height: 170px !important;
 }
 
 .user-flyover-profile-image img {
@@ -3353,6 +3356,8 @@ body .popover{
 .user-flyover-follow-btn {
 	padding-left: 45px;
 	float: left;
+	left: 65px !important;
+	padding: 4px 15px !important;
 }
 
 .user-flyover-follow-btn .tf-follow-button{
@@ -3514,4 +3519,25 @@ ul.doc li {
   z-index: 20004;
   /* to show up over bimodal */
   text-align: center;
+}
+
+.tf-load-more-link {
+	text-align: center;
+	width: 100%
+	height:35px;	
+	color: #FFF;
+	font-weight: bolder;
+	font-size: 16px;
+	text-transform: capitalize;
+}
+
+.tf-load-more-link a {
+	color: #FFF;
+	cursor: pointer;
+	text-decoration: none;
+}
+
+.tf-load-more-link a:hover {
+	cursor: pointer;
+	text-decoration: none;
 }

@@ -23,6 +23,7 @@ var PostsPage = require('./components/PostsPage.jsx');
 var ProfilePage = require('./components/ProfilePage.jsx');
 var PostForm = require('./components/PostForm.jsx');
 var AboutPage = require('./components/static/AboutPage.jsx');
+var FAQ = require('./components/static/FAQ.jsx');
 var PrivacyPolicy = require('./components/static/PrivacyPolicy.jsx');
 var TermsOfUse = require('./components/static/TermsOfUse.jsx')
 var EmailAcquirePage = require('./components/EmailAcquirePage.jsx');
@@ -43,6 +44,7 @@ React.render(
       <Route path='/post' component={PostForm} />
       <Route path='/email' component={EmailAcquirePage} />
       <Route path='/about' component={AboutPage}/>
+      <Route path='/faq' component={FAQ}/>
       <Route path='/terms' component={TermsOfUse}/>
       <Route path='/privacy' component={PrivacyPolicy}/>
       <Route path='/post/(:id)' component={PostDetailPage} />

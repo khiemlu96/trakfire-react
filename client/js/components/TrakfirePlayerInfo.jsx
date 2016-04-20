@@ -19,7 +19,7 @@ var TrakfirePlayerInfo = React.createClass({
   render: function() {
     console.log('RENDER TRACK INFO', this.props );
     var songTitle = this.props.title;
-    if(songTitle.length > 35)
+    if(songTitle.length > 32)
     {
       songTitle = songTitle.substring(0,32);
       songTitle = songTitle + "...";

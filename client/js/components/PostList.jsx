@@ -285,8 +285,11 @@ var PostsList = React.createClass({
       var post = posts[idx];
       if(post.id != track.id) {
         var p = this.refs[post.id];
-        p.refs.overlay.getDOMNode().classname = "icon icon-controller-play";
-        p.refs.overlaybg.getDOMNode().classname = isNotPlaying;
+        if(p) {
+          console.log("PPPP", p);
+          p.refs.overlay.getDOMNode().classname = "icon icon-controller-play";
+          p.refs.overlaybg.getDOMNode().classname = isNotPlaying;
+        }
       }
     }
 
