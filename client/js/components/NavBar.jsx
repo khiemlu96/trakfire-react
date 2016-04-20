@@ -198,7 +198,7 @@ var NavBar = React.createClass({
   
     return <OverlayTrigger trigger="click" rootClose placement="bottom" 
               overlay={
-                  <Popover >
+                  <Popover id="tf-menu-popup">
                      <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/about'}><h6>ABOUT</h6></Link></div>
                      <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/FAQ'}><h6>FAQ</h6></Link></div>
                      <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/privacy'}><h6>PRIVACY POLICY</h6></Link></div>
