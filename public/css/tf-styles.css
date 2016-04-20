@@ -2603,6 +2603,9 @@ body .popover{
 	color: #fff !important;
 }
 
+#tf-menu-popup{
+	top: 40px !important;
+}
 .tf-menu-popup .popover-content{
 	padding: 0px !important;
 }
