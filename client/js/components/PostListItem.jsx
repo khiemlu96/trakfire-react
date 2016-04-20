@@ -336,19 +336,17 @@ var PostListItem = React.createClass({
               <span className="pull-right"><a href="#" onClick={this.upvote}><span className="icon icon-chevron-up" style={voteStyle}></span></a> <small ref="count">{(post.vote_count !== null) ? post.vote_count : 0}</small> </span>
               <Link to={postLink} className="no-decor">{post.title}</Link>
             </h4>
-            <div className="col-md-12">
-                <div className="col-md-6">{post.artist}</div>
-                <div className="col-md-6">
-                    {this.props.showAuthor ? 
-                        <small>posted by:
-                            <Link to={profileLink} className="tf-media-poster nd">
-                                <span onMouseEnter={this.showFlyOver.bind(this,artist_id)} id={artist_id} data-trigger="hover" data-toggle="popover" data-placement="top">
-                                    <small>{post.author_name}</small>
-                                </span>
-                            </Link>
-                        </small>: ""}
-                </div>
-            </div>
+            <h6 className="tf-media-artist">{post.artist}
+              { this.props.showAuthor ? 
+                  <small className="pull-right"> posted by: 
+                      <Link to={profileLink} className="tf-media-poster nd">
+                        <span onMouseEnter={this.showFlyOver.bind(this,artist_id)} id={artist_id} data-trigger="hover" data-toggle="popover" data-placement="top">
+                            <small className="tf-media-artist-name">{post.author_name}</small>
+                        </span>
+                      </Link> 
+                  </small> : "" 
+              }
+            </h6> 
           </div>
         </li>
     );
