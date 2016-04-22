@@ -319,6 +319,7 @@ var PostListItem = React.createClass({
     var artist_id = "tf-media-artist-" + post.id;
     
     var voteStyle = { color: "#ff0d60 !important;" };
+    var voteStyleUpvoted = { color: "#777 !important;" };
 
     return (
         <li className="media tf-media">
@@ -333,7 +334,7 @@ var PostListItem = React.createClass({
           </div>
           <div className="media-body">
             <h4 className="tf-media-title">
-              <span className="pull-right"><a href="#" onClick={this.upvote}><span className="icon icon-chevron-up" style={voteStyle}></span></a> <small ref="count">{(post.vote_count !== null) ? post.vote_count : 0}</small> </span>
+              <span className="pull-right"><a href="#" onClick={this.upvote}><span className="icon icon-chevron-up" style={ !this.hasUpvoted ? voteStyle : voteStyleUpvoted }></span></a> <small ref="count">{(post.vote_count !== null) ? post.vote_count : 0}</small> </span>
               <Link to={postLink} className="no-decor">{post.title}</Link>
             </h4>
             <h6 className="tf-media-artist">{post.artist}

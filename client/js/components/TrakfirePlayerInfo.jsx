@@ -10,7 +10,8 @@ var TrakfirePlayerInfo = React.createClass({
     artist: ReactPropTypes.string,
     title: ReactPropTypes.string,
     post: ReactPropTypes.object, 
-    upvote: ReactPropTypes.func
+    upvote: ReactPropTypes.func, 
+    hasUpvoted: ReactPropTypes.func
   },
   
   upvote: function(e) {
@@ -31,7 +32,9 @@ var TrakfirePlayerInfo = React.createClass({
       songTitle = songTitle.substring(0,32);
       songTitle = songTitle + "...";
     }
-    
+    var voteStyle = { color: "#ff0d60 !important;" };
+    var voteStyleUpvoted = { color: "#777 !important;" };
+
     return (
       <div className="tf-player-info">
         
@@ -44,7 +47,7 @@ var TrakfirePlayerInfo = React.createClass({
           </div> 
           <div className="tf-vote-el pull-right" ref="upvote" onClick={this.upvote}> {/*{upvoted ? isUpvoted : isNotUpvoted}*/}
             <div className="tf-vote-btn">
-                <span className="icon icon-chevron-up"></span>
+                <span className="icon icon-chevron-up" style={!this.props.hasUpvoted ? voteStyle : voteStyleUpvoted }></span>
             </div>
             <div className="tf-vote-count">{ this.props.post.vote_count }</div>
           </div>       

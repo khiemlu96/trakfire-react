@@ -144,7 +144,7 @@ var TrakfirePlayer = React.createClass({
         }
 
         var voteStyle = { color: "#ff0d60 !important;" };
-
+        
         return (
             <div className="tf-player-wrap">
                 <div className="tf-player-wrap-inner container">
@@ -171,6 +171,7 @@ var TrakfirePlayer = React.createClass({
                         title={currTrack ? currTrack.title : ''}
                         post = {currTrack}
                         upvote={this.upvote}
+                        hasUpvoted={this.hasUpvoted}
                     />
                     </div>
 
