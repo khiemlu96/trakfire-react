@@ -101,7 +101,7 @@ var TrakfirePlayer = React.createClass({
     }, 
 
     upvote: function(e) {
-        e.preventDefault();
+        //e.preventDefault();
         var post = this.props.currTrack;
         //console.log('upvoting '+this.props.key);
         //PostActions.upvote('http://localhost:3000'+'/votes', this.props.post.id);
@@ -148,9 +148,6 @@ var TrakfirePlayer = React.createClass({
         return (
             <div className="tf-player-wrap">
                 <div className="tf-player-wrap-inner container">
-                    <div className={upvoted ? isUpvoted : isNotUpvoted} ref="upvote" onClick={this.upvote}>
-                    { currTrack.vote_count }
-                    </div>
                     <div className="tf-player-controls-wrap">
                     <a className={previousLinkClass} href="#!" onClick={this.handlePrevClick}></a>
                     {/*<a className="tf-player-play" href="#!" onClick={this.handlePlayPauseClick}>*/}
@@ -173,6 +170,7 @@ var TrakfirePlayer = React.createClass({
                         artist={currTrack ? currTrack.artist : ''}
                         title={currTrack ? currTrack.title : ''}
                         post = {currTrack}
+                        upvote={this.upvote}
                     />
                     </div>
 

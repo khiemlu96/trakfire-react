@@ -9,9 +9,16 @@ var TrakfirePlayerInfo = React.createClass({
     img: ReactPropTypes.string,
     artist: ReactPropTypes.string,
     title: ReactPropTypes.string,
-    post: ReactPropTypes.object
+    post: ReactPropTypes.object, 
+    upvote: ReactPropTypes.func
   },
   
+  upvote: function(e) {
+    console.log("upvoting");
+    e.preventDefault();
+    this.props.upvote();
+  }, 
+
   /**
    * @return {object}
    * the this.props pieces are for passing in data remove {this.props.} and replace with static data if need be
@@ -34,7 +41,13 @@ var TrakfirePlayerInfo = React.createClass({
               <Link className="nd" to={'/post/'+ this.props.post.id}><p className="tf-player-title-info">{songTitle}</p></Link>
               <Link className="nd" to={'/post/'+ this.props.post.id}><p className="tf-player-artist-info">{this.props.artist}</p></Link>
             </div>
-          </div>        
+          </div> 
+          <div className="tf-vote-el pull-right" ref="upvote" onClick={this.upvote}> {/*{upvoted ? isUpvoted : isNotUpvoted}*/}
+            <div className="tf-vote-btn">
+                <span className="icon icon-chevron-up"></span>
+            </div>
+            <div className="tf-vote-count">{ this.props.post.vote_count }</div>
+          </div>       
       </div>
     );
   },

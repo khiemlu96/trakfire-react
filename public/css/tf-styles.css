@@ -56,6 +56,7 @@ body.search-open {
 	top: -10px;
 	left: -67px;
 	position: relative;
+	margin-top: 25px;
 }
 
 .v-center-progress {
@@ -3538,4 +3539,21 @@ ul.doc li {
 .tf-load-more-link a:hover {
 	cursor: pointer;
 	text-decoration: none;
+}
+
+.tf-vote-el {
+	display: block !important;
+	width: 50px !important;
+	margin-left: 25px;
+	cursor: pointer;
+}
+
+.tf-vote-btn {
+	width: 100%;
+	text-align: center;
+}
+
+.tf-vote-count {
+	width: 100%;
+	text-align: center;
 }
