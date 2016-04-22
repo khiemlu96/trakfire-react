@@ -3551,6 +3551,11 @@ ul.doc li {
 .tf-vote-btn {
 	width: 100%;
 	text-align: center;
+	margin-bottom: -3px;
+}
+
+.tf-vote-btn span {
+	color:#ff0d60 !important;
 }
 
 .tf-vote-count {
