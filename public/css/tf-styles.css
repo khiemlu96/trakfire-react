@@ -3480,7 +3480,7 @@ ul.doc li {
   margin: 0 10px;
 }
 
-.atwho-inserted {
+.tf-comment-add .atwho-inserted {
 	background: LIGHTGRAY;
     height: 17px !important;
     padding: 4px;
@@ -3489,14 +3489,14 @@ ul.doc li {
     border-radius: 10px;
 }
 
-.atwho-view{
+.tf-comment-add .atwho-view {
 	border-radius: 1px;
 	background: #DDD;
 	font-family: "Georgia", san-serif;
 	font-size: 13px;
 }
 
-.atwho-view ul {
+.tf-comment-add .atwho-view ul {
 	width: 450px;
 }
 

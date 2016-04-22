@@ -14,7 +14,13 @@ class UsersController < ApplicationController
     @users = []
     if( params[:search_key] != nil )
       @search_key = params[:search_key]
-      @users = User.where("lower(username) like ?", ('%'+@search_key.downcase+'%')).order(created_at: :desc).ranking.offset(@offset).limit(@limit)
+      
+      @search_by = 'username';
+      if params[:search_by] != nil
+        @search_by = params[:search_by];
+      end
+      
+      @users = User.where("lower(" + @search_by + ") like ?", ('%'+@search_key.downcase+'%')).order(created_at: :desc).ranking.offset(@offset).limit(@limit)
       page_count = @users.size
       total_count = User.where("lower(username) like ?", ('%'+@search_key.downcase+'%')).distinct.count('id')
     else

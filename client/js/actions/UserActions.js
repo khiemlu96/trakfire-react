@@ -115,6 +115,26 @@ var UserActions = {
 
   getUserUpvotedTraks: function(url, data) {
     TfAPI.getUserUpvotedTraks(url, data);
+  },
+
+  getUserRequestInvites: function(url, data) {
+    TfAPI.getUserRequestInvites(url, data);
+  },
+
+  deleteRequest: function(url) {
+    TfAPI.deleteRequest(url);
+  },
+
+  addUserToWhiteList: function(url, data) {
+    TfAPI.addUserToWhiteList(url, data);
+  },
+
+  getAllWhiteListUsers: function(url, data) {
+    TfAPI.getAllWhiteListUsers(url, data);
+  },
+
+  deleteWhiteListUser: function(url) {
+    TfAPI.deleteWhiteListUser(url);
   }
 };
 

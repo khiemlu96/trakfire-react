@@ -502,5 +502,37 @@ table.dataTable .tf-preview-img {
     padding-right: 3px;
 }
 
+.panel-body {
+    overflow-y: auto;
+}
 
+#user_handle_input_box {
+    background-color: #F8F8F8;
+    cursor: pointer;
+    z-index: 0;
+    border: 1px solid #c8c8c8;
+    color: BLACK;
+}
 
+#user_handle_input_box .atwho-inserted {
+    background: LIGHTGRAY;
+    height: 22px !important;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 4px;
+    color: #1f1f1f;
+    padding-bottom: 4px;
+    font-size: 14px;
+    border-radius: 2px;
+}
+
+#user_handle_input_box .atwho-view {
+    border-radius: 1px;
+    background: #DDD;
+    font-family: "Georgia", san-serif;
+    font-size: 13px;
+}
+
+#user_handle_input_box .atwho-view ul {
+    width: 450px;
+}

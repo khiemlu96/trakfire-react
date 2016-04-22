@@ -35,6 +35,8 @@ var DashBoardPage = require('./components/admin/DashBoardPage.jsx');
 var AdminUserPage = require('./components/admin/AdminUserPage.jsx');
 var AdminPostsPage = require('./components/admin/AdminPostsPage.jsx');
 var AdminBannerImagePage = require('./components/admin/AdminBannerImagePage.jsx');
+var AdminRequestInvitesListPage = require('./components/admin/AdminRequestInvitesListPage.jsx');
+var AdminWhiteListUserPage = require('./components/admin/AdminWhiteListUserPage.jsx');
 
 React.render(
   <Router history={hashHistory()}>
@@ -56,6 +58,8 @@ React.render(
         <Route name="admin.user" path='/admin/users' component={AdminUserPage} />
         <Route name="admin.post" path='/admin/posts' component={AdminPostsPage} />
         <Route name="admin.images" path='/admin/images' component={AdminBannerImagePage} />
+        <Route name="admin.request_invite" path='/admin/request_invite' component={AdminRequestInvitesListPage} />
+        <Route name="admin.whitelist_users" path='/admin/whitelist_users' component={AdminWhiteListUserPage} />
       </Route>
     </Route>    
   </Router>,

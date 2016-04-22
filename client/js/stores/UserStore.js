@@ -20,6 +20,8 @@ var _adminCarousalFilesState = null;
 var _userPostedTraks = [];
 var _posted_trak_stats = null, _upvoted_trak_stats = null; 
 var _userUpvotedTraks = [];
+var _userRequestInvites = null, _userRequestInvitesState = {};
+var _whitelistUsers= null, _whitelistUsersState = {};
 
 function _addCurrentUser(user) {
   _cUser = UserUtils.convertRawUser(user);
@@ -147,6 +149,52 @@ function addUserUpvotedTraks(response) {
   }
 }
 
+function addUserRequestInvites(data) {
+  var user_requests = data.requests;
+  _userRequestInvites = {};
+  _userRequestInvitesState = {};
+  _userRequestInvitesState = data.state;
+  for(var key in user_requests) {
+    _userRequestInvites[user_requests[key].id] = user_requests[key];
+  }
+}
+
+function deleteUserRequestInvite(response) {
+  var request_id = response.request_id;
+  if( _userRequestInvites[request_id] !== null && _userRequestInvites[request_id] !== undefined ) {
+    delete _userRequestInvites[request_id];
+    _userRequestInvitesState.total_count--;
+  }
+}
+
+function addUserToWhiteList(response) {
+  var user = response[0];
+  if( user !== null || user !== undefined ) {
+    _whitelistUsers[user.id] = user;
+    _whitelistUsersState.total_count++;
+  }
+}
+
+function addAllUsersToWhiteList(response) {
+  var users = response.whitelist_users;
+  if( users !== null || users !== undefined ) {
+    _whitelistUsers = {};
+    _whitelistUsersState = {};
+    _whitelistUsersState = response.state;
+    for(var key in users) {
+      _whitelistUsers[users[key].id] = users[key];
+    }
+  }
+}
+
+function delWhiteListUser(response) {
+  var user_id = response.user_id;
+  if( _whitelistUsers[user_id] !== null && _whitelistUsers[user_id] !== undefined ) {
+    delete _whitelistUsers[user_id];
+    _whitelistUsersState.total_count--;
+  }
+}
+
 var UserStore = assign({}, EventEmitter.prototype, {
 
   getCurrentUser: function() {
@@ -234,8 +282,23 @@ var UserStore = assign({}, EventEmitter.prototype, {
 
   getUsersState: function() {
     return _userState;
-  }
+  },
 
+  getUserRequestInvites: function() {
+    return _userRequestInvites;
+  },
+
+  getUserRequestInvitesStats: function() {
+    return _userRequestInvitesState;
+  },
+
+  getAllWhiteListUsers: function() {
+    return _whitelistUsers;
+  },
+
+  getAllWhiteListUsersState: function() {
+    return _whitelistUsersState;
+  }
 });
 
 // Register callback to handle all updates
@@ -315,6 +378,26 @@ AppDispatcher.register(function(action) {
       break;
     case UserConstants.GET_USER_UPVOTED_TRAKS:
       addUserUpvotedTraks(action.response);
+      UserStore.emitChange();
+      break;
+    case UserConstants.GET_USER_REQUEST_INVITES:
+      addUserRequestInvites(action.response);
+      UserStore.emitChange();
+      break;
+    case UserConstants.DEL_USER_REQUEST_INVITES:
+      deleteUserRequestInvite(action.response);
+      UserStore.emitChange();
+      break;
+    case UserConstants.ADD_USER_TO_WHITELIST:
+      addUserToWhiteList(action.response);
+      UserStore.emitChange();
+      break;
+    case UserConstants.GET_WHITELIST_USERS:
+      addAllUsersToWhiteList(action.response);
+      UserStore.emitChange();
+      break;
+    case UserConstants.DEL_WHITELIST_USERS:
+      delWhiteListUser(action.response);
       UserStore.emitChange();
       break;
     default:
