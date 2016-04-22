@@ -94,7 +94,13 @@ class PostsController < ApplicationController
 	end
 
 	def create
-	  @post = @current_user.posts.build(post_params)
+	  logger.info @current_user.username
+	  logger.info @current_user.posts
+	  logger.info "/n"
+	  logger.info "building"
+
+	  @post = Post.new(post_params) #@current_user.posts.build(post_params)
+	  @post.user_id = @current_user.id;
 	  @post.date = Date.today
 	  @post.vote_count = 1
 
@@ -195,6 +201,6 @@ class PostsController < ApplicationController
 
 	private
   	  def post_params
-    	params.require(:post).permit(:url, :user_id, :img_url, :img_url_lg, :stream_url, :waveform_url, :artist, :title, :duration, :genre, :votes, :vote_count, :all_tags, :action_type, :comment_count, :search_key)
+    	params.require(:post).permit(:url, :user_id, :img_url, :img_url_lg, :stream_url, :status, :waveform_url, :artist, :title, :duration, :genre, :votes, :vote_count, :all_tags, :action_type, :comment_count, :search_key)
   	  end
 end

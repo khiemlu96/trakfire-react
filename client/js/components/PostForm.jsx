@@ -17,6 +17,7 @@ var OverlayTrigger = Bootstrap.OverlayTrigger;
 var Popover = Bootstrap.Popover;
 var SoundCloudAudio = require('soundcloud-audio');
 var PostStyle = { top:38, left:660,maxWidth:'80%', backgroundColor: '#1c1c1c', border:'1px solid #2b2b2b', position:'Fixed'};
+var PostStyleHidden = {display: 'none'};
 var SpanStyle = { float:'left'};
 var _submit = false;
 var _data = {};
@@ -32,7 +33,7 @@ var PostForm = React.createClass({
   },
 
   getInitialState: function() {
-  	return { step : 1 };
+  	return { step : 1, show: true };
   }, 
 
   getDefaultProps: function() {
@@ -85,7 +86,7 @@ var PostForm = React.createClass({
     PostActions.writePost(this.props.origin+'/posts', data);
     console.log("pushed.............");
     this.props.showGrowl("Posted track with success!");
-    this.setState({step : 1});
+    this.setState({step : 1, show: false});
   }, 
 
   render: function() {
@@ -127,7 +128,7 @@ var PostForm = React.createClass({
   	  	  
         <OverlayTrigger trigger="click" rootClose placement="bottom"
            overlay={ 
-                     <Popover style={PostStyle} id="PostForm"> 
+                     <Popover style={this.state.show ? PostStyle : PostStyleHidden} id="PostForm"> 
                        {/*<span style={SpanStyle}>*/}
                          {postStep}
                        {/*</span>*/}

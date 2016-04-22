@@ -8145,15 +8145,15 @@ img.zoom-img {
 .growl {
   position: fixed;
   top: 65px;
-  left: 15px;
-  right: 15px;
+  
+  right: 150px;
   z-index: 1090;
 }
 .growl.growl-static {
-  position: relative;
+  position: absolute;
   top: auto;
-  right: auto;
-  z-index: auto;
+  right: 15px;
+  z-index: 1090;
 }
 .growl .alert {
   -webkit-animation: slide-from-top 1000ms cubic-bezier(0.2, 0.7, 0.5, 1);
