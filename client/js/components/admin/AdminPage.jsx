@@ -53,6 +53,10 @@ var TrakFireAdminPage = React.createClass({
 			selectedMenu = 'user';
 		else if(currentRoute.indexOf("admin/images") !== -1 )
 			selectedMenu = 'carousal';
+		else if(currentRoute.indexOf("admin/request_invite") !== -1 )
+			selectedMenu = 'request_invite';
+		else if(currentRoute.indexOf("admin/whitelist_users") !== -1 )
+			selectedMenu = 'whitelist_users';
 
 		this.setState({
 			selectedMenu: selectedMenu
@@ -93,6 +97,12 @@ var TrakFireAdminPage = React.createClass({
 				selectedMenu = key;
 				break;
 			case 'carousal':
+				selectedMenu = key;
+				break;
+			case 'request_invite':
+				selectedMenu = key;
+				break;
+			case 'whitelist_users':
 				selectedMenu = key;
 				break;
 			default:
@@ -142,6 +152,12 @@ var TrakFireAdminPage = React.createClass({
 								</li>
 								<li id="carousal-link" className={(this.state.selectedMenu === 'carousal' ? 'selected': '')}> 
  									<Link onClick = {this.selectSideBar.bind(this, 'carousal')} to="/admin/images"><i className="fa fa-list-alt fa-fw"></i> &nbsp;Banner Skins</Link>
+ 								</li>
+ 								<li id="request-invite-link" className={(this.state.selectedMenu === 'request_invite' ? 'selected': '')}> 
+ 									<Link onClick = {this.selectSideBar.bind(this, 'request_invite')} to="/admin/request_invite"><i className="fa fa-user-plus fa-fw"></i> &nbsp;Request Invites</Link>
+ 								</li>
+ 								<li id="whitelist-users-link" className={(this.state.selectedMenu === 'whitelist_users' ? 'selected': '')}> 
+ 									<Link onClick = {this.selectSideBar.bind(this, 'whitelist_users')} to="/admin/whitelist_users"><i className="fa fa-user-times fa-fw"></i> &nbsp;Whitelist Users</Link>
  								</li>
 							</ul>
 						</div>

@@ -132,5 +132,40 @@ module.exports = {
         actionType: UserConstants.GET_USER_UPVOTED_TRAKS,
         response : response,
     });
+  },
+
+  getUserRequestInvites: function(response) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.GET_USER_REQUEST_INVITES,
+      response : response,
+    });
+  },
+
+  deleteRequest: function(response) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.DEL_USER_REQUEST_INVITES,
+      response : response,
+    });
+  },
+
+  addUserToWhiteList: function(response) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.ADD_USER_TO_WHITELIST,
+      response : response,
+    });
+  },
+
+  getAllWhiteListUsers: function(response) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.GET_WHITELIST_USERS,
+      response : response,
+    });
+  },
+
+  deleteWhiteListUser: function(response) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.DEL_WHITELIST_USERS,
+      response : response,
+    });
   }
 };

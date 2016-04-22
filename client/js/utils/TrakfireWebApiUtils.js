@@ -596,6 +596,93 @@ module.exports = {
         console.error(url, error['response']);
       }
     });
+  },
+  
+  getUserRequestInvites: function(url, data) {
+    Reqwest({
+        url: url,
+        type: 'json',
+        method: 'GET',
+        data: data,
+        contentType: 'application/json',
+        headers: {
+          'Authorization': localStorage.getItem('jwt')
+        },
+        success: function(resp) {
+          UserServerActionCreators.getUserRequestInvites(resp);
+        },
+        error: function(error) {
+          console.error(url, error['response']);
+        }
+    });
+  },
+
+  deleteRequest: function(url) {
+    Reqwest({
+      url: url,
+      type: 'json',
+      method: 'DELETE',
+      contentType: 'application/json',
+      headers: {'Authorization': localStorage.getItem('jwt')},
+      success: function(resp) {
+        UserServerActionCreators.deleteRequest(resp); 
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+      }
+    });
+  },
+
+  addUserToWhiteList: function(url, data) {
+    Reqwest({
+      url: url,
+      data: JSON.stringify(data),
+      type: 'json',
+      method: 'POST',
+      contentType: 'application/json',
+      headers: {'Authorization': localStorage.getItem('jwt')},
+      success: function(resp) {
+        UserServerActionCreators.addUserToWhiteList(resp);
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+      }
+    });
+  },
+
+  getAllWhiteListUsers: function(url, data) {
+    Reqwest({
+        url: url,
+        type: 'json',
+        method: 'GET',
+        data: data,
+        contentType: 'application/json',
+        headers: {
+          'Authorization': localStorage.getItem('jwt')
+        },
+        success: function(resp) {
+          UserServerActionCreators.getAllWhiteListUsers(resp);
+        },
+        error: function(error) {
+          console.error(url, error['response']);
+        }
+    });
+  },
+
+  deleteWhiteListUser: function(url) {
+    Reqwest({
+      url: url,
+      type: 'json',
+      method: 'DELETE',
+      contentType: 'application/json',
+      headers: {'Authorization': localStorage.getItem('jwt')},
+      success: function(resp) {
+        UserServerActionCreators.deleteWhiteListUser(resp); 
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+      }
+    });
   }
 };
 

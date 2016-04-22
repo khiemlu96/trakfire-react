@@ -175,15 +175,14 @@ var TrakfireApp = React.createClass({
   },
 
   sendUserApplication: function() {
-    console.log(this.refs.artistField.getDOMNode().value);
-    var name = this.refs.nameField.getValue();
-    var handle = this.refs.handleField.getValue()
-    var email = this.refs.emailField.getValue();
-    var artists = this.refs.artistField.getDOMNode().value;
-    var statement = this.refs.statementField.getDOMNode().value;
+    var name = this.refs.nameField.getValue().trim();
+    var handle = this.refs.handleField.getValue().trim();
+    var email = this.refs.emailField.getValue().trim();
+    var track1 = this.refs.sc1.getValue().trim();
+    var track2 = this.refs.sc2.getValue().trim();
+    var track3 = this.refs.sc3.getValue().trim();
 
-
-    if(!name || !email || !artists || !statement) {
+    if(!name || !email || !handle) {
       console.log("missed a field");
       return;
     }
@@ -193,10 +192,12 @@ var TrakfireApp = React.createClass({
         name : name,
         handle : handle, 
         email : email, 
-        artists : artists, 
-        statement : statement
-      } 
+        sc1 : track1, 
+        sc2 : track2,
+        sc3 : track3
+      }
     }
+
     UserActions.sendUserApplication(this.props.origin+'/applications', data);
     this.closeSignupModal();
   }, 
@@ -295,7 +296,7 @@ var TrakfireApp = React.createClass({
                 origin: this.props.origin,
                 value: scPlayer.audio.currentTime, 
                 currStreamUrl: this.state.currStreamUrl, 
-                setSongList: this.setSongList, 
+                setSongList: this.setSongList,
                 filterPosts: this.handleUserSelection
               }) }</div>;
     
@@ -330,7 +331,7 @@ var TrakfireApp = React.createClass({
             </Modal.Body>
           </Modal>*/}
 
-          <Modal show={this.state.showModal} onHide={this.closeModal}>
+          <Modal show={this.state.showSignupModal} onHide={this.closeSignupModal}>
             <Modal.Body closeButton className={"tf-modal-body"}>
               <p> <h2 className="tf-centered tf-uppercase">Request Invite</h2></p>
               <p className="tf-centered">Wanna become an influencer? <br></br> Request an invite and become part of the community. </p>
