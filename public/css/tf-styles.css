@@ -2671,7 +2671,7 @@ body .popover{
 }
 
 .tf-follow-button{
-	position: absolute;
+	position: relative;
     width: auto;
     height: 30px;
     text-align: center;

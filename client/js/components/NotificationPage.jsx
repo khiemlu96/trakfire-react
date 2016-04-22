@@ -22,7 +22,6 @@ var followBtnStyle = {
 };
 var notificationStyle ={
 	height:'auto',
-	backgroundColor:'#f5f8fa'
 }
 function getLength(arr) {
     var count = 0;
@@ -144,6 +143,8 @@ var NotificationPage = React.createClass({
 			var indicator = "";
 		}
 
+		var followButtonClassName = notification_data.className + " pull-right";
+
 		if(count_of_sender_ids < 2) {
 			return(    		
 	    		<div id = {"notification-" + notification_data.notification_id} className = "tf-notification-list-item list-group-item">
@@ -160,8 +161,8 @@ var NotificationPage = React.createClass({
 		                        </div>
 		                        <div> {notification_data.description} </div>
 		                    </div>
-		                    <div className = "col-md-3 right">
-		                        <div className={notification_data.className} id={"followUser_"+ notification_data.srcUserId} style={followBtnStyle} onClick={this.handle_follow_click}> {notification_data.follow_text} </div>
+		                    <div className = "col-md-3 right pull-right">
+		                        <div className={followButtonClassName} id={"followUser_"+ notification_data.srcUserId} style={followBtnStyle} onClick={this.handle_follow_click}> {notification_data.follow_text} </div>
 		                    </div>
 		                </div>
 	                </Link>
@@ -295,33 +296,12 @@ var NotificationPage = React.createClass({
 					
 					<div className="container p-t-md">
 						<div className="row">
-							<div className="col-md-3">
-								<div className="list-group m-b-md">
-							        <a href="#" className="list-group-item">
-							          <span className="icon icon-chevron-thin-right pull-right"></span>
-							          Notifications
-							        </a>
-							        <a href="#" className="list-group-item">
-							          <span className="icon icon-chevron-thin-right pull-right"></span>
-							          Mentions
-							        </a>
-							     </div>
-							</div>
-							<div className="col-md-6">
 						      <ul className="list-group media-list media-list-stream">
 						        <div className="list-group-item p-a">
 						          <h3 className="m-a-0">Notifications</h3>
 						        </div>
-					          	{this.renderNotifications()}
-								
+					          	{this.renderNotifications()}	
 							  </ul>
-							</div>
-							<div className="col-md-3 tf-notification-right-panel">
-							   <div className="leaderboard">
-									<NotificationLeaderBoard origin={this.props.origin}/>
-							   </div>
-							</div>
-
 						</div>
 						<div className="row tf-notification-page-footer">						
 							<span>
