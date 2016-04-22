@@ -16,6 +16,9 @@ var OverlayTrigger = Bootstrap.OverlayTrigger;
 var Popover = Bootstrap.Popover;
 var UserStyle = { maxWidth:480, backgroundColor: '#1c1c1c', border:'1px solid #2b2b2b'};
 var UserFlyOver = require('./UserFlyOver.jsx');
+var classNames = require('classnames');
+var playing = classNames("icon icon-controller-paus");
+var paused = classNames("icon icon-controller-play");
 
 function randomIntFromInterval(min,max) {
     return Math.floor(Math.random()*(max-min+1)+min);
@@ -32,6 +35,8 @@ function getLength(arr) {
 var PostDetailHeader = React.createClass({
   propTypes: {
    post: ReactPropTypes.object,
+   onClick: ReactPropTypes.func, 
+   origin: ReactPropTypes.string
   },
 
   componentWillMount: function() {
@@ -82,11 +87,11 @@ var PostDetailHeader = React.createClass({
     }
   },
 
-  /*getInitialState: function() {
+  getInitialState: function() {
     return {isPlaying:false, isUpvoted:false, hasUpvoted:false};
-  },*/
+  },
 
-  /*upvote: function(e) {
+  upvote: function(e) {
     e.preventDefault();
     this.PostActions.upvote(this.props.key);
   },
@@ -95,6 +100,7 @@ var PostDetailHeader = React.createClass({
     e.preventDefault();
     console.log("TRACK", this.props.trackIdx);
     this.props.onClick(this.props.post.stream_url, this.props.post);
+    this.setState({isPlaying:true});
     if(!this.state.isPlaying) {
       //this.refs.post.className += " is-playing";
       this.setState({isPlaying : true});
@@ -105,8 +111,8 @@ var PostDetailHeader = React.createClass({
       this.setState({isPlaying : false});
       mixpanel.track("Track Pause");
     }
-    console.log("POST", this.state.isPlaying, this.refs.post);
-  },*/
+    //console.log("POST", this.state.isPlaying, this.refs.post);
+  },
 
   /**
    * @return {object}
@@ -129,9 +135,12 @@ var PostDetailHeader = React.createClass({
             <div className="row no-gutter">
 
               <div className="col-md-3">
-                <div className="tf-header-thumbnail">
-                    <img src={post.img_url_lg} alt="..."></img>
-                </div>
+                <a href="#" onClick={this.playPauseTrack}>
+                  <div className="tf-header-thumbnail">
+                      <img src={post.img_url_lg} alt="..."></img>
+                      <div className="tf-header-thumbnail-overlay" ref="overlaybg"><span className={!this.state.isPlaying ? paused : playing} ref="overlay"></span></div>
+                  </div>
+                </a>
               </div>
 
               <div className="col-md-offset-1 col-md-8">

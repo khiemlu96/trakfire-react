@@ -150,7 +150,9 @@ var PostDetailPage = React.createClass({
 
   /* Function triggered by item thumbnail click */
   onPlayBtnClick: function() {
-    var isPlaying = this.state.isPlaying;
+    var track = this.state.post;
+    this.props.onPostItemClick(track.stream_url, track, track.id);
+    /*var isPlaying = this.state.isPlaying;
     var isPaused = this.state.isPaused;
     var stream_url = this.state.post.stream_url;
     var track = this.state.post;
@@ -212,7 +214,7 @@ var PostDetailPage = React.createClass({
       'filter' : this.state.genre, 
       'sort' : this.state.sort 
       });      
-    }
+    }*/
   },
 
   onPlayCtrlClick: function() {
@@ -295,7 +297,7 @@ var PostDetailPage = React.createClass({
                 </div>;
 
     return (
-      <PostDetailHeader post={post}/>
+      <PostDetailHeader post={post} onClick={this.onPlayBtnClick}/>
     );
   },
 

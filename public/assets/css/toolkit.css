@@ -8846,6 +8846,37 @@ img.zoom-img {
   display: block !important;
 }
 
+.tf-header-thumbnail-overlay {
+  background-color: rgba(0,0,0,0.6);
+  position: absolute;
+  height: 250px;
+  width: 250px;
+  left: 15px;
+  top: 0px;
+  z-index: 1;
+  display: none;
+  text-align: center;
+}
+
+.tf-header-thumbnail-overlay span {
+  display: none;
+}
+
+.tf-header-thumbnail-overlay:hover span {
+  display: inline-block;
+  margin-top: 80px;
+  font-size: 50px;
+  color: #ff0d60;
+} 
+
+.tf-header-wrap { 
+  position: relative;
+}
+
+.tf-header-thumbnail:hover .tf-header-thumbnail-overlay {
+  display: block !important;
+}
+
 .tf-user {
   border: none !important;
   background-color: #1f1f1f !important;
