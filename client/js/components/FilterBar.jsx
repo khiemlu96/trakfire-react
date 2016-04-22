@@ -148,37 +148,25 @@ var FilterBar = React.createClass({
   render: function() {
     var title = "TODAY'S FIRE";
     return (
-      <div className="tf-filter-bar">
-        <div className="container"> 
-          <div className="left tf-today-header"><h4>{title} </h4></div>
-          <div className="row right tf-filter-list">
-           <ul className="tf-filter-bar-ul">
-            <a href="#!" ref="electronic" className={(_genre.indexOf("ELECTRONIC") > -1 ) ? "is-active tf-left-filter" : "is-non-active tf-left-filter" } 
-              onClick={this.handleElectronicClick}>
-              <li >Electronic</li>
-            </a>              
-            <a href="#!" ref="hiphop" className={(_genre.indexOf("HIPHOP") > -1 ) ? "is-active " : "is-non-active" } 
-              onClick={this.handleHipHopClick} >
-              <li>Rhymes</li>
-            </a>    
-            <a href="#!" ref="vocal" className={(_genre.indexOf("VOCALS") > -1 ) ? "is-active tf-right-filter" : "is-non-active tf-right-filter" } 
-              onClick={this.handleVocalsClick} >
-              <li>Vocals</li>
-            </a>    
-            {/*<a href="#!" 
-              ref="top" 
-              className={(_genre == "POPULAR") ?"is-active" : "" }
-              onClick={this.handleTopClick} >
-              POPULAR
-            </a>*/}
-            </ul>
-          </div>
-          <div className="right">
-            {
-            }
-          </div>
+      <div className="tf-post-list-header">
+       <ul className="tf-post-filter">
+         <li >  
+            <a href="#!" ref="electronic" className={(_genre.indexOf("ELECTRONIC") > -1 ) ? "is-active " : "is-non-active " } 
+              onClick={this.handleElectronicClick}> Electronic
+            </a> 
+          </li>             
+         <li >  
+            <a href="#!" ref="hiphop" className={(_genre.indexOf("HIPHOP") > -1 ) ? "is-active " : "is-non-active " } 
+              onClick={this.handleHipHopClick}> Rhymes
+            </a> 
+          </li>     
+         <li >  
+            <a href="#!" ref="vocals" className={(_genre.indexOf("VOCALS") > -1 ) ? "is-active " : "is-non-active " } 
+              onClick={this.handleVocalsClick}> Vocals
+            </a> 
+          </li>   
+        </ul>
         </div>
-      </div>
     );
   },
 

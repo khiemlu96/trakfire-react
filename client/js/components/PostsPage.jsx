@@ -37,7 +37,8 @@ var PostsPage = React.createClass({
     filterPosts : ReactPropTypes.func,
     currUser: ReactPropTypes.object, 
     showModal: ReactPropTypes.func,
-    setSongList: ReactPropTypes.func
+    setSongList: ReactPropTypes.func, 
+    filterPosts: ReactPropTypes.func
   }, 
 
   getInitialState: function() {
@@ -142,7 +143,8 @@ var PostsPage = React.createClass({
           currUser={this.props.currUser}
           showModal={this.props.showModal}
           setSongList={this.props.setSongList}
-          origin={this.props.origin} />
+          origin={this.props.origin} 
+          filterPosts={this.props.filterPosts}/>
         <div id="tf-loader-region">
             //Show loader here when loadin more posts on Scrolling the page to bottom
 

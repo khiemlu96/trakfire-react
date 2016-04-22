@@ -170,7 +170,14 @@ function _addVoteToPost(post_id, vote) {
 }
 
 function _markPostAsCurrent(song_id) {
-  _songs[song_id].current = true;
+  console.log("marky mark");
+  for(song in _songs) {
+    if(_songs[song].id == song_id) {
+      //_songs[song_id].current = true;
+      console.log("SONGSONG", song);
+      _songs[song].current = true;
+    }
+  }
 }
 
 function _addPostComment(post_id, comment) {
@@ -320,6 +327,7 @@ var PostStore = assign({}, EventEmitter.prototype, {
     var nextIdx = currIdx + 1;
     if(nextIdx >= len)
       nextIdx = currIdx;
+    console.log("NEXT", len, curr, currIdx, nextIdx, _songs);
     var next = _songs[nextIdx];
     next.current = true;
     curr.current = false;

@@ -162,7 +162,8 @@ var PostsList = React.createClass({
     currUser: ReactPropTypes.object, 
     showModal: ReactPropTypes.func,
     setSongList: ReactPropTypes.func,
-    origin: ReactPropTypes.string
+    origin: ReactPropTypes.string, 
+    filterPosts: ReactPropTypes.func
   },
 
   getInitialState: function() {
@@ -493,10 +494,10 @@ var PostsList = React.createClass({
       <div>
 
       <PostListHeader post={firstSong}/>
-
       <div className="container p-t-md" style={postListStyle}>
         <div className="row">
           <div className="col-md-8">
+            <FilterBar onClick={this.props.filterPosts} genre={this.props.genre} sort={this.props.sort}/>
             <ul className="media-list">{_postListItems}</ul>
           </div>
           <div className="col-md-4">

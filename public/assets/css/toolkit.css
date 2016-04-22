@@ -8781,7 +8781,7 @@ img.zoom-img {
 .tf-post-list-header {
   position: relative;
   display: block;
-  padding: 10px 15px;
+  padding: 15px 0px;
   margin-bottom: -1px;
   /*background-color: #191818;*/
   border-bottom: 1px solid #2B2B2B;

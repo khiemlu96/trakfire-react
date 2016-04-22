@@ -295,7 +295,8 @@ var TrakfireApp = React.createClass({
                 origin: this.props.origin,
                 value: scPlayer.audio.currentTime, 
                 currStreamUrl: this.state.currStreamUrl, 
-                setSongList: this.setSongList
+                setSongList: this.setSongList, 
+                filterPosts: this.handleUserSelection
               }) }</div>;
     
     return (
