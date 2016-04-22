@@ -8564,8 +8564,9 @@ img.zoom-img {
   padding: 15px;
 }
 .media-list-users .media-object {
-  width: 42px;
-  margin-right: 5px;
+  width: 30px;
+  margin-right: 0px;
+  margin-bottom: 9px;
   border-radius: 100%;
 }
 .media-list-users .media-body-secondary {
