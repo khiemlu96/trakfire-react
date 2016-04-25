@@ -112,12 +112,12 @@ var NavBar = React.createClass({
     this.props.showModal(true);
   },
 
-  hideMenuPopup: function() {
-    /*this.refs.menuIcon.getDOMNode().value = "";
+  hideMenuPopup: function() { 
+    this.refs.menuIcon.getDOMNode().value = "";
     this.setState({
           isVisible: true
         }); 
-        MenuIconStyle.display = 'none';*/
+        MenuIconStyle.display = 'none';
     this.refs.menuPopup.hide();
   }, 
 
@@ -196,15 +196,14 @@ var NavBar = React.createClass({
         adminConsoleLink = <div className="tf-menu-popup-list-item"><Link to={'/admin'} className="nd"><h6>ADMIN CONSOLE</h6></Link></div>; 
     }
   
-    return <OverlayTrigger trigger="click" rootClose placement="bottom" 
+    return <OverlayTrigger trigger="click" rootClose placement="bottom" ref = "menuPopup" style = {MenuIconStyle}
               overlay={
-                  <Popover id="tf-menu-popup">
-                     <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/about'}><h6>ABOUT</h6></Link></div>
-                     <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/FAQ'}><h6>FAQ</h6></Link></div>
-                     <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/privacy'}><h6>PRIVACY POLICY</h6></Link></div>
-                     <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/terms'}><h6>TERMS OF USE</h6></Link></div>
-                     <div onClick = {this.closeModal}> {adminConsoleLink} </div>
-                     <div onClick = {this.closeModal}> {signinLink} </div>
+                  <Popover >
+                     <div className="tf-menu-popup-list-item" ref = "menuIcon" onClick = {this.hideMenuPopup}><Link className="nd" to={'/about'}><h6>ABOUT</h6></Link></div>
+                     <div className="tf-menu-popup-list-item" ref = "menuIcon" onClick = {this.hideMenuPopup}><Link className="nd" to={'/privacy'}><h6>PRIVACY POLICY</h6></Link></div>
+                     <div className="tf-menu-popup-list-item" ref = "menuIcon" onClick = {this.hideMenuPopup}><Link className="nd" to={'/terms'}><h6>TERMS OF USE</h6></Link></div>
+                     <div onClick = {this.hideMenuPopup} ref = "menuIcon"> {adminConsoleLink} </div>
+                     <div onClick = {this.hideMenuPopup} ref = "menuIcon"> {signinLink} </div>
                   </Popover>
                 }>
               <span className="glyphicon glyphicon-option-horizontal tf-menu-link" ></span>
@@ -230,7 +229,7 @@ var NavBar = React.createClass({
    * @return {object}
    */
   render: function() {
-    
+
     var indicator = "";
     if(this.props.user != null){
       if(this.props.user.unread_notifications > 0) {
