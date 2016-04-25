@@ -12,6 +12,7 @@ class TokensController < ApplicationController
     if oauth.present?
       request_token = OAuth::RequestToken.new(TWITTER, oauth.token, oauth.secret)
       access_token = request_token.get_access_token(oauth_verifier: params[:oauth_verifier])
+
       user_data = access_token.request(:get, "https://api.twitter.com/1.1/account/verify_credentials.json")#access_token.request(:get, "https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true")
       j_user = JSON.parse(user_data.body)
 
@@ -28,6 +29,27 @@ class TokensController < ApplicationController
       if j_user['profile_image_url_https']
         user.img = j_user['profile_image_url_https']
         user.save
+      end
+      
+      #update followers of the user
+      follower_data = access_token.request(:get, "https://api.twitter.com/1.1/friends/ids.json?cursor=-1&screen_name=" + access_token.params[:screen_name] + "&count=20")
+      j_followers = JSON.parse(follower_data.body)
+
+
+      j_followers['ids'].each do |f|
+          follow_id = f
+          
+          # Check whether this user is present in users table
+          @u = User.where(uid: follow_id).first
+          if @u.present?
+              #Check whether user is already followed by the logged in user
+              @following_user = Follower.where(user_id: user.id, follow_id: @u.id)
+
+              if @following_user.present? == false
+                following = Follower.new(user_id: user.id, follow_id: @u.id)
+                following.save
+              end
+          end
       end
 
       # Check that whether EXISTING user is allowed to login from twitter or not
