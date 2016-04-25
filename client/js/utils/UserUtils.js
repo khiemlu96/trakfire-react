@@ -19,7 +19,8 @@ module.exports = {
       followers: rawUser.followers,
       followings: rawUser.followings, 
       score: rawUser.score,
-      isVerified: rawUser.isVerified
+      isVerified: rawUser.isVerified,
+      unread_notifications: rawUser.unread_notifications
     };
   }, 
 

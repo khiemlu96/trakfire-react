@@ -95,6 +95,7 @@ var ProfilePage = React.createClass({
 
             var scloudurl =  "https://soundcloud.com/" + user.handle;
             
+                
             return (
                 <div>
                     
@@ -110,7 +111,7 @@ var ProfilePage = React.createClass({
                         onUserFollowClick={this.followUser}
                         onUnFollowClick={this.unFollowUser}
                         isFollowing={isFollowing}
-                        currentUserId={this.state.currUser}
+                        currentUserId={this.props.currUser.id}
                         isUserVerified={user.isVerified} />                    
                     
                     <ProfileEditPage

@@ -98,7 +98,6 @@ var PostFormLast = React.createClass({
       {
           return (
               <div className="tf-newtrack-wrapper">
-                <img src="/assets/img/nipple.png" className="nipple"></img>
                 <div className="tf-newtrack-title"> SONG POSTED WITH SUCCESS </div>
                 <p className=" tf-newtrack-description"> Be the first one to like it! </p>
                 <div className="tf-new-post col-xs-12 col-md-4 col-sm-6">

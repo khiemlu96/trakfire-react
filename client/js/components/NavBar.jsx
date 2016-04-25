@@ -230,10 +230,16 @@ var NavBar = React.createClass({
    * @return {object}
    */
   render: function() {
-
+    
+    var indicator = "";
+    if(this.props.user != null){
+      if(this.props.user.unread_notifications > 0) {
+        var indicator = <div className="tf-bell-unread-indicator"></div>;
+      } 
+    }
     if(this.props.isLoggedIn) {
       console.log("IN NAVBAR ", '/profile/'+this.props.user.id);
-      var notificationLink = <li><Link className="app-notifications" to="/notifications"><span className="icon icon-bell"></span></Link></li>
+      var notificationLink = <li><Link className="app-notifications" to="/notifications">{indicator}<span className="icon icon-bell "></span></Link></li>
       var signinLink = '';
       
       var profileLink = <li><button className="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover"><Link to={'/profile/'+this.props.user.id}><img className="img-circle" src={this.props.user.img} ></img></Link></button></li>
@@ -251,8 +257,8 @@ var NavBar = React.createClass({
     } else {
       var notificationLink = '';
       var signinLink = <li><a className="btn btn-navbar-link btn-primary-outline btn-sm pull-right" href={this.props.origin+'/request_token'}> MEMBER SIGN IN </a></li>
-      var requestInviteLink = <li> <a href="#" className="btn btn-navbar-link btn-primary-outline btn-sm pull-right" onClick={this.props.showSignupModal}> REQUEST INVITE </a> </li>
-      var inviteLink = <a href="#" onClick={this.props.showSignupModal}> REQUEST INVITE </a>
+      var requestInviteLink = <li> <a href="#" className="btn btn-navbar-link btn-primary-outline btn-sm pull-right" onClick={this.showModal}> REQUEST INVITE </a> </li>
+      var inviteLink = <a href="#" onClick={this.showSignupModal}> REQUEST INVITE </a>
       var profileLink = "";
       var postLink = '';
       var searchIcon = '';

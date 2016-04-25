@@ -81,7 +81,6 @@ var PostFormSecond = React.createClass({
     console.log(data);    
   	return (
     <div className="tf-newtrack-wrapper"> 
-      <img src="/assets/img/nipple.png" className="nipple"></img>
             <div className="tf-newtrack-title tf-newtrack-title--details"> ADD DETAILS </div>
         
               <div className="align-left"> 

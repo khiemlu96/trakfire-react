@@ -198,7 +198,6 @@ var PostFormFirst = React.createClass({
   	return (
   	 <div>
        <div className="tf-newtrack-wrapper"> 
-          <img src="/assets/img/nipple.png" className="nipple"></img>
           <div className="tf-newtrack-title"> ADD A SONG </div>
           <p className="tf-newtrack-description"> Post a link to a song on Soundcloud </p>
           <input onChange={this.onUrlInputChange} type="text" ref="url_field" className="tf-soundcloud-link" placeholder="paste a soundcloud link">
