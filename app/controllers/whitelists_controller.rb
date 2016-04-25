@@ -14,8 +14,8 @@ class WhitelistsController < ApplicationController
     	#@whitelist_users = Whitelist.joins('LEFT OUTER JOIN users ON whitelists.email = users.email').order(created_at: :desc).offset(@offset).limit(@limit)
       	sql = "	SELECT users.id as user_id, users.username, users.handle, whitelists.* FROM whitelists
 	     		LEFT OUTER JOIN users
-	     		ON whitelists.email = users.email
-				ORDER BY created_at DESC 
+	     		ON whitelists.handle = users.handle
+				ORDER BY created_at DESC
 				OFFSET " + @offset.to_s + " LIMIT " + @limit.to_s
 
 		@whitelist_users = Whitelist.find_by_sql(sql)
@@ -43,15 +43,15 @@ class WhitelistsController < ApplicationController
 	end
 
 	def create
-		existing_user = Whitelist.where(email: user_params['email'])
+		existing_user = Whitelist.where(handle: user_params['handle'])
 
 		if existing_user.size == 0
 			@new_user = Whitelist.new(user_params)
 			if @new_user.save
 				sql = "	SELECT users.id as user_id, users.username, users.handle, whitelists.* FROM whitelists
 	     				LEFT OUTER JOIN users
-	     				ON whitelists.email = users.email
-	     				WHERE whitelists.email = '" + user_params['email'].to_s + "'"
+	     				ON whitelists.handle = users.handle
+	     				WHERE whitelists.handle = '" + user_params['handle'].to_s + "'"
 
 				@whitelist_user = Whitelist.find_by_sql(sql)
 				render json: @whitelist_user
@@ -77,6 +77,6 @@ class WhitelistsController < ApplicationController
 	end
 
 	def user_params
-		params.require(:user).permit(:email)
+		params.require(:user).permit(:email, :handle)
 	end
 end
