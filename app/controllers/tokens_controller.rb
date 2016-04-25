@@ -32,11 +32,12 @@ class TokensController < ApplicationController
       end
 
       #update followers of the user
-      follower_data = access_token.request(:get, "https://api.twitter.com/1.1/friends/list.json?cursor=-1&screen_name=" + access_token.params[:screen_name] + "&skip_status=true&include_user_entities=false")
+      follower_data = access_token.request(:get, "https://api.twitter.com/1.1/friends/ids.json?cursor=-1&screen_name=" + access_token.params[:screen_name] + "&count=20")
       j_followers = JSON.parse(follower_data.body)
-      
-      j_followers['users'].each do |f|
-          follow_id = f['id']
+
+
+      j_followers['ids'].each do |f|
+          follow_id = f
           
           # Check whether this user is present in users table
           @u = User.where(uid: follow_id).first
