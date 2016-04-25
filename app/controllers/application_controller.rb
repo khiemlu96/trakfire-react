@@ -17,6 +17,8 @@ class ApplicationController < ActionController::API
     @followings = Follower.where(user_id: @current_user.id)
     @current_user.followings = @followings
     
+    @current_user.unread_notifications = @current_user.id
+    
     render json: @current_user, include: { posts: { except: [] }}
   end
 

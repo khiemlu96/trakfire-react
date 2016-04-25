@@ -44,7 +44,8 @@ class CommentsController < ApplicationController
 									:post_id => post.id,
 									:post_name => post.title,
 									:comment_text => @comment.comment_detail
-								}
+								},
+						:sender_id => @current_user.id.to_s
 					}
 				
 					if Notification.sendNotification( @notification, {:consolidate => false} )
