@@ -112,12 +112,12 @@ var NavBar = React.createClass({
     this.props.showModal(true);
   },
 
-  hideMenuPopup: function() {
-    /*this.refs.menuIcon.getDOMNode().value = "";
+  hideMenuPopup: function() { 
+    this.refs.menuIcon.getDOMNode().value = "";
     this.setState({
           isVisible: true
         }); 
-        MenuIconStyle.display = 'none';*/
+        MenuIconStyle.display = 'none';
     this.refs.menuPopup.hide();
   }, 
 
@@ -196,15 +196,14 @@ var NavBar = React.createClass({
         adminConsoleLink = <div className="tf-menu-popup-list-item"><Link to={'/admin'} className="nd"><h6>ADMIN CONSOLE</h6></Link></div>; 
     }
   
-    return <OverlayTrigger trigger="click" rootClose placement="bottom" 
+    return <OverlayTrigger trigger="click" rootClose placement="bottom" ref = "menuPopup" style = {MenuIconStyle}
               overlay={
                   <Popover id="tf-menu-popup">
-                     <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/about'}><h6>ABOUT</h6></Link></div>
-                     <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/FAQ'}><h6>FAQ</h6></Link></div>
-                     <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/privacy'}><h6>PRIVACY POLICY</h6></Link></div>
-                     <div className="tf-menu-popup-list-item" onClick = {this.closeModal}><Link className="nd" to={'/terms'}><h6>TERMS OF USE</h6></Link></div>
-                     <div onClick = {this.closeModal}> {adminConsoleLink} </div>
-                     <div onClick = {this.closeModal}> {signinLink} </div>
+                     <div className="tf-menu-popup-list-item" ref = "menuIcon" onClick = {this.hideMenuPopup}><Link className="nd" to={'/about'}><h6>ABOUT</h6></Link></div>
+                     <div className="tf-menu-popup-list-item" ref = "menuIcon" onClick = {this.hideMenuPopup}><Link className="nd" to={'/privacy'}><h6>PRIVACY POLICY</h6></Link></div>
+                     <div className="tf-menu-popup-list-item" ref = "menuIcon" onClick = {this.hideMenuPopup}><Link className="nd" to={'/terms'}><h6>TERMS OF USE</h6></Link></div>
+                     <div onClick = {this.hideMenuPopup} ref = "menuIcon"> {adminConsoleLink} </div>
+                     <div onClick = {this.hideMenuPopup} ref = "menuIcon"> {signinLink} </div>
                   </Popover>
                 }>
               <span className="glyphicon glyphicon-option-horizontal tf-menu-link" ></span>
@@ -231,9 +230,15 @@ var NavBar = React.createClass({
    */
   render: function() {
 
+    var indicator = "";
+    if(this.props.user != null){
+      if(this.props.user.unread_notifications > 0) {
+        var indicator = <div className="tf-bell-unread-indicator"></div>;
+      } 
+    }
     if(this.props.isLoggedIn) {
       console.log("IN NAVBAR ", '/profile/'+this.props.user.id);
-      var notificationLink = <li><Link className="app-notifications" to="/notifications"><span className="icon icon-bell"></span></Link></li>
+      var notificationLink = <li><Link className="app-notifications" to="/notifications">{indicator}<span className="icon icon-bell "></span></Link></li>
       var signinLink = '';
       
       var profileLink = <li><button className="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover"><Link to={'/profile/'+this.props.user.id}><img className="img-circle" src={this.props.user.img} ></img></Link></button></li>
@@ -251,8 +256,8 @@ var NavBar = React.createClass({
     } else {
       var notificationLink = '';
       var signinLink = <li><a className="btn btn-navbar-link btn-primary-outline btn-sm pull-right" href={this.props.origin+'/request_token'}> MEMBER SIGN IN </a></li>
-      var requestInviteLink = <li> <a href="#" className="btn btn-navbar-link btn-primary-outline btn-sm pull-right" onClick={this.props.showSignupModal}> REQUEST INVITE </a> </li>
-      var inviteLink = <a href="#" onClick={this.props.showSignupModal}> REQUEST INVITE </a>
+      var requestInviteLink = <li> <a href="#" className="btn btn-navbar-link btn-primary-outline btn-sm pull-right" onClick={this.showModal}> REQUEST INVITE </a> </li>
+      var inviteLink = <a href="#" onClick={this.showSignupModal}> REQUEST INVITE </a>
       var profileLink = "";
       var postLink = '';
       var searchIcon = '';

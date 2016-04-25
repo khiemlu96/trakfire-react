@@ -1248,12 +1248,21 @@ ul.tf-filter-bar-ul {
 /* links */
 .is-active {
 	color: #FFFFFF!important;
+	border: 1px solid #ff0d60;
 }
-
+.profile-header-user .is-active{
+	margin-left: 25px !important;
+}
+.is-active li{
+	list-style-type:disc;
+}
 .is-non-active{
 	color: #494949!important;
+	border: 1px solid #2b2b2b;
 }
-
+.is-non-active li{
+	list-style-type:circle;
+}
 
 .tf-left-filter{
 	border-top-left-radius: 5px;
@@ -2672,7 +2681,7 @@ body .popover{
 }
 
 .tf-follow-button{
-	position: relative;
+	position: absolute;
     width: auto;
     height: 30px;
     text-align: center;
@@ -2918,6 +2927,19 @@ body .popover{
     float: right;
     height: 16px !important;
     left: -20px !important;
+    position: relative;
+    top: -4px !important;
+    width: 16px !important;
+    z-index: 10;
+}
+
+.tf-bell-unread-indicator {
+	background-color: #ff0d60 !important;
+    border: 3px solid #191818;
+    border-radius: 50%;
+    float: right;
+    height: 16px !important;
+    left: -13px !important;
     position: relative;
     top: -4px !important;
     width: 16px !important;
@@ -3338,6 +3360,7 @@ body .popover{
     height: 100%;
     width: 100%;
     min-height: 170px !important;
+    width: 200px !important;
 }
 
 .user-flyover-profile-image img {
@@ -3354,9 +3377,9 @@ body .popover{
 
 .user-flyover-follow-btn {
 	padding-left: 45px;
-	float: left;
-	left: 65px !important;
 	padding: 4px 15px !important;
+	position: inherit;;
+	margin-bottom: 5px !important;
 }
 
 .user-flyover-follow-btn .tf-follow-button{
@@ -3374,9 +3397,14 @@ body .popover{
 	font-weight: 600;
     color: #4b4b4b;
     height: 45px;
-    line-height: 14px;
+    line-height: 16px;
     font-size: 13px;
     overflow: hidden !important;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    max-height: 32px;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
 }
 
 .arrow-down {
@@ -3540,6 +3568,7 @@ ul.doc li {
 	cursor: pointer;
 	text-decoration: none;
 }
+
 
 .tf-vote-el {
 	display: block !important;

@@ -5289,7 +5289,7 @@ button.close {
   bottom: 1px;
   margin-left: -10px;
   border-bottom-width: 0;
-  border-top-color: #ffffff;
+  border-top-color: #1c1c1c;
 }
 .popover.right > .arrow {
   top: 50%;
@@ -8145,7 +8145,6 @@ img.zoom-img {
 .growl {
   position: fixed;
   top: 65px;
-  
   right: 150px;
   z-index: 1090;
 }
@@ -8800,16 +8799,26 @@ img.zoom-img {
   text-transform: uppercase;
   font-family: "Benton Sans RE", sans-serif !important;
   font-weight: bold;
-  margin-right: 5px;
 }
 
 .tf-post-list-header ul li:last-child {
   margin-right: 0 !important;
 }
 
+.tf-post-filter li:last-child a{
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.tf-post-filter li:first-child a{
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
 .tf-post-list-header ul li > a {
   color: #fff;
   text-decoration: none;
+  padding: 7px;
 }
 
 .tf-post-list-header ul li a:hover {

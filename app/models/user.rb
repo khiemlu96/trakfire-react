@@ -50,8 +50,16 @@ class User < ActiveRecord::Base
     @followings
   end
 
+  def unread_notifications=(user_id)
+    @unread_notifications = Notification.where(user_id: user_id).count
+  end
+
+  def unread_notifications
+    @unread_notifications
+  end
+
   def as_json(options={})
-    super( include: { votes: { except: [] } }, methods: ['upvotes', 'followers', 'followings'] )
+    super( include: { votes: { except: [] } }, methods: ['upvotes', 'followers', 'followings', 'unread_notifications'] )
   end
 
   scope :ranking, -> { select('id, email, username, provider, uid, img, location, tbio, "isAdmin", handle, "isVerified"') }
