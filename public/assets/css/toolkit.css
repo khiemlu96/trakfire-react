@@ -5289,7 +5289,7 @@ button.close {
   bottom: 1px;
   margin-left: -10px;
   border-bottom-width: 0;
-  border-top-color: #ffffff;
+  border-top-color: #1c1c1c;
 }
 .popover.right > .arrow {
   top: 50%;
@@ -8145,7 +8145,6 @@ img.zoom-img {
 .growl {
   position: fixed;
   top: 65px;
-  
   right: 150px;
   z-index: 1090;
 }
