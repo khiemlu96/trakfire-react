@@ -14,6 +14,7 @@ class TokensController < ApplicationController
       access_token = request_token.get_access_token(oauth_verifier: params[:oauth_verifier])
       user_data = access_token.request(:get, "https://api.twitter.com/1.1/account/verify_credentials.json")#access_token.request(:get, "https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true")
       j_user = JSON.parse(user_data.body)
+
       user = User.find_or_create_by(uid: access_token.params[:user_id]) do |u| 
         u.handle = access_token.params[:screen_name] 
         u.username = j_user['name']
@@ -21,21 +22,34 @@ class TokensController < ApplicationController
         u.tbio = j_user['description']
         u.location = j_user['location']
         #u.email = j_user['email']
-        logger.info 'THE NEW USER'
-        logger.info u
         new_user = true
       end
+
       if j_user['profile_image_url_https']
-        logger.info 'THE PICTURE'
-        logger.info j_user['profile_image_url_https']
         user.img = j_user['profile_image_url_https']
         user.save
       end
-      jwt = JWT.encode({uid: user.uid, exp: 1.day.from_now.to_i}, Rails.application.secrets.secret_key_base)
+
+      # Check that whether EXISTING user is allowed to login from twitter or not
+      # i.e. his email is present in white list user list or not 
+      white_list_user = Whitelist.where(handle: user.handle).first
+      if white_list_user.present?
+          # If the user email is present in white list users list,
+          # then redirect user to Home Page         
+          jwt = JWT.encode({uid: user.uid, exp: 1.day.from_now.to_i}, Rails.application.secrets.secret_key_base)
+          redirect_to ENV['ORIGIN'] + "?jwt=#{jwt}"
+      else
+          # If the user email is not present in white list users list,
+          # then redirect user to Home Page 
+          # pass an extra query parameter into url of an application 'attempt_failed'
+          # to show an request Invite popup
+          redirect_to ENV['ORIGIN'] + "?attempt_failed=true"
+      end     
+
       #if new_user
        # redirect_to ENV['ORIGIN'] + "/email?jwt=#{jwt}&id=#{user.id}&uname=#{user.username}"
       #else 
-      redirect_to ENV['ORIGIN'] + "?jwt=#{jwt}"
+      
       #end
     else
       redirect_to ENV['ORIGIN']

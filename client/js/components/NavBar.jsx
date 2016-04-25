@@ -8,7 +8,7 @@
  */
 
 var React = require('react');
-
+var Uri = require('jsuri');
 var Router = require('react-router');
 var Link = Router.Link;
 
@@ -100,9 +100,19 @@ var NavBar = React.createClass({
     showGrowl: ReactPropTypes.func
   },
 
-  componentDidMount: function() {
-    console.log("NAV PROPS", this.props);
-  }, 
+  componentDidMount: function() {  
+    // Check if the url contains 'attempt_failed' search-keyword,
+    // then show signup modal popup 
+    var isShowSignUpPopup = false;
+    if( window.location.search.indexOf('attempt_failed') !== -1 ){
+      isShowSignUpPopup = new Uri(location.search).getQueryParamValue('attempt_failed');
+    }
+
+    if(this.props.isLoggedIn === false && isShowSignUpPopup === 'true')
+    {
+      this.showSignupModal();
+    }
+  },
   
   handleSignOut: function() {
     localStorage.setItem('jwt','');
@@ -123,7 +133,7 @@ var NavBar = React.createClass({
 
   showSignupModal: function() {
     this.props.showSignupModal();
-  }, 
+  },
 
   handleKeyUp: function(e) {
     e.preventDefault();

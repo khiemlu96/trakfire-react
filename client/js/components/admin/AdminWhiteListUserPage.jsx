@@ -95,15 +95,15 @@ var AdminWhiteListUserPage = React.createClass({
             headerTpl: null,
             start_with_space: false,
             search_key: "handle",
-            insertTpl: "<span member_id='${userId}' data-value='${handle}' class='member'>${handle}</span>",
-            displayTpl: "<li data-value='${email}' member_id='${userId}'>${handle}  (<small>${email}</small>)</li>",
+            insertTpl: "<span handle='${handle}' data-value='${handle}' class='member'>${handle}</span>",
+            displayTpl: "<li data-value='${email}' handle='${handle}'>${handle}  (<small>${email}</small>)</li>",
             limit: 10,
             callbacks: {
                 beforeInsert: function(value, $li, e) {
                     self.removeEmptyMsg();
                     var email = $li[0].attributes["data-value"].value;
-                    var member_id = $li[0].attributes.member_id.value;
-                    var user = {email: email};
+                    var handle = $li[0].attributes.handle.value;
+                    var user = {email: email, handle: handle};
 
                     // Allow only one user at a time
                     if( self.whitelist_user.length === 1 ) {
@@ -146,14 +146,17 @@ var AdminWhiteListUserPage = React.createClass({
                             success: function(resp) { 
                                 if( resp.users.length > 0 ) {
                                     resp.users.forEach( function(user) {
-                                        passback.push({
-                                            'userId':user.id,
-                                            'name':user.username,
-                                            'email':user.email,
-                                            'handle': user.handle
-                                        });
-                                    });                             
+                                        if( user.handle !== null ) {
+                                            passback.push({
+                                                'uid':user.uid,
+                                                'name':user.username,
+                                                'email':user.email,
+                                                'handle': user.handle
+                                            });
+                                        }
+                                    });
                                 }
+
                                 if(passback.length === 0) {
                                     self.removeEmptyMsg();
                                     $("body").append("<div class='empty-msg-atwho'>No Results</div>");
@@ -175,7 +178,8 @@ var AdminWhiteListUserPage = React.createClass({
 
     addUserToWhiteList: function() {
         var user = {};
-        user['email'] = this.whitelist_user[0].email;
+        user['email'] = this.whitelist_user[0].email !== null ? this.whitelist_user[0].email : "";
+        user['handle'] = this.whitelist_user[0].handle;
         
         var data = {
             user: user
@@ -223,7 +227,7 @@ var AdminWhiteListUserPage = React.createClass({
         });
     },
 
-    renderWhiteListUserGrid: function(whileList_users) {         
+    renderWhiteListUserGrid: function(whileList_users) {     
         if( whileList_users !== undefined && getLength(whileList_users) > 0 ) {
             var whiteListUserGridHtml = [];
             for( var id in whileList_users ) {
