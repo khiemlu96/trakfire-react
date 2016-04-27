@@ -35,6 +35,7 @@ var ProfilePage = React.createClass({
 
             return initailStates;
         },
+
         componentDidMount: function() {
             UserStore.addChangeListener(this._onChange);
             var userid = this.props.params.id;
@@ -75,6 +76,24 @@ var ProfilePage = React.createClass({
             var follow_id = this.state.user.id;
             UserActions.unFollowUser(this.props.origin+ '/follower', follow_id);
         },   
+
+        componentWillReceiveProps: function(nextProps) {            
+            var user = this.state.user;
+            // Atfer changing props param's id value,
+            // Get the new user object from user ids
+            if( user !== null && parseInt(nextProps.params.id) !== user.id ) {
+                this.getUser(parseInt(nextProps.params.id));
+            }
+        },
+
+        shouldComponentUpdate: function(nextProps, nextState) {
+            var user = this.state.user;
+            if( user !== null && parseInt(nextProps.params.id) !== user.id ) {
+                return false;
+            }
+            return true;
+        },
+
         /**
          * @return {object}
          */
@@ -82,7 +101,6 @@ var ProfilePage = React.createClass({
             //console.log("USER TO RENDER", this.state.user)
             var user = this.state.user;
             var isFollowing = false;            
-            
             if(user !== null) {
                 for(var key in user.followers) {
                     if(this.props.currUser && user.followers[key].id === this.props.currUser.id) {
@@ -97,8 +115,7 @@ var ProfilePage = React.createClass({
             
                 
             return (
-                <div>
-                    
+                <div>                    
                     <ProfileHeader
                         userId={user.id}
                         userName={user.name}
@@ -120,7 +137,7 @@ var ProfilePage = React.createClass({
                         toggleProfileEdit= {this.toggleProfileEdit} 
                         origin= {this.props.origin} />
 
-                    <UserPostList                        
+                   <UserPostList                        
                         onPostItemClick={this.props.onPostItemClick}
                         currStreamUrl={this.props.currStreamUrl}   
                         user= {user} 

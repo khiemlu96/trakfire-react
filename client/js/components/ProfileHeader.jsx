@@ -92,15 +92,8 @@ var ProfileHeader = React.createClass({
         var editLink = <div></div>;
         if(this.props.userId == this.props.currentUserId) {
             showEditLink = false;
-            followBtnStyle.display = 'block';
-           /* console.log("=================this.props===============");
-            console.log(this.props);
-            console.log("=================this.props.userId ===============");
-            console.log(this.props.userId );
-            console.log("=================this.props.currentUserId===============");
-            console.log(this.props.currentUserId);*/
-            
-            editLink = <a onClick={this.openEditProfile}><div className="is-active btn btn-primary">Edit</div></a>;
+            followBtnStyle.display = 'block';            
+            editLink = <a onClick={this.openEditProfile}><div className="is-active right btn btn-primary">Edit</div></a>;
         }
         console.log("FOILLOW STYLE", followBtnStyle, this.props.currentUserId, this.props.userId);
         var headerStyle = {"padding" : 100 + 'px'};
@@ -116,10 +109,11 @@ var ProfileHeader = React.createClass({
                   <div className="container">
                     <div className="container-inner">
                       <img className="img-circle media-object" src={this.props.userImg}></img>
+                        {editLink}
                     </div>
                       <div >
                       <h3 className="profile-header-user">{this.props.userName}&nbsp;&nbsp;{verifiedIcon}
-                        {editLink}
+                        
                       </h3>
                       <p className="profile-header-bio">
                         {this.props.userBio}
