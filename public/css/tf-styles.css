@@ -1387,7 +1387,7 @@ ul.tf-filter-bar-ul {
     position: absolute;
 }
 
-.tf-profile-edit-wrapper .btn,
+.tf-profile-edit-wrapper .btn, .profile-header .btn,
 .tf-profile-wrapper .tf-filter-bar .btn {
     background-color: #ff0d60 !important;
     border: medium none;
@@ -1509,7 +1509,11 @@ ul.tf-filter-bar-ul {
     width: 700px !important;
 }
 
-.tf-profile-edit-wrapper .btn {
+.profile-header .btn {
+	margin-right: -180px !important;
+}
+
+.tf-profile-edit-wrapper .btn, .profile-header .btn {
     float: right;
     font-weight: 800;
     margin-right: -40px;
