@@ -62,6 +62,6 @@ class User < ActiveRecord::Base
     super( include: { votes: { except: [] } }, methods: ['upvotes', 'followers', 'followings', 'unread_notifications'] )
   end
 
-  scope :ranking, -> { select('id, email, username, provider, uid, img, location, tbio, "isAdmin", handle, "isVerified"') }
+  scope :ranking, -> { select('id, email, username, provider, uid, img, location, tbio, score, "isAdmin", handle, "isVerified"') }
 
 end
