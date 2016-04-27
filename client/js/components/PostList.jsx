@@ -472,8 +472,8 @@ var PostsList = React.createClass({
 
     var postListStyle = { marginTop: 20+"px" };
     var carousalItemHtml = <CarouselItem></CarouselItem>;
-
-    if( this.state.carousal_images !== null ) {
+    var nocaro = false
+    if( this.state.carousal_images !== null && nocaro) {
       carousal_items = getCarousalImageArray( this.state.carousal_images );
       var keys = carousal_items[0];
       var original_images = carousal_items[1];
