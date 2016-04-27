@@ -29,6 +29,7 @@ var LeaderBoardItem = React.createClass({
   propTypes: {
   	user: ReactPropTypes.object,
   	origin: ReactPropTypes.string,
+    showModal: ReactPropTypes.func
   },
 
   getInitialState: function(){
@@ -55,6 +56,10 @@ var LeaderBoardItem = React.createClass({
   },
   
   followClick: function(){
+    if(!this.state.currentUser) {
+      this.props.showModal();
+      return;
+    }
   	if(!this.state.isFollowing){
   		this.followUser();
         this.state.isFollowing = true;

@@ -20,7 +20,7 @@ var LeaderBoardItem = require('./LeaderBoardItem.jsx');
 function getComponentState() {
   return {
    	users: UserStore.getAllUsers(),
-    currentUser: UserStore.getCurrentUser()
+    currentUser: UserStore.getCurrentUser(),
   };
 }
 
@@ -35,7 +35,8 @@ function sortByScore(a, b) {
 var LeaderBoard = React.createClass({
 
 	propTypes: {
-		origin: ReactPropTypes.string
+		origin: ReactPropTypes.string,
+    showModal: ReactPropTypes.func
 	}, 
 
   getInitialState: function() { return getComponentState(); }, 
@@ -51,7 +52,7 @@ var LeaderBoard = React.createClass({
   
   	for(i in sortedUsers) {
   		var u = sortedUsers[i];
-  		var uItem = <LeaderBoardItem user={u} origin={this.props.origin} currentUser={this.state.currentUser}/>
+  		var uItem = <LeaderBoardItem user={u} origin={this.props.origin} currentUser={this.state.currentUser} showModal={this.props.showModal}/>
   		leaderBoardItems.push(uItem);
   	}
   	return leaderBoardItems;

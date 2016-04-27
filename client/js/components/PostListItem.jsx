@@ -96,6 +96,7 @@ var PostListItem = React.createClass({
   }, 
 
   upvote: function(e) {
+    console.log("in post list item upvote");
     e.preventDefault();
     var post = this.props.post;
     mixpanel.identify(this.props.userid);

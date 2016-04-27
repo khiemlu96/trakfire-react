@@ -249,6 +249,7 @@ var PostsList = React.createClass({
   }, 
 
   upvote: function(postid) {
+    console.log("in post list upvote");
     this.props.onPostUpvote(postid);
   },
 
@@ -503,7 +504,7 @@ var PostsList = React.createClass({
           <div className="col-md-4">
               {carousalItemHtml}
 
-              <LeaderBoard origin={this.props.origin}/>
+              <LeaderBoard origin={this.props.origin} showModal={this.props.showModal}/>
               
           </div>
         </div>

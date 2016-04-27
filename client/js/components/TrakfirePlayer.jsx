@@ -33,7 +33,8 @@ var TrakfirePlayer = React.createClass({
         isUpvoted: ReactPropTypes.bool,
         onUpvote: ReactPropTypes.func, 
         isLoggedIn: ReactPropTypes.bool, 
-        userId: ReactPropTypes.number
+        userId: ReactPropTypes.number, 
+        showModal: ReactPropTypes.func
     },
 
     getInitialState: function() {
@@ -115,6 +116,8 @@ var TrakfirePlayer = React.createClass({
         if(this.props.isLoggedIn && !this.hasUpvoted(post)){
           this.props.onUpvote(post.id);
           this.setState({hasUpvoted:true});
+        } else {
+            this.props.showModal();
         }
     },
 

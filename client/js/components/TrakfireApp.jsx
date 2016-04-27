@@ -109,7 +109,7 @@ var TrakfireApp = React.createClass({
     this.readPostsFromApi();
     //SongActions.setSongList({});
     scPlayer.on('ended', this.onTrackEnded);
-    $(document).on("ReactComponent:TrakfireApp:showModal", this.showModal);
+    //$(document).on("ReactComponent:TrakfireApp:showModal", this.showModal);
     //console.log("POSTS RECIEVED", this.props.allPosts);
   },
   componentWillUnmount: function() {
@@ -167,7 +167,14 @@ var TrakfireApp = React.createClass({
   },
 
   writeVoteToApi: function(postid) {
-    PostActions.upvote(this.props.origin+'/votes', postid);
+    console.log("traps")
+    if(this.state.isLoggedIn) {
+      PostActions.upvote(this.props.origin+'/votes', postid);
+    } else {
+      console.log("TRAPIN");
+      this.showSignupModal();
+    }
+
   }, 
 
   updateUserWithEmail: function(email) {
@@ -229,6 +236,7 @@ var TrakfireApp = React.createClass({
   }, 
 
   showSignupModal: function(){
+    console.log("SHOW THE SU MODAL");
     this.setState({showSignupModal:true});
   }, 
 
@@ -279,6 +287,7 @@ var TrakfireApp = React.createClass({
                       isUpvoted={upvoted}
                       userId={currUserId}
                       onGetSongsLength={this.onGetSongsLength}
+                      showModal={this.showSignupModal}
                       />;
     //var tfEmailAcq = <EmailAcquirePage updateUserWithEmail={this.updateUserWithEmail}/>;
     var Routes =  <div>
@@ -287,7 +296,7 @@ var TrakfireApp = React.createClass({
                 sort: this.state.sort,
                 genre: this.state.genre,
                 posts: {},
-                showModal: this.showModal,
+                showModal: this.showSignupModal,
                 togglePlay: this.onPlayBtnClick,
                 upvote: this.writeVoteToApi,
                 filterPosts: this.handleUserSelection,

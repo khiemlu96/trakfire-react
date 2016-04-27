@@ -97,7 +97,9 @@ var PostsPage = React.createClass({
   },
 
   upvote: function(postid) {
-    PostActions.upvote(this.props.origin+'/votes', postid);
+    console.log("in post page upvote");
+    this.props.upvote(postid);
+    //PostActions.upvote(this.props.origin+'/votes', postid);
   },
 
   togglePlay: function(stream_url, track, idx) {
