@@ -24,7 +24,24 @@ function getComponentState() {
   };
 }
 
+function toArray(obj) {
+  var array = [];
+  for(key in obj) {
+    array.push(obj[key]);
+  }
+  return array;
+}
+
 function sortByScore(a, b) {
+
+  if(a.score == null) {
+    return 1;
+  }
+
+  if(b.score == null) {
+    return -1;
+  }
+
   if(a.score > b.score) return -1;
   else if(a.score < b.score) return 1;
   else if(a.score == b.score){
@@ -63,9 +80,11 @@ var LeaderBoard = React.createClass({
    */
   render: function() {
     
-  	var users = this.state.users;
-  	[].sort.call(users, sortByScore)
-  	var userItems = this.renderUserItems([].sort.call(users, sortByScore));
+  	var users = [];
+    users = toArray(this.state.users);
+    console.log("USER LIST", users.sort(sortByScore));
+  	//[].sort.call(users, sortByScore)
+  	var userItems = this.renderUserItems(users);
     return (
       <div>
       <h4 className="tf-media-list-header">TASTEMAKERS</h4>

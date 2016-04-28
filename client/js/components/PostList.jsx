@@ -488,7 +488,7 @@ var PostsList = React.createClass({
             <CarouselItem>
               <img width={900} height={500} alt="900x500" src={original_images[keys[2]] ? original_images[keys[2]].file : ""} alt="pure fire pic"/>
             </CarouselItem>
-          </Carousel>;
+      </Carousel>;
     }
 
     return (
@@ -503,13 +503,10 @@ var PostsList = React.createClass({
           </div>
           <div className="col-md-4">
               {carousalItemHtml}
-
               <LeaderBoard origin={this.props.origin} showModal={this.props.showModal}/>
-              
           </div>
         </div>
       </div>
-
       </div>
     );
   },
