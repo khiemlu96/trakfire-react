@@ -8841,7 +8841,7 @@ img.zoom-img {
   display: none;
 }
 
-.tf-media-thumbnail-overlay:hover span {
+.tf-media:hover .tf-media-thumbnail-overlay span {
   display: inline-block;
   margin-top: 15px;
   font-size: 26px;
@@ -8852,7 +8852,7 @@ img.zoom-img {
   position: relative;
 }
 
-.tf-media-wrap:hover .tf-media-thumbnail-overlay {
+.tf-media:hover .tf-media-thumbnail-overlay {
   display: block !important;
 }
 

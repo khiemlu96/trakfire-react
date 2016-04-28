@@ -73,6 +73,21 @@ var PostListItem = React.createClass({
         alert("The paragraph was clicked.");
     });*/
     this.props.artistId = "";
+    var self = this;
+    
+    $(".tf-media").hover(function() {
+        $(this).css('cursor', 'pointer');
+    });
+
+    $(".tf-media").on('click', function() {
+        location = '#/post/' + self.props.post.id;
+    });
+    
+    $("#tf-post-"+self.props.post.id).find(".upvote-link").click( function(e) {
+        e.stopPropagation();
+        e.preventDefault();
+        self.upvote();
+    });
   },
 
   updatePlayPauseState: function(e, track_id) {    
@@ -95,9 +110,7 @@ var PostListItem = React.createClass({
     //this.hasUpvoted("WILL MOUNT", this.props.post);
   }, 
 
-  upvote: function(e) {
-    console.log("in post list item upvote");
-    e.preventDefault();
+  upvote: function() {
     var post = this.props.post;
     mixpanel.identify(this.props.userid);
     mixpanel.track("Upvote", {
@@ -224,8 +237,7 @@ var PostListItem = React.createClass({
         var self = this;
         artist_id = artist_id.replace(".", "");
         var CurrentPost = this.props.post;
-        var follow_text = "",
-            className = "";
+        var follow_text = "", className = "";
         var follow_btn_Html = '';
 
         if (sessionStorage.getItem('jwt') !== '' && this.state.currentUser !== null && 
@@ -283,6 +295,8 @@ var PostListItem = React.createClass({
             $(this).popover("show");
             $("#" + follow_id).on('click', function(event) {
                 //call the followClick function of current Component using 'self'
+                event.stopPropagation();
+                event.preventDefault();
                 self.followClick(CurrentPost.author_id, artist_id);
             });
             $(this).siblings(".popover").on("mouseleave", function() {
@@ -321,35 +335,41 @@ var PostListItem = React.createClass({
     
     var voteStyle = { color: "#ff0d60 !important;" };
     var voteStyleUpvoted = { color: "#777 !important;" };
+    var postId = "tf-post-"+ post.id;
 
     return (
-        <li className="media tf-media">
-          <div className="media-left">
-            <span className="tf-media-number">
-              { isNumbered ? this.props.number + 1 : "" }
-            </span>
-            <a href="#" className="tf-media-wrap" onClick={this.playPauseTrack}>
-              <img className="media-object tf-media-thumbnail" width="64" src={post.img_url} alt="..."></img>
-              <div className="tf-media-thumbnail-overlay" ref="overlaybg"><span className={paused} ref="overlay"></span></div>
-            </a>
-          </div>
-          <div className="media-body">
-            <h4 className="tf-media-title">
-              <span className="pull-right"><a href="#" onClick={this.upvote}><span className="icon icon-chevron-up" style={ !this.hasUpvoted ? voteStyle : voteStyleUpvoted }></span></a> <small ref="count">{(post.vote_count !== null) ? post.vote_count : 0}</small> </span>
-              <Link to={postLink} className="no-decor">{post.title}</Link>
-            </h4>
-            <h6 className="tf-media-artist">{post.artist}
-              { this.props.showAuthor ? 
-                  <small className="pull-right"> posted by: 
-                      <Link to={profileLink} className="tf-media-poster nd">
-                        <span onMouseEnter={this.showFlyOver.bind(this,artist_id)} id={artist_id} data-trigger="hover" data-toggle="popover" data-placement="top">
-                            <small className="tf-media-artist-name">{post.author_name}</small>
-                        </span>
-                      </Link> 
-                  </small> : "" 
-              }
-            </h6> 
-          </div>
+        <li className = "media tf-media" id={postId}>
+            <div className = "media-left">
+                <span className = "tf-media-number">{isNumbered ? this.props.number + 1 : ""} </span> 
+                <a href = "#" className = "tf-media-wrap" onClick = {this.playPauseTrack}>
+                    <img className = "media-object tf-media-thumbnail" width = "64" src = {post.img_url} alt = "..." ></img> 
+                    <div className = "tf-media-thumbnail-overlay" ref = "overlaybg">
+                        <span className = {paused} ref = "overlay"></span>
+                    </div>
+                </a>
+            </div>
+            <div className = "media-body">
+                <h4 className = "tf-media-title">
+                    <span className = "pull-right"> 
+                        <a href = "#"  className = "upvote-link" onClick = {this.upvote}>
+                            <span className = "icon icon-chevron-up" style = {!this.hasUpvoted ? voteStyle : voteStyleUpvoted}> 
+                            </span>
+                        </a> 
+                        <small ref = "count"> {(post.vote_count !== null) ? post.vote_count : 0} </small>
+                    </span>
+                    <span className = "no-decor">{post.title} </span>
+                </h4>
+                <h6 className = "tf-media-artist">
+                    {post.artist} 
+                    {this.props.showAuthor ?
+                        <small className = "pull-right" > 
+                            posted by : <Link to = {profileLink} className = "tf-media-poster nd">
+                            <span onMouseEnter = {this.showFlyOver.bind(this, artist_id)} id = {artist_id} data-trigger = "hover" data-toggle = "popover" data-placement = "top">
+                                <small className = "tf-media-artist-name">{post.author_name}</small> 
+                            </span></Link>  
+                        </small> : "" 
+                    } </h6>
+            </div>
         </li>
     );
   },

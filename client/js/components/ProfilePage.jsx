@@ -94,13 +94,20 @@ var ProfilePage = React.createClass({
             return true;
         },
 
+        upvote: function(postid) {
+            console.log("in post page upvote");
+            this.props.upvote(postid);
+            //PostActions.upvote(this.props.origin+'/votes', postid);
+        },
         /**
          * @return {object}
          */
         render: function() {
             //console.log("USER TO RENDER", this.state.user)
             var user = this.state.user;
-            var isFollowing = false;            
+            var isFollowing = false;
+            var isLoggedIn = UserStore.isSignedIn();
+
             if(user !== null) {
                 for(var key in user.followers) {
                     if(this.props.currUser && user.followers[key].id === this.props.currUser.id) {
@@ -113,7 +120,6 @@ var ProfilePage = React.createClass({
 
             var scloudurl =  "https://soundcloud.com/" + user.handle;
             
-                
             return (
                 <div>                    
                     <ProfileHeader
@@ -141,7 +147,9 @@ var ProfilePage = React.createClass({
                         onPostItemClick={this.props.onPostItemClick}
                         currStreamUrl={this.props.currStreamUrl}   
                         user= {user} 
-                        origin={this.props.origin} />
+                        origin={this.props.origin}
+                        isLoggedIn={isLoggedIn}
+                        upvote = {this.upvote} />
                 </div>
             );
         },
