@@ -98,7 +98,9 @@ var UserPostList = React.createClass({
                         post = {post}
                         currStreamUrl = {this.props.currStreamUrl}
                         showAuthor = {true}
-                        showNumber = {false} />
+                        showNumber = {false}
+                        isLoggedIn={this.props.isLoggedIn}
+                        onUpvote = {this.props.upvote} />
             
             upvotedPosts.push(item);
             i += 1;
@@ -113,7 +115,9 @@ var UserPostList = React.createClass({
                         post = {post}
                         currStreamUrl = {this.props.currStreamUrl}
                         showAuthor = {false}
-                        showNumber = {false} />
+                        showNumber = {false}
+                        isLoggedIn={this.props.isLoggedIn}
+                        onUpvote = {this.props.upvote} />
 
             postedPosts.push(item);
             i += 1;
