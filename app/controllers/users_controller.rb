@@ -165,7 +165,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
-    if (defined? user_params[:isVerify])
+    if (user_params[:isVerify] != nil && user_params[:isVerify] == true)
       @user.update_attributes(
         :isVerified => user_params[:isVerify]
       ) 
