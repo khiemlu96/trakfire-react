@@ -25,9 +25,9 @@ var range_type = "1";
 
 //var Chart = require('react-d3-core').Chart;
 //var LineChart = require('react-d3-basic').LineChart;
-var LineChart = require("react-chartjs").Line;
+//var LineChart = require("react-chartjs").Line;
 
-var chartOptions = {
+/*var chartOptions = {
         ///Boolean - Whether grid lines are shown across the chart
     scaleShowGridLines : true,
 
@@ -75,7 +75,7 @@ var chartOptions = {
 
     //Boolean - Whether to horizontally center the label and point dot inside the grid
     offsetGridLines : false
-};
+};*/
 
 var styles = {
     "graphContainer" : {
@@ -118,62 +118,100 @@ var DashBoardPage = React.createClass({
     },
 
     renderChart: function() {
-
-        var chartData = this.state.admin_state.chart_data;
+        var chart_data = this.state.admin_state.chart_data;
+        var chartData = {};
 
         if( range_type === "1" ) {
-            chartData = {
-                labels: chartData[0],
-                datasets: [
-                    {
-                        fillColor: "#25BDFF",
-                        strokeColor: "#25BDFF",
-                        pointColor: "#25BDFF",
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "#25BDFF",
-                        data: chartData[1]
-                    }
-                ]
-            };
+            var chart_title = "Traks Posted in last 30 days";
+            var x_axis_title = "TimePeriod (last 30 days)";
         } else if( range_type === "2" ) {
-            chartData = {
-                labels: chartData[0],
-                datasets: [
-                    {
-                        fillColor: "#25BDFF",
-                        strokeColor: "#25BDFF",
-                        pointColor: "#25BDFF",
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "#25BDFF",
-                        data: chartData[1]
-                    }
-                ]
-            };
+            var chart_title = "Traks Posted in 12 months";
+            var x_axis_title = "TimePeriod (last 12 months)";
         } else if( range_type === "3" ) {
-            chartData = {
-                labels: chartData[0],
-                datasets: [
-                    {
-                        fillColor: "#25BDFF",
-                        strokeColor: "#25BDFF",
-                        pointColor: "#25BDFF",
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "#25BDFF",
-                        data: chartData[1]
-                    }
-                ]
-            };
+            var chart_title = "Traks Posted in last 6 yrs";
+            var x_axis_title = "TimePeriod (last 6 years)";
         }
 
-        React.render(
-            <div style={styles.graphContainer}>
-                <LineChart data={chartData} options={chartOptions} />
-            </div>
-            ,document.getElementById('chart-container')
-        );
+        //Render a chart in a specified region
+        $('#myChart').highcharts({
+            chart: {
+                type: 'area'
+            },
+            title: {
+                text: chart_title,
+                x: -20 //center
+            },
+            subtitle: {
+                text: 'Source: trakfire.app.com',
+                x: -20
+            },
+            xAxis: {
+                type: 'datetime',
+                allowDecimals: false,
+                title: {
+                    text: x_axis_title
+                },
+                labels: {
+                    formatter: function () {
+                        return (this.value === null) ? 0 : this.value; // clean, unformatted number for year
+                    }
+                },
+                categories: chart_data[0]
+            },
+            yAxis: {
+                allowDecimals: false,
+                title: {
+                    text: 'Traks (in num)'
+                },
+                labels: {
+                    formatter: function () {
+                        return (this.value === null) ? 0 : this.value;
+                    }
+                },
+                plotLines: [{
+                    value: 0,
+                    width: 1,
+                    color: '#808080'
+                }]
+            },
+            tooltip: {
+                pointFormat: '<b>{point.y:,.0f}</b> {series.name} posted'
+            },
+            legend: {
+                layout: 'vertical',
+                align: 'right',
+                verticalAlign: 'middle',
+                borderWidth: 0
+            },
+            credits: {
+                enabled: false
+            },
+            plotOptions: {
+                area: {                    
+                    marker: {
+                        enabled: false,
+                        symbol: 'circle',
+                        radius: 2,
+                        states: {
+                            hover: {
+                                enabled: true
+                            }
+                        }
+                    }
+                },
+                threshold: null
+            },
+            series: [{
+                connectNulls: true,
+                dataLabels: {
+                    align: 'left',
+                    enabled: true,
+                    rotation: 0                   
+                },
+                name: 'Traks',                
+                data: chart_data[1]
+            }]
+        });
     },
 
     select: function(event, eventKey) {
