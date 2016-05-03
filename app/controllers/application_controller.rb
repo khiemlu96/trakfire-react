@@ -40,6 +40,9 @@ class ApplicationController < ActionController::API
     post_counts = []
     posted_dates = []
 
+    post_counts[0] = 0
+    posted_dates[0] = 0
+
     #Get chart data accordinf to selected range time period
 
     # If range type i.e. selected time period is 'day'

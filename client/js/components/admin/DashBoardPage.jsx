@@ -202,12 +202,7 @@ var DashBoardPage = React.createClass({
                 threshold: null
             },
             series: [{
-                connectNulls: true,
-                dataLabels: {
-                    align: 'left',
-                    enabled: true,
-                    rotation: 0                   
-                },
+                connectNulls: true,                
                 name: 'Traks',                
                 data: chart_data[1]
             }]
