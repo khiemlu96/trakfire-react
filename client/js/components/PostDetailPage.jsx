@@ -297,7 +297,7 @@ var PostDetailPage = React.createClass({
                 </div>;
 
     return (
-      <PostDetailHeader post={post} onClick={this.onPlayBtnClick}/>
+      <PostDetailHeader post={post} origin={this.props.origin} currUser = {this.state.currUser} onClick={this.onPlayBtnClick}/>
     );
   },
 

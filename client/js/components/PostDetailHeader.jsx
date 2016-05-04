@@ -19,6 +19,8 @@ var UserFlyOver = require('./UserFlyOver.jsx');
 var classNames = require('classnames');
 var playing = classNames("icon icon-controller-paus");
 var paused = classNames("icon icon-controller-play");
+var UserStore = require('../stores/UserStore.js');
+var UserActions = require('../actions/UserActions.js');
 
 function randomIntFromInterval(min,max) {
     return Math.floor(Math.random()*(max-min+1)+min);
@@ -36,10 +38,12 @@ var PostDetailHeader = React.createClass({
   propTypes: {
    post: ReactPropTypes.object,
    onClick: ReactPropTypes.func, 
-   origin: ReactPropTypes.string
+   origin: ReactPropTypes.string,
+   currUser: ReactPropTypes.object 
   },
 
   componentWillMount: function() {
+    UserStore.addChangeListener(this._onChange);
     console.log("WILL MOUNT THE DETAIL HEADER");
   },
 
@@ -66,12 +70,17 @@ var PostDetailHeader = React.createClass({
 
     var voteHtml = [];
     for(key in votes) {
+      var artist_id = "tf-media-artist-" + votes[key].user.id;
       voteHtml.push(
         /*<a className="tf-link" href={"/profile/" + votes[key].user.id} >
           <img className="tf-author-img" src={votes[key].user.img} />
         </a>*/
-        <Link to={'/profile/'+votes[key].user.id}> 
+        /*<Link to={'/profile/'+votes[key].user.id}> 
           <UserFlyOver user = {votes[key].user} origin={this.props.origin} />
+        </Link>*/
+        
+        <Link to={'/profile/'+votes[key].user.id} className="tf-link">
+            <img onMouseEnter = {this.showFlyOver.bind(this, artist_id, votes[key].user)} id = {artist_id} data-trigger = "hover" data-toggle = "popover" data-placement = "top" className='tf-author-img' src={ votes[key].user ? votes[key].user.img : "assets/img/trakfirefavicon.ico"}></img>
         </Link>
       );                            
     }
@@ -88,7 +97,7 @@ var PostDetailHeader = React.createClass({
   },
 
   getInitialState: function() {
-    return {isPlaying:false, isUpvoted:false, hasUpvoted:false};
+    return {isPlaying:false, isUpvoted:false, hasUpvoted:false, currentUser: UserStore.getCurrentUser()};
   },
 
   upvote: function(e) {
@@ -173,8 +182,147 @@ var PostDetailHeader = React.createClass({
 
       </div>
       </div> 
-    );}
+    );
+  },
 
+  followUser: function(userid) {
+    var follow_id = userid;
+    UserActions.followUser(this.props.origin+ '/follower', follow_id);
+    this.setState({isFollowing:true});
+  },
+  
+  unFollowUser: function(userid) {
+    var follow_id = userid;
+    UserActions.unFollowUser(this.props.origin+ '/follower', follow_id);
+    this.setState({isFollowing:false});
+  },
+
+  followClick: function(userid){
+      event.preventDefault();
+      if( this.state.currentUser !== null || sessionStorage.getItem('jwt') !== null ) {
+      var currentUser_followings = [];
+          for(var key in this.state.currentUser.followings) {
+              currentUser_followings.push(this.state.currentUser.followings[key].id);
+          }
+
+          if(currentUser_followings.indexOf(userid) > -1) {
+              this.unFollowUser(userid);
+          } else {
+              this.followUser(userid); 
+          }
+      } else {
+        // If user is not logged in and if he clicks on Follow User button
+        // then forced user to login in to site to follow the user
+        $(document).trigger("ReactComponent:TrakfireApp:showModal");
+      }
+  },
+
+  showFlyOver: function(artist_id, user) {
+        var self = this;
+        var CurrentPost = this.props.post;
+        var follow_text = "", className = "";
+        var follow_btn_Html = '';
+
+        if (sessionStorage.getItem('jwt') !== '' && ( this.state.currentUser !== undefined && this.state.currentUser !== null ) && 
+            this.state.currentUser.id !== user.id) {
+            if (this.state.currentUser.id !== null) {
+                var currentUser_followings = [];
+
+                for (var key in this.state.currentUser.followings) {
+                    currentUser_followings.push(this.state.currentUser.followings[key].id);
+                }
+                if (currentUser_followings.indexOf(parseInt(user.id)) > -1) {
+                    follow_text = "Following";
+                    className = "button user-flyover-follow-btn tf-follow-button";
+                } else {
+                    follow_text = "Follow";
+                    className = "button user-flyover-follow-btn btn-primary-outline tf-follow-button tf-background";
+                }
+                var follow_btn_Html = '<button class="btn ' + className + '">' + follow_text + '</button>'          
+            }
+        }
+        
+        var popoverTemplate = ['<div class="popover">',
+            '<div class="arrow"></div>',
+                '<div class="popover-content">',
+                '</div>',
+            '</div>'
+        ].join('');
+
+        var content = [
+            '<div class = "col-md-12 user-flyover-content">',
+                '<div class = "user-flyover-profile-image">',
+                    '<img class="tf-author-img" src=' + user.img + '></img>',
+                '</div>',
+                '<div class = "media-object img-circle">',
+                    '<div class="nd">' + user.username + '</div>',
+                    '<div class="user-flyover-profile-bio">' + user.tbio + '</div>',
+                '</div>'
+                + follow_btn_Html +
+            '</div>',
+        ].join('');        
+
+        $("#" + artist_id).popover({
+            selector: '[rel=popover]',
+            trigger: 'hover',
+            content: content,
+            template: popoverTemplate,
+            placement: "top",
+            html: true
+        }).on("hover", function(e) {
+            e.preventDefault();
+        }).on("mouseenter", function() {
+            var _this = this;
+            $(this).popover("show");
+            $(".tf-follow-button").on('click', function(event) {
+                //call the followClick function of current Component using 'self'
+                event.stopPropagation();
+                event.preventDefault();
+                self.followClick(user.id);
+            });
+            $(this).siblings(".popover").on("mouseleave", function() {
+                $(_this).popover('destroy');
+            });
+        }).on("mouseleave", function() {
+            var _this = this;
+            setTimeout(function() {
+                if (!$(".popover:hover").length) {
+                    $(_this).popover("destroy");
+                }
+            }, 100);
+        });
+    },
+
+    followClick: function(userid, artist_id){
+      event.preventDefault();
+      if( this.state.currentUser !== null || sessionStorage.getItem('jwt') !== null ) {
+      var currentUser_followings = [];
+          for(var key in this.state.currentUser.followings) {
+              currentUser_followings.push(this.state.currentUser.followings[key].id);
+          }
+
+          if(currentUser_followings.indexOf(userid) > -1) {
+              this.unFollowUser(userid,artist_id);
+          } else {
+              this.followUser(userid,artist_id); 
+          }
+      } else {
+        // If user is not logged in and if he clicks on Follow User button
+        // then forced user to login in to site to follow the user
+        $(document).trigger("ReactComponent:TrakfireApp:showModal");
+      }
+    /*if(!this.state.isFollowing){
+      this.followUser(userid,artist_id);
+      this.state.isFollowing = true;
+    }
+    else{
+      this.unFollowUser(userid);
+      this.state.isFollowing = false;
+    }*/
+  },
+  _onChange: function() {
+    this.setState({currentUser: UserStore.getCurrentUser()});
+  }
 });
 
 module.exports = PostDetailHeader;
