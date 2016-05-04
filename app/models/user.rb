@@ -51,7 +51,7 @@ class User < ActiveRecord::Base
   end
 
   def unread_notifications=(user_id)
-    @unread_notifications = Notification.where(user_id: user_id).count
+    @unread_notifications = Notification.where(user_id: user_id, read_time: nil).count
   end
 
   def unread_notifications

@@ -683,6 +683,25 @@ module.exports = {
         console.error(url, error['response']);
       }
     });
+  },
+
+  readUserNotification: function(url, data) {
+    console.log(data);
+    Reqwest({
+      url: url,
+      type: 'json',
+      method: 'PUT',
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      headers: {'Authorization': localStorage.getItem('jwt')},
+      success: function(resp) {
+        console.log("SERVER RESPONSE", resp);
+        //UserServerActionCreators.updateUserNotification(resp); 
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+      }
+    });
   }
 };
 

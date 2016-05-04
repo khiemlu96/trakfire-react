@@ -37,6 +37,7 @@ var UserActions = {
         actionType: UserConstants.GET_USER
       });
     }
+
     TfAPI.getUser(origin, userid);    
   }, 
 
@@ -135,6 +136,10 @@ var UserActions = {
 
   deleteWhiteListUser: function(url) {
     TfAPI.deleteWhiteListUser(url);
+  },
+
+  readNotification: function(url, data){
+    TfAPI.readUserNotification(url, data);
   }
 };
 

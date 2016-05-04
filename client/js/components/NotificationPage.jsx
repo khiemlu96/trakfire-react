@@ -130,6 +130,18 @@ var NotificationPage = React.createClass({
         return namesHtml;
 	},
 
+	readNotification: function(notification_data) {
+		console.log("-------notification_data---------", notification_data);
+		var data = {
+            notification: {}
+        };
+
+        data['notification']['id'] = parseInt(notification_data.notification_id);
+        data['notification']['user_id'] = parseInt(notification_data.srcUserId);
+
+		UserActions.readNotification(this.props.origin + '/notifications/' + notification_data.notification_id, data);
+	},
+
     renderSingleNotification: function(notification_data) {
 
     	var sender_ids = notification_data.srcUserId.split(",");
@@ -148,7 +160,7 @@ var NotificationPage = React.createClass({
 		if(count_of_sender_ids < 2) {
 			return(    		
 	    		<div id = {"notification-" + notification_data.notification_id} className = "tf-notification-list-item list-group-item">
-					<Link to={notification_data.target_url}>
+					<Link to={notification_data.target_url} onClick={this.readNotification.bind(this, notification_data)}>
 						<div className="col-md-12">
 							<div className="left tf-notification-auther">
 		                       	{indicator}

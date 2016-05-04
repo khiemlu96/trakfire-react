@@ -1,5 +1,5 @@
 class NotificationsController < ApplicationController
-	before_action :authenticate_request, only: [:index, :destroy]
+	before_action :authenticate_request, only: [:index, :destroy, :update]
 
 	def index
 		if params[:limit] 
@@ -20,6 +20,23 @@ class NotificationsController < ApplicationController
 	def destroy
 		@notification = Notification.find(params[:id])
 		@notification.destroy
+	end
+
+	def update
+		@notification = Notification.find(params[:id])
+
+		if @notification.present?
+			@notification.update_attributes(		
+				:read_time => Time.current.utc.iso8601				
+			)
+			render json: @notification
+		else 
+			@error = {}
+			@error['message'] =  'Not Found'
+			@error['code'] =  500
+
+      		render @error
+		end	
 	end
 
 	def notification_params
