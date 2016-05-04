@@ -37,6 +37,12 @@ class ApplicationController < ActionController::API
 
 
     @chart_data = []
+    post_counts = []
+    posted_dates = []
+
+    post_counts[0] = 0
+    posted_dates[0] = 0
+
     #Get chart data accordinf to selected range time period
 
     # If range type i.e. selected time period is 'day'
@@ -46,10 +52,7 @@ class ApplicationController < ActionController::API
                 FROM posts 
                 WHERE created_at > current_date - interval '40' day
                 GROUP BY created_at::date
-                ORDER BY created_at::date ASC;"
-
-        post_counts = [0]
-        posted_dates = [0]
+                ORDER BY created_at::date ASC;"        
         
         Post.find_by_sql(sql).each do |row|
             posted_dates.push(row.posted_date)
@@ -69,9 +72,6 @@ class ApplicationController < ActionController::API
                 GROUP BY to_char(created_at, 'MON-YYYY')
                 ORDER BY to_date(to_char(created_at, 'MON-YYYY'), 'MON-YYYY') ASC;"
 
-        post_counts = [0]
-        posted_dates = [0]
-
         Post.find_by_sql(sql).each do |row|
             posted_dates.push(row.posted_month)
             post_counts.push(row.post_count)
@@ -89,9 +89,6 @@ class ApplicationController < ActionController::API
               WHERE created_at >  CURRENT_DATE - INTERVAL '6 years'
               GROUP BY EXTRACT(YEAR FROM created_at)
               ORDER BY EXTRACT(YEAR FROM created_at) ASC;"
-
-        post_counts = [0]
-        posted_dates = [0]
 
         Post.find_by_sql(sql).each do |row|
             posted_dates.push(row.posted_year)
