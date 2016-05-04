@@ -357,7 +357,7 @@ var PostListItem = React.createClass({
                         </a> 
                         <small ref = "count"> {(post.vote_count !== null) ? post.vote_count : 0} </small>
                     </span>
-                    <span className = "no-decor">{post.title} </span>
+                    <Link className = "no-decor" to={postLink}>{post.title} </Link>
                 </h4>
                 <h6 className = "tf-media-artist">
                     {post.artist} 
