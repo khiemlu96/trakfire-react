@@ -45,7 +45,7 @@ class CommentsController < ApplicationController
 									:post_name => post.title,
 									:comment_text => @comment.comment_detail
 								},
-						:sender_id => @current_user.id.to_s
+						:sender_id => @current_user.id
 					}
 				
 					if Notification.sendNotification( @notification, {:consolidate => false} )
@@ -69,7 +69,7 @@ class CommentsController < ApplicationController
 									:parent_comment_id => parent_comment.id,
 									:comment_text => @comment.comment_detail
 								},
-						:sender_id => @current_user.id.to_s
+						:sender_id => @current_user.id
 					}
 				
 					if Notification.sendNotification( @notification, {:consolidate => false} )

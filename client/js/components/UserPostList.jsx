@@ -43,8 +43,8 @@ var UserPostList = React.createClass({
             action_type:'upvoted_trak'
         };
 
-        this.loadPostedTracks(data1);
-        this.loadUpvotedTracks(data2);
+        this.loadPostedTracks(data1, this.props.user.id);
+        this.loadUpvotedTracks(data2, this.props.user.id);
 
         UserStore.addChangeListener(this._onChange);
     },
@@ -56,7 +56,7 @@ var UserPostList = React.createClass({
             page: page_num_of_posted_tracks,
             action_type:'posted_trak'
         };
-        this.loadPostedTracks(data);
+        this.loadPostedTracks(data, this.props.user.id);
     },
 
     loadMoreUpvotedTracks: function() {
@@ -66,15 +66,45 @@ var UserPostList = React.createClass({
             page: page_num_of_voted_tracks,
             action_type:'upvoted_trak'
         };
-        this.loadUpvotedTracks(data);
+        this.loadUpvotedTracks(data, this.props.user.id);
     },
 
-    loadPostedTracks: function(data) {        
-        UserActions.getUserPostedTraks(this.props.origin + "/users/" + this.props.user.id + "/posts", data);
+    loadPostedTracks: function(data, user_id) {        
+        UserActions.getUserPostedTraks(this.props.origin + "/users/" + user_id + "/posts", data);
     },
 
-    loadUpvotedTracks: function(data) {        
-        UserActions.getUserUpvotedTraks(this.props.origin + "/users/" + this.props.user.id + "/posts", data);
+    loadUpvotedTracks: function(data, user_id) {        
+        UserActions.getUserUpvotedTraks(this.props.origin + "/users/" + user_id + "/posts", data);
+    },
+
+    componentWillReceiveProps: function(nextProps) {            
+        if(this.props.user.id !== nextProps.user.id) {
+            // Check if the new user id is not equals to old user id,
+            // then reset the posted and upvoted treks
+            UserStore.resetPostedTraks();
+            UserStore.resetUpvotedTraks();
+
+            var data1 = {
+                limit: 10,
+                page: 1,
+                action_type:'posted_trak'
+            };
+            var data2 = {
+                limit: 10,
+                page: 1,
+                action_type:'upvoted_trak'
+            };
+
+            this.loadPostedTracks(data1, nextProps.user.id);
+            this.loadUpvotedTracks(data2, nextProps.user.id);
+        }
+    },
+
+    shouldComponentUpdate: function(nextProps, nextState) {
+        if(this.props.user.id !== nextProps.user.id) {
+            return false;
+        }
+        return true;
     },
 
     /**

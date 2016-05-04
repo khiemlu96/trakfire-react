@@ -298,6 +298,14 @@ var UserStore = assign({}, EventEmitter.prototype, {
 
   getAllWhiteListUsersState: function() {
     return _whitelistUsersState;
+  },
+
+  resetPostedTraks: function() {
+    _userPostedTraks =  [];
+  },
+
+  resetUpvotedTraks: function() {
+    _userUpvotedTraks = [];
   }
 });
 

@@ -46,7 +46,8 @@ class VotesController < ApplicationController
 							:sender_profile_url => "profile/#{@current_user.id}",
 							:post_id => post.id,
 							:post_name => post.title
-						}
+						},
+				:sender_id => @current_user.id
 			}
 		
 			if Notification.sendNotification( @notification, {:consolidate => true} )

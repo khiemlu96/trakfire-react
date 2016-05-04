@@ -118,8 +118,8 @@ var ProfilePage = React.createClass({
 
             if(!user) { return (<div className='tf-loader'> </div>); }
 
-            var scloudurl =  "https://soundcloud.com/" + user.handle;
-            
+            var scloudurl =  "https://soundcloud.com/" + user.handle;            
+
             return (
                 <div>                    
                     <ProfileHeader
@@ -134,7 +134,7 @@ var ProfilePage = React.createClass({
                         onUserFollowClick={this.followUser}
                         onUnFollowClick={this.unFollowUser}
                         isFollowing={isFollowing}
-                        currentUserId={this.props.currUser.id}
+                        currUser={this.props.currUser}
                         isUserVerified={user.isVerified} />                    
                     
                     <ProfileEditPage
