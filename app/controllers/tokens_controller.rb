@@ -26,8 +26,17 @@ class TokensController < ApplicationController
         new_user = true
       end
 
+
       if j_user['profile_image_url_https']
         user.img = j_user['profile_image_url_https']
+        profile_url = j_user['profile_image_url_https']
+
+        # remove just string "_normal" to get user's profile image in original size.
+        # and set that image as a original_profile_img for user
+        if profile_url.slice! '_normal'          
+          user.original_profile_img = profile_url
+        end
+
         user.save
       end
       
