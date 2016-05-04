@@ -1325,9 +1325,9 @@ ul.tf-filter-bar-ul {
 }
 
 .tf-profile-wrapper .tf-profile-image {
-    width: 105px;
-    height: 105px;
-    border-radius: 50px;
+    width: 115px;
+    height: 115px;
+    border-radius: 60px;
 }
 
 .tf-profile-wrapper .tf-name {
@@ -1341,12 +1341,13 @@ ul.tf-filter-bar-ul {
 
 .tf-profile-wrapper .tf-bio {
     font-family: "Benton Sans Re", sans-serif;
-    font-size: 11px;
+    font-size: 16px;
     color: #C7C7C7;
     line-height: 14px;
     width: 255px;
     height: 40px;
     overflow: hidden;
+    font-weight: 500;
 }
 
 .tf-profile-wrapper .tf-bio a {
@@ -1389,7 +1390,7 @@ ul.tf-filter-bar-ul {
 
 .tf-profile-edit-wrapper .btn, .profile-header .btn,
 .tf-profile-wrapper .tf-filter-bar .btn {
-    background-color: #ff0d60 !important;
+    background-color: #ff0d60;
     border: medium none;
     border-radius: 5px;
     font-size: 12px;
@@ -1509,12 +1510,8 @@ ul.tf-filter-bar-ul {
     width: 700px !important;
 }
 
-.profile-header .btn {
-	margin-right: -180px !important;
-}
-
 .tf-profile-edit-wrapper .btn, .profile-header .btn {
-    float: right;
+    float: left;
     font-weight: 800;
     margin-right: -40px;
     margin-top: -6px !important;

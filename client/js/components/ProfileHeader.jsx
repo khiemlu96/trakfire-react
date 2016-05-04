@@ -17,7 +17,9 @@ var styleDisplay = {
 };
 
 var followBtnStyle = {
-    display: 'none'
+    display: 'none',
+    marginLeft: -15,
+    marginRight: 15
 };
 
 var ProfileHeader = React.createClass({
@@ -35,7 +37,7 @@ var ProfileHeader = React.createClass({
         onUserFollowClick: ReactPropTypes.func,
         onUnFollowClick: ReactPropTypes.func,
         isFollowing: ReactPropTypes.bool,
-        currentUserId: ReactPropTypes.number,
+        currUser: ReactPropTypes.object,
         isUserVerified: ReactPropTypes.bool
     },
 
@@ -53,8 +55,7 @@ var ProfileHeader = React.createClass({
     follow_click: function() {
         if(!this.props.currUser) {
             $(document).trigger("ReactComponent:TrakfireApp:showModal");
-        } 
-        else {
+        } else {
             if(this.state.isFollowing === true) {
                 this.props.onUnFollowClick();
             } else {
@@ -80,6 +81,16 @@ var ProfileHeader = React.createClass({
             styleDisplay.display = 'none';
         }
 
+        var showEditLink = true;        
+        followBtnStyle.display = 'none';
+        var editLink = <a onClick={this.openEditProfile}><div className="is-active right btn btn-primary">Edit</div></a>;
+
+        if(this.props.currUser !== null && this.props.userId !== this.props.currUser.id) {
+            showEditLink = false;
+            followBtnStyle.display = 'block';            
+            editLink = "";
+        }
+
         if(this.state.isFollowing === true) {
             var follow_text = "Following";
             followBtnStyle.backgroundColor = "#ff0d60";
@@ -87,15 +98,8 @@ var ProfileHeader = React.createClass({
             var follow_text = "Follow";
             followBtnStyle.backgroundColor = "#1C1C1C";
         }
-        var showEditLink = true;        
-        followBtnStyle.display = 'none';
-        var editLink = <div></div>;
-        if(this.props.userId == this.props.currentUserId) {
-            showEditLink = false;
-            followBtnStyle.display = 'block';            
-            editLink = <a onClick={this.openEditProfile}><div className="is-active right btn btn-primary">Edit</div></a>;
-        }
-        console.log("FOILLOW STYLE", followBtnStyle, this.props.currentUserId, this.props.userId);
+
+        
         var headerStyle = {"padding" : 100 + 'px'};
 
         if( this.props.isUserVerified !== null && this.props.isUserVerified !== false ) {
@@ -103,35 +107,46 @@ var ProfileHeader = React.createClass({
         } else {
             var verifiedIcon = "";
         }
-
-        return ( 
-                <div className="profile-header text-center tf-background" style={headerStyle}>
-                  <div className="container">
-                    <div className="container-inner">
-                      <img className="img-circle media-object" src={this.props.userImg}></img>
+        
+        return (
+            <div className="profile-header tf-profile-wrapper text-center tf-background" style={headerStyle}>
+                <div className="container">
+                    <div className="col-md-3"></div>
+                    <div className="col-md-4 tf-profile-info-wrapper">
+                        <div className="col-md-4 tf-profile-img-wrapper" >
+                            <img src = {this.props.userImg} className = "tf-profile-image"> </img>
+                        </div>
+                        <div className="col-md-8 col-xs-8 col-sm-8">                    
+                            <h3 className = "row tf-name" > {this.props.userName}&nbsp;&nbsp;{verifiedIcon}</h3>
+                            <h4 className = "row tf-bio" > {this.props.userBio} </h4>                            
+                            <div className="tf-btn-follow btn btn-primary" onClick={this.follow_click} style={followBtnStyle}>{follow_text}</div>
+                            <div className = "row tf-social-icons" >                                
+                                <a className="tf-share-link" href = {this.props.userScloudLink} target = "_blank" >
+                                    <img src="../assets/img/facebook_share.svg"></img>
+                                </a>
+                                <a className="tf-share-link" href = {this.props.userTwitterLink} target = "_blank" >
+                                    <img src = "../assets/img/twitter_share.svg"> </img> 
+                                </a>
+                            </div> 
+                        </div>
+                    </div>
+                    <div className="col-md-1">
                         {editLink}
                     </div>
-                      <div >
-                      <h3 className="profile-header-user">{this.props.userName}&nbsp;&nbsp;{verifiedIcon}
-                        
-                      </h3>
-                      <p className="profile-header-bio">
-                        {this.props.userBio}
-                      </p>
-                    </div>
-                  </div>
-
-                  <nav className="profile-header-nav">
-                    <ul className="nav nav-tabs">
-                      <li className="active">
-                        <a href="#upvoted" data-toggle="tab">Upvotes</a>
-                      </li>
-                      <li>
-                        <a href="#posted" data-toggle="tab">Posts</a>
-                      </li>
-                    </ul>
-                  </nav>
+                    <div className="col-md-3"></div>
                 </div>
+
+                <nav className="profile-header-nav">
+                    <ul className="nav nav-tabs">
+                        <li className="active">
+                            <a href="#upvoted" data-toggle="tab">Upvotes</a>
+                        </li>
+                        <li>
+                            <a href="#posted" data-toggle="tab">Posts</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
         );
     },
 
