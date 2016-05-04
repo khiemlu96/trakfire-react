@@ -31,7 +31,7 @@ var ProfileHeader = React.createClass({
         userBio: ReactPropTypes.string,
         userFacebookLink: ReactPropTypes.string,
         userScloudLink:  ReactPropTypes.string,
-        userImg: ReactPropTypes.string,
+        userOriginalImg: ReactPropTypes.string,
         isVisible:  ReactPropTypes.bool,
         toggleProfileEdit: ReactPropTypes.func,
         onUserFollowClick: ReactPropTypes.func,
@@ -114,7 +114,7 @@ var ProfileHeader = React.createClass({
                     <div className="col-md-3"></div>
                     <div className="col-md-4 tf-profile-info-wrapper">
                         <div className="col-md-4 tf-profile-img-wrapper" >
-                            <img src = {this.props.userImg} className = "tf-profile-image"> </img>
+                            <img src = {this.props.userOriginalImg} className = "tf-profile-image"> </img>
                         </div>
                         <div className="col-md-8 col-xs-8 col-sm-8">                    
                             <h3 className = "row tf-name" > {this.props.userName}&nbsp;&nbsp;{verifiedIcon}</h3>
