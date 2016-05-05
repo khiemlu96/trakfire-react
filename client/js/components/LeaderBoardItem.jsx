@@ -84,20 +84,24 @@ var LeaderBoardItem = React.createClass({
           }
         }
     }
-    
+    var followBtnHtml = <button className = "btn btn-primary-outline btn-sm pull-right" style = {isFollowing ? FollowingButtonStyle : FollowButtonStyle} onClick = {this.followClick}>
+                    {isFollowing ? "Following" : "Follow"} 
+                    </button>;
     // Do not show Edit Follow Button if user is not logged in
     if( !UserStore.isSignedIn() || (currentUser !== null && user.id === currentUser.id)) {
         // Do not show Edit Profile Button if user is not logged in
-        var showFolloweBtn = false;
-        var followBtnHtml = "";
+        //var showFolloweBtn = true;
+        followBtnHtml = <button className = "btn btn-primary-outline btn-sm pull-right" style = {FollowButtonStyle} onClick = {this.followClick}>
+                    {"Follow"} 
+                    </button>;
     } else if (currentUser !== null && user.id !== currentUser.id) {
         // Do not show Edit Profile Button if user is not on its own profile page
-        var showFolloweBtn = true;
-        var followBtnHtml = <button className = "btn btn-primary-outline btn-sm pull-right" style = {isFollowing ? FollowingButtonStyle : FollowButtonStyle} onClick = {this.followClick}>
+        //var showFolloweBtn = true;
+        followBtnHtml = <button className = "btn btn-primary-outline btn-sm pull-right" style = {isFollowing ? FollowingButtonStyle : FollowButtonStyle} onClick = {this.followClick}>
                     {isFollowing ? "Following" : "Follow"} 
                     </button>;
     }
-
+    console.log("FOLLOWER", followBtnHtml)
     var profileLink = '/profile/' + user.id;
     return (
 	  <li className="list-group-item tf-user">
