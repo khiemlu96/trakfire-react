@@ -29,6 +29,7 @@ var _localVoteCount = 0;
 var hoverStyle = {
   positionLeft: '53%'
 }
+var browserHistory = require('react-router').browserHistory;
 var PostListItem = React.createClass({
 
   propTypes: {
@@ -80,10 +81,12 @@ var PostListItem = React.createClass({
     });
 
     $(".tf-media").on('click', function() {
-        location = '#/post/' + self.props.post.id;
+        //location = '/post/' + this.props.post.id;
+        var postLink = '/post/' + self.props.post.id;
+        browserHistory.push(postLink);
     });
     
-    $("#tf-post-"+self.props.post.id).find(".upvote-link").click( function(e) {
+    $("#tf-post-"+this.props.post.id).find(".upvote-link").click( function(e) {
         e.stopPropagation();
         e.preventDefault();
         self.upvote();
