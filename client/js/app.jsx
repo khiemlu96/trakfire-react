@@ -16,7 +16,7 @@ var Router = ReactRouter.Router;
 var Route = ReactRouter.Route;
 var Link = ReactRouter.Link;
 var IndexRoute = ReactRouter.IndexRoute;;
-var createBrowserHistory = require('history/lib/createBrowserHistory');
+var browserHistory = ReactRouter.browserHistory;
 var hashHistory = require('history/lib/createHashHistory');
 var TrakfireApp = require('./components/TrakfireApp.jsx');
 var PostsPage = require('./components/PostsPage.jsx');
@@ -39,7 +39,7 @@ var AdminRequestInvitesListPage = require('./components/admin/AdminRequestInvite
 var AdminWhiteListUserPage = require('./components/admin/AdminWhiteListUserPage.jsx');
 
 React.render(
-  <Router history={hashHistory()}>
+  <Router history={browserHistory}>
     <Route path='/' component={TrakfireApp}>
       <IndexRoute component={PostsPage}/>
       <Route path='/profile/(:id)' component={ProfilePage} />

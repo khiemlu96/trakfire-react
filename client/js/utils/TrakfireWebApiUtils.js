@@ -324,7 +324,7 @@ module.exports = {
       url: url,
       type: 'json',
       method: 'GET',
-      /*data: params,*/
+      data: params,
       contentType: 'application/json',
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
@@ -332,6 +332,7 @@ module.exports = {
         UserServerActionCreators.recieveUserNotifications(resp); 
       },
       error: function(error) {
+        console.log("ERRR", data, url);
         console.error(url, error['response']);
       }
     });

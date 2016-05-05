@@ -3,6 +3,7 @@ class ApplicationController < ActionController::API
   before_action :authenticate_request, only: [:current_user, :admin_state]
 
   def preflight
+    logger.info "preflight checkin"
     render nothing: true
   end
 

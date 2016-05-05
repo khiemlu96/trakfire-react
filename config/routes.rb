@@ -22,7 +22,8 @@ Rails.application.routes.draw do
       get :votes
     end
   end
-  resources :applications, only: [:create, :index, :destroy]  
 
-  match '*all', to: 'application#index', via: [:get]
+  resources :applications, only: [:create, :index, :destroy] 
+  get '*path' => redirect('/')
+
 end
