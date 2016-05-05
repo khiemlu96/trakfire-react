@@ -46,10 +46,10 @@ var ProfilePage = React.createClass({
             var user = this.state.user;
             console.log("USER", user, "USERID", userid);
             this.setState({userid:userid});
-            /*if (user) {
+            if (user) {
                 mixpanel.identify(userid);
                 mixpanel.track("Arrived on profile " + user.handle + "'s page {" + userid + "}");
-            }*/
+            }
             window.scrollTo(0,0);
         },
 

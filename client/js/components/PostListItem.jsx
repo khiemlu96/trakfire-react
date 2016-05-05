@@ -118,13 +118,13 @@ var PostListItem = React.createClass({
 
   upvote: function() {
     var post = this.props.post;
-    /*mixpanel.identify(this.props.userid);
+    mixpanel.identify(this.props.userid);
     mixpanel.track("Upvote", {
       "Title" : post.title,
       "id" : post.id,
       "artist" : post.artist,
       "vote count" : post.vote_count
-    });*/
+    });
     if(this.props.isLoggedIn && !this.hasUpvoted(this.props.post)){
       this.props.onUpvote(this.props.post.id);
       var count = this.refs.count.getDOMNode();

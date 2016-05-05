@@ -80,7 +80,8 @@ var PostDetailHeader = React.createClass({
         </Link>*/
         
         <Link to={'/profile/'+votes[key].user.id} className="tf-link">
-            <img onMouseEnter = {this.showFlyOver.bind(this, artist_id, votes[key].user)} id = {artist_id} data-trigger = "hover" data-toggle = "popover" data-placement = "top" className='tf-author-img' src={ votes[key].user ? votes[key].user.img : "assets/img/trakfirefavicon.ico"}></img>
+            {/*onMouseEnter = {this.showFlyOver.bind(this, artist_id, votes[key].user)}*/}
+            <img id = {artist_id} data-trigger = "hover" data-toggle = "popover" data-placement = "top" className='tf-author-img' src={ votes[key].user ? votes[key].user.img : "assets/img/trakfirefavicon.ico"}></img>
         </Link>
       );                            
     }
