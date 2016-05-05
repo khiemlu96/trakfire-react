@@ -8651,7 +8651,12 @@ img.zoom-img {
   text-transform: uppercase;
   padding-bottom: 15px;
   padding-top: 15px;
+  padding-right: 15px;
   margin: 0px !important;
+}
+
+.tf-media:hover {
+  background-color: #2f2f2f !important;
 }
 
 .tf-media-title {

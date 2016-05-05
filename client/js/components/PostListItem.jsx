@@ -29,7 +29,7 @@ var _localVoteCount = 0;
 var hoverStyle = {
   positionLeft: '53%'
 }
-var browserHistory = require('react-router').browserHistory;
+var hashHistory = require('react-router').browserHistory;
 var PostListItem = React.createClass({
 
   propTypes: {
@@ -80,11 +80,12 @@ var PostListItem = React.createClass({
         $(this).css('cursor', 'pointer');
     });
 
-    $(".tf-media").on('click', function() {
+    /*$(".tf-media").on('click', function() {
         //location = '/post/' + this.props.post.id;
-        var postLink = '/post/' + self.props.post.id;
-        browserHistory.push(postLink);
-    });
+        //var postLink = '#/post/' + self.props.post.id;
+        //hashHistory.push(postLink);
+        this.playPauseTrack();
+    });*/
     
     $("#tf-post-"+this.props.post.id).find(".upvote-link").click( function(e) {
         e.stopPropagation();
@@ -342,7 +343,7 @@ var PostListItem = React.createClass({
     var postId = "tf-post-"+ post.id;
     console.log("UPVOTED", this.hasUpvoted());
     return (
-        <li className = "media tf-media" id={postId}>
+        <li className = "media tf-media" id={postId} onClick = {this.playPauseTrack}>
             <div className = "media-left">
                 <span className = "tf-media-number">{isNumbered ? this.props.number + 1 : ""} </span> 
                 <a href = "#" className = "tf-media-wrap" onClick = {this.playPauseTrack}>
