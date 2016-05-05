@@ -68,14 +68,14 @@ class TokensController < ApplicationController
         if white_list_user.present?
             # If the user email is present in white list users list,
             # then redirect user to Home Page         
-            #jwt = JWT.encode({uid: user.uid, exp: 1.day.from_now.to_i}, Rails.application.secrets.secret_key_base)
-            #redirect_to ENV['ORIGIN'] + "?jwt=#{jwt}"
+            jwt = JWT.encode({uid: user.uid, exp: 1.day.from_now.to_i}, Rails.application.secrets.secret_key_base)
+            redirect_to ENV['ORIGIN'] + "?jwt=#{jwt}"
         else
             # If the user email is not present in white list users list,
             # then redirect user to Home Page 
             # pass an extra query parameter into url of an application 'attempt_failed'
             # to show an request Invite popup
-            #redirect_to ENV['ORIGIN'] + "?attempt_failed=true"
+            redirect_to ENV['ORIGIN'] + "?attempt_failed=true"
         end
       else 
         # If the user is admin,
@@ -87,8 +87,8 @@ class TokensController < ApplicationController
       #if new_user
        # redirect_to ENV['ORIGIN'] + "/email?jwt=#{jwt}&id=#{user.id}&uname=#{user.username}"
       #else
-        jwt = JWT.encode({uid: user.uid, exp: 1.day.from_now.to_i}, Rails.application.secrets.secret_key_base) 
-        redirect_to ENV['ORIGIN'] + "?jwt=#{jwt}"
+        #jwt = JWT.encode({uid: user.uid, exp: 1.day.from_now.to_i}, Rails.application.secrets.secret_key_base) 
+       # redirect_to ENV['ORIGIN'] + "?jwt=#{jwt}"
       #end
     else
       redirect_to ENV['ORIGIN']
