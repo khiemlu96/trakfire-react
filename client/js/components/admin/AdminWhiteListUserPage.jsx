@@ -178,8 +178,16 @@ var AdminWhiteListUserPage = React.createClass({
 
     addUserToWhiteList: function() {
         var user = {};
-        user['email'] = this.whitelist_user[0].email !== null ? this.whitelist_user[0].email : "";
-        user['handle'] = this.whitelist_user[0].handle;
+        var userHandle = this.refs.userInput.getDOMNode().innerHTML;
+        console.log(userHandle);
+        userHandle = userHandle.split('>');
+        console.log(userHandle);
+        userHandle = userHandle[1].split('<');
+        console.log(userHandle);
+        userHandle = userHandle[0];
+        console.log(userHandle);
+        user['email'] = '';//this.whitelist_user[0].email !== null ? this.whitelist_user[0].email : "";
+        user['handle'] = userHandle;
         
         var data = {
             user: user

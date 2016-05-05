@@ -271,15 +271,18 @@ var PostsList = React.createClass({
   }, 
   
   playPauseItem: function(stream_url, track, idx, isPlaying) {
+    console.log("playing the track");
     if(this.state.currentTrack != null) {
       var prevPli = this.state.currentTrack;
       var pli = this.refs[prevPli].refs.overlay;
       var pliBG = this.refs[prevPli].refs.overlaybg;
+      console.log("managing icon state", pli);
       if(pli != null){ 
         pli.getDOMNode().className = "icon icon-controller-play";
         pliBG.getDOMNode().className = isNotPlaying;
       } 
     }
+
     // deactivate other tracks 
     
     var posts = this.state.posts;

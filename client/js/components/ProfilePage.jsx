@@ -29,7 +29,9 @@ var ProfilePage = React.createClass({
             
             // If the user is not null and previous user value stored in Dispatcher
             // is not same as new user, then set to null
+            //console.log("FINDING THE USER", this.props.params.id, initailStates.user);
             if( initailStates.user && (initailStates.user.id !== parseInt(this.props.params.id)) ) {
+                //console.log("USERSBRUH", initailStates.user);
                 initailStates.user = null;
             }
 
@@ -38,23 +40,26 @@ var ProfilePage = React.createClass({
 
         componentDidMount: function() {
             UserStore.addChangeListener(this._onChange);
+            console.log("Mounting");
             var userid = this.props.params.id;
             this.getUser(userid);
             var user = this.state.user;
-            this.setState({userid:userid, user:user});
-            if (user) {
+            console.log("USER", user, "USERID", userid);
+            this.setState({userid:userid});
+            /*if (user) {
                 mixpanel.identify(userid);
                 mixpanel.track("Arrived on profile " + user.handle + "'s page {" + userid + "}");
-            }
+            }*/
             window.scrollTo(0,0);
         },
 
-        componentDidUnmount: function() {
+        componentWillUnmount: function() {
             UserStore.removeChangeListener(this._onChange);
         },
 
         getUser: function(userid) {
             NProgress.start();
+            console.log("GETTING THE USER");
             UserActions.getUser(this.props.origin + '/users/' + userid + '/', userid);
         },
 
@@ -117,12 +122,12 @@ var ProfilePage = React.createClass({
                 }
             }
 
-            //if(!user) { return (<div className='tf-loader'> </div>); }
-
-            var scloudurl =  "https://soundcloud.com/" + user.handle;            
+            if(!user) { NProgress.start(); return (<div></div>); }
+            if(user)
+                var scloudurl =  "https://soundcloud.com/" + user.handle;            
 
             // Get the follower and following count of an user
-            if( user !== null || user !== undefined) {
+            if( user !== null && user !== undefined) {
                 var follow_count = user.followers.length ? user.followers.length : 0;
                 var following_count = user.followings.length ? user.followings.length : 0;
             }

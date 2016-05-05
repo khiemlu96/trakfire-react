@@ -12610,8 +12610,8 @@ img.zoom-img {
 }
 
 #nprogress .bar {
-  background: #29d;
-
+  /*background: #29d;*/
+  background:#ff0d60 !important;
   position: fixed;
   z-index: 1031;
   top: 0;
@@ -12651,8 +12651,8 @@ img.zoom-img {
   box-sizing: border-box;
 
   border: solid 2px transparent;
-  border-top-color: #29d;
-  border-left-color: #29d;
+  border-top-color: #ff0d60 !important;;
+  border-left-color: #ff0d60 !important;;
   border-radius: 50%;
 
   -webkit-animation: nprogress-spinner 400ms linear infinite;

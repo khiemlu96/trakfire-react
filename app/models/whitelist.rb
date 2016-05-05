@@ -1,3 +1,3 @@
 class Whitelist < ActiveRecord::Base
-	validates :email, uniqueness: true
+	validates :email, uniqueness: false
 end

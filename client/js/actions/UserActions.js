@@ -32,11 +32,11 @@ var UserActions = {
   }, 
 
   getUser: function(origin, userid) {
-    if( !AppDispatcher.isDispatching() ) {
-      AppDispatcher.dispatch({
-        actionType: UserConstants.GET_USER
-      });
-    }
+    //if( !AppDispatcher.isDispatching() ) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.GET_USER
+    });
+    //}
 
     TfAPI.getUser(origin, userid);    
   }, 

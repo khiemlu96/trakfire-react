@@ -181,7 +181,7 @@ module.exports = {
 
   getUser: function(url, userid) {
     var data = { user : { id : userid } }
-    console.log(data);
+    console.log("USER DATA", data);
 
     Reqwest({
       url: url,
