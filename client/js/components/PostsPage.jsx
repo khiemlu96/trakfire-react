@@ -10,6 +10,8 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 var ReactPropTypes = React.PropTypes;
+
+var NProgress = require('nprogress-npm');
 var PostStore = require('../stores/PostStore.js');
 var UserStore = require('../stores/UserStore.js');
 var SongStore = require('../stores/SongStore.js');
@@ -52,14 +54,14 @@ var PostsPage = React.createClass({
     return {origin: process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : ''};
   },
 
-  componentWillMount: function() {
-    this.readPostsFromApi();
-  },
+  componentWillMount: function() {},
 
   componentDidMount: function() {
     PostStore.addChangeListener(this._onChange);
     UserStore.addChangeListener(this._onChange);
     SongStore.addChangeListener(this._onChange);
+    //NProgress.start();
+    this.readPostsFromApi();
     console.log("STATE", this.state);
     console.log("PROPS", this.props);
     console.log("POSTPAGE POSTS", this.state.posts);
@@ -68,8 +70,8 @@ var PostsPage = React.createClass({
     // On scrolling to the bottom of the Home page 
     // call the load posts for next date
     document.addEventListener('scroll', this.getMorePosts);
-    $(document).on("ReactComponent:PostsPage:renderLoader", this.renderLoader);
-    $(document).on("ReactComponent:PostsPage:removeLoader", this.removeLoader);
+    //$(document).on("ReactComponent:PostsPage:renderLoader", this.renderLoader);
+    //$(document).on("ReactComponent:PostsPage:removeLoader", this.removeLoader);
   },
 
   getMorePosts: function(event) {
@@ -111,15 +113,18 @@ var PostsPage = React.createClass({
   },
 
   renderLoader: function() {
-    React.render(<div className='tf-loader-small'></div>, document.getElementById('tf-loader-region'));
+    //React.render(<div className='tf-loader-small'></div>, document.getElementById('tf-loader-region'));
+    NProgress.start();
   },
 
   removeLoader: function() {
-    ReactDOM.unmountComponentAtNode(document.getElementById('tf-loader-region'));
+    //ReactDOM.unmountComponentAtNode(document.getElementById('tf-loader-region'));
+    NProgress.done();
   },
 
   readPostsFromApi: function(){
     console.log('FETCHING POST BATCH', this.props.origin);
+    //NProgress.start();
     PostActions.getPostBatch(this.props.origin+'/posts');
   },
   
@@ -128,12 +133,7 @@ var PostsPage = React.createClass({
    */
   render: function() {
     var post = this.state.posts;
-    console.log("POSTSSSS", post);
-    if(jQuery.isEmptyObject(post)) 
-    {  
-      return (<div className='tf-loader'> </div>); 
-    }   
-
+    if(jQuery.isEmptyObject(post)) { /*return (<div className='tf-loader'> </div>); */ }   
     return (
       <div>
         <PostList
@@ -147,10 +147,7 @@ var PostsPage = React.createClass({
           setSongList={this.props.setSongList}
           origin={this.props.origin} 
           filterPosts={this.props.filterPosts}/>
-        <div id="tf-loader-region">
-            //Show loader here when loadin more posts on Scrolling the page to bottom
-
-        </div>
+        <div id="tf-loader-region"></div>
       </div>
     );
   },

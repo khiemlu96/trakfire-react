@@ -212,7 +212,7 @@ var PostsList = React.createClass({
     var carousal_images = [];
   
     this.getAdminCarousalFiles();
-    console.log("POSTS IN POST LIST", this.props.posts);
+    //console.log("POSTS IN POST LIST", this.props.posts);
     //var posts = getSongList(p);
     //this.props.setSongList(this.state.posts);
     PostStore.addChangeListener(this._onChange);
@@ -232,7 +232,7 @@ var PostsList = React.createClass({
   },
 
   componentDidUpdate: function(prevProps, prevState) {
-    console.log("WILL RECIEVE PROPS", prevState.posts, this.state.posts);
+    //console.log("WILL RECIEVE PROPS", prevState.posts, this.state.posts);
     //console.log("HAS SET SONG LIST", this.state.hasSetSongList);
     if(Object.keys(prevProps.posts).length > 0 && !this.state.hasSetSongList) {
       //console.log("SETTING THE SONG LIST", this.state.hasSetSongList);
@@ -473,6 +473,7 @@ var PostsList = React.createClass({
     var postListStyle = { marginTop: 20+"px" };
     var carousalItemHtml = <CarouselItem></CarouselItem>;
     var nocaro = false
+
     if( this.state.carousal_images !== null && nocaro) {
       carousal_items = getCarousalImageArray( this.state.carousal_images );
       var keys = carousal_items[0];

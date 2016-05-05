@@ -143,6 +143,7 @@ var PostListItem = React.createClass({
     this.props.onClick(this.props.post.stream_url, this.props.post, idx);
 
     var overlay = this.refs.overlay.getDOMNode();
+
     if(!this.state.isPlaying) {
       overlay.className = playing;
       this.setState({isPlaying:true});
@@ -155,9 +156,9 @@ var PostListItem = React.createClass({
   hasUpvoted: function() {
     var post = this.props.post;
     if(this.props.isLoggedIn){
-      console.log("POST TO UPVOTE", post);
+      //console.log("POST TO UPVOTE", post);
       var exists = post.voters.indexOf(this.props.userId);
-      console.log(post.id, exists);
+      //console.log(post.id, exists);
       return (exists != -1) ? true : false;
     }
   }, 
@@ -341,7 +342,7 @@ var PostListItem = React.createClass({
     var voteStyle = { color: "#ff0d60 !important;" };
     var voteStyleUpvoted = { color: "#777 !important;" };
     var postId = "tf-post-"+ post.id;
-    console.log("UPVOTED", this.hasUpvoted());
+    //console.log("UPVOTED", this.hasUpvoted());
     return (
         <li className = "media tf-media" id={postId} onClick = {this.playPauseTrack}>
             <div className = "media-left">
@@ -362,7 +363,7 @@ var PostListItem = React.createClass({
                         </a> 
                         <small ref = "count"> {(post.vote_count !== null) ? post.vote_count : 0} </small>
                     </span>
-                    <Link className = "no-decor" to={postLink}>{post.title} </Link>
+                    <Link className = "no-decor" to={postLink} onClick={this.stopPropagation} >{post.title} </Link>
                 </h4>
                 <h6 className = "tf-media-artist">
                     {post.artist} 
@@ -383,6 +384,15 @@ var PostListItem = React.createClass({
         this.setState({
           currentUser: UserStore.getCurrentUser()
         });
+    }, 
+
+    toDetail: function(e) {
+
+    }, 
+
+    stopPropagation: function(e) {
+      e.stopPropagation();
+      //this.handleClick(e);
     }
 });
 

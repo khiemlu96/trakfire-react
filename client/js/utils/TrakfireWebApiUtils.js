@@ -13,6 +13,7 @@
 var PostServerActionCreators = require('../actions/PostServerActionCreators');
 var UserServerActionCreators = require('../actions/UserServerActions');
 var Reqwest = require('reqwest');
+var NProgress = require('nprogress-npm');
 
 module.exports = {
   //example dat loaded from localStorage
@@ -25,6 +26,7 @@ module.exports = {
 
   getPostBatch: function(url) {
     console.log("POSTIES", url);
+    NProgress.start();
   	Reqwest({
       url: url,
       type: 'json',
@@ -35,6 +37,7 @@ module.exports = {
       	console.log(resp);
       	rawPosts = resp;
       	PostServerActionCreators.recieveBatch(rawPosts); 
+        NProgress.done();
       },
       error: function(error) {
         console.error(url, error['response']);
@@ -77,6 +80,7 @@ module.exports = {
         console.log("SERVER RESPONSE", resp);
         newPost = resp;
         PostServerActionCreators.recieveCreatedPost(newPost); 
+        NProgress.done();
       },
       error: function(error) {
         console.error(url, error['response']);
@@ -97,6 +101,7 @@ module.exports = {
         console.log("SERVER RESPONSE FOR USER", resp);
         userPosts = resp;
         PostServerActionCreators.recieveUserPosts(userPosts); 
+        NProgress.done();
       },
       error: function(error) {
         console.error(url, error);
@@ -189,6 +194,7 @@ module.exports = {
         console.log("USER SERVER RESPONSE", resp);
         newUser = resp;
         UserServerActionCreators.recieveNewUser(newUser); 
+        NProgress.done();
       },
       error: function(error) {
         console.error(url, error['response']);
@@ -225,6 +231,7 @@ module.exports = {
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         PostServerActionCreators.recieveSinglePost(resp); 
+        NProgress.done();
       },
       error: function(error) {
         console.error(url, error['response']);

@@ -10,7 +10,6 @@
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var PostActions = require('../actions/PostActions');
-var PostList = require('./PostsList.jsx');
 var PostGrid = require('./PostGrid.jsx');
 
 var PostContainer = React.createClass({

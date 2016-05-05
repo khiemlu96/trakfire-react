@@ -2,11 +2,9 @@
 
 var React = require('react/addons');
 var Uri = require('jsuri');
-console.log("POST BB");
 var ReactPropTypes = React.PropTypes;
 var bootstrap = require('bootstrap');
 var Bootstrap = require('react-bootstrap');
-console.log("POST BS");
 var Tooltip = Bootstrap.Tooltip;
 var Modal = Bootstrap.Modal;
 var Button = Bootstrap.Button;
@@ -17,7 +15,6 @@ var Col = Bootstrap.Col;
 var NavBar = require('./NavBar.jsx');
 var Footer = require('./Footer.jsx');
 var FilterBar = require('./FilterBar.jsx');
-var PostsList = require('./PostsList.jsx');
 var TrakfirePlayer = require('./TrakfirePlayer.jsx');
 
 var PostStore = require('../stores/PostStore');
@@ -27,11 +24,11 @@ var SongActions = require('../actions/SongActions');
 var UserStore = require('../stores/UserStore.js');
 var UserActions = require('../actions/UserActions.js');
 
-var PostsGrid = require('./PostGrid.jsx');
 var PostContainer = require('./PostContainer.jsx');
 var PostsPage = require('./PostsPage.jsx');
 var ProfilePage = require('./ProfilePage.jsx');
 var EmailAcquirePage = require('./EmailAcquirePage.jsx');
+var NProgress = require('nprogress-npm');
 var SoundCloudAudio = require('soundcloud-audio');
 var scPlayer = new SoundCloudAudio('9999309763ba9d5f60b28660a5813440');
 var _persist = false;
@@ -39,7 +36,7 @@ var _persist = false;
  * Retrieve the current post and user data from the PostStore
  */
 function getAppState() {
-  console.log("A CHANGE IN USER OR POST STORE");
+  //console.log("A CHANGE IN USER OR POST STORE");
   return {
     allPosts: PostStore.getAll(),
     currentUser: UserStore.getCurrentUser(),
@@ -149,6 +146,7 @@ var TrakfireApp = React.createClass({
 
   readPostsFromApi: function(){
     //console.log('FETCHING POST BATCH', this.props.origin);
+    NProgress.start();
     PostActions.getPostBatch(this.props.origin+'/posts');
   },
 

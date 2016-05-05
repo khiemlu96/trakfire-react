@@ -16,6 +16,8 @@ var scPlayer = new SoundCloudAudio('9999309763ba9d5f60b28660a5813440');
 var Link = Router.Link;
 var OverlayTrigger = Bootstrap.OverlayTrigger;
 var Popover = Bootstrap.Popover;
+var NProgress = require('nprogress-npm');
+
 var UserStyle = { maxWidth:480, backgroundColor: '#1c1c1c', border:'1px solid #2b2b2b'};
 var UserFlyOver = require('./UserFlyOver.jsx');
 var classNames = require('classnames');
@@ -98,6 +100,7 @@ var PostDetailPage = React.createClass({
   }, 
 
   getPost: function(postid) {
+    NProgress.start();
     PostActions.getPost(this.props.origin+'/post/'+postid, postid);
   }, 
 

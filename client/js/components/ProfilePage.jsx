@@ -5,7 +5,7 @@ var UserStore = require('../stores/UserStore.js');
 var UserPostList = require('./UserPostList.jsx');
 var ProfileHeader = require('./ProfileHeader.jsx');
 var ProfileEditPage = require('./ProfileEditPage.jsx');
-
+var NProgress = require('nprogress-npm');
 
 function getAppState() {
     return {
@@ -54,6 +54,7 @@ var ProfilePage = React.createClass({
         },
 
         getUser: function(userid) {
+            NProgress.start();
             UserActions.getUser(this.props.origin + '/users/' + userid + '/', userid);
         },
 
@@ -116,7 +117,7 @@ var ProfilePage = React.createClass({
                 }
             }
 
-            if(!user) { return (<div className='tf-loader'> </div>); }
+            //if(!user) { return (<div className='tf-loader'> </div>); }
 
             var scloudurl =  "https://soundcloud.com/" + user.handle;            
 
