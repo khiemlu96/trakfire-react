@@ -74,7 +74,10 @@ function _addMoreUserNotifications(notifications) {
 }
 
 function _addFollower(follower) {
-  _cUser.followings.push(follower);
+  _cUser.followings.push(follower);  
+  if(_user !== null && _user.id === follower.id) {
+    _user.followers.push(_cUser);
+  }
 }
 
 function _removeFollower(follower) {
@@ -87,6 +90,17 @@ function _removeFollower(follower) {
     rowIdx++;
   }
   _cUser.followings = followings;
+  
+  rowIdx = 0;
+  if(_user !== null && _user.id === follower.id) {
+    var followers = _user.followers;
+    for( key in followers ) {
+      if( followers[key].id === _cUser.id ) {
+        followers.splice(rowIdx, 1);
+      }
+      rowIdx++;
+    }
+  }
 } 
 
 function _deleteUser(user_id) {

@@ -12678,3 +12678,11 @@ img.zoom-img {
   100% { transform: rotate(360deg); }
 }
 
+.tf-follow-count {
+	width: 100%;
+	padding-left: 0px !important;
+	text-align: left;
+	font-size: 14px;
+	font-style: italic;
+}
+

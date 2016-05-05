@@ -182,6 +182,22 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+
+    # if the users original profile image path is null
+    # then set it explicitly by the value of profile img column
+    if( @user.img != nil && @user.original_profile_img == nil )       
+        if @user.img.include?('_normal')
+            normal_img_url = @user.img.clone
+
+            # remove just string "_normal" to get user's profile image in original size.
+            # and set that image as a original_profile_img for user
+            normal_img_url.slice! '_normal'
+
+            @user.original_profile_img = normal_img_url
+            @user.save
+        end
+    end
+
     @votes = Vote.where(user_id: @user.id)
     @uvotes = [];
     

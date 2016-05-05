@@ -258,7 +258,7 @@ var DashBoardPage = React.createClass({
                                 </span>
                             }> 
                             <div id = "chart-container">
-
+                                <div id="myChart" style={{minWidth: 310, height: 400, margin: 0}}></div>
                             </div>
                         </Panel>
                     </div>

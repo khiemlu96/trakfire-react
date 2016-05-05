@@ -27,7 +27,7 @@ var ProfilePage = React.createClass({
         getInitialState: function() {
             var initailStates = getAppState();
             
-            //If the user is not null and previous user value stored in Dispatcher
+            // If the user is not null and previous user value stored in Dispatcher
             // is not same as new user, then set to null
             if( initailStates.user && (initailStates.user.id !== parseInt(this.props.params.id)) ) {
                 initailStates.user = null;
@@ -76,7 +76,7 @@ var ProfilePage = React.createClass({
         unFollowUser: function() {
             var follow_id = this.state.user.id;
             UserActions.unFollowUser(this.props.origin+ '/follower', follow_id);
-        },   
+        },
 
         componentWillReceiveProps: function(nextProps) {            
             var user = this.state.user;
@@ -121,6 +121,12 @@ var ProfilePage = React.createClass({
 
             var scloudurl =  "https://soundcloud.com/" + user.handle;            
 
+            // Get the follower and following count of an user
+            if( user !== null || user !== undefined) {
+                var follow_count = user.followers.length ? user.followers.length : 0;
+                var following_count = user.followings.length ? user.followings.length : 0;
+            }
+
             return (
                 <div>                    
                     <ProfileHeader
@@ -130,13 +136,15 @@ var ProfilePage = React.createClass({
                         userOriginalImg={user.original_profile_img}
                         userTwitterLink={user.twturl}
                         userScloudLink = {scloudurl}
-                        isVisible= {!this.state.showEditProfileWrapper}
+                        isVisible = {!this.state.showEditProfileWrapper}
                         toggleProfileEdit={this.toggleProfileEdit} 
                         onUserFollowClick={this.followUser}
                         onUnFollowClick={this.unFollowUser}
                         isFollowing={isFollowing}
                         currUser={this.props.currUser}
-                        isUserVerified={user.isVerified} />                    
+                        isUserVerified={user.isVerified} 
+                        user_follow_count = {follow_count}
+                        user_following_count = {following_count} />                    
                     
                     <ProfileEditPage
                         user= {user} 
