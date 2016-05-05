@@ -151,11 +151,12 @@ var PostListItem = React.createClass({
     }
   },
 
-  hasUpvoted: function(post) {
+  hasUpvoted: function() {
+    var post = this.props.post;
     if(this.props.isLoggedIn){
-      //console.log("POST TO UPVOTE", post);
+      console.log("POST TO UPVOTE", post);
       var exists = post.voters.indexOf(this.props.userId);
-      //console.log(post.id, exists);
+      console.log(post.id, exists);
       return (exists != -1) ? true : false;
     }
   }, 
@@ -339,7 +340,7 @@ var PostListItem = React.createClass({
     var voteStyle = { color: "#ff0d60 !important;" };
     var voteStyleUpvoted = { color: "#777 !important;" };
     var postId = "tf-post-"+ post.id;
-
+    console.log("UPVOTED", this.hasUpvoted());
     return (
         <li className = "media tf-media" id={postId}>
             <div className = "media-left">
@@ -355,7 +356,7 @@ var PostListItem = React.createClass({
                 <h4 className = "tf-media-title">
                     <span className = "pull-right"> 
                         <a href = "#"  className = "upvote-link" onClick = {this.upvote}>
-                            <span className = "icon icon-chevron-up" style = {!this.hasUpvoted ? voteStyle : voteStyleUpvoted}> 
+                            <span className = "icon icon-chevron-up" style = {!this.hasUpvoted() ? voteStyle : voteStyleUpvoted}> 
                             </span>
                         </a> 
                         <small ref = "count"> {(post.vote_count !== null) ? post.vote_count : 0} </small>
