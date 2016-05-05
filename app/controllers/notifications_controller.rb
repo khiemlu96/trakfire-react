@@ -6,8 +6,9 @@ class NotificationsController < ApplicationController
 			limit =  params[:limit]
 			offset = params[:offset]
 		end
+		#if @current_user.id != nil @current_user.id
 
-		@notifications = Notification.where(user_id: @current_user.id).order(sent_time: :desc).limit(15).offset(0)
+		@notifications = Notification.where(user_id: params[:user_id]).order(sent_time: :desc).limit(15).offset(0)
 
 		@notifications.each do |n|
 			n.json_data = n.data
