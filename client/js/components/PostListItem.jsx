@@ -21,10 +21,12 @@ var isPlaying = classNames("tf-post-item is-playing");
 var isNotPlaying = classNames("tf-post-item");
 var isFirstPlaying = classNames("tf-post-item--first is-playing");
 var isFirstNotPlaying = classNames("tf-post-item--first");
-var isUpvoted = classNames("tf-post-item--votes is-upvoted");
-var isNotUpvoted = classNames("tf-post-item--votes");
+//var isUpvoted = classNames("tf-post-item--votes is-upvoted");
+//var isNotUpvoted = classNames("tf-post-item--votes");
 var playing = classNames("icon icon-controller-paus");
 var paused = classNames("icon icon-controller-play");
+var notUpvoted = classNames("icon icon-chevron-up is-not-upvoted");
+var isUpvoted = classNames("icon icon-chevron-up is-upvoted");
 var _localVoteCount = 0;
 var hoverStyle = {
   positionLeft: '53%'
@@ -116,17 +118,18 @@ var PostListItem = React.createClass({
 
   upvote: function() {
     var post = this.props.post;
-    mixpanel.identify(this.props.userid);
+    /*mixpanel.identify(this.props.userid);
     mixpanel.track("Upvote", {
       "Title" : post.title,
       "id" : post.id,
       "artist" : post.artist,
       "vote count" : post.vote_count
-    });
+    });*/
     if(this.props.isLoggedIn && !this.hasUpvoted(this.props.post)){
       this.props.onUpvote(this.props.post.id);
       var count = this.refs.count.getDOMNode();
-
+      var u = this.refs.upvotebtn.getDOMNode();
+      u.className = isUpvoted;
       this.setState({hasUpvoted:true});
     } else if(!this.props.isLoggedIn) {
       this.props.showModal(true);
@@ -325,7 +328,7 @@ var PostListItem = React.createClass({
   render: function() {
     var post = this.props.post;
     var key = this.props.key;
-    var upvoted = (this.state.isUpvoted || this.props.isUpvoted || this.state.hasUpvoted);
+    var upvoted = (this.props.isUpvoted || this.state.hasUpvoted);
     var localUpvote = this.state.hasUpvoted; //pre refresh we upvoted this
     _localVoteCount = post.vote_count;
     var img = post.img_url;
@@ -343,7 +346,7 @@ var PostListItem = React.createClass({
     var voteStyle = { color: "#ff0d60 !important;" };
     var voteStyleUpvoted = { color: "#777 !important;" };
     var postId = "tf-post-"+ post.id;
-    //console.log("UPVOTED", this.hasUpvoted());
+    console.log("UPVOTED", post.id, upvoted);
     return (
         <li className = "media tf-media" id={postId} onClick = {this.toDetail}>
             <div className = "media-left">
@@ -359,7 +362,7 @@ var PostListItem = React.createClass({
                 <h4 className = "tf-media-title">
                     <span className = "pull-right"> 
                         <a href = "#"  className = "upvote-link" onClick = {this.upvote}>
-                            <span className = "icon icon-chevron-up" style = {!this.hasUpvoted() ? voteStyle : voteStyleUpvoted}> 
+                            <span className={ !upvoted ? notUpvoted : isUpvoted } ref="upvotebtn"> 
                             </span>
                         </a> 
                         <small ref = "count"> {(post.vote_count !== null) ? post.vote_count : 0} </small>

@@ -345,7 +345,11 @@ th.upvote-col {
 
 .is-upvoted {
 	/*background-color: #ff0d60;*/
-	background: #ff0d60;
+	color: #ff0d60 !important;
+}
+
+.is-not-upvoted {
+	color: #777 !important;
 }
 
 /* img */
