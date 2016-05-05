@@ -187,15 +187,13 @@ class UsersController < ApplicationController
     # then set it explicitly by the value of profile img column
     if( @user.img != nil && @user.original_profile_img == nil )       
         if @user.img.include?('_normal')
-            normal_img_url = @user.img
-            temp_url = @user.img
+            normal_img_url = @user.img.clone
 
             # remove just string "_normal" to get user's profile image in original size.
             # and set that image as a original_profile_img for user
-            temp_url.slice! '_normal'            
-            @user.original_profile_img = temp_url
+            normal_img_url.slice! '_normal'
 
-            @user.img = normal_img_url
+            @user.original_profile_img = normal_img_url
             @user.save
         end
     end
