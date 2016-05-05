@@ -84,6 +84,20 @@ var LeaderBoardItem = React.createClass({
           }
         }
     }
+    
+    // Do not show Edit Follow Button if user is not logged in
+    if( !UserStore.isSignedIn() || (currentUser !== null && user.id === currentUser.id)) {
+        // Do not show Edit Profile Button if user is not logged in
+        var showFolloweBtn = false;
+        var followBtnHtml = "";
+    } else if (currentUser !== null && user.id !== currentUser.id) {
+        // Do not show Edit Profile Button if user is not on its own profile page
+        var showFolloweBtn = true;
+        var followBtnHtml = <button className = "btn btn-primary-outline btn-sm pull-right" style = {isFollowing ? FollowingButtonStyle : FollowButtonStyle} onClick = {this.followClick}>
+                    {isFollowing ? "Following" : "Follow"} 
+                    </button>;
+    }
+
     var profileLink = '/profile/' + user.id;
     return (
 	  <li className="list-group-item tf-user">
@@ -92,8 +106,7 @@ var LeaderBoardItem = React.createClass({
 	        <img className="media-object img-circle" src={user.img}></img>
 	      </Link>
 	      <div className="media-body">
-	        <button className="btn btn-primary-outline btn-sm pull-right" style={isFollowing ? FollowingButtonStyle : FollowButtonStyle} onClick={this.followClick}>{isFollowing ? "Following" : "Follow"}
-          </button>
+	        {followBtnHtml}
 	        <strong><Link to={profileLink} className="nd">{ user.name }</Link></strong>
 	        <br></br>
 	        <small>{ user.score ? user.score : 0 }</small>
