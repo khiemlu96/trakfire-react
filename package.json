@@ -45,6 +45,7 @@
     "soundcloud-audio": "https://github.com/grantcol/soundcloud-audio.js/archive/0.1.9.tar.gz",
     "style-loader": "^0.8.3",
     "webpack": "^1.6.0",
-    "webpack-dev-server": "^1.8.0"
+    "webpack-dev-server": "^1.8.0", 
+    "nprogress-npm": "*"
   }
 }
