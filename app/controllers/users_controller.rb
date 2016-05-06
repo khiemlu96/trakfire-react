@@ -182,7 +182,8 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-
+    logger.info "THE USER"
+    logger.info @user
     # if the users original profile image path is null
     # then set it explicitly by the value of profile img column
     if( @user.img != nil && @user.original_profile_img == nil )       
