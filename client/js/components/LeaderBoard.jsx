@@ -69,8 +69,10 @@ var LeaderBoard = React.createClass({
   
   	for(i in sortedUsers) {
   		var u = sortedUsers[i];
-  		var uItem = <LeaderBoardItem user={u} origin={this.props.origin} currentUser={this.state.currentUser} showModal={this.props.showModal}/>
-  		leaderBoardItems.push(uItem);
+      if(u.score != 0){
+  		  var uItem = <LeaderBoardItem user={u} origin={this.props.origin} currentUser={this.state.currentUser} showModal={this.props.showModal}/>
+  		  leaderBoardItems.push(uItem);
+      }
   	}
   	return leaderBoardItems;
   }, 
