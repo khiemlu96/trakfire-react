@@ -29,7 +29,10 @@ class User < ActiveRecord::Base
   def followers=(followers)
     user_followers = []
     @followers = followers.each do |follower|
-      user_followers.push(User.find(follower.user_id))
+      f = User.find(follower.user_id)
+      if f
+        user_followers.push(f)
+      end
     end
     @followers = user_followers
   end
@@ -41,7 +44,10 @@ class User < ActiveRecord::Base
   def followings=(followings)
     user_followings = []
     @followings = followings.each do |f|
-      user_followings.push(User.find(f.follow_id))
+      f = User.find(f.follow_id)
+      if f
+        user_followings.push(User.find(f.follow_id))
+      end
     end
     @followings = user_followings
   end
