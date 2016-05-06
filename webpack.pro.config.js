@@ -9,15 +9,15 @@ config.plugins.push(
   })
 );
 
-config.plugins.push(
+/*config.plugins.push(
   new webpack.optimize.UglifyJsPlugin({
     compress: {
       warnings: false
     }, 
     minimize: true
   })
-);
+);*/
 
-config.output.filename = "bundle.min.js";
+//config.output.filename = "bundle.min.js";
 
 module.exports = config;
