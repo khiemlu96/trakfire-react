@@ -20,11 +20,11 @@ class UsersController < ApplicationController
         @search_by = params[:search_by];
       end
       
-      @users = User.where("lower(" + @search_by + ") like ?", ('%'+@search_key.downcase+'%')).order(score: :desc).ranking.offset(@offset).limit(@limit)
+      @users = User.where("lower(" + @search_by + ") like ?", ('%'+@search_key.downcase+'%')).order(score: :asc).ranking.offset(@offset).limit(@limit)
       page_count = @users.size
       total_count = User.where("lower(username) like ?", ('%'+@search_key.downcase+'%')).distinct.count('id')
     else
-      @users = User.order(score: :desc).ranking.offset(@offset).limit(@limit)
+      @users = User.order(score: :asc).ranking.offset(@offset).limit(@limit)
       page_count = @users.size
       total_count = User.distinct.count('id')
     end
