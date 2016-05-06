@@ -106,7 +106,7 @@ var LeaderBoardItem = React.createClass({
                     {isFollowing ? "Following" : "Follow"} 
                     </button>;
     }
-    console.log("FOLLOWER", followBtnHtml)
+    //console.log("FOLLOWER", followBtnHtml)
     var profileLink = '/profile/' + user.id;
     return (
 	  <li className="list-group-item tf-user">

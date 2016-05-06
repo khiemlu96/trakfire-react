@@ -317,7 +317,11 @@ var PostsList = React.createClass({
   },
 
   hasUpvoted: function(post, userid) {
-      //console.log(post);
+      console.log("has this user upvoted?", post, userid, post.votes);
+
+      if(post.author_id == userid) {
+        return true;
+      }
       var exists = post.voters.indexOf(userid);
       //console.log(post.id, exists);
       return (exists != -1) ? true : false;

@@ -346,7 +346,7 @@ var PostListItem = React.createClass({
     var voteStyle = { color: "#ff0d60 !important;" };
     var voteStyleUpvoted = { color: "#777 !important;" };
     var postId = "tf-post-"+ post.id;
-    console.log("UPVOTED", post.id, upvoted);
+    //console.log("UPVOTED", post.id, upvoted);
     return (
         <li className = "media tf-media" id={postId} onClick = {this.toDetail}>
             <div className = "media-left">

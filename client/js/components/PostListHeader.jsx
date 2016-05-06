@@ -18,7 +18,7 @@ var PostListHeader = React.createClass({
   },
 
   componentWillMount: function() {
-    console.log("WILL MOUNT THE HEADER");
+    //console.log("WILL MOUNT THE HEADER");
   },
 
   componentDidMount: function() {
