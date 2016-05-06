@@ -7025,6 +7025,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 }
 .navbar-brand > img {
   display: block;
+  min-width: 160px;
 }
 @media (min-width: 768px) {
   .navbar > .container .navbar-brand,

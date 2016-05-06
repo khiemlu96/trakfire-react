@@ -288,7 +288,7 @@ var NavBar = React.createClass({
         <span className="icon-bar"></span>
       </button>
       <Link className="navbar-brand"  to="/" >
-        <img src="assets/img/logo.svg" height="100%;"alt="brand"></img>
+        <img src="assets/img/trakfirewhite-sm.png" alt="brand"></img>
       </Link>
     </div>
     <div className="navbar-collapse collapse" id="navbar-collapse-main">
