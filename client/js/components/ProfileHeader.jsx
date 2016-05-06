@@ -103,7 +103,7 @@ var ProfileHeader = React.createClass({
         var headerStyle = {"padding" : 100 + 'px'};
 
         if( this.props.isUserVerified !== null && this.props.isUserVerified !== false ) {
-            var verifiedIcon =  <img className="tf-verified-symbol" src={"assets/img/Twitter-Verified.png"}></img>;
+            var verifiedIcon =  <img className="tf-verified-symbol" src={"http://d1zb20amprz33r.cloudfront.net/verified.png"}></img>;
         } else {
             var verifiedIcon = "";
         }
