@@ -37,7 +37,7 @@ var AdminRequestInvitesListPage = require('./components/admin/AdminRequestInvite
 var AdminWhiteListUserPage = require('./components/admin/AdminWhiteListUserPage.jsx');
 
 React.render(
-  <Router history={hashHistory}>
+  <Router history={browserHistory}>
     <Route path='/' component={TrakfireApp}>
       <IndexRoute component={PostsPage}/>
       <Route path='/profile/(:id)' component={ProfilePage} />
