@@ -36,7 +36,7 @@ var PostListHeader = React.createClass({
 
         <div className="tf-header-background" style={background_img}></div>
         <div className="tf-header-background-overlay">
-          <img src="assets/img/polygon_overlay.png" alt="..."></img>
+          <img src="http://d1zb20amprz33r.cloudfront.net/polygon_overlay-min.png" alt="..."></img>
         </div>
 
         <div className="container">
