@@ -123,7 +123,7 @@ var ProfileHeader = React.createClass({
                             <div className="tf-btn-follow btn btn-primary" onClick={this.follow_click} style={followBtnStyle}>{follow_text}</div>
                             <div className = "row tf-social-icons" >                                
                                 <a className="tf-share-link" href = {this.props.userScloudLink} target = "_blank" >
-                                    <img src="../assets/img/facebook_share.svg"></img>
+                                    <img src="http://d1zb20amprz33r.cloudfront.net/tf-soundcloud-icon.png" width="100"></img>
                                 </a>
                                 <a className="tf-share-link" href = {this.props.userTwitterLink} target = "_blank" >
                                     <img src = "../assets/img/twitter_share.svg"> </img> 
