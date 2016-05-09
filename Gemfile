@@ -36,6 +36,8 @@ gem "algoliasearch-rails"
 
 gem 'algoliasearch'
 
+gem 'rest-client'
+
 group :production do
 
   gem 'rails_12factor'

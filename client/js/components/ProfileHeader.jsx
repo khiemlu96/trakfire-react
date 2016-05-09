@@ -40,7 +40,8 @@ var ProfileHeader = React.createClass({
         currUser: ReactPropTypes.object,
         isUserVerified: ReactPropTypes.bool,
         user_follow_count: ReactPropTypes.number,
-        user_following_count: ReactPropTypes.number
+        user_following_count: ReactPropTypes.number, 
+        showModal: ReactPropTypes.func
     },
 
     getInitialState: function() {
@@ -71,7 +72,15 @@ var ProfileHeader = React.createClass({
         this.props.toggleProfileEdit(true);
     },
 
-    /**
+    showFollowers: function() {
+        this.props.showModal("followers");
+    }, 
+
+    showFollowings: function() {
+        this.props.showModal("followings");
+    },
+
+    /** 
      * @return {object}
      */
     render: function() {
@@ -134,10 +143,10 @@ var ProfileHeader = React.createClass({
                         <div className="col-md-12">
                             <div className="col-md-4"></div>
                             <div className="col-md-4 tf-follow-count left">
-                                Followers : {this.props.user_follow_count}
+                                 <a href="#" onClick={this.showFollowers} className="no-decor"> Followers : {this.props.user_follow_count} </a>
                             </div>
                             <div className="col-md-4 tf-follow-count right">
-                                Followings : {this.props.user_following_count}
+                                <a href="#" onClick={this.showFollowings} className="no-decor">Followings : {this.props.user_following_count} </a>
                             </div>
                         </div>
                     </div>

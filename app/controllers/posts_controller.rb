@@ -1,3 +1,4 @@
+#require '../tweet.rb'
 class PostsController < ApplicationController
 	before_action :authenticate_request, only: [:create, :destroy]
 
@@ -105,6 +106,12 @@ class PostsController < ApplicationController
 	  @post.vote_count = 1
 
 	  if @post.save
+
+	  	#tweet
+	  	#user = User.find(@post.user_id)
+	  	#twitter = TwitterAgent.new()
+	  	#twitter.update(@post.title, user.handle, user.name, @post.artist)
+	  	#create a vote 
 	  	@vote = Vote.new()
 	  	@vote.user_id = @current_user.id
 	  	@vote.post_id = @post.id

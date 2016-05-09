@@ -6,12 +6,17 @@ var UserPostList = require('./UserPostList.jsx');
 var ProfileHeader = require('./ProfileHeader.jsx');
 var ProfileEditPage = require('./ProfileEditPage.jsx');
 var NProgress = require('nprogress-npm');
+var Bootstrap = require('react-bootstrap');
+var Modal = Bootstrap.Modal;
+var LeaderBoardItem = require('./LeaderBoardItem.jsx');
 
 function getAppState() {
     return {
         user: UserStore.getUser(),
         showEditProfileWrapper: false,
-        userid: null
+        userid: null, 
+        showFollowingsModal: false,
+        showFollowersModal: false
     };
 }
 
@@ -105,6 +110,52 @@ var ProfilePage = React.createClass({
             this.props.upvote(postid);
             //PostActions.upvote(this.props.origin+'/votes', postid);
         },
+
+        showModal: function(which) {
+            if(which == "followers") {
+                this.showFollowersModal();
+            } else if(which == "followings") {
+                this.showFollowingsModal();
+            }
+        }, 
+
+        showFollowingsModal: function() {
+            console.log("Test showModal");
+            this.setState({showFollowingsModal:true});
+        }, 
+
+        showFollowersModal: function() {
+            console.log("Test showModal");
+            this.setState({showFollowersModal:true});
+        }, 
+
+        closeFollowingsModal: function() {
+            this.setState({showFollowingsModal:false});
+        }, 
+
+        closeFollowersModal: function() {
+            this.setState({showFollowersModal:false});
+        }, 
+
+        renderFollowersAndFollowings: function(user) {
+            var followings = [];
+            var followers = [];
+
+            for(f in user.followings) {
+                u = user.followings[f];
+                var following = <LeaderBoardItem user={u} origin={this.props.origin} currentUser={this.state.currentUser} showModal={this.props.showModal}/>
+                followings.push(following);
+            }
+
+            for(f in user.followers) {
+                u = user.followers[f];
+                var follower = <LeaderBoardItem user={u} origin={this.props.origin} currentUser={this.state.currentUser} showModal={this.props.showModal}/>
+                followers.push(follower);
+            }
+
+            return {"followers" : followers, "followings": followings};
+        }, 
+
         /**
          * @return {object}
          */
@@ -132,6 +183,7 @@ var ProfilePage = React.createClass({
                 var following_count = user.followings.length ? user.followings.length : 0;
             }
 
+            var followersAndFollowings = this.renderFollowersAndFollowings(user);
             return (
                 <div>                    
                     <ProfileHeader
@@ -149,7 +201,8 @@ var ProfilePage = React.createClass({
                         currUser={this.props.currUser}
                         isUserVerified={user.isVerified} 
                         user_follow_count = {follow_count}
-                        user_following_count = {following_count} />                    
+                        user_following_count = {following_count} 
+                        showModal = {this.showModal}/>                    
                     
                     <ProfileEditPage
                         user= {user} 
@@ -164,6 +217,21 @@ var ProfilePage = React.createClass({
                         origin={this.props.origin}
                         isLoggedIn={isLoggedIn}
                         upvote = {this.upvote} />
+
+                    <Modal show={this.state.showFollowingsModal} onHide={this.closeFollowingsModal}>
+                        <Modal.Body closeButton className={"tf-modal-body"}>
+                            <ul className="media-list media-list-users list-group">
+                                { followersAndFollowings["followings"] }
+                            </ul>
+                        </Modal.Body>
+                    </Modal>
+                    <Modal show={this.state.showFollowersModal} onHide={this.closeFollowersModal}>
+                        <Modal.Body closeButton className={"tf-modal-body"}>
+                            <ul className="media-list media-list-users list-group">
+                                { followersAndFollowings["followers"] }
+                            </ul>
+                        </Modal.Body>
+                    </Modal>
                 </div>
             );
         },
