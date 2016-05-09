@@ -124,6 +124,7 @@ var LeaderBoardItem = React.createClass({
 	  </li>
     );
   },
+  
   _onChange: function() {
       this.setState({
         currentUser: UserStore.getCurrentUser()

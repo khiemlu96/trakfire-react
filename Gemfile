@@ -38,6 +38,8 @@ gem 'algoliasearch'
 
 gem 'rest-client'
 
+gem 'twitter'
+
 group :production do
 
   gem 'rails_12factor'
