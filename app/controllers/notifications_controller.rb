@@ -13,9 +13,6 @@ class NotificationsController < ApplicationController
 		logger.info "LIST NOTIFICATIONS"
 		logger.info @notifications
 		@notifications.each do |n|
-			logger.info "NOTIFICATION"
-			logger.info "+++++++++++++++++"
-			logger.info n.sender_id
 			n.json_data = n.data
 			n.sender = n.sender_id
 		end	

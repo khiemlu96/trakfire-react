@@ -63,15 +63,10 @@ class Notification < ActiveRecord::Base
 	end
 
 	def sender=(sender_id)
-	    #@sender_ids = User.where(user.id: sender_id)
-	    users = []
 	    logger.info "SENDER ID"
 	    logger.info "-------------------"
 	    logger.info sender_id
-	    #@sender_ids = @sender_ids.each do |user|
-	      user = User.find(sender_id)
-	      #users.push(user)
-	    #end
+	    user = User.find(sender_id)
 	    @sender = user
   	end
   	
