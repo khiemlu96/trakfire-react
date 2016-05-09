@@ -116,7 +116,7 @@ var LeaderBoardItem = React.createClass({
 	      </Link>
 	      <div className="media-body">
 	        {followBtnHtml}
-	        <strong><Link to={profileLink} className="nd" style={nodecor}>{ user.name }</Link></strong>
+	        <strong><Link to={profileLink} className="nd" style={nodecor}>{ user.name || user.username }</Link></strong>
 	        <br></br>
 	        <small>{ user.score ? user.score : 0 }</small>
 	      </div>

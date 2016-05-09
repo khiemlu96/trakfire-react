@@ -143,6 +143,7 @@ var ProfilePage = React.createClass({
 
             for(f in user.followings) {
                 u = user.followings[f];
+                console.log("FFF", u);
                 var following = <LeaderBoardItem user={u} origin={this.props.origin} currentUser={this.state.currentUser} showModal={this.props.showModal}/>
                 followings.push(following);
             }
