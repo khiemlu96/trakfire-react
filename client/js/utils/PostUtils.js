@@ -1,11 +1,10 @@
 //PostUtils
+var Rank = require('./rank.js');
+
 module.exports = {
 
   convertRawPost: function(rawPost) {
-    //console.log("vote_count",rawPost.vote_count);
-    //console.log("user", rawPost.user);
-    //console.log("RAWPOST USER", rawPost.user);
-    //console.log("TAGS", rawPost.tags);
+    console.log("HOT SCORE", Rank.scorePost(rawPost.hot_score, rawPost.created_at));
     return {
       id: rawPost.id,
       title: rawPost.title,
@@ -22,7 +21,7 @@ module.exports = {
       duration: rawPost.duration,
       vote_count: rawPost.vote_count,
       voters: this.getUserIds( rawPost.post_votes!== undefined ? rawPost.post_votes: rawPost.votes ),
-      score: rawPost.hot_score, 
+      score: Rank.scorePost(rawPost.hot_score, rawPost.created_at), 
       tags: rawPost.tags, 
       status: rawPost.status,
       current: false,
