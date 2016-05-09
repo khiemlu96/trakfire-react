@@ -2,34 +2,68 @@ class UsersController < ApplicationController
 
   def index
     
+    @limit = ( params[:limit] != nil and params[:limit] != 'all' ) ? params[:limit].to_i : 'ALL'
+    page = params[:page] != nil ? params[:page].to_i : 1
+
+    page_count = (params[:limit] != nil and params[:limit] != 'all') ? params[:limit].to_i : nil
     @offset = params[:offset] != nil ? params[:offset].to_i : 0
-    @limit = params[:limit] != nil ? params[:limit].to_i: 100
-
-    page = params[:page].to_i != nil ? params[:page].to_i : 1
-    page_count = params[:limit] != nil ? params[:limit].to_i: 10
-
-    @offset = params[:page] != nil ? (page - 1) * page_count : @offset;
+    @offset = ( params[:page] != nil || page_count != nil ) ? (page - 1) * page_count : @offset;
     total_count = 0
     
     @users = []
+    @error = nil
     if( params[:search_key] != nil )
-      @search_key = params[:search_key]
-      
-      @search_by = 'username';
-      if params[:search_by] != nil
-        @search_by = params[:search_by];
-      end
-      
-      @users = User.where("lower(" + @search_by + ") like ?", ('%'+@search_key.downcase+'%')).order(score: :asc).ranking.offset(@offset).limit(@limit)
-      page_count = @users.size
-      total_count = User.where("lower(username) like ?", ('%'+@search_key.downcase+'%')).distinct.count('id')
+        @search_key = params[:search_key]
+
+        @search_by = 'username';
+        if params[:search_by] != nil
+            @search_by = params[:search_by];
+        end
+
+        begin
+            @users = User.where("lower(" + @search_by + ") like ?", ('%'+@search_key.downcase+'%')).order(created_at: :desc).ranking.offset(@offset).limit(@limit)
+            page_count = @users.size
+            total_count = User.where("lower(username) like ?", ('%'+@search_key.downcase+'%')).distinct.count('id')
+        rescue => error
+            @error = error
+        end
     else
-      @users = User.order(score: :asc).ranking.offset(@offset).limit(@limit)
-      page_count = @users.size
-      total_count = User.distinct.count('id')
+      begin
+        if @limit == 'ALL' or @limit == nil
+            @users = User.order(created_at: :ASC).ranking.offset(@offset)
+            
+            if( params[:action_type] != nil && params[:action_type] == 'get_user_img')
+                @users.each do |user|
+                    # if the users original profile image path is null
+                    # then set it explicitly by the value of profile img column
+                    if( user.img != nil && user.original_profile_img == nil )       
+                        if user.img.include?('_normal')
+                            normal_img_url = user.img.clone
+
+                            # remove just string "_normal" to get user's profile image in original size.
+                            # and set that image as a original_profile_img for user
+                            normal_img_url.slice! '_normal'
+
+                            user.original_profile_img = normal_img_url
+                        else
+                            # if the user profile image does not contains word '_normal'
+                            # then simly assign profile img path to original_profile_img 
+                            user.original_profile_img = user.img.clone
+                        end    
+                    end  
+                end
+            end                    
+        else 
+            @users = User.order(created_at: :desc).ranking.offset(@offset).limit(@limit)
+        end
+        page_count = @users.size
+        total_count = User.distinct.count('id')
+      rescue => error
+          @error = error
+      end
     end
   
-    no_of_page = (total_count.to_f / @limit.to_f).round(2).ceil
+    no_of_page = ( params[:limit] != nil && @limit != 'ALL' ) ? ( total_count.to_f / @limit.to_f ).round(2).ceil : 1
   
     @state = {
         total_count: total_count,
@@ -45,7 +79,11 @@ class UsersController < ApplicationController
       state: @state
     }
 
-    render json: @data
+    if @error == nil
+        render json: @data
+    else 
+        render json: @error
+    end
   end  
 
   def posts
