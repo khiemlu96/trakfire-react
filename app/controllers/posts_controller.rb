@@ -220,8 +220,8 @@ class PostsController < ApplicationController
 	      config.access_token        = "3543691814-qNlftZxeBSGeZc1TmQ6HNG259R5hfS0Fz0d3FGc"
 	      config.access_token_secret = "kxClgQI5TADYIrmehbFANER8yFf9CAsmLQkKNaB4LSFl1"
 	    end
-
-	    message = "new heat on the site: #{post_title} by #{post_artist}\nfound by @#{post_author_handle} \ntune in @ trakfire.com"
+	    hash_tag_artist = '#'+post_artist
+	    message = "new heat on the site: #{post_title} by #{hash_tag_artist}\nfound by @#{post_author_handle} \ntune in @ trakfire.com"
 	    client.update(message)
 	  end 
 end
