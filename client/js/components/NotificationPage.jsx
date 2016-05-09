@@ -50,6 +50,7 @@ var NotificationPage = React.createClass({
 	},
 
 	getUserNotifications: function() {
+		console.log("GETTING NOTIFICATIONS for", this.props.currUser.id, this.state.currentUser)
 		var data = {
             limit: 15,
             offset: 0,

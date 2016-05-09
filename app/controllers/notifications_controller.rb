@@ -7,7 +7,8 @@ class NotificationsController < ApplicationController
 			offset = params[:offset]
 		end
 		#if @current_user.id != nil @current_user.id
-
+		logger.info "THE USER W NOTIES\n"
+		logger.info params[:user_id]
 		@notifications = Notification.where(user_id: params[:user_id]).order(sent_time: :desc).limit(15).offset(0)
 
 		@notifications.each do |n|

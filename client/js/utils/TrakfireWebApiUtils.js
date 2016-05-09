@@ -321,10 +321,11 @@ module.exports = {
   },
 
   getUserNotifications: function(url, data) {
-    console.log("NOTIES", url);
+    console.log("NOTIES", url, data);
     var params = {
       limit: data.limit,
-      offset: data.offset
+      offset: data.offset, 
+      user_id: data.user_id
     };
     
     Reqwest({
