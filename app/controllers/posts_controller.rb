@@ -135,7 +135,7 @@ class PostsController < ApplicationController
 							:post_id => @post.id,
 							:post_name => @post.title
 						},
-				:sender_id => @@post.user_id
+				:sender_id => @post.user_id
 			}
 			
 			if Notification.sendNotification( @notification, {:consolidate => false} )
