@@ -10,13 +10,17 @@ class NotificationsController < ApplicationController
 		logger.info "THE USER W NOTIES\n"
 		logger.info params[:user_id]
 		@notifications = Notification.where(user_id: params[:user_id]).order(sent_time: :desc).limit(15).offset(0)
-
+		logger.info "LIST NOTIFICATIONS"
+		logger.info @notifications
 		@notifications.each do |n|
+			logger.info "NOTIFICATION"
+			logger.ingo "+++++++++++++++++"
+			logger.info n.sender_id
 			n.json_data = n.data
 			n.sender = n.sender_id
 		end	
 
-		render json: @notifications, methods: ['sender']
+		render json: @notifications#, methods: ['sender']
 	end
 
 	def destroy

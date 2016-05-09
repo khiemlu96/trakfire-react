@@ -108,8 +108,8 @@ class PostsController < ApplicationController
 	  if @post.save
 
 	  	#tweet
-	  	user = User.find(@post.user_id)
-	  	twitter_update(@post.title, user.handle, user.username, @post.artist)
+	  	twt_user = User.find(@post.user_id)
+	  	twitter_update(@post.title, twt_user.handle, twt_user.username, @post.artist)
 
 	  	#create a vote 
 	  	@vote = Vote.new()
@@ -135,7 +135,7 @@ class PostsController < ApplicationController
 							:post_id => @post.id,
 							:post_name => @post.title
 						},
-				:sender_id => @current_user.id
+				:sender_id => @@post.user_id
 			}
 			
 			if Notification.sendNotification( @notification, {:consolidate => false} )
