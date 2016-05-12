@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :votes, only: [:create, :destroy]
   resources :comments, only: [:index, :create, :destroy]
   resources :follower, only: [:create, :destroy]
-  resources :notifications, only: [:index, :destroy, :update]
+  resources :notifications, only: [:index, :destroy, :update, :pending_notifications]
   resources :tf_files, only: [:create, :index, :destroy]
   resources :whitelists, only: [:create, :index, :destroy]
   

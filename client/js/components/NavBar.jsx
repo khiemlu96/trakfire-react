@@ -16,6 +16,7 @@ var PostForm = require('./PostForm.jsx');
 var SearchBar = require('./SearchBar.jsx');
 var Bootstrap = require('react-bootstrap');
 var Notifications = require('./Notifications.jsx');
+var UserStore = require('../stores/UserStore.js');
 
 var Tooltip = Bootstrap.Tooltip;
 var OverlayTrigger = Bootstrap.OverlayTrigger;
@@ -85,6 +86,11 @@ var showMoreStyle = {
   display: 'none'
 };
  
+/*function getComponentState() {
+  return {
+    arePendingNotifications: UserStore.getPending()
+  };
+}*/
 
 var NavBar = React.createClass({
 
@@ -243,7 +249,8 @@ var NavBar = React.createClass({
 
     var indicator = "";
     if(this.props.user != null){
-      if(this.props.user.unread_notifications > 0) {
+     //if (this.state.
+     if(this.props.user.unread_notifications > 0) {
         var indicator = <div className="tf-bell-unread-indicator"></div>;
       } 
     }

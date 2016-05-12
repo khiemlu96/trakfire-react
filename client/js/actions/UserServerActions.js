@@ -167,5 +167,12 @@ module.exports = {
       actionType: UserConstants.DEL_WHITELIST_USERS,
       response : response,
     });
+  }, 
+
+  getPending: function(response) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.GET_PENDING,
+      response : response,
+    });    
   }
 };

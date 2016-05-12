@@ -22,6 +22,7 @@ var _posted_trak_stats = null, _upvoted_trak_stats = null;
 var _userUpvotedTraks = [];
 var _userRequestInvites = null, _userRequestInvitesState = {};
 var _whitelistUsers= null, _whitelistUsersState = {};
+var _arePendingNotifications = false;
 
 function _addCurrentUser(user) {
   _cUser = UserUtils.convertRawUser(user);
@@ -209,6 +210,10 @@ function delWhiteListUser(response) {
   }
 }
 
+function setPendingStatus(status) {
+  _arePendingNotifications = status;
+}
+
 var UserStore = assign({}, EventEmitter.prototype, {
 
   getCurrentUser: function() {
@@ -320,6 +325,10 @@ var UserStore = assign({}, EventEmitter.prototype, {
 
   resetUpvotedTraks: function() {
     _userUpvotedTraks = [];
+  },
+
+  getPending: function() {
+    return _arePendingNotifications;
   }
 });
 
@@ -422,6 +431,9 @@ AppDispatcher.register(function(action) {
       delWhiteListUser(action.response);
       UserStore.emitChange();
       break;
+    case UserConstants.GET_PENDING:
+      setPendingStatus(action.response);
+      UserStore.emitChange();
     default:
       // no op
   }

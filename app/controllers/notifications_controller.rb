@@ -42,6 +42,20 @@ class NotificationsController < ApplicationController
 		end	
 	end
 
+	def pending_notifications 
+	  @response = {}
+	  @response['exists'] = false
+	  @response['notifications'] = []
+
+	  @unread_notifications = Notification.where("user_id = ? AND read_time != nil", params[:user_id]);
+
+	  if @unread_notifications.count > 0
+	  	@response['exists'] = true
+	  	@response['notifications'] = @unread_notifications
+	  end
+	  render json: @response
+	end
+
 	def notification_params
 		params.require(:notification).permit(:limit, :user_id, :id, :sender_id)
 	end

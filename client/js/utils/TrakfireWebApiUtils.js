@@ -713,6 +713,25 @@ module.exports = {
         console.error(url, error['response']);
       }
     });
+  }, 
+
+  getPending: function(url, data) {
+    console.log(data);
+    Reqwest({
+      url: url,
+      type: 'json',
+      method: 'GET',
+      data: JSON.stringify(data),
+      contentType: 'application/json',
+      headers: {'Authorization': localStorage.getItem('jwt')},
+      success: function(resp) {
+        console.log("SERVER RESPONSE", resp);
+        UserServerActionCreators.getPending(resp['exists']); 
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+      }
+    });   
   }
 };
 

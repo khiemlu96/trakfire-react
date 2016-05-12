@@ -297,6 +297,7 @@ var NotificationPage = React.createClass({
 			}
 
 			notificationHtml.push( this.renderSingleNotification( notification_data ) );
+			this.readNotification( notification_data );
 		}
 
 		return notificationHtml;

@@ -140,6 +140,10 @@ var UserActions = {
 
   readNotification: function(url, data){
     TfAPI.readUserNotification(url, data);
+  },
+
+  getPending: function(url, data){
+    TfAPI.getPending(url, data);
   }
 };
 
