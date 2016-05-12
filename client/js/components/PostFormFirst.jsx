@@ -74,7 +74,8 @@ var PostFormFirst = React.createClass({
       console.log(img.src);
       var resolved = false;
     	sc.resolve(url, 
-    				function(track){
+    				function(track, error){
+              if(error) {console.log("e from sc", error)}
     					if(!!track){
                 resolved = true;
                 console.log("RECIEVED DATA FOR: ", track);
@@ -109,7 +110,9 @@ var PostFormFirst = React.createClass({
     						_submit = false;
     					}
     				});
+      console.log("RESOLVED?",resolved);
       if(!resolved) {
+        console.log("PROBABLY THE 403");
         this.props.showGrowl("Soundcloud has restricted this song. THEY DONT WANT YOU TO POST HEAT");
       }
       this.rmLoading();
