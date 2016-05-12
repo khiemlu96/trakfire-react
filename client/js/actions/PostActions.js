@@ -82,14 +82,14 @@ var PostActions = {
     TfAPI.getPost(origin, postid);
   },
 
-  writePost: function(origin, data) {
+  writePost: function(origin, data, callback) {
     console.log("POSTING POST to "+origin+" WITH "+data);
     AppDispatcher.dispatch({
       actionType: PostConstants.WRITE_POST,
       data: data
     });
 
-    TfAPI.writePost(origin, data);
+    TfAPI.writePost(origin, data, callback);
   }, 
 
   setCurrentPost: function(song_id) {

@@ -72,9 +72,11 @@ var PostFormFirst = React.createClass({
     	//console.log("THIS POST IS "+genre, genreH, genreE);
     	var img = this.refs.img_field.getDOMNode();
       console.log(img.src);
+      var resolved = false;
     	sc.resolve(url, 
     				function(track){
     					if(!!track){
+                resolved = true;
                 console.log("RECIEVED DATA FOR: ", track);
   	  					//console.log(track.title, track.artist, track.stream_url);
   	  					//console.log(title);
@@ -107,6 +109,9 @@ var PostFormFirst = React.createClass({
     						_submit = false;
     					}
     				});
+      if(!resolved) {
+        this.props.showGrowl("Soundcloud has restricted this song. THEY DONT WANT YOU TO POST HEAT");
+      }
       this.rmLoading();
       this.dataDidLoad();
     } else {
@@ -215,7 +220,6 @@ var PostFormFirst = React.createClass({
             </div>
           </div>
           <div className="align-left tf-hide" ref="genres"> 
-            <div className="form-title"> GENRE </div>
             <input type="checkbox" ref="hiphop" className="tf-checkbox" name="hiphop" id="hiphop" value="HIPHOP"></input>
             <label className="tf-checkbox-label" htmlFor="hiphop" onClick={this.setGenre}>Rhymes</label>
             <input type="checkbox" ref="vocals" className="tf-checkbox" id="vocals" name="vocals" value="VOCALS" onClick={this.setGenre}></input>

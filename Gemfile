@@ -40,6 +40,9 @@ gem 'rest-client'
 
 gem 'twitter'
 
+gem 'soundcloud'
+
+
 group :production do
 
   gem 'rails_12factor'

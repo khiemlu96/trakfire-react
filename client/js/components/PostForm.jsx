@@ -83,9 +83,9 @@ var PostForm = React.createClass({
 
   submit: function(data) {
     console.log("submitting");
-    PostActions.writePost(this.props.origin+'/posts', data);
+    PostActions.writePost(this.props.origin+'/posts', data, this.props.showGrowl);
     console.log("pushed.............");
-    this.props.showGrowl("Posted track with success!");
+    //this.props.showGrowl("Posted track with success!");
     this.setState({step : 1, show: false});
   }, 
 
@@ -100,7 +100,8 @@ var PostForm = React.createClass({
                       updateData={this.updateData}
                       data={_data}
                       submit={this.submit}
-                      reset={this.reset} />
+                      reset={this.reset} 
+                      showGrowl={this.props.showGrowl}/>
   		break;
    		case 2:
   			postStep = <PostFormSecond 

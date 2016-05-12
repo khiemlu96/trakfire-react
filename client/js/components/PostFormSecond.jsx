@@ -14,7 +14,7 @@ var PostFormSecond = React.createClass({
     updateData: ReactPropTypes.func,
     data: ReactPropTypes.object,
     goBack: ReactPropTypes.func, 
-    submit: ReactPropTypes.func
+    submit: ReactPropTypes.func,
   }, 
 
   getInitialState: function() {

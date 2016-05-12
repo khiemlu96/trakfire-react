@@ -68,7 +68,7 @@ module.exports = {
     });    
   },
 
-  writePost: function(url, data) {
+  writePost: function(url, data, callback) {
     Reqwest({
       url: url,
       data: data,
@@ -78,12 +78,14 @@ module.exports = {
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
+        callback("Thanks for the new heat fam");
         newPost = resp;
         PostServerActionCreators.recieveCreatedPost(newPost); 
         NProgress.done();
       },
       error: function(error) {
         console.error(url, error['response']);
+        callback(error['response']);
         //location = '/';
       }
     });

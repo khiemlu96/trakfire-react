@@ -66,8 +66,10 @@ class Notification < ActiveRecord::Base
 	    logger.info "SENDER ID"
 	    logger.info "-------------------"
 	    logger.info "VALUE: #{sender_id} TYPE: #{sender_id.class}"
-	    user = User.find(sender_id)
-	    @sender = user
+	    if sender_id
+	   	  user = User.find(sender_id)
+	      @sender = user
+	    end
   	end
   	
   	def sender

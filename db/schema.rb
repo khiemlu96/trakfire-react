@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160504065808) do
+ActiveRecord::Schema.define(version: 20160511210927) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,11 @@ ActiveRecord::Schema.define(version: 20160504065808) do
     t.string   "sc1"
     t.string   "sc2"
     t.string   "sc3"
+  end
+
+  create_table "bots", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "comments", force: :cascade do |t|
@@ -111,6 +116,18 @@ ActiveRecord::Schema.define(version: 20160504065808) do
   end
 
   add_index "songs", ["post_id"], name: "index_songs_on_post_id", using: :btree
+
+  create_table "staged_posts", force: :cascade do |t|
+    t.string   "stream_url"
+    t.string   "waveform_url"
+    t.string   "duration"
+    t.string   "artist"
+    t.string   "title"
+    t.string   "img_url"
+    t.float    "dateinmill"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
 
   create_table "taggings", force: :cascade do |t|
     t.integer  "post_id"
