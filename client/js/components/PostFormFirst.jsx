@@ -108,51 +108,9 @@ var PostFormFirst = React.createClass({
           console.log(error); 
           if(error.status == 401) {
             //console.log("Ungrateful");
-            component.props.showGrowl("Soundcloud has restricted this song. THEY DONT WANT YOU TO POST HEAT");
+            component.props.showGrowl("Soundcloud has restricted this song. \n THEY DONT WANT YOU TO POST HEAT BROTHER");
           }
         });
-    	/*sc.resolve(url, 
-    				function(track, error){
-              //if(error) {console.log("e from sc", error)}
-    					if(!!track){
-                resolved = true;
-                console.log("RECIEVED DATA FOR: ", track);
-  	  					//console.log(track.title, track.artist, track.stream_url);
-  	  					//console.log(title);
-  	  					title.value = track.title;
-  	  					artist.value = track.user.username;
-  	  					img.src = track.artwork_url;
-
-                if(track.artwork_url)
-                  var img_url_lg = track.artwork_url.replace("large", "crop"); //get the 300x300 version
-                else
-                  var img_url_lg = ""; //should replace with placeholder asset
-
-  	  					_data = {
-  	  						post : {
-  		  						url: url,
-  		  						title: track.title,
-  		  						artist: track.artist,
-  		  						img_url: track.artwork_url,
-                    img_url_lg: img_url_lg,
-  		  						stream_url: track.stream_url,
-  		  						duration: track.duration,
-  		  						waveform_url: track.waveform_url,
-  		  						//genre: genre,
-  		  						vote_count: 1
-  	  						}
-  	  					};
-  	  					_submit = true;
-    					} else {
-    						console.log('ERROR FETCHING SC DATA');
-    						_submit = false;
-    					}
-    				});
-      console.log("RESOLVED?",resolved);*/
-      /*if(!resolved) {
-        console.log("PROBABLY THE 403");
-        
-      }*/
       this.rmLoading();
       this.dataDidLoad();
     } else {

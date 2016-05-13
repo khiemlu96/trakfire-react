@@ -85,7 +85,7 @@ module.exports = {
       },
       error: function(error) {
         console.error(url, error['response']);
-        callback(error['response']);
+        callback("This was already posted. U late. Sorry.");
         //location = '/';
       }
     });
