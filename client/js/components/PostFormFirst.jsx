@@ -5,6 +5,7 @@ var UserStore = require('../stores/UserStore');
 var PostActions = require('../actions/PostActions');
 var ReactPropTypes = React.PropTypes;
 var SoundCloudAudio = require('soundcloud-audio');
+var sc = require('soundcloud');
 var _submit = false;
 var _data = {};
 var _didLoadData = false;
@@ -17,7 +18,8 @@ var PostFormFirst = React.createClass({
     advanceStep: ReactPropTypes.func,
     updateData: ReactPropTypes.func, 
     data: ReactPropTypes.object, 
-    submit: ReactPropTypes.func
+    submit: ReactPropTypes.func, 
+    showGrowl: ReactPropTypes.func
   }, 
 
   getInitialState: function() {
@@ -55,13 +57,16 @@ var PostFormFirst = React.createClass({
 
   fetchScData: function(url) {
     var url = this.refs.url_field.getDOMNode().value.trim();
-    
+    var component = this;
     if(url !== "" && !this.state.isLoading) {
       this.addLoading();
       console.log("FORM STATE", this.state);
     	
-    	var sc = new SoundCloudAudio('9999309763ba9d5f60b28660a5813440');
-
+    	//var sc = new SoundCloudAudio('9999309763ba9d5f60b28660a5813440');
+      sc.initialize({
+        client_id: '9999309763ba9d5f60b28660a5813440',
+        redirect_uri: 'http://example.com/callback'
+      });
     	console.log("FETCHING SC DATA FROM ", url);
 
     	var title = this.refs.title_field.getDOMNode();
@@ -73,9 +78,42 @@ var PostFormFirst = React.createClass({
     	var img = this.refs.img_field.getDOMNode();
       console.log(img.src);
       var resolved = false;
-    	sc.resolve(url, 
+      sc.resolve(url).then(function(track){
+          console.log("RECIEVED DATA FOR: ", track);
+          title.value = track.title;
+          artist.value = track.user.username;
+          img.src = track.artwork_url;
+
+          if(track.artwork_url)
+            var img_url_lg = track.artwork_url.replace("large", "crop"); //get the 300x300 version
+          else
+            var img_url_lg = ""; //should replace with placeholder asset
+
+          _data = {
+            post : {
+              url: url,
+              title: track.title,
+              artist: track.artist,
+              img_url: track.artwork_url,
+              img_url_lg: img_url_lg,
+              stream_url: track.stream_url,
+              duration: track.duration,
+              waveform_url: track.waveform_url,
+              //genre: genre,
+              vote_count: 1
+            }
+          };
+          _submit = true;
+      }).catch(function(error){ 
+          console.log(error); 
+          if(error.status == 401) {
+            //console.log("Ungrateful");
+            component.props.showGrowl("Soundcloud has restricted this song. THEY DONT WANT YOU TO POST HEAT");
+          }
+        });
+    	/*sc.resolve(url, 
     				function(track, error){
-              if(error) {console.log("e from sc", error)}
+              //if(error) {console.log("e from sc", error)}
     					if(!!track){
                 resolved = true;
                 console.log("RECIEVED DATA FOR: ", track);
@@ -110,11 +148,11 @@ var PostFormFirst = React.createClass({
     						_submit = false;
     					}
     				});
-      console.log("RESOLVED?",resolved);
-      if(!resolved) {
+      console.log("RESOLVED?",resolved);*/
+      /*if(!resolved) {
         console.log("PROBABLY THE 403");
-        this.props.showGrowl("Soundcloud has restricted this song. THEY DONT WANT YOU TO POST HEAT");
-      }
+        
+      }*/
       this.rmLoading();
       this.dataDidLoad();
     } else {
@@ -194,6 +232,7 @@ var PostFormFirst = React.createClass({
 
   dataDidLoad: function() {
     this.setState({dataDidLoad: true});
+    //if(!resolved) {}
     this.refs.genres.getDOMNode().className = "align-left tf-show";
   }, 
 
