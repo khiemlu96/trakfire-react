@@ -1,6 +1,6 @@
 u = User.all
 u.each do |user| 
-  if u.email == ""
-    u.email = u.id + "@trakfire.com"
+  if user.email == ""
+    user.email = user.id + "@trakfire.com"
   end
 end
