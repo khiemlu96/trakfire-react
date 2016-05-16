@@ -22,7 +22,8 @@ class TokensController < ApplicationController
         u.img = j_user['profile_image_url_https']
         u.tbio = j_user['description']
         u.location = j_user['location']
-        u.email = j_user['email']
+        u.email = j_user['email'] || j_user['uid']
+        u.isAdmin = false
         new_user = true
       end
 
