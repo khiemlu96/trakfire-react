@@ -1,6 +1,6 @@
 # post as a bot 
 
-users = [User.find(10), User.find(9), User.find(8), User.find(7)]
+users = [User.where(handle: "TheReal_Helena").first, User.where(handle: "andymthai").first, User.where(handle: "pricesh74").first, User.where(handle: "johnnyfio").first]
 puts "Select a user to post as: "
 users.each_with_index do |user, idx|
   puts "#{idx}. #{user.username}"
