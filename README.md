@@ -31,6 +31,8 @@ Once you have run `git clone` you must run two commands in the resulting folder 
 Each of these commands assumes that you have executed 
 `cd path/to/tesseract-api/`
 `rails c`
+ unless you are executing commands for the production build which is hosted by Heroku. In this case you will run
+ `heroku run rails c -a trakfire-rails`. For more info on the heroku toolbelt including installation head over to <https://toolbelt.heroku.com/>.
 
 ### Posting as a bot user 
 `load 'botPost.rb'`
