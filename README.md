@@ -21,11 +21,11 @@ Once you have run `git clone` you must run two commands in the resulting folder 
 * `git commit -m "msg"`
 * `git push origin <branch>`
 * Sometimes you'll get a message along the lines of "enter a message for why this merge is necessary". In these cases you'll be presented with the vi editor. Do as follows to complete the merge: 
-..1. `i`
-..2. Enter message
-..3. `esc`
-..4. `:wq`
-..5. Hit enter 
+  1. `i`
+  2. Enter message
+  3. `esc`
+  4. `:wq`
+  5. Hit enter 
 
 ## Terminal Scripting
 Each of these commands assumes that you have executed 
