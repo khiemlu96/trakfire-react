@@ -16,6 +16,11 @@ class TokensController < ApplicationController
       user_data = access_token.request(:get, "https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true") #access_token.request(:get, "https://api.twitter.com/1.1/account/verify_credentials.json")#access_token.request(:get, "https://api.twitter.com/1.1/account/verify_credentials.json?include_email=true")
       j_user = JSON.parse(user_data.body)
 
+      auth_log = Log.new(uid: access_token.params[:user_id], handle: access_token.params[:screen_name], username: j_user['name'])
+      if auth_log.save
+        logger.info "LOG IN FROM #{access_token.params[:user_id]}"
+      end
+
       user = User.find_or_create_by(uid: access_token.params[:user_id]) do |u| 
         u.handle = access_token.params[:screen_name] 
         u.username = j_user['name']
