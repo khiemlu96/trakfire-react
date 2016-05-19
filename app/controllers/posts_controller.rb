@@ -99,26 +99,33 @@ class PostsController < ApplicationController
 	  logger.info @current_user.posts
 	  logger.info "/n"
 	  logger.info "building"
+	  logger.info post_params
+	  logger.info params[:admin]
 
 	  @post = Post.new(post_params) #@current_user.posts.build(post_params)
-	  @post.user_id = @current_user.id;
+	  if params[:admin]
+	  	@post_user = User.where(handle: params[:admin]).first
+	  else
+	  	@post_user = @current_user;
+	  end
+	  @post.user_id = @post_user.id
 	  @post.date = Date.today
 	  @post.vote_count = 1
 
 	  if @post.save
 
 	  	#tweet
-	  	twt_user = User.find(@post.user_id)
-	  	twitter_update(@post.title, twt_user.handle, twt_user.username, @post.artist)
+	  	#twt_user = User.find(@post.user_id)
+	  	#twitter_update(@post.title, twt_user.handle, twt_user.username, @post.artist)
 
 	  	#create a vote 
 	  	@vote = Vote.new()
-	  	@vote.user_id = @current_user.id
+	  	@vote.user_id = @post_user.id
 	  	@vote.post_id = @post.id
 	  	@vote.save
 
 	  	#send notifications to all users who are following that user
-	  	@user_followings = Follower.where(follow_id: @current_user.id)
+	  	@user_followings = Follower.where(follow_id: @post_user.id)
 	  	
 	  	logger.info({v:@user_followings})
 	  	@user_followings.each do |user|
@@ -128,10 +135,10 @@ class PostsController < ApplicationController
 				:n_type => 'POSTED_NEW_TRACK',
 				:reference_id => @post.id,
 				:data =>{
-							:sender_id => @current_user.id.to_s,
-							:screen_name => @current_user.username,
-							:sender_img => @current_user.img,
-							:sender_profile_url => "profile/#{@current_user.id}",
+							:sender_id => @post_user.id.to_s,
+							:screen_name => @post_user.username,
+							:sender_img => @post_user.img,
+							:sender_profile_url => "profile/#{@post_user.id}",
 							:post_id => @post.id,
 							:post_name => @post.title
 						},

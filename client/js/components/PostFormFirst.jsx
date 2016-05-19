@@ -23,7 +23,7 @@ var PostFormFirst = React.createClass({
   }, 
 
   getInitialState: function() {
-    return {dataDidLoad:false, isLoading:false, user:UserStore.getCurrentUser(), hasGenre:false};
+    return {dataDidLoad:false, isLoading:false, user:UserStore.getCurrentUser(), hasGenre:false, isAdmin:UserStore.isAdmin()};
   }, 
   componentDidMount: function() {
     mixpanel.track("PostForm step 1");
@@ -158,6 +158,12 @@ var PostFormFirst = React.createClass({
   submit: function() {
     console.log("invoke callback to submit");
     this.addTagsAndGenre();
+    if(this.state.isAdmin) {
+        userToPost = this.refs.adminSelect.getDOMNode().value;
+        if(userToPost != "me") {
+          _data['admin'] = userToPost;
+        }
+    }
     var data = _data;
     console.log("POST DATA TO SUBMIT", data);
     this.props.submit(JSON.stringify(data));
@@ -194,12 +200,24 @@ var PostFormFirst = React.createClass({
     this.refs.genres.getDOMNode().className = "align-left tf-show";
   }, 
 
+  renderAdminSelect: function() {
+    return (
+      <select className="form-control tf-top-margin" ref="adminSelect">
+        <option value="me"> Myself </option>
+        <option value="TheReal_Helena"> Helena Yohannes </option>
+        <option value="johnnyfio"> John Fiorentino </option>
+        <option value="pricesh74"> Spencer Price </option>
+        <option value="andymthai"> Andy Thai </option>
+      </select>
+      );
+  },
   render: function() {
     var disabled = "button button--big is-disabled";
     var enabled = "button button--big";
     var show = "button button--add";
     var hide = "button button--add tf-hide";
     var isLoading = this.state.isLoading;
+
   	return (
   	 <div>
        <div className="tf-newtrack-wrapper"> 
@@ -226,11 +244,8 @@ var PostFormFirst = React.createClass({
             <label className="tf-checkbox-label" htmlFor="vocals" >Vocals</label>
             <input type="checkbox" ref="edm" className="tf-checkbox" id="edm" name="edm" value="ELECTRONIC" onClick={this.setGenre}></input>
             <label className="tf-checkbox-label" htmlFor="edm" >Electronic</label> <br></br> <br></br> <br></br>
-            {/*<input type="checkbox" className="ownsong-checkbox" id="ownsong" name="ownsong" value="ownsong"></input> 
-            <label className="ownsong-label" for="ownsong" >This is my own song</label>
-            <label htmlFor="tags">#TAGS (optional - comma separated)</label>
-            <input type="text" name="tags" ref="tags"></input>*/}
           </div>
+          { this.state.isAdmin ? this.renderAdminSelect() : "" }
           <div className={this.state.dataDidLoad && this.state.hasGenre ? enabled : disabled} onClick={this.handleClick}> CONTINUE </div>
         </div>
      </div>

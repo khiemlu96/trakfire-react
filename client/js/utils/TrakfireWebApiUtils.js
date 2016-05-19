@@ -69,6 +69,7 @@ module.exports = {
   },
 
   writePost: function(url, data, callback) {
+    console.log("WRITING", data)
     Reqwest({
       url: url,
       data: data,
