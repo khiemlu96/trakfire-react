@@ -1,4 +1,6 @@
-class Bot < User
+class Bot < ActiveRecord::Base
+
+  validates :handle, uniqueness: true
 
   def post
   	@staged_post = StagedPost.last
@@ -20,9 +22,8 @@ class Bot < User
   end
 
   def vote
-  	@bots = [User.where(handle: "TheReal_Helena").first, User.where(handle: "andymthai").first, User.where(handle: "pricesh74").first, User.where(handle: "johnnyfio").first]
+  	@bots = User.where(handle: self.handle).first
   	@new_posts = Post.where(date: Date.today)
-  	@bots.each do |bot|
 
 	@new_posts.each do |post|
 	  	vote = Vote.new(user_id: bot.id, post_id: post.id)
@@ -80,7 +81,5 @@ class Bot < User
 	end
 
    end
-   
-  end
-
+  
 end
