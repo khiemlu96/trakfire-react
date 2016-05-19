@@ -29,6 +29,7 @@ class TokensController < ApplicationController
         u.location = j_user['location']
         u.email = j_user['email'] || j_user['uid']
         u.isAdmin = false
+        u.score = 0
         new_user = true
       end
 
