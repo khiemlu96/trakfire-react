@@ -21,7 +21,7 @@ class Bot < User
 
   def vote
   	@bots = [User.where(handle: "TheReal_Helena").first, User.where(handle: "andymthai").first, User.where(handle: "pricesh74").first, User.where(handle: "johnnyfio").first]
-  	@new_posts = Post.where(date: Date.Today)
+  	@new_posts = Post.where(date: Date.today)
   	@bots.each do |bot|
 
 	@new_posts.each do |post|
