@@ -23,7 +23,8 @@ class Bot < User
   	@bots = [User.where(handle: "TheReal_Helena").first, User.where(handle: "andymthai").first, User.where(handle: "pricesh74").first, User.where(handle: "johnnyfio").first]
   	@new_posts = Post.where(date: Date.Today)
   	@bots.each do |bot|
-	 @new_posts.each do |post|
+
+	@new_posts.each do |post|
 	  	vote = Vote.new(user_id: bot.id, post_id: post.id)
 	  	if vote.save
 		  #update the post and user associated
@@ -72,9 +73,14 @@ class Bot < User
 			if Notification.sendNotification( @notification, {:consolidate => true} )
 				logger.info("Notification sent successfully")
 			end
+
 		  end
+
 	  	end
-	 end
+	end
+
+   end
+   
   end
 
 end
