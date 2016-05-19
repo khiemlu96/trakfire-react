@@ -42,6 +42,7 @@ gem 'twitter'
 
 gem 'soundcloud'
 
+gem 'whenever'
 
 group :production do
 

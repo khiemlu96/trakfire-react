@@ -25,6 +25,12 @@ module.exports = {
 		else return 0;
 	},
 
+	sortScore: function(a, b) {
+		if( a.score > b.score ) { return -1; }
+		else if( a.score < b.score ) { return 1; }
+		else return 0;
+	}, 
+
 	printPosts: function (posts) {
 		//console.log("RESULTS \n=======\n");
 		for(var i in posts) {
@@ -40,5 +46,4 @@ module.exports = {
 		hotPosts = hotPosts.sort(sortHot);
 		return hotPosts;
 	}
-	
 }

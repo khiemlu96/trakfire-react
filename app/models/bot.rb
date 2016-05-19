@@ -20,61 +20,61 @@ class Bot < User
   end
 
   def vote
-  	@bot = Bot.all
-  	@votes = self.upvotes
-  	@new_posts = Post.where(created_at: @votes.last.created_at..Time.now())
-  	@new_posts.each do |post|
-  	  vote = Vote.new(user_id: self.id, post_id: post.id)
-  	  if vote.save
-		#update the post and user associated
-	    post = Post.find(vote.post_id)
-	    author = User.find(post.user_id)
-	  
-	  	if post.vote_count.nil?
-	  		post.vote_count = 0
-	  	end
-	  	vc = post.vote_count += 1
+  	@bots = [User.where(handle: "TheReal_Helena").first, User.where(handle: "andymthai").first, User.where(handle: "pricesh74").first, User.where(handle: "johnnyfio").first]
+  	@new_posts = Post.where(date: Date.Today)
+  	@bots.each do |bot|
+	 @new_posts.each do |post|
+	  	vote = Vote.new(user_id: bot.id, post_id: post.id)
+	  	if vote.save
+		  #update the post and user associated
+		  post = Post.find(vote.post_id)
+		  author = User.find(post.user_id)
+		  
+		 if post.vote_count.nil?
+		  post.vote_count = 0
+		 end
+		 vc = post.vote_count += 1
 
-	  	logger.info vc
-	  	logger.info post.vote_count
-		post.update( { 'vote_count' =>  vc } )
-		post.save
+		 logger.info vc
+		 logger.info post.vote_count
+		 post.update( { 'vote_count' =>  vc } )
+	 	 post.save
 
-		if author.score == nil
-			author.score = 0
-		end
+		 if author.score == nil
+		   author.score = 0
+		 end
 
-	    newScore = author.score += 10
-		author.update( { 'score' => newScore } )
-		author.save 
+		 newScore = author.score += 10
+		 author.update( { 'score' => newScore } )
+		 author.save 
 
-		logger.info post.vote_count
-		logger.info author.score 
+		 logger.info post.vote_count
+		 logger.info author.score 
 
-		#send notifications to user who have posted a track
-		if post.user_id != vote.user_id
+			#send notifications to user who have posted a track
+		 if post.user_id != vote.user_id
 
-			@notification = {
+		  @notification = {
 				:user_id => post.user_id,
 				:n_type => 'VOTED_YOUR_TRAK',
 				:reference_id => post.id,
 				:data =>{
-							:sender_id => self.id.to_s,
-							:screen_name => self.username,
-							:sender_img => self.img,
-							:sender_profile_url => "profile/#{self.id}",
+							:sender_id => bot.id.to_s,
+							:screen_name => bot.username,
+							:sender_img => bot.img,
+							:sender_profile_url => "profile/#{bot.id}",
 							:post_id => post.id,
 							:post_name => post.title
 						},
-				:sender_id => self.id
+				:sender_id => bot.id
 			}
-		
+			
 			if Notification.sendNotification( @notification, {:consolidate => true} )
 				logger.info("Notification sent successfully")
 			end
-		end
-  	  end
-  	end
+		  end
+	  	end
+	 end
   end
 
 end

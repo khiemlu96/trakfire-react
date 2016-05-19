@@ -21,7 +21,7 @@ module.exports = {
       duration: rawPost.duration,
       vote_count: rawPost.vote_count,
       voters: this.getUserIds( rawPost.post_votes!== undefined ? rawPost.post_votes: rawPost.votes ),
-      score: Rank.scorePost(rawPost.vote_count, rawPost.created_at), 
+      score: rawPost.vote_count, //Rank.scorePost(rawPost.vote_count, rawPost.created_at), 
       tags: rawPost.tags, 
       status: rawPost.status,
       current: false,

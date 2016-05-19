@@ -20,7 +20,7 @@ module.exports = {
       followings: rawUser.followings, 
       score: rawUser.score,
       isVerified: rawUser.isVerified,
-      original_profile_img: rawUser.original_profile_img,
+      original_profile_img: rawUser.original_profile_img || rawUser.img,
       unread_notifications: rawUser.unread_notifications
     };
   }, 
