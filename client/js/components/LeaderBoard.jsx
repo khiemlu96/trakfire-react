@@ -61,7 +61,7 @@ var LeaderBoard = React.createClass({
   componentDidMount: function() {
   	console.log(this.state.users);
   	UserStore.addChangeListener(this._onChange);
-  	UserActions.getAllUsers(this.props.origin+'/users', {limit:5, offset:0});
+  	UserActions.getAllUsers(this.props.origin+'/users', {limit:10, offset:0});
   },
 
   renderUserItems: function(sortedUsers) {
