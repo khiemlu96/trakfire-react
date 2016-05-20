@@ -26,6 +26,7 @@ user.tbio = entry
 
 user.bot = true
 user.canPost = true
+user.score = 0.0
 uid = rand 0..1000
 user.uid = "b" + uid.to_s
 
