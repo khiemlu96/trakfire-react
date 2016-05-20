@@ -208,6 +208,7 @@ var PostFormFirst = React.createClass({
         <option value="johnnyfio"> John Fiorentino </option>
         <option value="pricesh74"> Spencer Price </option>
         <option value="andymthai"> Andy Thai </option>
+        <option value="kylebennett"> Kyle Bennett </option>
       </select>
       );
   },
