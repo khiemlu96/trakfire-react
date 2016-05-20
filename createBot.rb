@@ -22,7 +22,7 @@ user.img = entry
 puts "Bio: "
 entry = gets 
 entry = entry.chomp
-user.t_bio = entry
+user.tbio = entry
 
 user.bot = true
 user.canPost = true
@@ -33,7 +33,7 @@ if user.save && bot.save
   puts "Bot created sucessfully"
   puts "Name: #{user.username}"
   puts "Handle: #{user.handle}"
-  puts "Bio: #{user.t_bio}"
+  puts "Bio: #{user.tbio}"
   puts "Img Url: #{user.img}"
 end
 
