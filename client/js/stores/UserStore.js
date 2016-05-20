@@ -241,6 +241,10 @@ var UserStore = assign({}, EventEmitter.prototype, {
     return isAdmin;
   },
 
+  isBot: function() {
+    return _cUser.isBot;
+  },
+
   getCurrentUserPosts: function() {
     //console.log('GETTING THE USERS POSTS');
     return _uposts;

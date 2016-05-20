@@ -21,7 +21,8 @@ module.exports = {
       score: rawUser.score,
       isVerified: rawUser.isVerified,
       original_profile_img: rawUser.original_profile_img || rawUser.img,
-      unread_notifications: rawUser.unread_notifications
+      unread_notifications: rawUser.unread_notifications, 
+      isBot: rawUser.bot
     };
   }, 
 

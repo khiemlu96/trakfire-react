@@ -47,7 +47,8 @@ var ProfileHeader = React.createClass({
     getInitialState: function() {
         return {
             isVisible: this.props ? this.props.isVisible : false,
-            isFollowing: this.props ? this.props.isFollowing : false
+            isFollowing: this.props ? this.props.isFollowing : false,
+            isBot: UserStore.isBot()
         };
     },
 
@@ -79,6 +80,18 @@ var ProfileHeader = React.createClass({
     showFollowings: function() {
         this.props.showModal("followings");
     },
+
+    renderSocialLinks: function() {
+        return 
+        ( <div className = "row tf-social-icons" >                                
+            <a className="tf-share-link" href = {this.props.userScloudLink} target = "_blank" >
+                <img src="http://d1zb20amprz33r.cloudfront.net/tf-soundcloud-icon.png" width="100"></img>
+            </a>
+            <a className="tf-share-link" href = {this.props.userTwitterLink} target = "_blank" >
+                <img src = "../assets/img/twitter_share.svg"> </img> 
+            </a>
+        </div>);
+    }, 
 
     /** 
      * @return {object}
@@ -130,14 +143,7 @@ var ProfileHeader = React.createClass({
                             <h3 className = "row tf-name" > {this.props.userName}&nbsp;&nbsp;{verifiedIcon}</h3>
                             <h4 className = "row tf-bio" > {this.props.userBio} </h4>                            
                             <div className="tf-btn-follow btn btn-primary" onClick={this.follow_click} style={followBtnStyle}>{follow_text}</div>
-                            <div className = "row tf-social-icons" >                                
-                                <a className="tf-share-link" href = {this.props.userScloudLink} target = "_blank" >
-                                    <img src="http://d1zb20amprz33r.cloudfront.net/tf-soundcloud-icon.png" width="100"></img>
-                                </a>
-                                <a className="tf-share-link" href = {this.props.userTwitterLink} target = "_blank" >
-                                    <img src = "../assets/img/twitter_share.svg"> </img> 
-                                </a>
-                            </div> 
+                            { !this.state.isBot ? this.renderSocialLinks() : "" }
                         </div>
                         
                         <div className="col-md-12">

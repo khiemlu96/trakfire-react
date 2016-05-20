@@ -34,6 +34,11 @@ Each of these commands assumes that you have executed
  unless you are executing commands for the production build which is hosted by Heroku. In this case you will run
  `heroku run rails c -a trakfire-rails`. For more info on the heroku toolbelt including installation head over to <https://toolbelt.heroku.com/>.
 
+### Creating a Bot
+`load createBot.rb`
+
+You will be prompted to enter a name, handle, bio and img url for the bot. 
+
 ### Posting as a bot user 
 `load 'botPost.rb'`
 
@@ -43,6 +48,10 @@ You will be guided through a list of selection steps for the post and the user t
 `load 'fetchLgArtwork.rb'`
 
 Will check all posts for `post.img_url_lg == nil` and fetch the appropriate sized img if need be
+
+### Whitelisting a user manually
+`w = Whitelist.new(handle: "handle")`
+`w.save`
 
 ### Getting a List of Records From a DB Table
 `s = TableName.all`

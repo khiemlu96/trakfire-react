@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160519063856) do
+ActiveRecord::Schema.define(version: 20160520182414) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -170,8 +170,8 @@ ActiveRecord::Schema.define(version: 20160519063856) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.string   "email"
     t.string   "username"
     t.string   "provider"
@@ -185,6 +185,7 @@ ActiveRecord::Schema.define(version: 20160519063856) do
     t.float    "score"
     t.boolean  "isVerified"
     t.string   "original_profile_img"
+    t.boolean  "bot",                  default: false
   end
 
   add_index "users", ["uid"], name: "index_users_on_uid", using: :btree
