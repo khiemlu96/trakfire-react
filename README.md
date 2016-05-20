@@ -6,7 +6,7 @@ Once you have run `git clone` you must run two commands in the resulting folder 
 * To start the rails terminal: `rails s -b 127.0.0.1`
 * To start the node front end: `npm run devserve`
 
-*I recommend you nopen three tabs right off the bat for development. One for node, one for rails and one for git and the rails console.*
+*I recommend you open three tabs right off the bat for development. One for node, one for rails and one for git and the rails console.*
 
 
 ## Common Git Stuff
@@ -39,7 +39,7 @@ Each of these commands assumes that you have executed
 
 You will be prompted to enter a name, handle, bio and img url for the bot. 
 
-### Posting as a bot user 
+### Posting as a Bot User 
 `load 'botPost.rb'`
 
 You will be guided through a list of selection steps for the post and the user to post as
@@ -49,9 +49,13 @@ You will be guided through a list of selection steps for the post and the user t
 
 Will check all posts for `post.img_url_lg == nil` and fetch the appropriate sized img if need be
 
-### Whitelisting a user manually
+### Whitelisting a User Manually
 `w = Whitelist.new(handle: "handle")`
 `w.save`
+
+### Reset Weekly Scores Manually
+`load resetUserScores.rb`
+This will reset all the user scores for the week
 
 ### Getting a List of Records From a DB Table
 `s = TableName.all`
