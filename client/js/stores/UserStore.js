@@ -242,7 +242,7 @@ var UserStore = assign({}, EventEmitter.prototype, {
   },
 
   isBot: function() {
-    return _cUser.isBot;
+    return _user.isBot;
   },
 
   getCurrentUserPosts: function() {
