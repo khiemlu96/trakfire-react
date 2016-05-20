@@ -14,19 +14,14 @@ var FAQ = React.createClass({
 
         <h4>How can I get an invite?</h4>
         <p>
-          Either an existing member +1's you or your <a href="#" onClick={this.showSignupModal}>Request Invite</a> form gets accepted.
+          Either an existing member +1's you or get approved via the request invite process.
         </p>
-        <br />
-
-        <h4>How are tracks ranked?</h4>
-        <p>
-          It's a combination of number of upvotes and the period of time during which the upvotes happen. For example, a track that gets 10 upvotes over 1 hour would be ranked higher than a track that gets 12 upvotes over 3 hours.
-        </p>
+        
         <br />
 
         <h4>How does the leaderboard work?</h4>
         <p>
-          Every upvote on your posts = 10 points
+          Every upvote on your posts = 100 points
         </p>
         <br />
         
