@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160520182414) do
+ActiveRecord::Schema.define(version: 20160520200723) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -186,6 +186,7 @@ ActiveRecord::Schema.define(version: 20160520182414) do
     t.boolean  "isVerified"
     t.string   "original_profile_img"
     t.boolean  "bot",                  default: false
+    t.float    "score_weekly",         default: 0.0
   end
 
   add_index "users", ["uid"], name: "index_users_on_uid", using: :btree

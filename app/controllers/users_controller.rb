@@ -132,7 +132,7 @@ class UsersController < ApplicationController
             posts: @posts,
             stats: @stats
         }
-        render json: @data, include: {user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost, :bot] } }
+        render json: @data, include: {user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost, :bot, :score_weekly] } }
 
     else
 

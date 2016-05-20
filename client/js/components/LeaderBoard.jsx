@@ -89,7 +89,7 @@ var LeaderBoard = React.createClass({
   	var userItems = this.renderUserItems(users);
     return (
       <div>
-      <h4 className="tf-media-list-header">TASTEMAKERS</h4>
+      <h4 className="tf-media-list-header">TASTEMAKERS THIS WEEK</h4>
 	    <ul className="media-list media-list-users list-group">
 	    	{ userItems }
 	    </ul>
