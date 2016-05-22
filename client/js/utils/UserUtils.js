@@ -18,7 +18,7 @@ module.exports = {
       email: rawUser.email,
       followers: rawUser.followers,
       followings: rawUser.followings, 
-      score: rawUser.score,
+      score: rawUser.score_weekly,//rawUser.score,
       score_weekly: rawUser.score_weekly,
       isVerified: rawUser.isVerified,
       original_profile_img: rawUser.original_profile_img || rawUser.img,
