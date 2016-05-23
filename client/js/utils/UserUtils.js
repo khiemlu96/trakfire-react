@@ -27,6 +27,15 @@ module.exports = {
     };
   }, 
 
+  convertRawBotUser: function(rawBotUser) {
+    console.log("RAW BOT: ", rawBotUser);
+    return {
+      id: rawBotUser.id, 
+      handle: rawBotUser.handle,
+      name: rawBotUser.username
+    }
+  }, 
+
   getUpvotes: function(rawUpvotes) {
       console.log("RAW UPVOTE ", rawUpvotes)
       var upvotes = [];
@@ -43,6 +52,6 @@ module.exports = {
       }
       console.log("UPVOTES CLEAN ", upvotes);
       return upvotes;
-    }
+  }
 
 };

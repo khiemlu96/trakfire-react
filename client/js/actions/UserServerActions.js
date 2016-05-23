@@ -174,5 +174,12 @@ module.exports = {
       actionType: UserConstants.GET_PENDING,
       response : response,
     });    
+  }, 
+
+  getBotUsers: function(response) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.GET_BOT_USER,
+      response: response
+    });
   }
 };

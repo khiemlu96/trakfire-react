@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :notifications, only: [:index, :destroy, :update, :pending_notifications]
   resources :tf_files, only: [:create, :index, :destroy]
   resources :whitelists, only: [:create, :index, :destroy]
+  resources :bots, only: [:index]
   
   resources :users, only: [:index, :update, :show, :destroy] do
     member do

@@ -733,6 +733,24 @@ module.exports = {
         console.error(url, error['response']);
       }
     });   
+  }, 
+
+  getBotUsers: function(url) {
+    console.log(url);
+    Reqwest({
+      url: url,
+      type: 'json',
+      method: 'GET',
+      contentType: 'application/json',
+      headers: {'Authorization': localStorage.getItem('jwt')},
+      success: function(resp) {
+        console.log("BOT SERVER RESPONSE", resp);
+        UserServerActionCreators.getBotUsers(resp);
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+      }
+    });    
   }
 };
 

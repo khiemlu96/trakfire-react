@@ -23,11 +23,21 @@ var PostFormFirst = React.createClass({
   }, 
 
   getInitialState: function() {
-    return {dataDidLoad:false, isLoading:false, user:UserStore.getCurrentUser(), hasGenre:false, isAdmin:UserStore.isAdmin()};
+    return {
+      dataDidLoad: false, 
+      isLoading: false, 
+      user: UserStore.getCurrentUser(), 
+      hasGenre: false, 
+      isAdmin: UserStore.isAdmin(), 
+      botUsers: UserStore.getBotUsers() 
+    };
   }, 
+
   componentDidMount: function() {
     mixpanel.track("PostForm step 1");
+    UserActions.getBotUsers(this.props.origin + '/bots/index')
   },
+
   handleClick: function() {
   	console.log('handling a users click!');
   	if(!_submit) {
@@ -201,6 +211,7 @@ var PostFormFirst = React.createClass({
   }, 
 
   renderAdminSelect: function() {
+    var users = this.state.botUsers;
     return (
       <select className="form-control tf-top-margin" ref="adminSelect">
         <option value="me"> Myself </option>

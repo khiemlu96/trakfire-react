@@ -14,6 +14,7 @@ var _posts = null;
 var _notifications = null;
 var _users = {};
 var _userState = {};
+var _bUsers = null;
 var _adminStates = null;
 var _adminCarousalFiles = null;
 var _adminCarousalFilesState = null;
@@ -214,6 +215,20 @@ function setPendingStatus(status) {
   _arePendingNotifications = status;
 }
 
+function addBotUsers(data) {
+  if(data !== undefined){
+    var users = data;
+
+    if(users !== undefined){
+      users.forEach(function(user){
+        if(!_bUsers[user.id]){
+          _bUsers[user.id] = UserUtils.convertRawBotUser(user);
+        }
+      });
+    }
+  }
+}
+
 var UserStore = assign({}, EventEmitter.prototype, {
 
   getCurrentUser: function() {
@@ -278,7 +293,7 @@ var UserStore = assign({}, EventEmitter.prototype, {
   },
 
   getUserUpvotedTraks: function() {
-      return _userUpvotedTraks;
+    return _userUpvotedTraks;
   },
 
   getUserUpvotedTraksStats: function() {
@@ -333,6 +348,10 @@ var UserStore = assign({}, EventEmitter.prototype, {
 
   getPending: function() {
     return _arePendingNotifications;
+  }, 
+
+  getBotList: function() {
+    return _bUsers;
   }
 });
 
@@ -437,6 +456,10 @@ AppDispatcher.register(function(action) {
       break;
     case UserConstants.GET_PENDING:
       setPendingStatus(action.response);
+      UserStore.emitChange();
+      break;
+    case UserConstants.GET_BOT_USERS:
+      addBotUsers(action.response);
       UserStore.emitChange();
     default:
       // no op

@@ -144,6 +144,10 @@ var UserActions = {
 
   getPending: function(url, data){
     TfAPI.getPending(url, data);
+  }, 
+
+  getBotUsers: function(url){
+    TfAPI.getBotUsers(url);
   }
 };
 
