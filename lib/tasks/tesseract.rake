@@ -2,8 +2,9 @@ namespace :tesseract do
 
   desc "Randomly select a bot to vote"
   task bot_vote: :environment do
-    choice = rand(1..11)
-    if choice >= Bot.count
+    num_bots = Bot.count
+    choice = rand(1..num_bots)
+    if choice > num_bots
       puts "no bot will vote this run"
     else
       bot = Bot.find(choice)
