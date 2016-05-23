@@ -29,7 +29,8 @@ var PostForm = React.createClass({
     isSignedIn: ReactPropTypes.bool,
     closeModal: ReactPropTypes.func,
     showModal: ReactPropTypes.bool, 
-    showGrowl: ReactPropTypes.func
+    showGrowl: ReactPropTypes.func, 
+    origin: ReactPropTypes.string
   },
 
   getInitialState: function() {
@@ -40,9 +41,11 @@ var PostForm = React.createClass({
 
     return {data:{}};
   }, 
+
   componentDidMount: function() {
     mixpanel.track("Arrived at PostForm");
   },
+
   advanceStep: function() {
     console.log("advancing step");
   	var currStep = this.state.step;
@@ -101,7 +104,8 @@ var PostForm = React.createClass({
                       data={_data}
                       submit={this.submit}
                       reset={this.reset} 
-                      showGrowl={this.props.showGrowl}/>
+                      showGrowl={this.props.showGrowl}
+                      origin={this.props.origin}/>
   		break;
    		case 2:
   			postStep = <PostFormSecond 

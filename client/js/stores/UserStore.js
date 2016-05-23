@@ -14,7 +14,7 @@ var _posts = null;
 var _notifications = null;
 var _users = {};
 var _userState = {};
-var _bUsers = null;
+var _bUsers = {};
 var _adminStates = null;
 var _adminCarousalFiles = null;
 var _adminCarousalFilesState = null;
@@ -221,6 +221,7 @@ function addBotUsers(data) {
 
     if(users !== undefined){
       users.forEach(function(user){
+        console.log(user.id);
         if(!_bUsers[user.id]){
           _bUsers[user.id] = UserUtils.convertRawBotUser(user);
         }
@@ -350,9 +351,10 @@ var UserStore = assign({}, EventEmitter.prototype, {
     return _arePendingNotifications;
   }, 
 
-  getBotList: function() {
+  getBotUsers: function() {
     return _bUsers;
   }
+
 });
 
 // Register callback to handle all updates

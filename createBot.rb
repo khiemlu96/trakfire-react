@@ -13,6 +13,7 @@ puts "Name: "
 entry = gets 
 entry = entry.chomp
 user.username = entry
+bot.username = entry
 
 puts "Image Url: "
 entry = gets 

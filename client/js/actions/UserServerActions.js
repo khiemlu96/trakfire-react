@@ -178,7 +178,7 @@ module.exports = {
 
   getBotUsers: function(response) {
     AppDispatcher.dispatch({
-      actionType: UserConstants.GET_BOT_USER,
+      actionType: UserConstants.GET_BOT_USERS,
       response: response
     });
   }

@@ -5,6 +5,8 @@ var UserStore = require('../stores/UserStore');
 var PostActions = require('../actions/PostActions');
 var ReactPropTypes = React.PropTypes;
 var SoundCloudAudio = require('soundcloud-audio');
+var UserActions = require('../actions/UserActions');
+
 var sc = require('soundcloud');
 var _submit = false;
 var _data = {};
@@ -19,7 +21,8 @@ var PostFormFirst = React.createClass({
     updateData: ReactPropTypes.func, 
     data: ReactPropTypes.object, 
     submit: ReactPropTypes.func, 
-    showGrowl: ReactPropTypes.func
+    showGrowl: ReactPropTypes.func, 
+    origin: ReactPropTypes.string
   }, 
 
   getInitialState: function() {
@@ -35,7 +38,8 @@ var PostFormFirst = React.createClass({
 
   componentDidMount: function() {
     mixpanel.track("PostForm step 1");
-    UserActions.getBotUsers(this.props.origin + '/bots/index')
+    console.log(this.props.origin, '/bots');
+    UserActions.getBotUsers(this.props.origin + '/bots');
   },
 
   handleClick: function() {
@@ -212,7 +216,27 @@ var PostFormFirst = React.createClass({
 
   renderAdminSelect: function() {
     var users = this.state.botUsers;
+
+    if(!users) { return; }
+
+    var options = [];
+    var self = <option value="me"> Myself </option>;
+
+    options.push(self);
+
+    for(var idx in users) {
+      var user = users[idx];
+      console.log("BUSER", user)
+      options.push(<option value={user.handle}> {user.name} </option>);
+    }
+
     return (
+      <select className="form-control tf-top-margin" ref="adminSelect">
+        {options}
+      </select>
+    );
+
+    /*return (
       <select className="form-control tf-top-margin" ref="adminSelect">
         <option value="me"> Myself </option>
         <option value="TheReal_Helena"> Helena Yohannes </option>
@@ -224,7 +248,7 @@ var PostFormFirst = React.createClass({
         <option value="kevincortez"> Kevin Cortez </option>
         <option value="ethanwatts"> Ethan Watts </option>
       </select>
-      );
+      );*/
   },
   render: function() {
     var disabled = "button button--big is-disabled";
