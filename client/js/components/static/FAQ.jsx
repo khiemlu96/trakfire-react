@@ -14,7 +14,7 @@ var FAQ = React.createClass({
 
         <h4>How can I get an invite?</h4>
         <p>
-          Either an existing member +1's you or get approved via the request invite process.
+          Either an existing member +1's you in, or get approved via the request invite process.
         </p>
         
         <br />
@@ -25,7 +25,7 @@ var FAQ = React.createClass({
         </p>
         <br />
         
-        <h4>Feedback / additional questions?</h4>
+        <h4>Feedback / additional questions</h4>
         <p>
           Tweet at us <a href="https://twitter.com/trakfiremusic" target="_blank">@trakfiremusic</a> or hit us up at arjun@trakfire.com & grant@trakfire.com.
         </p>
