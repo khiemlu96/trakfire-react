@@ -25,8 +25,8 @@ class VotesController < ApplicationController
 			author.score = 0
 		end
 
-	    new_score = author.score += 100.0
-	    new_week_score = author.score_weekly += 100.0
+	    new_score = author.score += 70.0
+	    new_week_score = author.score_weekly += 70.0
 	    
 		author.update( { 'score' => new_score } )
 		author.update( { 'score_weekly' => new_week_score } )
