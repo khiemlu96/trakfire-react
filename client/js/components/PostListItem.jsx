@@ -374,7 +374,7 @@ var PostListItem = React.createClass({
                     {this.props.showAuthor ?
                         <small className = "pull-right" > 
                         {/* FOR FLYOVER onMouseEnter = {this.showFlyOver.bind(this, artist_id)}*/}
-                            posted by <Link to = {profileLink} onClick={this.stopPropagation} className = "tf-media-poster nd">
+                            posted by: <Link to = {profileLink} onClick={this.stopPropagation} className = "tf-media-poster nd">
                             <span id = {artist_id} data-trigger = "hover" data-toggle = "popover" data-placement = "top">
                                 <small className = "tf-media-artist-name">{post.author_name}</small> 
                             </span></Link>  
