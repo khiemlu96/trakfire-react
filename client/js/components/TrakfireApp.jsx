@@ -341,13 +341,13 @@ var TrakfireApp = React.createClass({
           <Modal show={this.state.showSignupModal} onHide={this.closeSignupModal}>
             <Modal.Body closeButton className={"tf-modal-body"}>
               <p> <h2 className="tf-centered tf-uppercase">Request Invite</h2></p>
-              <p className="tf-centered">Wanna become an influencer? <br></br> Request an invite and become part of the community. </p>
+              <p className="tf-centered">Join the community if you got the heat.</p>
                 <Row>
                   <Col xs={6}>
-                    <Input type="text" ref="nameField" label="SoundCloud" placeholder="@soundcloud" />
+                    <Input type="text" ref="nameField" label="SoundCloud" placeholder="@trakfiremusic" />
                   </Col>
                   <Col xs={6}>
-                    <Input type="text" ref="handleField" label="Twitter Handle" placeholder="@twitter" />
+                    <Input type="text" ref="handleField" label="Twitter" placeholder="@trakfiremusic" />
                   </Col>
                 </Row>
                 <Row>
@@ -357,17 +357,17 @@ var TrakfireApp = React.createClass({
                 </Row>
                 <Row>
                   <Col xs={12}>
-                    <Input type="text" ref="sc1" label="Track 1" placeholder="pure fire" />
+                    <Input type="text" ref="sc1" label="Track 1 Link" placeholder="pure fire" />
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={12}>
-                    <Input type="text" ref="sc2" label="Track 2" placeholder="purer fire" />
+                    <Input type="text" ref="sc2" label="Track 2 Link" placeholder="purer fire" />
                   </Col>
                 </Row>
                 <Row>
                   <Col xs={12}>
-                    <Input type="text" ref="sc3" label="Track 3" placeholder="the purest fire" />
+                    <Input type="text" ref="sc3" label="Track 3 Link" placeholder="the purest fire" />
                   </Col>
                 </Row>
                 <a href="#" className="btn tf-btn-rd btn-block" onClick={this.sendUserApplication}> Submit </a>
