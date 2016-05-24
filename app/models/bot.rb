@@ -22,7 +22,7 @@ class Bot < ActiveRecord::Base
   end
 
   def vote
-  	@bot = User.where(handle: self.handle).first
+  	bot = User.where(handle: self.handle).first
   	@new_posts = Post.where(date: Date.today)
 
 	@new_posts.each do |post|
