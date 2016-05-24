@@ -5,7 +5,7 @@ namespace :tesseract do
     num_bots = Bot.count
     choice = rand(1..num_bots)
     if choice > num_bots
-      puts "no bot will vote this run"
+      puts "no bot will vote this run"      
     else
       bot = Bot.find(choice)
       puts "#{bot.handle} will vote this run"
