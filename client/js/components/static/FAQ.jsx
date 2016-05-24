@@ -21,7 +21,7 @@ var FAQ = React.createClass({
 
         <h4>How does the leaderboard work?</h4>
         <p>
-          Every upvote on your posts = 100 points
+          Each upvote on your posts = 100 points. Weekly points reset every Sunday at 12am PST.
         </p>
         <br />
         
