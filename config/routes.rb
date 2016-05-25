@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :tf_files, only: [:create, :index, :destroy]
   resources :whitelists, only: [:create, :index, :destroy]
   resources :bots, only: [:index]
+  resources :longins, only: [:auth]
   
   resources :users, only: [:index, :update, :show, :destroy] do
     member do

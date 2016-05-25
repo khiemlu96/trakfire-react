@@ -75,6 +75,15 @@ class VotesController < ApplicationController
 		end
 	end
 
+	def batch_create
+	  post_to_vote = params[:post]
+	  bots_to_vote = params[:voters]
+	  bots_to_vote.each do |bot|
+	  	user = User.where(handle: bot).first
+	  	Vote.create(post_id: post_to_vote.id, user_id: user.id)
+	  end
+	end
+
 private
 	def vote_params
 		params.require(:vote).permit(:post_id, :user_id)
