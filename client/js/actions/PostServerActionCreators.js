@@ -64,7 +64,16 @@ module.exports = {
       post_id: response.post_id
     });    
   },
-  
+
+  recieveNewVotes: function(response) {
+    console.log("RECIEVING NEW VOTES", response);
+    AppDispatcher.dispatch({
+      actionType: PostConstants.RECIEVE_NEW_VOTES,
+      response: response.votes,
+      post_id: response.post_id
+    });    
+  },
+
   recieveSinglePost: function(response) {
     AppDispatcher.dispatch({
       actionType: PostConstants.GET_SINGLE_POST,

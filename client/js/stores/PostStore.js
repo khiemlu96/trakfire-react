@@ -169,6 +169,13 @@ function _addVoteToPost(post_id, vote) {
   }
 }
 
+function _addVotesToPost(post_id, votes) {
+  for(vote in votes) {
+    vote = votes[votes];
+    _addVoteToPost(post_id, vote);
+  }
+}
+
 function _markPostAsCurrent(song_id) {
   console.log("marky mark");
   for(song in _songs) {
