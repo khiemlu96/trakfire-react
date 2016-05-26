@@ -247,13 +247,14 @@ var UserStore = assign({}, EventEmitter.prototype, {
   }, 
 
   isSignedIn: function() {
-    console.log('USER IS SIGNED IN?', _cUser ? true : false);
+    //console.log('USER IS SIGNED IN?', _cUser ? true : false);
     return _cUser ? true : false;
   },
 
   isAdmin: function() {
     if(this.isSignedIn()) { var isAdmin = !!_cUser.isAdmin ? _cUser.isAdmin : false }
-    //console.log('USER ISADMIN? ', isAdmin);
+    else { var isAdmin = false }
+    //console.log('USER ISADMIN? ', isAdmin, this.isSignedIn());
     return isAdmin;
   },
 

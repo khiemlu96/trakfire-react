@@ -8,14 +8,18 @@
  */
 
 var React = require('react');
+var ReactDOM = require('react-dom')
 var ReactPropTypes = React.PropTypes;
 
 var Link = require('react-router').Link;
+var PostActions = require('../actions/PostActions.js');
 var UserActions = require('../actions/UserActions.js');
 var UserStore = require('../stores/UserStore.js');
 var classNames = require('classnames');
 var Bootstrap = require('react-bootstrap');
 var OverlayTrigger = Bootstrap.OverlayTrigger;
+var Overlay = Bootstrap.Overlay;
+var Button = Bootstrap.Button;
 var Popover = Bootstrap.Popover;
 var isPlaying = classNames("tf-post-item is-playing");
 var isNotPlaying = classNames("tf-post-item");
@@ -62,7 +66,11 @@ var PostListItem = React.createClass({
               isUpvoted:false, 
               hasUpvoted:false, 
               isFollowing:false,
-              currentUser: UserStore.getCurrentUser() 
+              currentUser: UserStore.getCurrentUser(), 
+              bots: UserStore.getBotUsers(), 
+              isAdmin: UserStore.isAdmin(), 
+              showPopover: false, 
+              target: null
             };
   }, 
 
@@ -72,15 +80,17 @@ var PostListItem = React.createClass({
     $(document).on("ReactComponent:PostListItem:followClick", this.followClick);
     //$(document).on("ReactComponent:PostListItem:showFlyOver", this.showFlyOver);
     UserStore.addChangeListener(this._onChange);
+    UserActions.getBotUsers(this.props.origin + '/bots');
+    //console.log("AM I AN ADMIN", UserStore.isAdmin())
     /*$(".followUser").on('click', function(event){
         alert("The paragraph was clicked.");
     });*/
     this.props.artistId = "";
     var self = this;
     
-    $(".tf-media").hover(function() {
+    /*$(".tf-media").hover(function() {
         $(this).css('cursor', 'pointer');
-    });
+    });*/
 
     /*$(".tf-media").on('click', function() {
         //location = '/post/' + this.props.post.id;
@@ -94,6 +104,26 @@ var PostListItem = React.createClass({
         e.preventDefault();
         self.upvote();
     });
+
+    $("#tf-post-"+this.props.post.id).find(".admin").click( function(e) {
+        console.log("IN ADMIN");
+        e.stopPropagation();
+        e.preventDefault();
+        //console.log("TARGET", e.target);
+        self.setState({ target: e.target, showPopover: !self.state.showPopover });
+        //e.preventDefault();
+        //self.upvote();
+    });
+
+    /*$("#tf-admin-vote-"+this.props.post.id).click( function(e) {
+        console.log("IN POPOVER");
+        e.stopPropagation();
+        e.preventDefault();
+        self.batchUpvote();
+        //self.setState({ target: e.target, showPopover: !self.state.showPopover });
+        //e.preventDefault();
+        //self.upvote();
+    });*/
   },
 
   updatePlayPauseState: function(e, track_id) {    
@@ -180,6 +210,75 @@ var PostListItem = React.createClass({
 
     return tags;
   },
+
+  renderAdminVoteList: function() {
+    var self = this;
+    var bots = this.state.bots;
+    var botItems = [];
+    for(bot in bots) {
+      b = bots[bot]
+      //console.log("BOTS", b, bots)
+      var item = ( <div className="checkbox">
+                    <label>
+                      <input type="checkbox" value={b.handle} className="chkbx"> {b.name}</input>
+                    </label>
+                  </div>);
+      botItems.push(item);
+    }
+    return (
+      <div>
+        <ul className="list-group" ref="botlist">
+          <li className="list-group-item">
+            {botItems}
+          </li>
+        </ul>
+        <a href="#" onClick = { function(e) { e.preventDefault(); self.batchUpvote(); } }> UPVOTE </a>
+      </div>
+    );
+  }, 
+
+  renderVoteButton: function() {
+    var isAdmin = UserStore.isAdmin();
+    var upvoted = (this.props.isUpvoted || this.state.hasUpvoted);
+    //console.log("render vb", isAdmin);
+    if(isAdmin) {
+      console.log("RENDER VOTE BUTTON");
+      var voteButton = (
+             <a className = "admin">
+                <span className={ !upvoted ? notUpvoted : isUpvoted } ref="upvotebtn"> 
+            </span>
+            </a>);
+    } else {s
+      var voteButton = (<a href = "#"  className = "upvote-link" onClick = {this.upvote}>
+                            <span className={ !upvoted ? notUpvoted : isUpvoted } ref="upvotebtn"> 
+                            </span>
+                        </a>);
+    }/**/
+    //console.log("vb",voteButton);
+    return voteButton;
+    /*          */
+  }, 
+
+  batchUpvote: function() {
+    var data = {};
+    var votingBots = [];
+    var botList = this.refs.botlist.getDOMNode();
+    var items = botList.getElementsByTagName('input');
+    for(item in items) {
+      console.log(items[item]);
+      i = items[item];
+      if(i.value && i.checked) { votingBots.push(i.value); };
+    }
+    data['voters'] = votingBots;
+    data['post'] = this.props.post.id;
+    //console.log("DATAAA", data);
+    PostActions.batchUpvote(this.props.origin+'/votes/batch_create', data);
+    this.setState({showPopover:false});
+  }, 
+
+  showPopover: function(e) {
+    this.setState({showPopover : true});
+  }, 
 
   followUser: function(userid,artist_id) {
     var follow_id = userid;
@@ -346,9 +445,11 @@ var PostListItem = React.createClass({
     var voteStyle = { color: "#ff0d60 !important;" };
     var voteStyleUpvoted = { color: "#777 !important;" };
     var postId = "tf-post-"+ post.id;
-    //console.log("UPVOTED", post.id, upvoted);
+
+    //console.log("UPVOTED",this.state.isAdmin);
+    /*onClick = {this.toDetail} */
     return (
-        <li className = "media tf-media" id={postId} onClick = {this.toDetail}>
+        <li className = "media tf-media" id={postId} >
             <div className = "media-left">
                 <span className = "tf-media-number">{isNumbered ? this.props.number + 1 : ""} </span> 
                 <a href = "#" className = "tf-media-wrap" onClick = {this.playPauseTrack}>
@@ -361,10 +462,7 @@ var PostListItem = React.createClass({
             <div className = "media-body">
                 <h4 className = "tf-media-title">
                     <span className = "pull-right"> 
-                        <a href = "#"  className = "upvote-link" onClick = {this.upvote}>
-                            <span className={ !upvoted ? notUpvoted : isUpvoted } ref="upvotebtn"> 
-                            </span>
-                        </a> 
+                        {this.renderVoteButton()}
                         <small ref = "count"> {(post.vote_count !== null) ? post.vote_count : 0} </small>
                     </span>
                     <Link className = "no-decor" to={postLink} onClick={this.stopPropagation} >{post.title} </Link>
@@ -381,6 +479,15 @@ var PostListItem = React.createClass({
                         </small> : "" 
                     } </h6>
             </div>
+            <Overlay
+              show={this.state.showPopover}
+              container={this}
+              placement="right"
+            >
+            <Popover id={"tf-post-popover-" + post.id}>
+              {this.renderAdminVoteList()}
+            </Popover>
+            </Overlay>
         </li>
     );
   },
@@ -394,7 +501,7 @@ var PostListItem = React.createClass({
     toDetail: function(e) {
       e.stopPropagation();
       var postLink = "/post/"+this.props.post.id;
-      hashHistory.push(postLink);
+      browserHistory.push(postLink);
     }, 
 
     stopPropagation: function(e) {

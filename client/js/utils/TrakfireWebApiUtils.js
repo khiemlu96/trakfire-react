@@ -160,6 +160,26 @@ module.exports = {
     });    
   }, 
 
+  batchUpvote: function(url, data) {
+    Reqwest({
+      url: url,
+      data: JSON.stringify(data),
+      type: 'json',
+      method: 'POST',
+      contentType: 'application/json',
+      headers: {'Authorization': localStorage.getItem('jwt')},
+      success: function(resp) {
+        console.log("SERVER RESPONSE", resp);
+        //newVote = resp;
+        //UserServerActionCreators.recieveNewVote(newVote); 
+      },
+      error: function(error) {
+        console.error(url, error['response']);
+        //location = '/';
+      }
+    }); 
+  },
+
   updateUserWithEmail: function(url, email) {
     var data = { user : {email : email} };
     console.log("USER EMAIL UPDATE", data);

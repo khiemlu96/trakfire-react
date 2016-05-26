@@ -20,6 +20,14 @@ var PostActions = {
     TfAPI.upvotePostFromUser(origin, post_id);
   },
 
+  batchUpvote: function(origin, data) {
+    console.log("BATCH UPVOTING");
+    AppDispatcher.dispatch({
+      actionType: PostConstants.BATCH_UPVOTE_POST
+    });
+    TfAPI.batchUpvote(origin, data);
+  }, 
+
   unvote: function(origin, post_id) {
     console.log('REMOVING VOTE', origin, post_id);
     AppDispatcher.dispatch({

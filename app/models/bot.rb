@@ -51,7 +51,7 @@ class Bot < ActiveRecord::Base
 	    
 		author.update( { 'score' => new_score } )
 		author.update( { 'score_weekly' => new_week_score } )
-		2author.save 
+		author.save 
 
 		 logger.info post.vote_count
 		 logger.info author.score 

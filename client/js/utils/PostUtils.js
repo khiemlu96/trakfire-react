@@ -4,7 +4,7 @@ var Rank = require('./rank.js');
 module.exports = {
 
   convertRawPost: function(rawPost) {
-    console.log("HOT SCORE", Rank.scorePost(rawPost.hot_score, rawPost.created_at));
+    //console.log("HOT SCORE", Rank.scorePost(rawPost.hot_score, rawPost.created_at));
     return {
       id: rawPost.id,
       title: rawPost.title,
