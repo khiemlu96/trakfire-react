@@ -81,8 +81,12 @@ class VotesController < ApplicationController
 	  post_to_vote = params[:post]
 	  bots_to_vote = params[:voters]
 	  bots_to_vote.each do |bot|
-	  	user = User.where(handle: bot).first
-	  	create_vote(user.id, post_to_vote)
+	  	if bot == "me"
+	  	  user = @current_user
+	  	else
+	  	  user = User.where(handle: bot).first
+	  	end
+	  	 create_vote(user.id, post_to_vote)
 	  end
 	  render json: {"status" => 200}
 	end

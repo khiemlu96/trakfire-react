@@ -213,12 +213,20 @@ var PostListItem = React.createClass({
 
   renderAdminVoteList: function() {
     var self = this;
+    var currentUser = UserStore.getCurrentUser();
+    console.log("CURRENT", currentUser);
     var bots = this.state.bots;
     var botItems = [];
+    var item = ( <div className="checkbox">
+                    <label>
+                      <input type="checkbox" value="me" className="chkbx"> Myself </input>
+                    </label>
+                  </div>);
+    botItems.push(item);
     for(bot in bots) {
       b = bots[bot]
       //console.log("BOTS", b, bots)
-      var item = ( <div className="checkbox">
+      item = ( <div className="checkbox">
                     <label>
                       <input type="checkbox" value={b.handle} className="chkbx"> {b.name}</input>
                     </label>
@@ -248,7 +256,7 @@ var PostListItem = React.createClass({
                 <span className={ !upvoted ? notUpvoted : isUpvoted } ref="upvotebtn"> 
             </span>
             </a>);
-    } else {s
+    } else {
       var voteButton = (<a href = "#"  className = "upvote-link" onClick = {this.upvote}>
                             <span className={ !upvoted ? notUpvoted : isUpvoted } ref="upvotebtn"> 
                             </span>
