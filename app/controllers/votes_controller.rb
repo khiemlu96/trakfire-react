@@ -81,7 +81,7 @@ class VotesController < ApplicationController
 	  post_to_vote = params[:post]
 	  bots_to_vote = params[:voters]
 	  data = {}
-	  data['post_id'] = post_to_vote.id
+	  data['post_id'] = post_to_vote
 	  votes = []
 	  bots_to_vote.each do |bot|
 	  	if bot == "me"
