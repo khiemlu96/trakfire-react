@@ -18,6 +18,13 @@ var FAQ = React.createClass({
         </p>
         
         <br />
+        
+        <h4>How do I know if a song has been posted already?</h4>
+        <p>
+          Try posting it and we'll let you know if you're late.
+        </p>
+        
+        <br />
 
         <h4>How does the leaderboard work?</h4>
         <p>
