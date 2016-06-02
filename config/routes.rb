@@ -27,6 +27,6 @@ Rails.application.routes.draw do
   end
 
   resources :applications, only: [:create, :index, :destroy] 
-  get '*path' => redirect('/')
+  get '*path' => 'application#index'
 
 end
