@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get 'request_token', to: 'tokens#request_token'
   get 'access_token', to: 'tokens#access_token'
   get 'admin_state', to: 'application#admin_state'
-  get 'post/:id' => 'posts#show'
+  #get 'post/:id' => 'posts#show'
   post 'votes/batch_create' => 'votes#batch_create', :as => :batch_create
 
   resources :posts, only: [:index, :create, :show, :destroy]

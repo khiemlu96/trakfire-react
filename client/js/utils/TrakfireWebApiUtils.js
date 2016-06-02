@@ -246,7 +246,7 @@ module.exports = {
   },
 
   getPost: function(url, id) {
-    console.log(url+'GETTING POST '+id+' FOR POSTDETAIL PAGE');
+    console.log(url+' GETTING POST '+id+' FOR POSTDETAIL PAGE');
     Reqwest({
       url: url,
       type: 'json',

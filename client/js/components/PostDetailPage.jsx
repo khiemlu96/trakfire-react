@@ -101,7 +101,7 @@ var PostDetailPage = React.createClass({
 
   getPost: function(postid) {
     NProgress.start();
-    PostActions.getPost(this.props.origin+'/post/'+postid, postid);
+    PostActions.getPost(this.props.origin+'/posts/'+postid, postid);
   }, 
 
   onPostListItemClick:function() {

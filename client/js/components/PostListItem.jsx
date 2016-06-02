@@ -214,7 +214,7 @@ var PostListItem = React.createClass({
   renderAdminVoteList: function() {
     var self = this;
     var currentUser = UserStore.getCurrentUser();
-    console.log("CURRENT", currentUser);
+    //console.log("CURRENT", currentUser);
     var bots = this.state.bots;
     var botItems = [];
     var item = ( <div className="checkbox">
@@ -473,7 +473,7 @@ var PostListItem = React.createClass({
                         {this.renderVoteButton()}
                         <small ref = "count"> {(post.vote_count !== null) ? post.vote_count : 0} </small>
                     </span>
-                    <Link className = "no-decor" to={postLink} onClick={this.stopPropagation} >{post.title} </Link>
+                    <Link className = "no-decor" to={postLink} onClick={this.stopPropagation}> { post.title } </Link>
                 </h4>
                 <h6 className = "tf-media-artist">
                     {post.artist} 
