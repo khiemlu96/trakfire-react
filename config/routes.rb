@@ -27,6 +27,6 @@ Rails.application.routes.draw do
   end
 
   resources :applications, only: [:create, :index, :destroy] 
-  get '*path', to: 'application#index'
+  match '*all', to: 'application#index', via: [:get]
 
 end

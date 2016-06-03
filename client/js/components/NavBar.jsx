@@ -219,6 +219,7 @@ var NavBar = React.createClass({
                      <div className="tf-menu-popup-list-item" ref = "menuIcon" onClick = {this.hideMenuPopup}><Link className="nd" to={'/faq'}><h6>FAQ</h6></Link></div>
                      <div className="tf-menu-popup-list-item" ref = "menuIcon" onClick = {this.hideMenuPopup}><Link className="nd" to={'/privacy'}><h6>PRIVACY POLICY</h6></Link></div>
                      <div className="tf-menu-popup-list-item" ref = "menuIcon" onClick = {this.hideMenuPopup}><Link className="nd" to={'/terms'}><h6>TERMS OF USE</h6></Link></div>
+                     <div className="tf-menu-popup-list-item" ref = "menuIcon" onClick = {this.hideMenuPopup}><Link className="nd" to={'/jobboard'}><h6>JOB BOARD</h6></Link></div>
                      <div onClick = {this.hideMenuPopup} ref = "menuIcon"> {adminConsoleLink} </div>
                      <div onClick = {this.hideMenuPopup} ref = "menuIcon"> {signinLink} </div>
                   </Popover>
