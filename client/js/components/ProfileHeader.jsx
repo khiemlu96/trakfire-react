@@ -149,10 +149,10 @@ var ProfileHeader = React.createClass({
                         <div className="col-md-12">
                             <div className="col-md-4"></div>
                             <div className="col-md-4 tf-follow-count left">
-                                 <a href="#" onClick={this.showFollowers} className="no-decor"> Followers : {this.props.user_follow_count} </a>
+                                 <a href="#" onClick={this.showFollowers} className="no-decor">{this.props.user_follow_count} Followers </a>
                             </div>
                             <div className="col-md-4 tf-follow-count right">
-                                <a href="#" onClick={this.showFollowings} className="no-decor">Following : {this.props.user_following_count} </a>
+                                <a href="#" onClick={this.showFollowings} className="no-decor">{this.props.user_following_count} Following </a>
                             </div>
                         </div>
                     </div>
