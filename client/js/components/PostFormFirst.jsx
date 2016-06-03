@@ -122,7 +122,7 @@ var PostFormFirst = React.createClass({
           console.log(error); 
           if(error.status == 401 || error.status == 403) {
             console.log("Ungrateful");
-            component.props.showGrowl("Soundcloud has restricted this song. \n THEY DONT WANT YOU TO POST HEAT BROTHER.");
+            component.props.showGrowl("Soundcloud has restricted this song. \n THEY DON'T WANT YOU TO POST THE HEAT.");
           }
         });
       this.rmLoading();
