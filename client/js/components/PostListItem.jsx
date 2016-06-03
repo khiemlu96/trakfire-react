@@ -461,7 +461,7 @@ var PostListItem = React.createClass({
             <div className = "media-left">
                 <span className = "tf-media-number">{isNumbered ? this.props.number + 1 : ""} </span> 
                 <a href = "#" className = "tf-media-wrap" onClick = {this.playPauseTrack}>
-                    <img className = "media-object tf-media-thumbnail" width = "64" src = {post.img_url} alt = "..."></img> 
+                    <img className = "media-object tf-media-thumbnail" width = "64" src = {post.img_url ? post.img_url : "img/tf-placeholder.png"} alt = "..."></img> 
                     <div className = "tf-media-thumbnail-overlay" ref = "overlaybg">
                         <span className = {paused} ref = "overlay"></span>
                     </div>
