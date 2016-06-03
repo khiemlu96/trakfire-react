@@ -17,7 +17,7 @@ body {
 }
 
 #page-wrapper {
-    padding: 20px;    
+    padding: 20px;
     background-color: #fff;
     height: 100%;
 }
@@ -288,7 +288,7 @@ table.dataTable thead .sorting:after {
 
 table.dataTable .tf-preview-img {
     height: 40px;
-    width: 40px;    
+    width: 40px;
 }
 
 .btn-circle {
@@ -331,15 +331,11 @@ table.dataTable .tf-preview-img {
 }
 
 .huge {
-<<<<<<< HEAD
-    font-size: 40px;
-=======
     font-size: 30px;
 }
- 
+
 .header-text {
     margin-top: 10px;
->>>>>>> d65f33d9d66359dc7b2a61856c4dfe033a54c254
 }
 
 .panel-green {
