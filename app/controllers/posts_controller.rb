@@ -116,7 +116,9 @@ class PostsController < ApplicationController
 
 	  	#tweet
 	  	twt_user = User.find(@post.user_id)
-	  	twitter_update(@post.title, twt_user.handle, twt_user.username, @post.artist)
+	  	if !twt_user.bot 
+	  	  twitter_update(@post.title, twt_user.handle, twt_user.username, @post.artist)
+	  	end
 
 	  	#create a vote 
 	  	@vote = Vote.new()
