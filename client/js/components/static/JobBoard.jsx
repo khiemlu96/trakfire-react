@@ -26,4 +26,4 @@ var JobBoard = React.createClass({
 
 });
 
-module.exports = AboutPage;
+module.exports = JobBoard;
