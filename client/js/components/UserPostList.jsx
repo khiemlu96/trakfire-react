@@ -153,8 +153,8 @@ var UserPostList = React.createClass({
             i += 1;
         }
 
-        var noPosts = <div className = "tf-no-posts">This user hasnt posted anything yet</div>;
-        var noUpvotes = <div className = "tf-no-posts">This user hasnt upvoted anything yet</div>;
+        var noPosts = <div className = "tf-no-posts">{this.props.userName} hasn't posted anything yet.</div>;
+        var noUpvotes = <div className = "tf-no-posts">{this.props.userName} hasn't upvoted anything yet.</div>;
 
         upvotedPosts.length ? upvotedPosts : upvotedPosts = noUpvotes;
         postedPosts.length ? postedPosts : postedPosts = noPosts;
