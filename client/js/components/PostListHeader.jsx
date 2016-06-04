@@ -45,7 +45,7 @@ var PostListHeader = React.createClass({
 
               <div className="col-md-offset-2 col-md-3">
                 <div className="tf-header-thumbnail">
-                    <img src={post.img_url_lg+"?time"} alt="..."></img>
+                    <img src={post.img_url_lg ? post.img_url_lg : "assets/img/tf-placeholder.png"} alt="..."></img>
                 </div>
               </div>
 
