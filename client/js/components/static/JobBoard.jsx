@@ -10,7 +10,10 @@ var JobBoard = React.createClass({
       <div className="container p-t-md about-page">
         <span className="tf-static-page-header">JOB BOARD</span>
         <br><br>
-        <p>[Trakfire Members] Hit us up at jobs@trakfire.com if you're interested in any of the opportunities below and we'll connect you with the appropriate person.</p>
+        <p>
+          Our community consists of people who work at a variety of companies in the music industry. If you're a Trakfire member and interested in any of the opportunities below, hit us up at <a href="mailto:jobs@trakfire.com">jobs@trakfire.com</a> and we'll connect you with the appropriate person who can help you out.
+        </p>
+        
         <br><br>
 
         <h4>Scooter Braun Projects</h4>
