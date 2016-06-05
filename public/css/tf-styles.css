@@ -84,7 +84,7 @@ body.search-open {
 }
 
 .tf-player-backward {
-	background: url("../assets/img/player-backward.svg") no-repeat center;
+	background: url("https://d1zb20amprz33r.cloudfront.net/player-backward.svg") no-repeat center;
 }
 
 .link-disabled {
@@ -94,16 +94,16 @@ body.search-open {
 
 .tf-player-play {
 	width: 27px;
-	background: url("../assets/img/player-play.svg") no-repeat center;
+	background: url("https://d1zb20amprz33r.cloudfront.net/player-play.svg") no-repeat center;
 }
 
 .tf-player-pause {
 	width: 27px;
-	background: url("../assets/img/player-pause.svg") no-repeat center;
+	background: url("https://d1zb20amprz33r.cloudfront.net/player-pause.svg") no-repeat center;
 }
 
 .tf-player-forward {
-	background: url("../assets/img/player-forward.svg") no-repeat center;
+	background: url("https://d1zb20amprz33r.cloudfront.net/player-forward.svg") no-repeat center;
 }
 
 .tf-player {
