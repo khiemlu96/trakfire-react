@@ -55,5 +55,9 @@ class Post < ActiveRecord::Base
   		@votes
   	end
 
+  	def as_json(options={})
+      super( include: { tags:{}, votes:{}, comments:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :img_url_lg, :date, :created_at, :duration, :genre, :vote_count, :comment_count, :hot_score, :status])
+    end
+    
 	scope :ranking, -> { select("id, user_id, song_id, created_at, genre, date, genre, play_count, score, vote_count, img_url, img_url_lg, title, artist, stream_url, duration, comment_count, hot_score(vote_count, created_at) as hot_score") }
 end

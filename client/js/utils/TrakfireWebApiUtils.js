@@ -25,7 +25,7 @@ module.exports = {
   },
 
   getPostBatch: function(url) {
-    console.log("POSTIES", url);
+    //console.log("POSTIES", url);
     NProgress.start();
   	Reqwest({
       url: url,
@@ -34,7 +34,7 @@ module.exports = {
       contentType: 'application/json',
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) { 
-      	console.log(resp);
+      	console.log("SERVER POST RESPONSE", resp);
       	rawPosts = resp;
       	PostServerActionCreators.recieveBatch(rawPosts); 
         NProgress.done();

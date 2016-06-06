@@ -181,7 +181,7 @@ function _markPostAsCurrent(song_id) {
   for(song in _songs) {
     if(_songs[song].id == song_id) {
       //_songs[song_id].current = true;
-      console.log("SONGSONG", song);
+      //console.log("SONGSONG", song);
       _songs[song].current = true;
     }
   }
@@ -266,7 +266,7 @@ var PostStore = assign({}, EventEmitter.prototype, {
   getAll: function() {
     //console.log('IN POST STORE GETTING '+_sort+' of type ', _genre);
     var posts;
-    console.log("GENRES", _genre);
+    //console.log("GENRES", _genre);
     posts = this.getAllOfGenres(_genre);
     return posts;
   },
@@ -293,7 +293,7 @@ var PostStore = assign({}, EventEmitter.prototype, {
   getAllOfGenres: function(genres) {
     var postsOfGenres = {};
     for(genre in genres) {
-      console.log("GENRE", _genre[genre])      
+      //console.log("GENRE", _genre[genre])      
       for (var id in _posts ) {
         /*var post_genres = _posts[id].genre.map(function(value){
             return value.toUpperCase();
@@ -303,7 +303,7 @@ var PostStore = assign({}, EventEmitter.prototype, {
         }
       }      
     }
-    console.log("POSTS OF GENRES", postsOfGenres);
+    //console.log("POSTS OF GENRES", postsOfGenres);
     return postsOfGenres;
   },
 
