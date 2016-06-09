@@ -9586,7 +9586,7 @@ fieldset[disabled] .btn-default-outline.active {
 .btn-primary-outline.active,
 .open > .dropdown-toggle.btn-primary-outline {
   color: #ffffff;
-  background-color: #ff0d60;
+  background-color: #ff0d60 !important;
   box-shadow: none;
 }
 .btn-primary-outline.disabled,
@@ -12164,7 +12164,7 @@ img.zoom-img {
 .media-list-users .media-object {
   width: 30px;
   margin-right: 0px;
-  margin-bottom: 9px;
+  margin-bottom: 1.5px;
   border-radius: 100%;
 }
 .media-list-users .media-body-secondary {
@@ -12174,7 +12174,7 @@ img.zoom-img {
   margin-bottom: 0;
 }
 .media-list-users .btn.pull-right {
-  margin-top: 7px;
+  margin-top: 4px;
 }
 .modal-body .media-list-users {
   margin-bottom: 5px;
@@ -12498,7 +12498,7 @@ img.zoom-img {
   text-transform: uppercase;
   padding-bottom: 15px;
   padding-top: 15px;
-  font-size: 14px;
+  font-size: 11px;
   margin: 0px !important;
 }
 

@@ -41,19 +41,17 @@ class PostsController < ApplicationController
 				end
 			end
 
-			p = Post.order(date: :desc, vote_count: :desc).offset(@offset).limit(100)
-			@posts = p.group_by { |pp| pp.date }
-			logger.info "DAYS #{@posts.keys} POSTS #{@posts.count}"
-			#@dates.each do |date|
+			@posts = []
+			@dates.each do |date|
 				#select only 10 posts on each days or selected date
-				#posts = Post.where(["created_at::date = ?", date]).order(created_at: :desc).ranking.offset(@offset).limit(10)
-				#posts.each do |post|				
-					#@posts.push(post)
-				#end
-			#end	
+				posts = Post.where(["created_at::date = ?", date]).order(created_at: :desc).ranking.offset(@offset).limit(10)
+				posts.each do |post|				
+					@posts.push(post)
+				end
+			end	
 
 			# @posts = Post.where(status: "approved").order(date: :desc).ranking.limit(10)
-      		render json: @posts#, include: { tags:{}, votes:{}, comments:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :img_url_lg, :date, :created_at, :duration, :genre, :vote_count, :comment_count, :hot_score, :status] 
+      		render json: @posts, include: { tags:{}, votes:{}, comments:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :img_url_lg, :date, :created_at, :duration, :genre, :vote_count, :comment_count, :hot_score, :status] 
 		
 		else
 

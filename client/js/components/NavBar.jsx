@@ -217,6 +217,7 @@ var NavBar = React.createClass({
                   <Popover id="tf-menu-popup">
                      <div className="tf-menu-popup-list-item" ref = "menuIcon" onClick = {this.hideMenuPopup}><Link className="nd" to={'/about'}><h6>ABOUT</h6></Link></div>
                      <div className="tf-menu-popup-list-item" ref = "menuIcon" onClick = {this.hideMenuPopup}><Link className="nd" to={'/faq'}><h6>FAQ</h6></Link></div>
+                     <div className="tf-menu-popup-list-item" ref = "menuIcon" onClick = {this.hideMenuPopup}><Link className="nd" to={'/jobboard'}><h6>JOB BOARD</h6></Link></div>
                      <div className="tf-menu-popup-list-item" ref = "menuIcon" onClick = {this.hideMenuPopup}><Link className="nd" to={'/privacy'}><h6>PRIVACY POLICY</h6></Link></div>
                      <div className="tf-menu-popup-list-item" ref = "menuIcon" onClick = {this.hideMenuPopup}><Link className="nd" to={'/terms'}><h6>TERMS OF USE</h6></Link></div>
                      <div className="tf-menu-popup-list-item" ref = "menuIcon" onClick = {this.hideMenuPopup}><Link className="nd" to={'/jobboard'}><h6>JOB BOARD</h6></Link></div>
@@ -311,11 +312,11 @@ var NavBar = React.createClass({
           {menuIcon}
         </ul>
 
-        <form className="navbar-form navbar-right app-search" role="search">
+        {/*<form className="navbar-form navbar-right app-search" role="search">
           <div className="form-group">
             <input type="text" id="tf-search-input" className="form-control tf-search-input" data-action="grow" placeholder="Search" ref="searchInput" onKeyUp={this.handleKeyUp} ></input>
           </div>
-        </form>
+        </form>*/}
 
         <ul className="nav navbar-nav hidden-sm hidden-md hidden-lg">
           <li><a href="index.html">Home</a></li>
