@@ -53,7 +53,7 @@ class PostsController < ApplicationController
 			#end	
 
 			# @posts = Post.where(status: "approved").order(date: :desc).ranking.limit(10)
-      		render json: @posts#, include: { tags:{}, votes:{}, comments:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :img_url_lg, :date, :created_at, :duration, :genre, :vote_count, :comment_count, :hot_score, :status] 
+      		render json: @posts #, include: { tags:{}, votes:{}, comments:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :img_url_lg, :date, :created_at, :duration, :genre, :vote_count, :comment_count, :hot_score, :status] 
 		
 		else
 
@@ -98,8 +98,6 @@ class PostsController < ApplicationController
 
 	def create
 	  logger.info @current_user.username
-	  logger.info @current_user.posts
-	  logger.info "/n"
 	  logger.info "building"
 	  logger.info post_params
 	  logger.info params[:admin]
@@ -108,7 +106,7 @@ class PostsController < ApplicationController
 	  if params[:admin]
 	  	@post_user = User.where(handle: params[:admin]).first
 	  else
-	  	@post_user = @current_user;
+	  	@post_user = @current_user
 	  end
 	  @post.user_id = @post_user.id
 	  @post.date = Date.today
@@ -118,9 +116,9 @@ class PostsController < ApplicationController
 
 	  	#tweet
 	  	twt_user = User.find(@post.user_id)
-	  	if !twt_user.bot 
-	  	  twitter_update(@post.title, twt_user.handle, twt_user.username, @post.artist)
-	  	end
+	  	#if !twt_user.bot && 
+	  	#  twitter_update(@post.title, twt_user.handle, twt_user.username, @post.artist)
+	  	#end
 
 	  	#create a vote 
 	  	@vote = Vote.new()
@@ -155,7 +153,7 @@ class PostsController < ApplicationController
 		end
 
 
-	    render json: @post, include: { user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :img_url_lg, :created_at, :duration, :genre, :vote_count], status: :created, location: post_url(@post, format: :json)
+	    render json: @post, include: { user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :img_url_lg, :created_at, :duration, :genre, :vote_count], status: :created, location: post_url(@post, format: :json), status: :created
 	  else
 	    render json: @post.errors, status: :unprocessable_entity
 	  end
