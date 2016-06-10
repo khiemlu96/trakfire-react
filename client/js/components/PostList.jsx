@@ -363,7 +363,7 @@ var PostsList = React.createClass({
 
   renderPostsByDate: function(dates, posts) {
     //console.log(posts, dates);
-    //console.log("USER", UserStore.isSignedIn(), UserStore.getCurrentUser());
+
     var isLoggedIn = UserStore.isSignedIn();
     var user = UserStore.getCurrentUser();
     var container = [];
@@ -373,8 +373,11 @@ var PostsList = React.createClass({
     var first = 1;
     var firstSong = {};
 
+    posts = this.state.posts;
+    dates = Object.keys(posts);
+    console.log("RENDERING THE POST LIST BROTHER", dates, posts);
     for(date in dates) {
-
+        var date = dates[date]
         count = 0;
         var d;
         var today = new Date();
@@ -392,8 +395,10 @@ var PostsList = React.createClass({
         var dateHeader = <PostListDateHeader key={'d_'+date} date={d}/>
         container.push(dateHeader);
         
-        var array = toArray(posts[dates[date]]).sort(sortScore);
+        //var array = toArray(posts[dates[date]]).sort(sortScore);
         //console.log("THE ARRAY", array);
+        var array = posts[date];
+        console.log("THE ARRAY", array, "POSTS", posts[date], "date", date);
         for(key in array) {
           if(isLoggedIn){
             var isUpvotedByUser = this.hasUpvoted(array[key], user.id);
@@ -440,17 +445,8 @@ var PostsList = React.createClass({
           container.push(this.renderPostLoadMoreLink(dates[date]));
         }
       }
-    /*console.log("setting the song list breh", songList);
-    if(songCount > 0 && !_songsSet) {
-      SongActions.setSongList(songList);
-      _songsSet = true;
-    }*/
-    //console.log("setting the song list breh", songList);
 
-    //this.props.setSongList(songList);
-    //_songList = songList;
-
-    console.log("FIRST SONG IS ", firstSong, container);
+    //console.log("FIRST SONG IS ", firstSong, container);
     return {"posts" : container, "firstSong" : firstSong };
   },
 
@@ -461,18 +457,18 @@ var PostsList = React.createClass({
   render: function() {
     var posts = this.state.posts;
     
-    var postsByDate = sortPostsByDate(posts); //sort posts into date keyed dict + array of date str for the headers
+    //var postsByDate = sortPostsByDate(posts); //sort posts into date keyed dict + array of date str for the headers
     //console.log("PDBD", postsByDate, posts);
-    var dates = postsByDate[0].sort(sortDate); //sort dates in decending order
+    //var dates = postsByDate[0].sort(sortDate); //sort dates in decending order
   
-    var posts = postsByDate[1] //date keyed dict
+    //var posts = postsByDate[1] //date keyed dict
 
-    postCountByDates = getPostCountByDates( postsByDate[1] );
+    //postCountByDates = getPostCountByDates( postsByDate[1] );
 
     retVal = {}
     _postListItems = [];
     firstSong = {};
-    retVal = this.renderPostsByDate(dates, posts); // return a list of <PostListDateHeader/> <PostListItems/>
+    retVal = this.renderPostsByDate(null, null); // return a list of <PostListDateHeader/> <PostListItems/>
     _postListItems = retVal['posts'];
     firstSong = retVal['firstSong'];
     //console.log("THE FIRST SONG IS ", _postListItems, firstSong);

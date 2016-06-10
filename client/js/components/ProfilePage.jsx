@@ -157,6 +157,19 @@ var ProfilePage = React.createClass({
             return {"followers" : followers, "followings": followings};
         }, 
 
+        showEditControls: function() {
+            var isLoggedIn = UserStore.isSignedIn();
+            var user = this.state.user;
+            var currentUser = UserStore.getCurrentUser();
+            console.log("Profile User", user, "Current User", currentUser, "isSignedIn", isLoggedIn);
+            if(!!user && !!currentUser){
+                if(isLoggedIn && user.id == currentUser.id) {
+                    return true;
+                }
+            }
+            return false;
+        }, 
+
         /**
          * @return {object}
          */
@@ -165,7 +178,7 @@ var ProfilePage = React.createClass({
             var user = this.state.user;
             var isFollowing = false;
             var isLoggedIn = UserStore.isSignedIn();
-
+            var showEdit = this.showEditControls();
             if(user !== null) {
                 for(var key in user.followers) {
                     if(this.props.currUser && user.followers[key].id === this.props.currUser.id) {

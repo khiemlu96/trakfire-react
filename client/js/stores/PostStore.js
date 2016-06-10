@@ -107,20 +107,22 @@ function getSongList(posts) {
 }
 
 function _addPosts(rawPosts) {
-  //console.log("ADDING POSTS", rawPosts);
-  rawPosts.forEach(function(post){
-    if (!_posts[post.id]) {      
+  var keys = Object.keys(rawPosts);
+  keys.forEach(function(key){ 
+    var day = rawPosts[key];
+    var posts = [];
+    console.log("KEY", key, "POSTS", day);
+    day.forEach(function(post){   
       console.log("RAW POST", post);
-      _posts[post.id] = PostUtils.convertRawPost( post );
-    }
+      posts.push(PostUtils.convertRawPost( post ));    
+    });
+    _posts[key] = posts;
   });
-
-  //sort the posts into the song object
-  _songs = getSongList(_posts);
+  console.log("POSTLISTS", _posts)
 }
 
 function _addPost(rawPost) {
-  //console.log("ADDING POST", rawPost);
+  console.log("ADDING POST", rawPost);
   var post = PostUtils.convertRawPost(rawPost);
   _current_new_post = post;
   console.log("CURRENT NEW POST", _current_new_post);
@@ -129,8 +131,8 @@ function _addPost(rawPost) {
     delete _posts["dummy"];
   }
   
-  _posts[rawPost.id] = post; //PostUtils.convertRawPost(rawPost);
-  _songs = getSongList(_posts);
+  _posts[rawPost.date].push(post); //PostUtils.convertRawPost(rawPost);
+  //_songs = getSongList(_posts);
 }
 
 function _addLocalPost(rawPost){
@@ -208,8 +210,10 @@ function _addErrorMessage(error) {
 }
 
 function _addLoadMorePosts(posts) {
-  for(key in posts) {
-    _addPost(posts[key]);
+  var keys = Object.keys(posts)
+  for(key in keys) {
+    for(post in posts[key])
+    _addPost(post);
   }  
 }
 
@@ -267,7 +271,7 @@ var PostStore = assign({}, EventEmitter.prototype, {
     //console.log('IN POST STORE GETTING '+_sort+' of type ', _genre);
     var posts;
     //console.log("GENRES", _genre);
-    posts = this.getAllOfGenres(_genre);
+    posts = _posts;//this.getAllOfGenres(_genre);
     return posts;
   },
 

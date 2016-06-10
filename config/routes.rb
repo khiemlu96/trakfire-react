@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'access_token', to: 'tokens#access_token'
   get 'admin_state', to: 'application#admin_state'
   #get 'post/:id' => 'posts#show'
+  post '/logins/auth' => 'logins#auth', :as => :authenticate
   post 'votes/batch_create' => 'votes#batch_create', :as => :batch_create
 
   resources :posts, only: [:index, :create, :show, :destroy]
@@ -17,7 +18,6 @@ Rails.application.routes.draw do
   resources :tf_files, only: [:create, :index, :destroy]
   resources :whitelists, only: [:create, :index, :destroy]
   resources :bots, only: [:index]
-  resources :logins, only: [:auth]
   
   resources :users, only: [:index, :update, :show, :destroy] do
     member do

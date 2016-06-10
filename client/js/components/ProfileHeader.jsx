@@ -107,8 +107,8 @@ var ProfileHeader = React.createClass({
         var showEditLink = true;        
         followBtnStyle.display = 'none';
         var editLink = <a onClick={this.openEditProfile}><div className="is-active right btn btn-primary">Edit</div></a>;
-
-        if(this.props.currUser !== null && this.props.userId !== this.props.currUser.id) {
+        console.log("IN PROF HEADER ", this.props.currUser, this.props.userId);
+        if(this.props.currUser == null || this.props.userId !== this.props.currUser.id) {
             showEditLink = false;
             followBtnStyle.display = 'block';
             editLink = "";
