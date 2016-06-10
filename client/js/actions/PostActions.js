@@ -122,7 +122,15 @@ var PostActions = {
 
   deletePost: function(url) {
       TfAPI.deletePost(url);
-  }
+  }, 
+
+  createPlaylist: function(start_post) {
+    console.log("creating thr playlist from ", start_post.id);
+    AppDispatcher.dispatch({
+      actionType: PostConstants.CREATE_PLAYLIST,
+      post: post
+    });    
+  } 
 };
 
 module.exports = PostActions;

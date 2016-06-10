@@ -127,7 +127,7 @@ var TrakfireApp = React.createClass({
       // Send a two way message to the postlist to set the next song and play it
       console.log("ENDED");
       //var nextIdx = this.state.currSongIdx+1;
-      var next = PostStore.getNextSong();//this.state.currentSong;//this.state.currSongList[nextIdx];
+      var next = PostStore.getNextTrack();//this.state.currentSong;//this.state.currSongList[nextIdx];
       //console.log("CURR SONG LIST IS", this.state.currentSongList, this.state.currSongIdx);
       console.log("NEXT SONG IS", next);
       this.setState({
@@ -405,6 +405,7 @@ var TrakfireApp = React.createClass({
         currSongIdx : idx
       });
       PostActions.setCurrentPost(idx);
+      PostStore.setPlaylist(track);
     } else if(isPlaying && stream_url == this.state.currStreamUrl) {
         scPlayer.pause();
         isPlaying = false;
@@ -423,7 +424,8 @@ var TrakfireApp = React.createClass({
           currTrack : track,
           currSongIdx : idx
         }); 
-        PostActions.setCurrentPost(idx);    
+        PostActions.setCurrentPost(idx);
+        PostStore.setPlaylist(track);    
     }
     
     if(isPlaying){
@@ -469,7 +471,7 @@ var TrakfireApp = React.createClass({
   },
 
   onNextCtrlClick: function() {
-      var next = PostStore.getNextSong();
+      var next = PostStore.getNextTrack();
       console.log("CTRL: NEXT SONG IS", next);
       this.setState({
         currTrack:next, 
@@ -481,7 +483,7 @@ var TrakfireApp = React.createClass({
   }, 
 
   onPrevCtrlClick: function() {
-      var next = PostStore.getPrevSong();
+      var next = PostStore.getPrevTrack();
       console.log("CTRL: NEXT SONG IS", next);
       this.setState({
         currTrack:next, 
