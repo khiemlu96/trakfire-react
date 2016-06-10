@@ -8,7 +8,7 @@ module.exports = {
     return {
       id: rawPost.id,
       title: rawPost.title,
-      date: new Date(rawPost.created_at),
+      date: rawPost.date,//new Date(rawPost.created_at),
       artist: rawPost.artist,
       genre: this.getGenres(rawPost.genre),
       author: rawPost.user.handle,

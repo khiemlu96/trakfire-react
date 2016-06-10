@@ -361,118 +361,77 @@ var PostsList = React.createClass({
       );
   },
 
-  renderPostsByDate: function(dates, posts) {
-    //console.log(posts, dates);
+  renderPosts: function() {
 
+    var posts = PostStore.getPostsByDate();
+    var postList = [];
     var isLoggedIn = UserStore.isSignedIn();
     var user = UserStore.getCurrentUser();
-    var container = [];
-    var songList = {};
+    var dates = Object.keys(posts);
+    var firstPost = null;
     var count = 0;
-    var songCount = 0;
-    var first = 1;
-    var firstSong = {};
 
-    posts = this.state.posts;
-    dates = Object.keys(posts);
-    console.log("RENDERING THE POST LIST BROTHER", dates, posts);
-    for(date in dates) {
-        var date = dates[date]
-        count = 0;
-        var d;
-        var today = new Date();
-        var yesterday = new Date();
-        yesterday.setDate(today.getDate()-1);
+    console.log("POSTS BY DATE", posts, dates);
 
-        d = moment(dates[date]).format('dddd, MMMM Do');
-        if(d == moment().format('dddd, MMMM Do')) {
-          console.log("TODAY");
-          d = "today";
-        } else if(d == moment().subtract(1, 'days').format('dddd, MMMM Do')) {
-          console.log("YESTERDAY");
-          d = "yesterday";
+    for(var i = 0; i < dates.length; i++){
+
+      var date = dates[i];
+      var displayDate = moment(date).format('dddd, MMMM Do');
+      var postsForDate = posts[date];
+      //console.log("Day", date, displayDate);
+      var dateHeader = <PostListDateHeader key={'d_'+date} date={displayDate}/>
+      postList.push(dateHeader);
+
+      for(var j = 0; j < postsForDate.length; j++) {
+
+        var idx = (j+1)*(i+1);
+        console.log("IDX", idx);
+        var post = postsForDate[j];
+        if(isLoggedIn){
+          var isUpvotedByUser = this.hasUpvoted(post, user.id);
         }
-        var dateHeader = <PostListDateHeader key={'d_'+date} date={d}/>
-        container.push(dateHeader);
-        
-        //var array = toArray(posts[dates[date]]).sort(sortScore);
-        //console.log("THE ARRAY", array);
-        var array = posts[date];
-        console.log("THE ARRAY", array, "POSTS", posts[date], "date", date);
-        for(key in array) {
-          if(isLoggedIn){
-            var isUpvotedByUser = this.hasUpvoted(array[key], user.id);
-          }
-          // console.log("ID: ", array[key].id);
-          songList[array[key].id] = array[key];
-
-          var f = false;
-
-          if(first == 1) {
-            first = -1;
-            f = true;
-            firstSong = array[key];
-          } else {
-            f = false;
-          }
-
-          var post = <PostListItem 
-                        key={"p_"+songCount}
-                        idx={songCount} 
-                        ref={array[key].id}
-                        post={array[key]}
+        var item = <PostListItem 
+                        key={"p_"+count}
+                        idx={count} 
+                        ref={post.id}
+                        post={post}
                         onUpvote={this.upvote}
                         onClick={this.playPauseItem} 
                         isLoggedIn={isLoggedIn}
                         userId={ user != null ? user.id : null }
                         isUpvoted={isUpvotedByUser}
-                        rank={key}
+                        rank={j}
                         currStreamUrl={this.props.currStreamUrl}
                         showModal={this.props.showModal}
-                        first={f}
+                        first={ (idx == 1) ? true : false }
                         origin={this.props.origin}
-                        number={count}
+                        number={j}
                         showNumber={true}
                         showAuthor={true}
                         changeIcons={this.updateIcons}/>
-          container.push(post); 
-          songList[songCount] = array[key];
-          songCount += 1;    
-          count += 1;      
-        }
-        //only render the load more link if there is more to load for that day
-        if(array.length > 10) {
-          container.push(this.renderPostLoadMoreLink(dates[date]));
-        }
+
+        if(idx == 1) { firstPost = post; }
+        postList.push(item);
+        count++;
       }
+    }
 
-    //console.log("FIRST SONG IS ", firstSong, container);
-    return {"posts" : container, "firstSong" : firstSong };
-  },
+    return {"postList" : postList, "firstPost" : firstPost};
 
+  }, 
 
   /**
    * @return {object}
    */
   render: function() {
-    var posts = this.state.posts;
+    var retVal = this.renderPosts();
+    var _postListItems = retVal.postList;
+    var firstSong = retVal.firstPost;
+    console.log(_postListItems, firstSong);
     
-    //var postsByDate = sortPostsByDate(posts); //sort posts into date keyed dict + array of date str for the headers
-    //console.log("PDBD", postsByDate, posts);
-    //var dates = postsByDate[0].sort(sortDate); //sort dates in decending order
-  
-    //var posts = postsByDate[1] //date keyed dict
-
-    //postCountByDates = getPostCountByDates( postsByDate[1] );
-
-    retVal = {}
-    _postListItems = [];
-    firstSong = {};
-    retVal = this.renderPostsByDate(null, null); // return a list of <PostListDateHeader/> <PostListItems/>
-    _postListItems = retVal['posts'];
-    firstSong = retVal['firstSong'];
-    //console.log("THE FIRST SONG IS ", _postListItems, firstSong);
-
+    if(!_postListItems.length) {
+      return (<div></div>);
+    }
     var postListStyle = { marginTop: 20+"px" };
     var carousalItemHtml = <CarouselItem></CarouselItem>;
     var nocaro = false

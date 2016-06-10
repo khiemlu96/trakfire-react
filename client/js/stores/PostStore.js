@@ -88,6 +88,15 @@ function toArray(obj) {
   return array.sort(compareCreatedAt);
 }
 
+function flatten(obj) {
+  var array = [];
+  var keys = Object.keys(obj);
+  for(var i = 0; i < keys.length; i++) {
+    array.push(obj[keys[i]]);
+  }
+  console.log("FLAT", array);
+}
+
 function getSongList(posts) {
     var postsByDate = sortPostsByDate(posts); //sort posts into date keyed dict + array of date str for the headers
     //console.log("PBD", postsByDate, posts);
@@ -109,14 +118,6 @@ function getSongList(posts) {
 }
 
 function _addPosts(rawPosts) {
-  //console.log("ADDING POSTS", rawPosts);
-  /* rawPosts.forEach(function(post){
-    if (!_posts[post.id]) {      
-      console.log("RAW POST", post);
-      _posts[post.id] = PostUtils.convertRawPost( post );
-    }
-  });*/
-
   for(var i = 0; i < rawPosts.length; i++) {
     var post = rawPosts[i];
     if (!_posts[post.id]) {      
@@ -127,7 +128,7 @@ function _addPosts(rawPosts) {
     }   
   }
   //sort the posts into the song object
-  _songs = getSongList(_posts);
+  //_songs = getSongList(_posts);
   console.log("POSTS", _posts, "PLAYLIST", _playlist);
 
 }
@@ -136,13 +137,13 @@ function _addPost(rawPost) {
   console.log("ADDING POST", rawPost);
   var post = PostUtils.convertRawPost(rawPost);
   _current_new_post = post;
-  console.log("CURRENT NEW POST", _current_new_post);
+  console.log("CURRENT NEW POST", _current_new_post, _posts);
   //if(post.status == "approved")
   if(_posts["dummy"]) {
     delete _posts["dummy"];
   }
   
-  _posts[rawPost.date].push(post); //PostUtils.convertRawPost(rawPost);
+  _posts[post.id] = post; //PostUtils.convertRawPost(rawPost);
   //_songs = getSongList(_posts);
 }
 
@@ -222,10 +223,11 @@ function _addErrorMessage(error) {
 
 function _addLoadMorePosts(posts) {
   var keys = Object.keys(posts)
-  for(key in keys) {
-    for(post in posts[key])
+  console.log("ADD LOAD MORE POSTS", posts, keys);
+  _addPosts(posts);
+  posts.forEach(function(post) {
     _addPost(post);
-  }  
+  });
 }
 
 /*
@@ -437,6 +439,21 @@ var PostStore = assign({}, EventEmitter.prototype, {
       return _playlist[_currentPlaylistIndex];
     }
   },
+
+  getPostsByDate: function() {
+    var posts = _playlist; 
+    var postsByDate = {};
+    posts.map( function(p) { 
+      if (postsByDate[p.date]) 
+        postsByDate[p.date].push(p); 
+      else {
+        postsByDate[p.date] = []; 
+        postsByDate[p.date].push(p);
+      }
+    });
+    console.log("PBD OBJ", postsByDate, "POSTS", posts, "DATES");
+    return postsByDate;
+  }, 
 
 
   /**
