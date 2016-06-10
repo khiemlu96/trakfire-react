@@ -14,7 +14,7 @@ var CommunityGridItem = React.createClass({
   render: function() {
     return (
       <div className="col-md-1">
-        <img height="100px" width="100px" src={this.props.imgUrl}>
+        <img height="100px" width="100px" src={this.props.imgUrl}></img>
       </div>
     );
   },
