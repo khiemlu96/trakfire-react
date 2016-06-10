@@ -260,7 +260,7 @@ var TrakfireApp = React.createClass({
   },
 
   onGetSongsLength: function(){
-      var songsLength = PostStore.getSongsLength();
+      var songsLength = PostStore.getPlaylistLength();
       return songsLength;
   },
   /**

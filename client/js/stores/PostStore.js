@@ -414,6 +414,10 @@ var PostStore = assign({}, EventEmitter.prototype, {
     });
   }, 
 
+  getPlaylistLength: function() {
+    return _playlist.length;
+  }, 
+
   getCurrentIndex: function() {
     return _currentPlaylistIndex;
   }, 
