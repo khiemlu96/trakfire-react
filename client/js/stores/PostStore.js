@@ -28,6 +28,8 @@ var _dayCount = 0;
 var _current_new_post = {};
 var _error = {};
 var _adminPosts = {}, _adminPostsState = {};
+var _playlist = [];
+var _currentPlaylistIndex = 0;
 
 function sortPostsByDate(posts) {
   var dates = {};
@@ -107,18 +109,27 @@ function getSongList(posts) {
 }
 
 function _addPosts(rawPosts) {
-  var keys = Object.keys(rawPosts);
-  keys.forEach(function(key){ 
-    var day = rawPosts[key];
-    var posts = [];
-    console.log("KEY", key, "POSTS", day);
-    day.forEach(function(post){   
+  //console.log("ADDING POSTS", rawPosts);
+  /* rawPosts.forEach(function(post){
+    if (!_posts[post.id]) {      
       console.log("RAW POST", post);
-      posts.push(PostUtils.convertRawPost( post ));    
-    });
-    _posts[key] = posts;
-  });
-  console.log("POSTLISTS", _posts)
+      _posts[post.id] = PostUtils.convertRawPost( post );
+    }
+  });*/
+
+  for(var i = 0; i < rawPosts.length; i++) {
+    var post = rawPosts[i];
+    if (!_posts[post.id]) {      
+      p = PostUtils.convertRawPost( post );
+      console.log("RAW POST", p);
+      _posts[post.id] = p
+      _playlist.push(p); 
+    }   
+  }
+  //sort the posts into the song object
+  _songs = getSongList(_posts);
+  console.log("POSTS", _posts, "PLAYLIST", _playlist);
+
 }
 
 function _addPost(rawPost) {
@@ -386,6 +397,48 @@ var PostStore = assign({}, EventEmitter.prototype, {
     return data;
   },
 
+  setPlaylist: function(post) {
+    // start is the first post in the playlist
+    var head = post.id;
+    var idx = 0;
+
+    _playlist.forEach(function(post){
+      if(post.id == head) {
+        //found the start position of the playlist
+        post.current = true;
+        _currentPlaylistIndex = idx;
+      }
+      idx++;
+    });
+  }, 
+
+  getCurrentIndex: function() {
+    return _currentPlaylistIndex;
+  }, 
+
+  getCurrentTrack: function() {
+    return _playlist[_currentPlaylistIndex];
+  }, 
+
+  getNextTrack: function() {
+    if(_currentPlaylistIndex < _playlist.length){
+      _currentPlaylistIndex += 1;
+     return _playlist[_currentPlaylistIndex];
+    } 
+    else if(_currentPlaylistIndex == _playlist.length) {
+      _currentPlaylistIndex = 0;
+      return _playlist[_currentPlaylistIndex];    
+    }
+  }, 
+
+  getPrevTrack: function() {
+    if(_currentPlaylistIndex > 0) {
+      _currentPlaylistIndex -= 1;
+      return _playlist[_currentPlaylistIndex];
+    }
+  },
+
+
   /**
    * @param {function} callback
    */
@@ -467,6 +520,9 @@ PostStore.dispatchToken = AppDispatcher.register(function(action) {
       deleteAdminPosts(action.post_id);
       PostStore.emitChange();
       break;
+    case PostConstants.CREATE_PLAYLIST:
+      setPlaylist(action.post);
+      PostStore.emitChange();
     default:
       // no op
   }

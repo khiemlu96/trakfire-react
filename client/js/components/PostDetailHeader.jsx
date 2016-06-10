@@ -70,6 +70,7 @@ var PostDetailHeader = React.createClass({
 
     var voteHtml = [];
     for(key in votes) {
+      if(votes[key].user){
       var artist_id = "tf-media-artist-" + votes[key].user.id;
       voteHtml.push(
         /*<a className="tf-link" href={"/profile/" + votes[key].user.id} >
@@ -83,7 +84,9 @@ var PostDetailHeader = React.createClass({
             {/*onMouseEnter = {this.showFlyOver.bind(this, artist_id, votes[key].user)}*/}
             <img id = {artist_id} data-trigger = "hover" data-toggle = "popover" data-placement = "top" className='tf-author-img' src={ votes[key].user ? votes[key].user.img : "assets/img/trakfirefavicon.ico"}></img>
         </Link>
-      );                            
+
+      );
+      }                            
     }
     return (voteHtml);
   },

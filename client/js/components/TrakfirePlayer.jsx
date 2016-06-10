@@ -76,17 +76,17 @@ var TrakfirePlayer = React.createClass({
     },
 
     handlePrevClick: function() {
-        if(this.props.currTrack.sortedIdx > 0) {
+        //if(this.props.currTrack.sortedIdx > 0) {
             this.props.onPrevClick();
-        } else {
-            return false;
-        }       
+        //} else {
+            //return false;
+        //}       
     },
 
     handleNextClick: function() {
-        if(this.props.currTrack.sortedIdx < (this.props.onGetSongsLength()-1)){
+        //if(this.props.currTrack.sortedIdx < (this.props.onGetSongsLength()-1)){
             this.props.onNextClick();
-        }
+        //}
     },  
 
     hasUpvoted: function(post) {
