@@ -371,7 +371,7 @@ var PostsList = React.createClass({
     var firstPost = null;
     var count = 0;
 
-    console.log("POSTS BY DATE", posts, dates);
+    //console.log("POSTS BY DATE", posts, dates);
 
     for(var i = 0; i < dates.length; i++){
 
@@ -385,7 +385,7 @@ var PostsList = React.createClass({
       for(var j = 0; j < postsForDate.length; j++) {
 
         var idx = (j+1)*(i+1);
-        console.log("IDX", idx);
+        //console.log("IDX", idx);
         var post = postsForDate[j];
         if(isLoggedIn){
           var isUpvotedByUser = this.hasUpvoted(post, user.id);
