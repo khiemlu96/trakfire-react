@@ -1,5 +1,7 @@
 var React = require('react');
 var boostrap = require('bootstrap');
+var CommunityGrid = require('../CommunityGrid.jsx');
+
 var AboutPage = React.createClass({
 
   /**
