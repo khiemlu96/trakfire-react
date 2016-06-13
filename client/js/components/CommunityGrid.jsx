@@ -5,6 +5,7 @@ var Link = require('react-router').Link;
 var Bootstrap = require('react-bootstrap');
 var CommunityGridItem = require('./CommunityGridItem.jsx');
 var UserStore = require('../stores/UserStore.js');
+var UserActions = require('../actions/UserActions.js');
 
 function toArray(obj) {
   var array = [];
@@ -52,12 +53,29 @@ function chunkify(a, n, balanced) {
     return out;
 }
 
+function getComponentState() {
+  return {
+    users : UserStore.getAllWhiteListUsers(), 
+  };
+}
+
 var CommunityGrid = React.createClass({
 
-  propTypes: {},
+  propTypes: {
+    origin: ReactPropTypes.string
+  },
+
+  getInitialState: function() {
+    return getComponentState();
+  }, 
+
+  componentDidMount: function() {
+    UserStore.addChangeListener(this._onChange);
+    UserActions.getAllWhiteListUsers(this.props.origin + "/whitelists");
+  }, 
 
   renderGridItems: function() {
-    var users = UserStore.getAllUsers();
+    var users = this.state.users;//UserStore.getAllUsers();
     users = toArray(users);
     //console.log("USERS FOR GRID", users, users.length);
     var communityGrid = [];
@@ -81,6 +99,10 @@ var CommunityGrid = React.createClass({
       </div>
     );
   },
+
+  _onChange: function() {
+    this.setState(getComponentState());
+  }
 
 });
 

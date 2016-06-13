@@ -1,5 +1,5 @@
 class WhitelistsController < ApplicationController
-	before_action :authenticate_request, only: [:index, :create, :destroy]
+	before_action :authenticate_request, only: [:create, :destroy]
 
 	def index
 		@offset = params[:offset] != nil ? params[:offset].to_i : 0
@@ -12,7 +12,7 @@ class WhitelistsController < ApplicationController
     	total_count = 0
 
     	#@whitelist_users = Whitelist.joins('LEFT OUTER JOIN users ON whitelists.email = users.email').order(created_at: :desc).offset(@offset).limit(@limit)
-      	sql = "	SELECT users.id as user_id, users.username, users.handle, whitelists.* FROM whitelists
+      	sql = "	SELECT users.id as user_id, users.username, users.handle, users.img, whitelists.* FROM whitelists
 	     		LEFT OUTER JOIN users
 	     		ON whitelists.handle = users.handle
 				ORDER BY created_at DESC
