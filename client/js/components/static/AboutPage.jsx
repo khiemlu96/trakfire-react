@@ -25,8 +25,6 @@ var AboutPage = React.createClass({
           We are a collective of tastemakers who knew the artists of 2016 in 2008. 
           And were gonna find the next wave too. join us @ trakfire.com.
         </p>
-        
-        <CommunityGrid origin={this.props.origin}/>
       </div>
     );
   },

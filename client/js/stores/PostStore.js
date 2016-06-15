@@ -153,7 +153,7 @@ function _addLocalPost(rawPost){
   _current_new_post = post;
   //if(post.status == "approved")
   _posts["dummy"] = post; //PostUtils.convertRawPost(rawPost);
-  _songs = getSongList(_posts);
+  //_songs = getSongList(_posts);
 }
 
 function _sPost(rawPost) {
