@@ -147,6 +147,18 @@ function getCarousalImageArray(images) {
   return [keys, images];
 }
 
+function isToday(momentDate) {
+    var ref = moment(); 
+    var today = ref.clone().startOf('day');
+    return momentDate.isSame(today, 'd');
+}
+
+function isYesterday(momentDate) {
+    var ref = moment(); 
+    var yesterday = ref.clone().subtract(1, 'days').startOf('day');
+    return momentDate.isSame(yesterday, 'd');
+}
+
 var PostsList = React.createClass({
 
   propTypes: {
@@ -371,12 +383,17 @@ var PostsList = React.createClass({
     var firstPost = null;
     var count = 0;
 
-    //console.log("POSTS BY DATE", posts, dates);
-
     for(var i = 0; i < dates.length; i++){
 
       var date = dates[i];
-      var displayDate = moment(date).format('dddd, MMMM Do');
+      if(isToday(moment(date))) {
+        var displayDate = "TODAY";
+      } else if(isYesterday(moment(date))) {
+        var displayDate = "YESTERDAY";
+      } else {
+        var displayDate = moment(date).format('dddd, MMMM Do');
+      }
+      //var displayDate = moment(date).format('dddd, MMMM Do');
       var postsForDate = posts[date];
       //console.log("Day", date, displayDate);
       var dateHeader = <PostListDateHeader key={'d_'+date} date={displayDate}/>
