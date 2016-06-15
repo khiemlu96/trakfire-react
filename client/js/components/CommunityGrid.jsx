@@ -103,7 +103,6 @@ var CommunityGrid = React.createClass({
   _onChange: function() {
     this.setState(getComponentState());
   }
-
 });
 
 module.exports = CommunityGrid;

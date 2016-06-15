@@ -31,6 +31,10 @@ var AboutPage = React.createClass({
         <CommunityGrid origin={this.props.origin}/>
         
       </div>
+      
+      <br/>
+      
+      <CommunityGrid/>
     );
   },
 
