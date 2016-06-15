@@ -23,18 +23,11 @@ var AboutPage = React.createClass({
           The ones who sang with Lizzy Grant pre Lana Del Rey. 
           We want people who knew what Drake would be in the acura days. 
           We are a collective of tastemakers who knew the artists of 2016 in 2008. 
-          And we're gonna find the next wave too. join us @ trakfire.com.
+          And were gonna find the next wave too. join us @ trakfire.com.
         </p>
         
-        <br/>
-        
         <CommunityGrid origin={this.props.origin}/>
-        
       </div>
-      
-      <br/>
-      
-      <CommunityGrid/>
     );
   },
 
