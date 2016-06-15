@@ -49,7 +49,7 @@ class PostsController < ApplicationController
 					@posts.push(post)
 				end
 			end	
-			@posts = Post.order(date: :desc, vote_count: :desc, created_at: :desc).limit(10)
+			@posts = Post.order(date: :desc, vote_count: :desc, created_at: :desc).limit(50)
       		render json: @posts #, include: { tags:{}, votes:{}, comments:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :img_url_lg, :date, :created_at, :duration, :genre, :vote_count, :comment_count, :hot_score, :status] 
 		
 		else
