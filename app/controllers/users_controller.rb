@@ -259,6 +259,11 @@ class UsersController < ApplicationController
     render json: @error
   end
 
+  def top
+    @users = User.order(score: :desc, created_at: :desc).limit(10)
+    render json: @users
+  end
+  
   private 
   def user_params
     params.require(:user).permit(:email, :username, :upvotes, :tbio, :isVerify)   

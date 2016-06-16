@@ -19,7 +19,7 @@ var LeaderBoardItem = require('./LeaderBoardItem.jsx');
 
 function getComponentState() {
   return {
-   	users: UserStore.getAllUsers(),
+   	users: UserStore.getTopUsers(),
     currentUser: UserStore.getCurrentUser(),
   };
 }
@@ -61,7 +61,7 @@ var LeaderBoard = React.createClass({
   componentDidMount: function() {
   	console.log(this.state.users);
   	UserStore.addChangeListener(this._onChange);
-  	UserActions.getAllUsers(this.props.origin+'/users', {limit:10, offset:0});
+  	UserActions.getTopUsers(this.props.origin+'/top', {limit:10, offset:0});
   },
 
   renderUserItems: function(sortedUsers) {

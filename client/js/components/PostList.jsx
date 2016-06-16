@@ -409,7 +409,7 @@ var PostsList = React.createClass({
         }
         var item = <PostListItem 
                         key={"p_"+count}
-                        idx={count} 
+                        idx={j} 
                         ref={post.id}
                         post={post}
                         onUpvote={this.upvote}

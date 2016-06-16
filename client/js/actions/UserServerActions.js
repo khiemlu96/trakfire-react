@@ -181,5 +181,12 @@ module.exports = {
       actionType: UserConstants.GET_BOT_USERS,
       response: response
     });
+  }, 
+
+  recieveTopUsers: function(response) {
+    AppDispatcher.dispatch({
+      actionType: UserConstants.RECIEVE_TOP_USERS,
+      response: response
+    });   
   }
 };

@@ -773,28 +773,21 @@ module.exports = {
     });    
   }, 
 
-  getAllWhitelistUsers: function( url, data ) {
-    var params = {
-      limit: data.limit,
-      offset: data.offset
-    };
-
+  getTopUsers: function(url) {
     Reqwest({
       url: url,
       type: 'json',
-      method: 'get',
-      data: data,
+      method: 'GET',
       contentType: 'application/json',
       headers: {'Authorization': localStorage.getItem('jwt')},
-      success: function(resp) { 
-        console.log("RECIEVING WHITELIST BRUH", resp);
-        users = resp;
-        UserServerActionCreators.recieveAllWhitelist(users); 
+      success: function(resp) {
+        console.log("TOP SERVER RESPONSE", resp);
+        UserServerActionCreators.recieveTopUsers(resp);
       },
       error: function(error) {
         console.error(url, error['response']);
       }
-    });
-  },
+    });    
+  }
 };
 

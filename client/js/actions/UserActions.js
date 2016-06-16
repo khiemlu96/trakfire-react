@@ -148,6 +148,10 @@ var UserActions = {
 
   getBotUsers: function(url){
     TfAPI.getBotUsers(url);
+  }, 
+
+  getTopUsers: function(url) {
+    TfAPI.getTopUsers(url);
   }
 };
 

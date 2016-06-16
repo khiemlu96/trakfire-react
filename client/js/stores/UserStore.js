@@ -24,6 +24,7 @@ var _userUpvotedTraks = [];
 var _userRequestInvites = null, _userRequestInvitesState = {};
 var _whitelistUsers= null, _whitelistUsersState = {};
 var _arePendingNotifications = false;
+var _leaderboard = [];
 
 function _addCurrentUser(user) {
   _cUser = UserUtils.convertRawUser(user);
@@ -230,6 +231,16 @@ function addBotUsers(data) {
   }
 }
 
+function addTopUsers(data) {
+  if(data) {
+    var users = data;
+    users.forEach(function(user){
+      _leaderboard.push(UserUtils.convertRawUser(user));
+    });
+  }
+  console.log(users);
+}
+
 var UserStore = assign({}, EventEmitter.prototype, {
 
   getCurrentUser: function() {
@@ -354,6 +365,10 @@ var UserStore = assign({}, EventEmitter.prototype, {
 
   getBotUsers: function() {
     return _bUsers;
+  }, 
+
+  getTopUsers: function() {
+    return _leaderboard;
   }
 
 });
@@ -463,6 +478,9 @@ AppDispatcher.register(function(action) {
       break;
     case UserConstants.GET_BOT_USERS:
       addBotUsers(action.response);
+      UserStore.emitChange();
+    case UserConstants.RECIEVE_TOP_USERS:
+      addTopUsers(action.response);
       UserStore.emitChange();
     default:
       // no op
