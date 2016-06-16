@@ -98,6 +98,17 @@ function flatten(obj) {
   console.log("FLAT", array);
 }
 
+/* Takes in an object { key : [val] } returns an array */
+function concatObj(obj) {
+  var keys = Object.keys(obj);
+  var arr = obj[keys[0]];
+  for(var i = 1; i < keys.length; i++) {
+    arr.concat(obj[keys[i]]);
+  }
+  console.log("arr", arr);
+  return arr;
+}
+
 function getSongList(posts) {
     var postsByDate = sortPostsByDate(posts); //sort posts into date keyed dict + array of date str for the headers
     //console.log("PBD", postsByDate, posts);
@@ -142,6 +153,7 @@ function _addPost(rawPost) {
   //console.log("CURRENT NEW POST", _current_new_post, _posts);
   _posts[post.id] = post;
   _postsByDate[post.date].push(post);
+  _playlist = concatObj(_postsByDate);
 }
 
 function _addLocalPost(rawPost){
