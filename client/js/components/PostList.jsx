@@ -106,6 +106,7 @@ function getComponentState() {
     isLoggedIn : UserStore.isSignedIn(), 
     currentUser : UserStore.getCurrentUser(),    
     posts : PostStore.getAll(), 
+    postsByDate: PostStore.getPostsByDate(),
     sortedPosts : PostStore.getSortedPosts(), 
     getCurrentSong : PostStore.getCurrentSong(),
     carousal_images : UserStore.getAdminCarousalFiles()
@@ -229,7 +230,7 @@ var PostsList = React.createClass({
     //this.props.setSongList(this.state.posts);
     PostStore.addChangeListener(this._onChange);
     UserStore.addChangeListener(this._onChange);
-    this.setParentState();
+    //this.setParentState();
   },
 
   componentWillUnmount: function() {
@@ -249,7 +250,7 @@ var PostsList = React.createClass({
     if(Object.keys(prevProps.posts).length > 0 && !this.state.hasSetSongList) {
       //console.log("SETTING THE SONG LIST", this.state.hasSetSongList);
       this.setState({hasSetSongList:true});
-      this.setParentState(prevProps.posts);
+      //this.setParentState(prevProps.posts);
     }
   }, 
 
@@ -375,7 +376,7 @@ var PostsList = React.createClass({
 
   renderPosts: function() {
 
-    var posts = PostStore.getPostsByDate();
+    var posts = this.state.postsByDate;
     var postList = [];
     var isLoggedIn = UserStore.isSignedIn();
     var user = UserStore.getCurrentUser();

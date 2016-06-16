@@ -49,7 +49,7 @@ class PostsController < ApplicationController
 					@posts.push(post)
 				end
 			end	
-			@posts = Post.order(date: :desc, vote_count: :desc, created_at: :desc).limit(50)
+			@posts = Post.order(date: :desc, vote_count: :desc, created_at: :desc).limit(20)
       		render json: @posts #, include: { tags:{}, votes:{}, comments:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :img_url_lg, :date, :created_at, :duration, :genre, :vote_count, :comment_count, :hot_score, :status] 
 		
 		else
@@ -112,10 +112,10 @@ class PostsController < ApplicationController
 	  if @post.save
 
 	  	#tweet
-	  	twt_user = User.find(@post.user_id)
-	  	if !twt_user.bot && 
-	  	  twitter_update(@post.title, twt_user.handle, twt_user.username, @post.artist)
-	  	end
+	  	#twt_user = User.find(@post.user_id)
+	  	#if !twt_user.bot && 
+	  	 # twitter_update(@post.title, twt_user.handle, twt_user.username, @post.artist)
+	  	#end
 
 	  	#create a vote 
 	  	@vote = Vote.new()

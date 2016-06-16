@@ -30,6 +30,7 @@ var _error = {};
 var _adminPosts = {}, _adminPostsState = {};
 var _playlist = [];
 var _currentPlaylistIndex = 0;
+var _postsByDate = {};
 
 function sortPostsByDate(posts) {
   var dates = {};
@@ -129,7 +130,8 @@ function _addPosts(rawPosts) {
   }
   //sort the posts into the song object
   //_songs = getSongList(_posts);
-  console.log("POSTS", _posts, "PLAYLIST", _playlist);
+  _postsByDate = orderPostsByDate(_playlist);
+  console.log("POSTS", _posts, "PLAYLIST", _playlist, "POSTSBYDATE", _postsByDate);
 
 }
 
@@ -137,14 +139,9 @@ function _addPost(rawPost) {
   console.log("ADDING POST", rawPost);
   var post = PostUtils.convertRawPost(rawPost);
   _current_new_post = post;
-  console.log("CURRENT NEW POST", _current_new_post, _posts);
-  //if(post.status == "approved")
-  if(_posts["dummy"]) {
-    delete _posts["dummy"];
-  }
-  
-  _posts[post.id] = post; //PostUtils.convertRawPost(rawPost);
-  //_songs = getSongList(_posts);
+  //console.log("CURRENT NEW POST", _current_new_post, _posts);
+  _posts[post.id] = post;
+  _postsByDate[post.date].push(post);
 }
 
 function _addLocalPost(rawPost){
@@ -152,7 +149,9 @@ function _addLocalPost(rawPost){
   var post = PostUtils.convertRawLocalPost(rawPost);
   _current_new_post = post;
   //if(post.status == "approved")
-  _posts["dummy"] = post; //PostUtils.convertRawPost(rawPost);
+  //_posts["dummy"] = post; //PostUtils.convertRawPost(rawPost);
+  _posts[post.id] = post;
+  _playlist.push(post);
   //_songs = getSongList(_posts);
 }
 
@@ -272,6 +271,21 @@ function updateAll(updates) {
   for (var id in _posts) {
     update(id, updates);
   }
+}
+
+function orderPostsByDate(postArr) {
+    var posts = postArr; 
+    var postsByDate = {};
+    posts.map( function(p) { 
+      if (postsByDate[p.date]) 
+        postsByDate[p.date].push(p); 
+      else {
+        postsByDate[p.date] = []; 
+        postsByDate[p.date].push(p);
+      }
+    });
+    //console.log("PBD OBJ", postsByDate, "POSTS", posts, "DATES");
+    return postsByDate;
 }
 
 var PostStore = assign({}, EventEmitter.prototype, {
@@ -445,18 +459,7 @@ var PostStore = assign({}, EventEmitter.prototype, {
   },
 
   getPostsByDate: function() {
-    var posts = _playlist; 
-    var postsByDate = {};
-    posts.map( function(p) { 
-      if (postsByDate[p.date]) 
-        postsByDate[p.date].push(p); 
-      else {
-        postsByDate[p.date] = []; 
-        postsByDate[p.date].push(p);
-      }
-    });
-    console.log("PBD OBJ", postsByDate, "POSTS", posts, "DATES");
-    return postsByDate;
+    return _postsByDate;
   }, 
 
 

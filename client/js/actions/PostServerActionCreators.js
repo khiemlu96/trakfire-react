@@ -45,7 +45,7 @@ module.exports = {
       actionType: PostConstants.RECIEVE_NEW_POST,
       response: response
     });
-    $(document).trigger("ReactComponent:PostFormLast:showTrackData"); 
+    //$(document).trigger("ReactComponent:PostFormLast:showTrackData"); 
   }, 
 
   recieveUserPosts: function(response) {
