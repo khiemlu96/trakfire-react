@@ -89,15 +89,6 @@ function toArray(obj) {
   return array.sort(compareCreatedAt);
 }
 
-function flatten(obj) {
-  var array = [];
-  var keys = Object.keys(obj);
-  for(var i = 0; i < keys.length; i++) {
-    array.push(obj[keys[i]]);
-  }
-  console.log("FLAT", array);
-}
-
 /* Takes in an object { key : [val] } returns an array */
 function concatObj(obj) {
   var keys = Object.keys(obj);
@@ -151,9 +142,11 @@ function _addPost(rawPost) {
   var post = PostUtils.convertRawPost(rawPost);
   _current_new_post = post;
   //console.log("CURRENT NEW POST", _current_new_post, _posts);
-  _posts[post.id] = post;
-  _postsByDate[post.date].push(post);
-  _playlist = concatObj(_postsByDate);
+  if(!_posts[post.id]) {
+    _posts[post.id] = post;
+    _postsByDate[post.date].push(post);
+    _playlist = concatObj(_postsByDate);
+  }
 }
 
 function _addLocalPost(rawPost){

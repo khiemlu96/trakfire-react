@@ -187,6 +187,6 @@ module.exports = {
     AppDispatcher.dispatch({
       actionType: UserConstants.RECIEVE_TOP_USERS,
       response: response
-    });   
+    }); 
   }
 };
