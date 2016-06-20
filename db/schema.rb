@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160524204502) do
+ActiveRecord::Schema.define(version: 20160617195431) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(version: 20160524204502) do
   create_table "comments", force: :cascade do |t|
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
-    t.integer  "post_id"
     t.integer  "parent_id"
+    t.integer  "post_id"
     t.integer  "user_id"
     t.string   "comment_detail"
   end
@@ -110,6 +110,8 @@ ActiveRecord::Schema.define(version: 20160524204502) do
     t.integer  "comment_count"
     t.string   "img_url_lg"
   end
+
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 
   create_table "songs", force: :cascade do |t|
     t.string   "stream_url"
@@ -183,12 +185,12 @@ ActiveRecord::Schema.define(version: 20160524204502) do
     t.boolean  "isAdmin"
     t.string   "handle"
     t.boolean  "canPost"
-    t.float    "score"
     t.boolean  "isVerified"
     t.string   "original_profile_img"
     t.boolean  "bot",                  default: false
     t.float    "score_weekly",         default: 0.0
     t.string   "password"
+    t.float    "score"
   end
 
   add_index "users", ["uid"], name: "index_users_on_uid", using: :btree

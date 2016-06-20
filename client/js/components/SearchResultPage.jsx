@@ -2,18 +2,18 @@
  * @class SearchResultPage
  *
  * @description This page shows all items of search result
- *  
+ *
 */
 
 var React = require('react');
 var Router = require('react-router');
 var Bootstrap = require('react-bootstrap');
 var ReactPropTypes = React.PropTypes;
-var Link = Router.Link; 
+var Link = Router.Link;
 var SearchBar = require('./SearchBar.jsx');
 var createBrowserHistory = require('history/lib/createBrowserHistory');
 var SearchItemContainer = require("./SearchItemContainer.jsx");
-var history = createBrowserHistory();
+//var history = createBrowserHistory();
 
 var searchResultStyle = {
     backgroundColor: '#161616',
@@ -42,7 +42,7 @@ var SearchResultPage = React.createClass({
     getInitialState: function() {
         console.log("indexName");
         var key = 'DEVA';
-        
+
         console.log(this.props.params.searchkey);
         return {
             searchkey: this.props.params.searchkey,
@@ -80,7 +80,7 @@ var SearchResultPage = React.createClass({
                                   '<b>{{vote_count}}</b>'+
                               '</span>'+
                             '</div>'+
-                            '<div class="col-md-5 tf-thumbnail tf-search-panel"  style="background-image: url(\'{{img_url}}\');"></div>' + 
+                            '<div class="col-md-5 tf-thumbnail tf-search-panel"  style="background-image: url(\'{{img_url}}\');"></div>' +
                             '<div class="col-md-7 tf-post-item--info">'+
                               '<h5 >{{{title}}} {{#stars}}<span class="ais-star-rating--star{{^.}}__empty{{/.}}"></span>{{/stars}}</h5>' +
                               '<p class="year">{{artist}}</p><p class="genre">{{#genre}}<span class="badge">{{.}}</span> {{/genre}}</p>' +
@@ -131,8 +131,8 @@ var SearchResultPage = React.createClass({
     },
 
 
-    render: function() {  
-        
+    render: function() {
+
         return (
             <div className="tf-search-page-container col-md-12" style={searchResultStyle}>
                 <div className="row search-text-container">
@@ -146,7 +146,7 @@ var SearchResultPage = React.createClass({
                     </div>
                 </div>
                 <div className="row col-md-12 tf-search-result-list">
-                    
+
                 </div>
             </div>
         );
