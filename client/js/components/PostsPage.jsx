@@ -84,7 +84,8 @@ var PostsPage = React.createClass({
               page: page_count,
               limit: 10
           };
-          // Load more post for next subsequent day         
+          // Load more post for next subsequent day  
+          console.log("DATUM", data);       
           PostActions.loadMorePosts(url, data);
           $(document).trigger("ReactComponent:PostsPage:renderLoader");
       }

@@ -84,7 +84,7 @@ var LeaderBoard = React.createClass({
     
   	var users = [];
     users = toArray(this.state.users);
-    console.log("USER LIST", users.sort(sortByScore));
+    //console.log("USER LIST", users.sort(sortByScore));
   	//[].sort.call(users, sortByScore)
   	var userItems = this.renderUserItems(users);
     return (

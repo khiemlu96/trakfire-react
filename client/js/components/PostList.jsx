@@ -344,7 +344,7 @@ var PostsList = React.createClass({
   loadMorePosts: function(event) {
     var testDate = new Date(event.currentTarget.id);
     var date = moment(testDate).format('MM/DD/YYYY');
-    
+    console.log("DATER", date)
     // get total count of posts for that day 
     // to get next subsequent post
     var count = postCountByDates[event.currentTarget.id];
@@ -445,7 +445,7 @@ var PostsList = React.createClass({
     var retVal = this.renderPosts();
     var _postListItems = retVal.postList;
     var firstSong = retVal.firstPost;
-    console.log(_postListItems, firstSong);
+    //console.log(_postListItems, firstSong);
     
     if(!_postListItems.length) {
       return (<div></div>);

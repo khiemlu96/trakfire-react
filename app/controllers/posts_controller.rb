@@ -5,6 +5,7 @@ class PostsController < ApplicationController
 	def index
 
 		if(params[:action_type] != 'admin_post_batch')
+			logger.info "WE IN THE INDEX BROTHER"
 			# get all dates 
 			@dates = []
 			# if date is set in the parameter then only select 10 posts
@@ -22,11 +23,11 @@ class PostsController < ApplicationController
 
 				# get dates of top 3 days			
 				if page_num == 0
-					offset = 0
+					@offset = 0
 					limit = 3
 				else
 					# get the next subsequent date for each scroll
-					offset = 2 + page_num.to_i
+					@offset = 2 + page_num.to_i
 					limit = 1
 				end
 
@@ -34,7 +35,7 @@ class PostsController < ApplicationController
 			     		FROM posts
 							GROUP BY created_at::date
 							ORDER BY created_at::date DESC 
-							OFFSET " + offset.to_s + " LIMIT " + limit.to_s
+							OFFSET " + @offset.to_s + " LIMIT " + limit.to_s
 
 				Post.find_by_sql(sql).each do |row|
 				  	@dates.push(row.created)
@@ -49,7 +50,7 @@ class PostsController < ApplicationController
 					@posts.push(post)
 				end
 			end	
-			@posts = Post.order(date: :desc, vote_count: :desc, created_at: :desc).limit(20)
+			@posts = Post.order(date: :desc, vote_count: :desc, created_at: :desc).offset(@offset).limit(20)
       		render json: @posts #, include: { tags:{}, votes:{}, comments:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :img_url_lg, :date, :created_at, :duration, :genre, :vote_count, :comment_count, :hot_score, :status] 
 		
 		else
@@ -59,7 +60,7 @@ class PostsController < ApplicationController
 
 			page = params[:page].to_i
 			page_count = params[:limit].to_i
-			@offset = (page - 1) * page_count;
+			@offset = (page) * page_count;
 
 			if ( params[:search_key] != nil )
 				@search_key = params[:search_key]
@@ -67,7 +68,7 @@ class PostsController < ApplicationController
 				page_count = @posts.size
 				total_count = Post.where("lower(title) like ?", ('%'+@search_key.downcase+'%')).distinct.count('id')
 			else
-				@posts = Post.order(created_at: :desc).ranking.offset(@offset).limit(@limit)
+				@posts = Post.order(date: :desc, vote_count: :desc, created_at: :desc).offset(@offset).limit(@limit)
 				page_count = @posts.size
 				total_count = Post.distinct.count('id')
 			end
