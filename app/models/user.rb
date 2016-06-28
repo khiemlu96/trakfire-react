@@ -65,7 +65,7 @@ class User < ActiveRecord::Base
   end
 
   def as_json(options={})
-    super( include: { votes: { except: [] } }, methods: ['upvotes', 'followers', 'followings', 'unread_notifications'] )
+    super( include: { votes: {} }, methods: ['upvotes', 'followers', 'followings', 'unread_notifications'] )
   end
 
   scope :ranking, -> { select('id, email, username, provider, uid, img, location, tbio, score, "isAdmin", handle, "isVerified"') }

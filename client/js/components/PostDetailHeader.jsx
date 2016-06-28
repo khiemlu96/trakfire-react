@@ -21,6 +21,7 @@ var playing = classNames("icon icon-controller-paus");
 var paused = classNames("icon icon-controller-play");
 var UserStore = require('../stores/UserStore.js');
 var UserActions = require('../actions/UserActions.js');
+var namespace = "PostDetailHeader::";
 
 function randomIntFromInterval(min,max) {
     return Math.floor(Math.random()*(max-min+1)+min);
@@ -67,7 +68,7 @@ var PostDetailHeader = React.createClass({
 
   renderVotes: function(post) {
     var votes = post.votes;
-
+    console.log(namespace+" votes ", votes);
     var voteHtml = [];
     for(key in votes) {
       if(votes[key].user){
@@ -76,15 +77,11 @@ var PostDetailHeader = React.createClass({
         /*<a className="tf-link" href={"/profile/" + votes[key].user.id} >
           <img className="tf-author-img" src={votes[key].user.img} />
         </a>*/
-        /*<Link to={'/profile/'+votes[key].user.id}> 
-          <UserFlyOver user = {votes[key].user} origin={this.props.origin} />
-        </Link>*/
-        
+      
         <Link to={'/profile/'+votes[key].user.id} className="tf-link">
             {/*onMouseEnter = {this.showFlyOver.bind(this, artist_id, votes[key].user)}*/}
             <img id = {artist_id} data-trigger = "hover" data-toggle = "popover" data-placement = "top" className='tf-author-img' src={ votes[key].user ? votes[key].user.img : "assets/img/trakfirefavicon.ico"}></img>
         </Link>
-
       );
       }                            
     }

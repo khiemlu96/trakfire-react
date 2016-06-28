@@ -417,7 +417,7 @@ module.exports = {
         success: function(resp) {
             console.log("SERVER RESPONSE", resp);
             PostServerActionCreators.getMorePostsByDate(resp);
-            $(document).trigger("ReactComponent:PostsPage:removeLoader");
+            //$(document).trigger("ReactComponent:PostsPage:removeLoader");
         },
         error: function(error) {
             console.error(url, error['response']);

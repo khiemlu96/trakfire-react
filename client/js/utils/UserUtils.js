@@ -2,7 +2,7 @@
 module.exports = {
 
   convertRawUser: function(rawUser) {
-    console.log('RAW USER ', rawUser);
+    //console.log('RAW USER ', rawUser);
     return {
       id: rawUser.id,
       name: rawUser.username,
@@ -28,7 +28,7 @@ module.exports = {
   }, 
 
   convertRawBotUser: function(rawBotUser) {
-    console.log("RAW BOT: ", rawBotUser);
+    //console.log("RAW BOT: ", rawBotUser);
     return {
       id: rawBotUser.id, 
       handle: rawBotUser.handle,
@@ -37,7 +37,7 @@ module.exports = {
   }, 
 
   getUpvotes: function(rawUpvotes) {
-      console.log("RAW UPVOTE ", rawUpvotes)
+      //console.log("RAW UPVOTE ", rawUpvotes)
       var upvotes = [];
       var post, author, vote;
       for(idx in rawUpvotes) {
@@ -50,7 +50,7 @@ module.exports = {
         post.author = author.handle;
         upvotes.push(post);
       }
-      console.log("UPVOTES CLEAN ", upvotes);
+      //console.log("UPVOTES CLEAN ", upvotes);
       return upvotes;
   }
 

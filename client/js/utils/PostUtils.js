@@ -4,7 +4,7 @@ var Rank = require('./rank.js');
 module.exports = {
 
   convertRawPost: function(rawPost) {
-    console.log("HOT SCORE", rawPost, rawPost.user);
+    console.log("PostVotes", rawPost.votes);
     return {
       id: rawPost.id,
       title: rawPost.title,
@@ -27,7 +27,7 @@ module.exports = {
       current: false,
       sortedIdx: -1,
       comments: (rawPost.comments !== undefined) ? rawPost.comments : rawPost.post_comments,
-      votes: (rawPost.post_votes !== undefined) ? rawPost.post_votes: rawPost.votes,
+      votes: (rawPost.post_votes !== undefined) ? rawPost.post_votes : rawPost.votes,
       user: rawPost.user,
       comment_count: rawPost.comment_count
     };
