@@ -260,7 +260,7 @@ class UsersController < ApplicationController
   end
 
   def top
-    @users = User.order(score: :desc, created_at: :desc).limit(10)
+    @users = User.order(score_weekly: :desc, created_at: :desc).limit(10)
     render json: @users
   end
   

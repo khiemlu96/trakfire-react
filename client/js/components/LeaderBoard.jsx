@@ -69,7 +69,7 @@ var LeaderBoard = React.createClass({
     var len = sortedUsers.length >= 10 ? 10 : sortedUsers.length;
   	for(var i = 0; i < len; i++) {
   		var u = sortedUsers[i];
-      if(u.score != 0){
+      if(u.score > 0){
   		  var uItem = <LeaderBoardItem user={u} origin={this.props.origin} currentUser={this.state.currentUser} showModal={this.props.showModal}/>
   		  leaderBoardItems.push(uItem);
       }
@@ -84,7 +84,7 @@ var LeaderBoard = React.createClass({
     
   	var users = [];
     users = toArray(this.state.users);
-    console.log("USER LIST", users.sort(sortByScore));
+    //console.log("USER LIST", users.sort(sortByScore));
   	//[].sort.call(users, sortByScore)
   	var userItems = this.renderUserItems(users);
     return (
