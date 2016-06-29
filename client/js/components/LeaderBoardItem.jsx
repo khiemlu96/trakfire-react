@@ -28,6 +28,7 @@ var FollowingButtonStyle = {
 var nodecor = {
   color: "#fff"
 }
+//var namespace = "LeaderBoardItem::";
 
 var LeaderBoardItem = React.createClass({
 
@@ -46,6 +47,7 @@ var LeaderBoardItem = React.createClass({
 
   componentDidMount: function() {
     UserStore.addChangeListener(this._onChange);
+    //console.log(namespace, this.props.currentUser, UserStore.getCurrentUser());
   },
 
   componentWillMount: function() {}, 

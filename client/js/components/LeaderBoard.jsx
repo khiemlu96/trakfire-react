@@ -16,6 +16,7 @@ var Link = require('react-router').Link;
 var classNames = require('classnames');
 var UserFlyOver = require('./UserFlyOver.jsx');
 var LeaderBoardItem = require('./LeaderBoardItem.jsx');
+//var namespace = "LeaderBoard::";
 
 function getComponentState() {
   return {
@@ -59,12 +60,13 @@ var LeaderBoard = React.createClass({
   getInitialState: function() { return getComponentState(); }, 
 
   componentDidMount: function() {
-  	console.log(this.state.users);
+  	//console.log(this.state.users);
   	UserStore.addChangeListener(this._onChange);
   	UserActions.getTopUsers(this.props.origin+'/top', {limit:10, offset:0});
   },
 
   renderUserItems: function(sortedUsers) {
+    //console.log(namespace, sortedUsers);
   	var leaderBoardItems = [];
     var len = sortedUsers.length >= 10 ? 10 : sortedUsers.length;
   	for(var i = 0; i < len; i++) {

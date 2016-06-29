@@ -106,7 +106,8 @@ var PostListItem = React.createClass({
     });
 
     $("#tf-post-"+this.props.post.id).find(".admin").click( function(e) {
-        console.log("IN ADMIN");
+      //$(".admin").click(function){
+        //console.log("IN ADMIN");
         e.stopPropagation();
         e.preventDefault();
         //console.log("TARGET", e.target);
@@ -155,7 +156,10 @@ var PostListItem = React.createClass({
       "artist" : post.artist,
       "vote count" : post.vote_count
     });
-    if(this.props.isLoggedIn && !this.hasUpvoted(this.props.post)){
+    if(UserStore.isAdmin()) {
+      this.setState({ showPopover: !this.state.showPopover });
+    }
+    else if(this.props.isLoggedIn && !this.hasUpvoted(this.props.post)){
       this.props.onUpvote(this.props.post.id);
       var count = this.refs.count.getDOMNode();
       var u = this.refs.upvotebtn.getDOMNode();
@@ -252,7 +256,7 @@ var PostListItem = React.createClass({
     if(isAdmin) {
       console.log("RENDER VOTE BUTTON");
       var voteButton = (
-             <a className = "admin">
+             <a className = "admin" onClick = { function(e) { console.log("hiiii") } }>
                 <span className={ !upvoted ? notUpvoted : isUpvoted } ref="upvotebtn"> 
             </span>
             </a>);
