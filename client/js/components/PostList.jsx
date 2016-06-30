@@ -109,7 +109,8 @@ function getComponentState() {
     postsByDate: PostStore.getPostsByDate(),
     sortedPosts : PostStore.getSortedPosts(), 
     getCurrentSong : PostStore.getCurrentSong(),
-    carousal_images : UserStore.getAdminCarousalFiles()
+    carousal_images : UserStore.getAdminCarousalFiles(), 
+    botUsers : UserStore.getBotUsers()
   };
 }
 
@@ -230,6 +231,7 @@ var PostsList = React.createClass({
     //this.props.setSongList(this.state.posts);
     PostStore.addChangeListener(this._onChange);
     UserStore.addChangeListener(this._onChange);
+    UserActions.getBotUsers(this.props.origin + '/bots');
     //this.setParentState();
   },
 
@@ -426,7 +428,8 @@ var PostsList = React.createClass({
                         number={j}
                         showNumber={true}
                         showAuthor={true}
-                        changeIcons={this.updateIcons}/>
+                        changeIcons={this.updateIcons}
+                        bot_users={this.state.botUsers}/>
 
         if(idx == 1) { firstPost = post; }
         postList.push(item);

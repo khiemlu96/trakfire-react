@@ -60,7 +60,7 @@ var LeaderBoard = React.createClass({
   getInitialState: function() { return getComponentState(); }, 
 
   componentDidMount: function() {
-  	//console.log(this.state.users);
+  	console.log("LB MOUNTED");
   	UserStore.addChangeListener(this._onChange);
   	UserActions.getTopUsers(this.props.origin+'/top', {limit:10, offset:0});
   },

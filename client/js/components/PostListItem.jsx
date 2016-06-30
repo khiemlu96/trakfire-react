@@ -79,8 +79,8 @@ var PostListItem = React.createClass({
     $(document).on("ReactComponent:PostListItem:handlePlayPauseClick", this.updatePlayPauseState);
     $(document).on("ReactComponent:PostListItem:followClick", this.followClick);
     //$(document).on("ReactComponent:PostListItem:showFlyOver", this.showFlyOver);
-    UserStore.addChangeListener(this._onChange);
-    UserActions.getBotUsers(this.props.origin + '/bots');
+    //UserStore.addChangeListener(this._onChange);
+    //UserActions.getBotUsers(this.props.origin + '/bots');
     //console.log("AM I AN ADMIN", UserStore.isAdmin())
     /*$(".followUser").on('click', function(event){
         alert("The paragraph was clicked.");
@@ -218,7 +218,7 @@ var PostListItem = React.createClass({
   renderAdminVoteList: function() {
     var self = this;
     var currentUser = UserStore.getCurrentUser();
-    var bots = this.state.bots;
+    var bots = this.props.bot_users;
     var botItems = [];
     var item = ( <div className="checkbox">
                     <label>
