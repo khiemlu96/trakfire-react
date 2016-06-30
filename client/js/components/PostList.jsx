@@ -330,7 +330,7 @@ var PostsList = React.createClass({
   },
 
   hasUpvoted: function(post, userid) {
-      console.log("has this user upvoted?", post, userid, post.votes);
+      //console.log("has this user upvoted?", post, userid, post.votes);
 
       if(post.author_id == userid) {
         return true;
@@ -344,7 +344,7 @@ var PostsList = React.createClass({
   loadMorePosts: function(event) {
     var testDate = new Date(event.currentTarget.id);
     var date = moment(testDate).format('MM/DD/YYYY');
-    console.log("DATER", date)
+    //console.log("DATER", date)
     // get total count of posts for that day 
     // to get next subsequent post
     var count = postCountByDates[event.currentTarget.id];

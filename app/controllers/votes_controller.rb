@@ -84,11 +84,7 @@ class VotesController < ApplicationController
 	  data['post_id'] = post_to_vote
 	  votes = []
 	  bots_to_vote.each do |bot|
-	  	if bot == "me"
-	  	  user = @current_user
-	  	else
-	  	  user = User.where(handle: bot).first
-	  	end
+	  	 user = User.where(handle: bot).first
 	  	 votes.push(create_vote(user.id, post_to_vote))
 	  end
 	  data['votes'] = votes

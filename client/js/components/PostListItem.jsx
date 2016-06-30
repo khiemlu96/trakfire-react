@@ -223,7 +223,7 @@ var PostListItem = React.createClass({
     var botItems = [];
     var item = ( <div className="checkbox">
                     <label>
-                      <input type="checkbox" value="me" className="chkbx"> Myself </input>
+                      <input type="checkbox" value={currentUser.handle} className="chkbx"> currentUser.name </input>
                     </label>
                   </div>);
     botItems.push(item);
