@@ -67,7 +67,7 @@ var PostDetailHeader = React.createClass({
   }, 
 
   renderVotes: function(post) {
-    var votes = post.votes;
+    var votes = post.votes_data;
     console.log(namespace+" votes ", votes);
     var voteHtml = [];
     for(key in votes) {
