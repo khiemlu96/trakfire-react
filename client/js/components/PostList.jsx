@@ -482,7 +482,7 @@ var PostsList = React.createClass({
       <div className="container p-t-md" style={postListStyle}>
         <div className="row">
           <div className="col-md-8">
-            <FilterBar onClick={this.props.filterPosts} genre={this.props.genre} sort={this.props.sort}/>
+            {/*<FilterBar onClick={this.props.filterPosts} genre={this.props.genre} sort={this.props.sort}/>*/}
             <ul className="media-list">{_postListItems}</ul>
           </div>
           <div className="col-md-4">
