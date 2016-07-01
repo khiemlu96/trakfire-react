@@ -90,6 +90,7 @@ var TrakfirePlayer = React.createClass({
     },  
 
     hasUpvoted: function(post) {
+        if(!post.votes) { return false; }
         if(this.props.isLoggedIn){
           //console.log("POST TO UPVOTE", post);
           if(this.props.userId != -1)
@@ -130,6 +131,7 @@ var TrakfirePlayer = React.createClass({
     },
 
 	render: function(){
+
         var currTrack = this.props.currTrack;
         var upvoted = this.hasUpvoted(currTrack);
         var play = <a className="tf-player-play" href="#!" onClick={this.handlePlayPauseClick}></a>;
