@@ -181,10 +181,25 @@ function _addVoteToPost(post_id, vote) {
     _singlePost.voters.push(vote.user_id);
     _singlePost.vote_count += 1;
   } else {
-    _posts[post_id].votes.push(vote);
-    _posts[post_id].voters.push(vote.user_id);
-    _posts[post_id].vote_count += 1;
+    var post = findPostById(post_id);
+    if(post > -1) {
+      _playlist[post].votes.push(vote);
+      _playlist[post].voters.push(vote.user_id);
+      _playlist[post].vote_count += 1;
+    }
+    //_posts[post_id].votes.push(vote);
+    //_posts[post_id].voters.push(vote.user_id);
+    //_posts[post_id].vote_count += 1;
   }
+}
+
+function findPostById(post_id) {
+  for(var i = 0; i < _playlist.length; i++) {
+    if(_playlist[i].id == post_id) {
+      return i;
+    }
+  }
+  return -1;
 }
 
 function _addVotesToPost(post_id, votes) {
