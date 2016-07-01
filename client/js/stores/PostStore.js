@@ -182,14 +182,12 @@ function _addVoteToPost(post_id, vote) {
     _singlePost.vote_count += 1;
   } else {
     var post = findPostById(post_id);
-    if(post > -1) {
+    console.log("post idx", post, _playlist[post].voters.indexOf(vote.user_id), _playlist[post])
+    if(post > -1 && _playlist[post].voters.indexOf(vote.user_id) == -1) {
       _playlist[post].votes.push(vote);
       _playlist[post].voters.push(vote.user_id);
       _playlist[post].vote_count += 1;
     }
-    //_posts[post_id].votes.push(vote);
-    //_posts[post_id].voters.push(vote.user_id);
-    //_posts[post_id].vote_count += 1;
   }
 }
 

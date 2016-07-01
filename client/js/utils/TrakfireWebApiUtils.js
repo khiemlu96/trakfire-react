@@ -171,7 +171,7 @@ module.exports = {
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         newVotes = resp;
-        UserServerActionCreators.recieveNewVote(newVotes); 
+        PostServerActionCreators.recieveNewVote(newVotes); 
       },
       error: function(error) {
         console.error(url, error['response']);
