@@ -234,11 +234,12 @@ function addBotUsers(data) {
 function addTopUsers(data) {
   if(data) {
     var users = data;
+    _leaderboard = [];
     users.forEach(function(user){
       _leaderboard.push(UserUtils.convertRawUser(user));
     });
   }
-  console.log(users);
+  //console.log("top users", _leaderboard);
 }
 
 var UserStore = assign({}, EventEmitter.prototype, {

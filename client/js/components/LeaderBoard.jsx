@@ -68,14 +68,22 @@ var LeaderBoard = React.createClass({
   renderUserItems: function(sortedUsers) {
     //console.log(namespace, sortedUsers);
   	var leaderBoardItems = [];
-    var len = sortedUsers.length >= 10 ? 10 : sortedUsers.length;
+    if(sortedUsers.length >= 5) {
+      var len = 5;
+    } else {
+      var len = sortedUsers.length;
+    }
+    //var len = (sortedUsers.length >= 5) ? 5 : sortedUsers.length;
+    //console.log("LEN",len, sortedUsers)
   	for(var i = 0; i < len; i++) {
+      console.log(i, sortedUsers[i]);
   		var u = sortedUsers[i];
       if(u.score > 0){
   		  var uItem = <LeaderBoardItem user={u} origin={this.props.origin} currentUser={this.state.currentUser} showModal={this.props.showModal}/>
   		  leaderBoardItems.push(uItem);
       }
   	}
+    console.log(leaderBoardItems.length)
   	return leaderBoardItems;
   }, 
 
@@ -86,7 +94,7 @@ var LeaderBoard = React.createClass({
     
   	var users = [];
     users = toArray(this.state.users);
-    //console.log("USER LIST", users.sort(sortByScore));
+    console.log("USER LIST", users, this.state.users);
   	//[].sort.call(users, sortByScore)
   	var userItems = this.renderUserItems(users);
     return (
