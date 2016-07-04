@@ -22,6 +22,12 @@ var JobBoard = React.createClass({
         
         <br></br>
         
+        <h4>Def Jam Records</h4>
+        <p>A&R Intern / LA / Fall 2016</p>
+        <p>A&R Intern / LA / Spring 2017</p>
+        
+        <br></br>
+        
         <h4>C3 MGMT</h4>
         <p>Artist Management Intern / LA / Fall 2016</p>
         <p>Artist Management Intern / NYC / Fall 2016</p>
