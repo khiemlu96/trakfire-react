@@ -11,8 +11,8 @@ var imageUrlArray = [
   "https://pbs.twimg.com/profile_images/654132152108380160/NboKGPdi.jpg", /* grant */
   "https://pbs.twimg.com/profile_images/731728302679937025/-ckljE8x.jpg", /* arjun */
   "https://pbs.twimg.com/profile_images/739238139496013824/Di4Xv3Kl.jpg", /* drew osherow */
-  "https://pbs.twimg.com/profile_images/705799608664854528/8lyscTUc.jpg", /* dj skee */
-  "https://pbs.twimg.com/profile_images/711211307769450497/uXetn-Rd.jpg", /* bernard bennett-green */
+  "https://pbs.twimg.com/profile_images/746855445470445568/vAr7Idcj.jpg", /* dj skee */
+  "https://pbs.twimg.com/profile_images/750070559933734913/8FODhY8k.jpg", /* bernard bennett-green */
   "https://pbs.twimg.com/profile_images/562454001241694209/bVnKVGt1.jpeg", /* ross lindly */
   "https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/10665049_1704769563093633_2815334745558746761_n.jpg?oh=ecd5e93aa7eca1a350d82950e0c84e63&oe=57D42A56", /* joey masso */
   "https://pbs.twimg.com/profile_images/378800000051286778/1584e2c1f9aede7654f278e6cbb985b2.jpeg", /* nick dela cruz */
@@ -25,10 +25,10 @@ var imageUrlArray = [
   "https://pbs.twimg.com/profile_images/646770209437564928/YRVfrN3b.jpg", /* nate stranzl */
   "https://pbs.twimg.com/profile_images/626091726088765440/IPc3BNuT.jpg", /* caitlin harriford */
   "https://pbs.twimg.com/profile_images/694679759599439872/E5XyfE4O.jpg", /* danny cagan */
-  "https://pbs.twimg.com/profile_images/649438766713573376/Wy8jaAQT.jpg", /* nneoma akubuilo */
+  "https://pbs.twimg.com/profile_images/745145732257058816/c201V1re.jpg", /* nneoma akubuilo */
   "https://pbs.twimg.com/profile_images/726807586541023232/k2xsiF_n.jpg", /* zach cohan */
   "https://pbs.twimg.com/profile_images/596466463780667393/AKmLhSDB.jpg", /* larry love */
-  "https://pbs.twimg.com/profile_images/595800738967748608/IZXMdQ8x.jpg", /* akash chandani */
+  "https://pbs.twimg.com/profile_images/745171818617544704/zpMkzLTF.jpg", /* akash chandani */
   "https://pbs.twimg.com/profile_images/741335820347396096/VQX_C8Gm.jpg", /* brandon canada */
   "https://pbs.twimg.com/profile_images/622538564002164736/BFau3E6h.jpg", /* ben taft */
   "https://pbs.twimg.com/profile_images/551066724770934785/KdJr5kRS.jpeg", /* matt stern */
@@ -39,7 +39,12 @@ var imageUrlArray = [
   "http://i.imgur.com/cuIHAnz.jpg", /* shaun morris */
   "http://i.imgur.com/7NOtkC6.jpg", /* ethan watts */
   "http://i.imgur.com/nHwPdS0.jpg", /* gordon moore */
-  "https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/13237834_10153904305891130_1972298033652733490_n.jpg?oh=57e1a96184dcf20d738982bff89ef998&oe=57C5551A" /* john fiorentino */
+  "https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/13237834_10153904305891130_1972298033652733490_n.jpg?oh=57e1a96184dcf20d738982bff89ef998&oe=57C5551A", /* john fiorentino */
+  "https://pbs.twimg.com/profile_images/745081071780372480/SXAfBUP8.jpg", /* myles poston */
+  "https://pbs.twimg.com/profile_images/515125794461720576/f9lH4ZmA.jpeg", /* gianni harrell */
+  "https://pbs.twimg.com/profile_images/741335820347396096/VQX_C8Gm.jpg", /* brandon canada */
+  "https://pbs.twimg.com/profile_images/749613761493737472/MPYKXl31.jpg", /* kalisha */
+  "https://scontent.xx.fbcdn.net/v/t1.0-9/10513277_10204097366212105_5368794493219795706_n.jpg?oh=e8469e295b9016676c81863aaceeef4b&oe=57FFC207" /* kimari jones */
 ];
 
 function toArray(obj) {
