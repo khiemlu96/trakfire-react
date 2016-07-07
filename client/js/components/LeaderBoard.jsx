@@ -60,7 +60,7 @@ var LeaderBoard = React.createClass({
   getInitialState: function() { return getComponentState(); }, 
 
   componentDidMount: function() {
-  	console.log("LB MOUNTED");
+  	//console.log("LB MOUNTED");
   	UserStore.addChangeListener(this._onChange);
   	UserActions.getTopUsers(this.props.origin+'/top', {limit:10, offset:0});
   },
@@ -68,22 +68,20 @@ var LeaderBoard = React.createClass({
   renderUserItems: function(sortedUsers) {
     //console.log(namespace, sortedUsers);
   	var leaderBoardItems = [];
-    if(sortedUsers.length >= 5) {
-      var len = 5;
+    if(sortedUsers.length >= 10) {
+      var len = 10;
     } else {
       var len = sortedUsers.length;
     }
-    //var len = (sortedUsers.length >= 5) ? 5 : sortedUsers.length;
-    //console.log("LEN",len, sortedUsers)
   	for(var i = 0; i < len; i++) {
-      console.log(i, sortedUsers[i]);
+      //console.log(i, sortedUsers[i]);
   		var u = sortedUsers[i];
       if(u.score > 0){
   		  var uItem = <LeaderBoardItem user={u} origin={this.props.origin} currentUser={this.state.currentUser} showModal={this.props.showModal}/>
   		  leaderBoardItems.push(uItem);
       }
   	}
-    console.log(leaderBoardItems.length)
+    //console.log(leaderBoardItems.length)
   	return leaderBoardItems;
   }, 
 

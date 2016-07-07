@@ -8,6 +8,8 @@ var SoundCloudAudio = require('soundcloud-audio');
 var UserActions = require('../actions/UserActions');
 
 var sc = require('soundcloud');
+var resolve_sc = require('soundcloud-resolve-jsonp');
+
 var _submit = false;
 var _data = {};
 var _didLoadData = false;
@@ -92,6 +94,8 @@ var PostFormFirst = React.createClass({
     	var img = this.refs.img_field.getDOMNode();
       console.log(img.src);
       var resolved = false;
+
+
       sc.resolve(url).then(function(track){
           console.log("RECIEVED DATA FOR: ", track);
           title.value = track.title;

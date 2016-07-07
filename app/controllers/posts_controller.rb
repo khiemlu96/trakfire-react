@@ -114,9 +114,9 @@ class PostsController < ApplicationController
 
 	  	#tweet
 	  	twt_user = User.find(@post.user_id)
-	  	#if !twt_user.bot && 
-	  	  #twitter_update(@post.title, twt_user.handle, twt_user.username, @post.artist, @post.id)
-	  	#end
+	  	if !twt_user.bot && 
+	  	  twitter_update(@post.title, twt_user.handle, twt_user.username, @post.artist, @post.id, @post.url)
+	  	end
 
 	  	#create a vote 
 	  	@vote = Vote.new()
@@ -223,7 +223,7 @@ class PostsController < ApplicationController
     	params.require(:post).permit(:url, :user_id, :img_url, :img_url_lg, :stream_url, :status, :waveform_url, :artist, :title, :duration, :genre, :votes, :vote_count, :all_tags, :action_type, :comment_count, :search_key)
   	  end
 
-	  def twitter_update(post_title, post_author_handle, post_author_name, post_artist, post_id)
+	  def twitter_update(post_title, post_author_handle, post_author_name, post_artist, post_id, post_url)
 
 	    client = Twitter::REST::Client.new do |config|
 	      config.consumer_key        = "48GBcAKIbwwiV1VQlH7YzzMGw"
@@ -232,7 +232,7 @@ class PostsController < ApplicationController
 	      config.access_token_secret = "kxClgQI5TADYIrmehbFANER8yFf9CAsmLQkKNaB4LSFl1"
 	    end
 	    hash_tag_artist = '#'+post_artist.gsub(/\s+/, "")
-	    message = "new heat on the site: #{post_title} by #{hash_tag_artist}\nfound by @#{post_author_handle} \ntune in @ trakfire.com/post/#{post_id}"
+	    message = "new heat on the site: #{post_title} by #{hash_tag_artist}\nfound by @#{post_author_handle} \n #{post_url}"
 	    client.update(message)
 	  end 
 end
