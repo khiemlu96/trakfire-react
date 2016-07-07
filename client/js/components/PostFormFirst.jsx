@@ -8,7 +8,7 @@ var SoundCloudAudio = require('soundcloud-audio');
 var UserActions = require('../actions/UserActions');
 
 var sc = require('soundcloud');
-var resolve_sc = require('soundcloud-resolve-jsonp');
+//var resolve_sc = require('soundcloud-resolve-jsonp');
 
 var _submit = false;
 var _data = {};
@@ -129,6 +129,7 @@ var PostFormFirst = React.createClass({
             component.props.showGrowl("Soundcloud has restricted this song. \n THEY DON'T WANT YOU TO POST THE HEAT.");
           }
         });
+
       this.rmLoading();
       this.dataDidLoad();
     } else {

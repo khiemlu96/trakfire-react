@@ -6,6 +6,7 @@ class PostsController < ApplicationController
 
 		if(params[:action_type] != 'admin_post_batch')
 			logger.info "WE IN THE INDEX BROTHER"
+			logger.info params[:limit]
 			# get all dates 
 			@dates = []
 			# if date is set in the parameter then only select 10 posts
@@ -18,24 +19,31 @@ class PostsController < ApplicationController
 				@offset = params[:offset]
 			else
 				# get posts for next subsequent day if date is not set
-				@offset = 0
+				@offset = params[:offset]
 				page_num = params[:page] ? params[:page] : 0
 
 				# get dates of top 3 days			
-				if page_num == 0
-					@offset = 0
-					limit = 3
-				else
+				#if page_num == 0
+					#@offset = params[:offset] #@offset = 0
+					#@limit = params[:limit] #limit = 3
+				#else
 					# get the next subsequent date for each scroll
-					@offset = 2 + page_num.to_i
-					limit = 1
+					#@offset = params[:offset] #@offset = 2 + page_num.to_i
+					#@limit = params[:limit] #limit = 1
+				#end
+				if !params[:limit]
+				  @limit = 15
+				  @offset = 0
+				else
+				  @limit = params[:limit]
+				  @offset = params[:offset]
 				end
 
 			  	sql = "	SELECT created_at::date as created
 			     		FROM posts
 							GROUP BY created_at::date
 							ORDER BY created_at::date DESC 
-							OFFSET " + @offset.to_s + " LIMIT " + limit.to_s
+							OFFSET " + @offset.to_s + " LIMIT " + @limit.to_s
 
 				Post.find_by_sql(sql).each do |row|
 				  	@dates.push(row.created)
@@ -45,12 +53,15 @@ class PostsController < ApplicationController
 			@posts = []
 			@dates.each do |date|
 				#select only 10 posts on each days or selected date
-				posts = Post.where(["created_at::date = ?", date]).order(created_at: :desc, vote_count: :desc).offset(@offset).limit(10)
+				posts = Post.where(["created_at::date = ?", date]).order(created_at: :desc, vote_count: :desc).offset(@offset).limit(@limit)
 				posts.each do |post|				
 					@posts.push(post)
 				end
 			end	
-			@posts = Post.order(date: :desc, vote_count: :desc, created_at: :desc).offset(@offset).limit(20)
+			@posts = Post.order(date: :desc, vote_count: :desc, created_at: :desc).offset(@offset).limit(@limit)
+			logger.info "YOOOOOOOO: "
+			logger.info @posts.count
+			logger.info @offset
       		render json: @posts #, include: { tags:{}, votes:{}, comments:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :img_url_lg, :date, :created_at, :duration, :genre, :vote_count, :comment_count, :hot_score, :status] 
 		
 		else
@@ -59,7 +70,7 @@ class PostsController < ApplicationController
 			@limit = params[:limit].to_i
 
 			page = params[:page].to_i
-			page_count = params[:limit].to_i
+			page_count = params[:page_count].to_i
 			@offset = (page) * page_count;
 
 			if ( params[:search_key] != nil )
@@ -89,7 +100,8 @@ class PostsController < ApplicationController
 				posts: @posts,
 				state: @state
 			}
-
+			logger.info "YOOOOOOOO: "
+			logger.info @posts.count
 			render json: @data, include: {user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }
 		end	  	
 	end
