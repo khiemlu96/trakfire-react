@@ -7,6 +7,40 @@ var CommunityGridItem = require('./CommunityGridItem.jsx');
 var UserStore = require('../stores/UserStore.js');
 var UserActions = require('../actions/UserActions.js');
 
+var imgToUser = {
+  "https://pbs.twimg.com/profile_images/654132152108380160/NboKGPdi.jpg" : ["vibegordon", "Grant Collins"],
+  "https://pbs.twimg.com/profile_images/731728302679937025/-ckljE8x.jpg": ["arjunkmehta", "Arjun Mehta"],
+  "https://pbs.twimg.com/profile_images/739238139496013824/Di4Xv3Kl.jpg": ["dosherow23", "Drew Osherow"],
+  "https://pbs.twimg.com/profile_images/746855445470445568/vAr7Idcj.jpg": ["djskee", "DJ SKEE"],
+  "https://pbs.twimg.com/profile_images/750911648756486144/wRWq7xJZ.jpg": ["watchbbg", "Bernard Bennett-Green"],
+  "https://pbs.twimg.com/profile_images/562454001241694209/bVnKVGt1.jpeg": ["Ross_Lindly", "Ross Lindly"],
+  "https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/10665049_1704769563093633_2815334745558746761_n.jpg?oh=ecd5e93aa7eca1a350d82950e0c84e63&oe=57D42A56": ["_jmace", "Joey Masso"],
+  "https://pbs.twimg.com/profile_images/378800000051286778/1584e2c1f9aede7654f278e6cbb985b2.jpeg": ["cruzcontrol5", "Nick De La Cruz"],
+  "https://pbs.twimg.com/profile_images/739154832540340225/oq3T--as.jpg": ["Clo4Sho", "Chloe Heavey"],
+  "https://pbs.twimg.com/profile_images/616016098270404608/6WYwLSB6.jpg": ["nicholasstillwell", "Nick Stillwell"],
+  "https://pbs.twimg.com/profile_images/665453087688028160/bi972SBS_400x400.jpg": ["stefenchra", "Stephen Chraghchian"],
+  "https://scontent-dfw1-1.xx.fbcdn.net/t31.0-8/12239385_10154273458899338_434860998774886403_o.jpg": [" aleclykken ", "Alec Lykken"],
+  "https://pbs.twimg.com/profile_images/662108755731963904/Rqb7h7fI.jpg": ["TheReal_Helena", "Helena Yohannes"],
+  "https://pbs.twimg.com/profile_images/1619174303/30388_534773737690_70902851_31598692_2588092_n.jpg": ["_noahEP", "Noah Preston"],
+  "https://pbs.twimg.com/profile_images/646770209437564928/YRVfrN3b.jpg": ["stranzzz", "Nate Stranzl"],
+  "https://pbs.twimg.com/profile_images/626091726088765440/IPc3BNuT.jpg": ["iamcaitlinh", "Caitlin Harriford"],
+  "https://pbs.twimg.com/profile_images/694679759599439872/E5XyfE4O.jpg": ["dannycagan", "Danny Cagan"],
+  "https://pbs.twimg.com/profile_images/745145732257058816/c201V1re.jpg": ["TJD_Nneoma", "Nneoma Akubuilo"],
+  "https://pbs.twimg.com/profile_images/726807586541023232/k2xsiF_n.jpg": ["ZachCohan", "Zach Cohan"],
+  "https://pbs.twimg.com/profile_images/596466463780667393/AKmLhSDB.jpg": ["LarryLoveWB", "Larry Love"],
+  "https://pbs.twimg.com/profile_images/745171818617544704/zpMkzLTF.jpg": ["luvkushmusic", "Akash Chandani"],
+  "https://pbs.twimg.com/profile_images/741335820347396096/VQX_C8Gm.jpg": ["realtripcarter", "Brandon Canada"],
+  "https://pbs.twimg.com/profile_images/622538564002164736/BFau3E6h.jpg": ["filthytaft", "Ben Taft"],
+  "https://pbs.twimg.com/profile_images/551066724770934785/KdJr5kRS.jpeg": ["DJSterntables", "Matt Stren"],
+  "https://pbs.twimg.com/profile_images/659635680838967296/u0TFZbvv.jpg": ["andymthai", "Andy Thai"],
+  "https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/10256896_808015762543848_6524139530942005204_n.jpg?oh=6c9d2d3628abb07ebdd7e18140931269&oe=57CA4796": ["pricesh74", "Spencer Price"],
+  "https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/13237834_10153904305891130_1972298033652733490_n.jpg?oh=57e1a96184dcf20d738982bff89ef998&oe=57C5551A": ["johnnyfio", "John Fiorentino"],
+  "https://pbs.twimg.com/profile_images/656678975415042048/o_NCQdCp.jpg": ["DionteGoodlett", "Dionte Goodlett"],
+  "https://pbs.twimg.com/profile_images/515125794461720576/f9lH4ZmA.jpeg": ["GianniHarrell", "Gianni Harrell"],
+  "https://pbs.twimg.com/profile_images/749613761493737472/MPYKXl31.jpg": ["kalishaxoxo", "Kalisha Perera"],
+  "https://scontent.xx.fbcdn.net/v/t1.0-9/10513277_10204097366212105_5368794493219795706_n.jpg?oh=e8469e295b9016676c81863aaceeef4b&oe=57FFC207": ["imnaughtfunny", "Kimari Jones"]
+};
+
 var imageUrlArray = [
   "https://pbs.twimg.com/profile_images/654132152108380160/NboKGPdi.jpg", /* grant */
   "https://pbs.twimg.com/profile_images/731728302679937025/-ckljE8x.jpg", /* arjun */
@@ -34,16 +68,9 @@ var imageUrlArray = [
   "https://pbs.twimg.com/profile_images/551066724770934785/KdJr5kRS.jpeg", /* matt stern */
   "https://pbs.twimg.com/profile_images/659635680838967296/u0TFZbvv.jpg", /* andy thai */
   "https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/10256896_808015762543848_6524139530942005204_n.jpg?oh=6c9d2d3628abb07ebdd7e18140931269&oe=57CA4796", /* spencer price */
-  "http://i.imgur.com/VswZaI3.png", /* alex griffin */
-  "http://i.imgur.com/VbCclTU.png", /* kevin cortez */
-  "http://i.imgur.com/cuIHAnz.jpg", /* shaun morris */
-  "http://i.imgur.com/7NOtkC6.jpg", /* ethan watts */
-  "http://i.imgur.com/nHwPdS0.jpg", /* gordon moore */
   "https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/13237834_10153904305891130_1972298033652733490_n.jpg?oh=57e1a96184dcf20d738982bff89ef998&oe=57C5551A", /* john fiorentino */
-  /* "https://pbs.twimg.com/profile_images/745081071780372480/SXAfBUP8.jpg", myles poston */
   "https://pbs.twimg.com/profile_images/656678975415042048/o_NCQdCp.jpg", /* dionte goodlett */
   "https://pbs.twimg.com/profile_images/515125794461720576/f9lH4ZmA.jpeg", /* gianni harrell */
-  "https://pbs.twimg.com/profile_images/741335820347396096/VQX_C8Gm.jpg", /* brandon canada */
   "https://pbs.twimg.com/profile_images/749613761493737472/MPYKXl31.jpg", /* kalisha */
   "https://scontent.xx.fbcdn.net/v/t1.0-9/10513277_10204097366212105_5368794493219795706_n.jpg?oh=e8469e295b9016676c81863aaceeef4b&oe=57FFC207" /* kimari jones */
 ];
@@ -97,7 +124,14 @@ var CommunityGrid = React.createClass({
     var chunks = chunkify(imageUrlArray, Math.floor(imageUrlArray.length/6));
     console.log("chunks", chunks, chunks.length);
     for(var i = 0; i < chunks.length; i++) {
-      var jsx = chunks[i].map(function(url, idx) { return <CommunityGridItem imgUrl={url}/> });
+      var jsx = chunks[i].map(function(url, idx) { 
+        var info = imgToUser[url];
+        var handle = info[0];
+        var name = info[1];
+        var twturl = "https://twitter.com/"+handle
+        console.log("COMMUNITY GRID:: ", twturl, name);
+        return <CommunityGridItem imgUrl={url} href={twturl} name={name}/> 
+      });
       communityGrid.push(jsx);
     }
     console.log("COMMUNITY GRID", communityGrid);

@@ -31,6 +31,7 @@ class PostsController < ApplicationController
 					#@offset = params[:offset] #@offset = 2 + page_num.to_i
 					#@limit = params[:limit] #limit = 1
 				#end
+				
 				if !params[:limit]
 				  @limit = 15
 				  @offset = 0
