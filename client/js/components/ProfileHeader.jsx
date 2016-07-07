@@ -9,7 +9,7 @@
 
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
-var ProfileBar = require('./ProfileBar.jsx'); 
+var ProfileBar = require('./ProfileBar.jsx');
 var UserActions = require('../actions/UserActions.js');
 var UserStore = require('../stores/UserStore.js');
 var styleDisplay = {
@@ -40,7 +40,7 @@ var ProfileHeader = React.createClass({
         currUser: ReactPropTypes.object,
         isUserVerified: ReactPropTypes.bool,
         user_follow_count: ReactPropTypes.number,
-        user_following_count: ReactPropTypes.number, 
+        user_following_count: ReactPropTypes.number,
         showModal: ReactPropTypes.func
     },
 
@@ -64,9 +64,9 @@ var ProfileHeader = React.createClass({
             if(this.state.isFollowing === true) {
                 this.props.onUnFollowClick();
             } else {
-                this.props.onUserFollowClick();            
-            }            
-        }  
+                this.props.onUserFollowClick();
+            }
+        }
     },
 
     openEditProfile: function() {
@@ -75,25 +75,25 @@ var ProfileHeader = React.createClass({
 
     showFollowers: function() {
         this.props.showModal("followers");
-    }, 
+    },
 
     showFollowings: function() {
         this.props.showModal("followings");
     },
 
     renderSocialLinks: function() {
-        return 
-        ( <div className = "row tf-social-icons" >                                
+        return
+        ( <div className = "row tf-social-icons" >
             <a className="tf-share-link" href = {this.props.userScloudLink} target = "_blank" >
                 <img src="http://d1zb20amprz33r.cloudfront.net/tf-soundcloud-icon.png" width="100"></img>
             </a>
             <a className="tf-share-link" href = {this.props.userTwitterLink} target = "_blank" >
-                <img src = "../assets/img/twitter_share.svg"> </img> 
+                <img src = "../assets/img/twitter_share.svg"> </img>
             </a>
         </div>);
-    }, 
+    },
 
-    /** 
+    /**
      * @return {object}
      */
     render: function() {
@@ -104,7 +104,7 @@ var ProfileHeader = React.createClass({
         }
 
 
-        var showEditLink = true;        
+        var showEditLink = true;
         followBtnStyle.display = 'none';
         var editLink = <a onClick={this.openEditProfile}><div className="is-active right btn btn-primary">Edit</div></a>;
         console.log("IN PROF HEADER ", this.props.currUser, this.props.userId);
@@ -121,7 +121,7 @@ var ProfileHeader = React.createClass({
             var follow_text = "Follow";
             followBtnStyle.backgroundColor = "#1C1C1C";
         }
-        
+
         var headerStyle = {"padding" : 100 + 'px'};
 
         if( this.props.isUserVerified !== null && this.props.isUserVerified !== false ) {
@@ -129,7 +129,7 @@ var ProfileHeader = React.createClass({
         } else {
             var verifiedIcon = "";
         }
-    
+
         return (
             <div className="profile-header tf-profile-wrapper text-center tf-background" style={headerStyle}>
                 <div className="container">
@@ -138,22 +138,16 @@ var ProfileHeader = React.createClass({
                         <div className="col-md-4 tf-profile-img-wrapper" >
                             <img src = {this.props.userOriginalImg} className = "tf-profile-image"></img>
                         </div>
-                        
-                        <div className="col-md-8 col-xs-8 col-sm-8">                    
+
+                        <div className="col-md-8 col-xs-8 col-sm-8">
                             <h3 className = "row tf-name" > {this.props.userName}&nbsp;&nbsp;{verifiedIcon}</h3>
-                            <h4 className = "row tf-bio" > {this.props.userBio} </h4>                            
+                            <h4 className = "row tf-bio" > {this.props.userBio} </h4>
                             <div className="tf-btn-follow btn btn-primary" onClick={this.follow_click} style={followBtnStyle}>{follow_text}</div>
                             { !this.state.isBot ? this.renderSocialLinks() : "" }
-                        </div>
-                        
-                        <div className="col-md-12">
-                            <div className="col-md-4"></div>
-                            <div className="col-md-4 tf-follow-count left">
+
                                  <a href="#" onClick={this.showFollowers} className="no-decor">{this.props.user_follow_count} Followers </a>
-                            </div>
-                            <div className="col-md-4 tf-follow-count right">
-                                <a href="#" onClick={this.showFollowings} className="no-decor">{this.props.user_following_count} Following </a>
-                            </div>
+                                 <a href="#" onClick={this.showFollowings} className="no-decor">{this.props.user_following_count} Following </a>
+      
                         </div>
                     </div>
                     <div className="col-md-1">
