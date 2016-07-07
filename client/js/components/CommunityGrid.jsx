@@ -41,6 +41,7 @@ var imageUrlArray = [
   "http://i.imgur.com/nHwPdS0.jpg", /* gordon moore */
   "https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/13237834_10153904305891130_1972298033652733490_n.jpg?oh=57e1a96184dcf20d738982bff89ef998&oe=57C5551A", /* john fiorentino */
   "https://pbs.twimg.com/profile_images/745081071780372480/SXAfBUP8.jpg", /* myles poston */
+  "https://pbs.twimg.com/profile_images/656678975415042048/o_NCQdCp.jpg", /* dionte goodlett */
   "https://pbs.twimg.com/profile_images/515125794461720576/f9lH4ZmA.jpeg", /* gianni harrell */
   "https://pbs.twimg.com/profile_images/741335820347396096/VQX_C8Gm.jpg", /* brandon canada */
   "https://pbs.twimg.com/profile_images/749613761493737472/MPYKXl31.jpg", /* kalisha */
