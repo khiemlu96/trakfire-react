@@ -12,7 +12,6 @@ var _user = null;
 var _users = {};
 var _posts = null;
 var _notifications = null;
-var _users = {};
 var _userState = {};
 var _bUsers = {};
 var _adminStates = null;
@@ -370,6 +369,22 @@ var UserStore = assign({}, EventEmitter.prototype, {
 
   getTopUsers: function() {
     return _leaderboard;
+  }, 
+
+  getUserNameByHandle: function(handle) {
+    console.log("USERSTORE::", handle);
+    /*for(var i = 0; i < _users; i++) {
+      console.log(_users[i].handle)
+      if(_users[i].handle == handle) {
+        return _users[i].name;
+      }
+    }*/
+    console.log(_users);
+    _users.forEach(function(user){
+      if(_users[user].handle == handle) {
+        return _users[user].name;
+      }    
+    });
   }
 
 });

@@ -68,8 +68,8 @@ var LeaderBoard = React.createClass({
   renderUserItems: function(sortedUsers) {
     //console.log(namespace, sortedUsers);
   	var leaderBoardItems = [];
-    if(sortedUsers.length >= 10) {
-      var len = 10;
+    if(sortedUsers.length >= 5) {
+      var len = 5;
     } else {
       var len = sortedUsers.length;
     }

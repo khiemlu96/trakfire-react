@@ -20,6 +20,7 @@ var FilterBar = require('./FilterBar.jsx');
 var PostActions = require('../actions/PostActions');
 var SongActions = require('../actions/SongActions');
 var page_count = 0;
+var _limit = 15;
 
 function getAppState() {
   return {
@@ -82,7 +83,8 @@ var PostsPage = React.createClass({
           page_count += 1;
           var data = {
               page: page_count,
-              limit: 10
+              limit: _limit,
+              offset: page_count * _limit
           };
           // Load more post for next subsequent day  
           console.log("DATUM", data);       
