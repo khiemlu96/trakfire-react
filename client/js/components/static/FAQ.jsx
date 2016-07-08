@@ -25,6 +25,13 @@ var FAQ = React.createClass({
         </p>
         
         <br />
+        
+        <h4>How many songs can I post a day?</h4>
+        <p>
+          3 max. We're striving for quality over everything and we've found that constraints can sometimes inspire that.
+        </p>
+        
+        <br />
 
         <h4>How does the leaderboard work?</h4>
         <p>
