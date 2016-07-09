@@ -19,7 +19,7 @@ var FAQ = React.createClass({
         
         <br />
         
-        <h4>How do I know if a song has been posted already?</h4>
+        <h4>How do I know if a track has been posted already?</h4>
         <p>
           Try posting it and we'll let you know if you're late.
         </p>
@@ -28,7 +28,7 @@ var FAQ = React.createClass({
         
         <h4>How many songs can I post a day?</h4>
         <p>
-          3 max. We're striving for quality over everything and we've found that constraints can sometimes inspire that.
+          3 max. We strive for quality over everything and we've found that constraints can sometimes inspire that.
         </p>
         
         <br />
