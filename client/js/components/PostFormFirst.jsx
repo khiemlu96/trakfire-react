@@ -290,7 +290,7 @@ var PostFormFirst = React.createClass({
             <label className="tf-checkbox-label" htmlFor="edm" >Electronic</label> <br></br> <br></br> <br></br>
           </div>
           { this.state.isAdmin ? this.renderAdminSelect() : "" }
-          <div className={this.state.dataDidLoad && this.state.hasGenre ? enabled : disabled} onClick={this.handleClick}> CONTINUE </div>
+          <div className={this.state.dataDidLoad && this.state.hasGenre ? enabled : disabled} onClick={this.handleClick}> POST </div>
         </div>
      </div>
 
