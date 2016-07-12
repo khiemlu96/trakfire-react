@@ -31,7 +31,7 @@ class PostsController < ApplicationController
 					#@offset = params[:offset] #@offset = 2 + page_num.to_i
 					#@limit = params[:limit] #limit = 1
 				#end
-				
+
 				if !params[:limit]
 				  @limit = 15
 				  @offset = 0
@@ -101,8 +101,6 @@ class PostsController < ApplicationController
 				posts: @posts,
 				state: @state
 			}
-			logger.info "YOOOOOOOO: "
-			logger.info @posts.count
 			render json: @data, include: {user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }
 		end	  	
 	end
@@ -121,6 +119,11 @@ class PostsController < ApplicationController
 	  end
 	  @post.user_id = @post_user.id
 	  @post.date = Date.today
+
+	  if(post_limit(@post.user_id, @post.date)) 
+	  	render json: { 'status' => '500', 'error' => 'user has reached the post limit'}
+	  end
+
 	  @post.vote_count = 1
 
 	  if @post.save
@@ -248,4 +251,13 @@ class PostsController < ApplicationController
 	    message = "new heat on the site: #{post_title} by #{hash_tag_artist}\nfound by @#{post_author_handle} \n #{post_url}"
 	    client.update(message)
 	  end 
+
+	  def post_limit(user_id, date)
+	  	posts = Post.where('user_id = ? AND date = ?', user_id, date)
+	  	if posts.count >= 3 
+	  	  return true
+	  	else 
+	  	  return false
+	  	 end
+	  end
 end
