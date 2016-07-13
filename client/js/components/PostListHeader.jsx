@@ -32,6 +32,7 @@ var PostListHeader = React.createClass({
     var post = this.props.post;
     var background_img = { backgroundImage: "url("+post.img_url_lg+"?time)" };
     return(
+      <div className="main-page">
       <div className="profile-header text-center">
 
         <div className="tf-header-background" style={background_img}></div>
@@ -43,13 +44,13 @@ var PostListHeader = React.createClass({
           <div className="container-inner-home">
             <div className="row no-gutter">
 
-              <div className="col-md-offset-2 col-md-3">
+              <div className="col-xs-offset-2 col-xs-3">
                 <div className="tf-header-thumbnail">
                     <img src={post.img_url_lg ? post.img_url_lg : "assets/img/tf-placeholder.png"} alt="..."></img>
                 </div>
               </div>
 
-              <div className="col-md-7">
+              <div className="col-xs-7">
                 <div className="tf-header-info">
                     <h4>{post.title}</h4>
                     <h6>{post.artist}</h6>
@@ -60,6 +61,7 @@ var PostListHeader = React.createClass({
           </div>
         </div>
 
+      </div>
       </div> 
     );}
 

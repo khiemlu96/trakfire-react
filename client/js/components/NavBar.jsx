@@ -316,15 +316,14 @@ var NavBar = React.createClass({
             <input type="text" id="tf-search-input" className="form-control tf-search-input" data-action="grow" placeholder="Search" ref="searchInput" onKeyUp={this.handleKeyUp} ></input>
           </div>
         </form>*/}
-
+        
         <ul className="nav navbar-nav hidden-sm hidden-md hidden-lg">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="profile/index.html">Profile</a></li>
-          <li><a href="notifications/index.html">Notifications</a></li>
-          <li><a data-toggle="modal" href="#msgModal">Messages</a></li>
-          <li><a href="docs/index.html">Docs</a></li>
-          <li><a href="#" data-action="growl">Growl</a></li>
-          <li><a href="login/index.html">Logout</a></li>
+          {notificationLink}
+          {postLink}
+          {profileLink}
+          {signinLink}
+          {requestInviteLink}
+          {menuIcon}
         </ul>
 
         <ul className="nav navbar-nav hidden">
