@@ -54,7 +54,7 @@ body.search-open {
 	display: inline-block;
 	vertical-align: middle;
 	top: -10px;
-	left: -67px;
+	left: 0px;
 	position: relative;
 	margin-top: 25px;
 }
@@ -67,7 +67,7 @@ body.search-open {
 	display: inline-block;
 	vertical-align: middle;
 	top: 5px;
-	left: -36px;
+	left: 54px;
 	position: relative;
 	float: right;
 }
