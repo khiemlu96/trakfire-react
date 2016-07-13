@@ -142,7 +142,7 @@ var ProfileHeader = React.createClass({
                         <div className="col-xs-4">
                             <h3 className = "row tf-name" > {this.props.userName}&nbsp;&nbsp;{verifiedIcon}</h3>
                             <h4 className = "row tf-bio" > {this.props.userBio} </h4>
-                            <div className="tf-btn-follow btn btn-primary" onClick={this.follow_click} style={followBtnStyle}>{follow_text}</div>
+                            <div className=" tf-btn tf-btn-follow btn btn-primary" onClick={this.follow_click} style={followBtnStyle}>{follow_text}</div>
                             { !this.state.isBot ? this.renderSocialLinks() : "" }
 
                                  <a href="#" onClick={this.showFollowers} className="no-decor tf-followers">{this.props.user_follow_count} Followers </a>
