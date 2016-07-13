@@ -2242,7 +2242,7 @@ label.ownsong-label {
 }
 
 .tf-centered {
-	text-align: center;
+	text-align: center !important;
 }
 
 .tf-buffer {

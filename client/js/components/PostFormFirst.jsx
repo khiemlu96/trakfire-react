@@ -148,7 +148,7 @@ var PostFormFirst = React.createClass({
     var genres = [e, h, v];
     var genre = "";
     
-    if(e.checked) {
+   /* if(e.checked) {
       genre += (e.value + " ");
     } 
     if(h.checked) {
@@ -156,7 +156,8 @@ var PostFormFirst = React.createClass({
     }
     if(v.checked) {
       genre += (v.value + " ");
-    }
+    }*/
+    genre = "VOCALS ELECTRONIC HIPHOP";
     console.log("genre", genre);
 
     //var tags = this.refs.tags.getDOMNode().value;
@@ -259,8 +260,8 @@ var PostFormFirst = React.createClass({
       );*/
   },
   render: function() {
-    var disabled = "button button--big is-disabled";
-    var enabled = "button button--big";
+    var disabled = "button button--big is-disabled tf-center";
+    var enabled = "button button--big tf-center";
     var show = "button button--add";
     var hide = "button button--add tf-hide";
     var isLoading = this.state.isLoading;
@@ -269,7 +270,6 @@ var PostFormFirst = React.createClass({
   	 <div>
        <div className="tf-newtrack-wrapper"> 
           <div className="tf-newtrack-title"> ADD A SONG </div>
-          <p className="tf-newtrack-description"> Post a link to a song on Soundcloud </p>
           <input onChange={this.onUrlInputChange} type="text" ref="url_field" className="tf-soundcloud-link" placeholder="paste a soundcloud link">
             {/*<div className={isLoading ? hide : show} ref="add" onClick={this.fetchScData}> ADD </div> */}
           </input>
@@ -283,17 +283,17 @@ var PostFormFirst = React.createClass({
               <label> TITLE </label> 
               <input type="text" ref="title_field"></input>  
             </div>
+            { this.state.isAdmin ? this.renderAdminSelect() : "" }
+          <div className={this.state.dataDidLoad && this.state.hasGenre ? enabled : disabled} onClick={this.handleClick}> POST </div>
           </div>
-          <div className="align-left tf-hide" ref="genres"> 
+          {/*(<div className="align-left tf-hide" ref="genres"> 
             <input type="checkbox" ref="hiphop" className="tf-checkbox" name="hiphop" id="hiphop" value="HIPHOP"></input>
             <label className="tf-checkbox-label" htmlFor="hiphop" onClick={this.setGenre}>Rhymes</label>
             <input type="checkbox" ref="vocals" className="tf-checkbox" id="vocals" name="vocals" value="VOCALS" onClick={this.setGenre}></input>
             <label className="tf-checkbox-label" htmlFor="vocals" >Vocals</label>
             <input type="checkbox" ref="edm" className="tf-checkbox" id="edm" name="edm" value="ELECTRONIC" onClick={this.setGenre}></input>
             <label className="tf-checkbox-label" htmlFor="edm" >Electronic</label> <br></br> <br></br> <br></br>
-          </div>
-          { this.state.isAdmin ? this.renderAdminSelect() : "" }
-          <div className={this.state.dataDidLoad && this.state.hasGenre ? enabled : disabled} onClick={this.handleClick}> POST </div>
+          </div>*/}
         </div>
      </div>
 
