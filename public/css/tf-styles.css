@@ -3586,6 +3586,7 @@ ul.doc li {
 	width: 100%;
 	text-align: center;
 	margin-bottom: -3px;
+	margin-left: -49px;
 }
 
 .tf-vote-btn span {
@@ -3595,6 +3596,7 @@ ul.doc li {
 .tf-vote-count {
 	width: 100%;
 	text-align: center;
+	margin-left: -49px;
 }
 
 /*! normalize.css v3.0.3 | MIT License | github.com/necolas/normalize.css */
