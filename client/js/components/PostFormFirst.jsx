@@ -98,6 +98,7 @@ var PostFormFirst = React.createClass({
 
       sc.resolve(url).then(function(track){
           console.log("RECIEVED DATA FOR: ", track);
+          $("#track-wrapper").slideDown("slow");
           title.value = track.title;
           artist.value = track.user.username;
           img.src = track.artwork_url;
@@ -130,7 +131,7 @@ var PostFormFirst = React.createClass({
           }
         });
 
-      this.rmLoading();
+      //this.rmLoading();
       this.dataDidLoad();
     } else {
       var url_field = this.refs.url_field.getDOMNode();
@@ -272,7 +273,7 @@ var PostFormFirst = React.createClass({
           <input onChange={this.onUrlInputChange} type="text" ref="url_field" className="tf-soundcloud-link" placeholder="paste a soundcloud link">
             {/*<div className={isLoading ? hide : show} ref="add" onClick={this.fetchScData}> ADD </div> */}
           </input>
-          <div className="align-left"> 
+          <div className="align-left" id="track-wrapper"> 
             <div className="tf-newtrack-img"> 
               <img src="/assets/img/tf_placeholder.png" ref="img_field"></img>
             </div>

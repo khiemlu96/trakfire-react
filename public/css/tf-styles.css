@@ -1676,6 +1676,7 @@ input[type=text], textarea{
 
 .align-left {
 	text-align: left;
+	display: none;
 }
 
 .tf-newtrack-form {
@@ -12696,4 +12697,8 @@ img.zoom-img {
 
 .tf-bottom-margin {
 	margin-bottom: 5px !important;
+}
+
+#form-two {
+	display: none !important;
 }
