@@ -29,7 +29,7 @@ var TrakfirePlayerInfo = React.createClass({
     var songTitle = this.props.title;
     if(songTitle.length > 32)
     {
-      songTitle = songTitle.substring(0,32);
+      songTitle = songTitle.substring(0,28);
       songTitle = songTitle + "...";
     }
     var voteStyle = { color: "#ff0d60 !important;" };
