@@ -142,11 +142,11 @@ var PostFormFirst = React.createClass({
 
   addTagsAndGenre: function() {
     var data = _data.post;
-    var e = this.refs.edm.getDOMNode();
+    /*var e = this.refs.edm.getDOMNode();
     var h = this.refs.hiphop.getDOMNode();
     var v = this.refs.vocals.getDOMNode();
     var genres = [e, h, v];
-    var genre = "";
+    var genre = "";*/
     
    /* if(e.checked) {
       genre += (e.value + " ");
@@ -169,7 +169,7 @@ var PostFormFirst = React.createClass({
     data['genre'] = genre;
     //console.log("add genre to data", data, "add tags", data.tags);
 
-    //this.setState({hasGenre:true});
+    this.setState({hasGenre:true});
   }, 
 
   setGenre: function() {
@@ -284,7 +284,7 @@ var PostFormFirst = React.createClass({
               <input type="text" ref="title_field"></input>  
             </div>
             { this.state.isAdmin ? this.renderAdminSelect() : "" }
-          <div className={this.state.dataDidLoad && this.state.hasGenre ? enabled : disabled} onClick={this.handleClick}> POST </div>
+          <div className={this.state.dataDidLoad ? enabled : disabled} onClick={this.handleClick}> POST </div>
           </div>
           {/*(<div className="align-left tf-hide" ref="genres"> 
             <input type="checkbox" ref="hiphop" className="tf-checkbox" name="hiphop" id="hiphop" value="HIPHOP"></input>
