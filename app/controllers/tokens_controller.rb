@@ -32,7 +32,7 @@ class TokensController < ApplicationController
         u.score = 0
         new_user = true
       end
-
+      user.save
 
       if j_user['profile_image_url_https']
         user.img = j_user['profile_image_url_https']
@@ -75,7 +75,7 @@ class TokensController < ApplicationController
         if white_list_user.present?
             # If the user email is present in white list users list,
             # then redirect user to Home Page         
-            jwt = JWT.encode({uid: user.uid, exp: 1.day.from_now.to_i}, Rails.application.secrets.secret_key_base)
+            jwt = JWT.encode({uid: user.uid, exp: 1.month.from_now.to_i}, Rails.application.secrets.secret_key_base)
             redirect_to ENV['ORIGIN'] + "?jwt=#{jwt}"
         else
             # If the user email is not present in white list users list,
@@ -87,7 +87,7 @@ class TokensController < ApplicationController
       else 
         # If the user is admin,
         # then redirect user to Home Page
-        jwt = JWT.encode({uid: user.uid, exp: 1.day.from_now.to_i}, Rails.application.secrets.secret_key_base)
+        jwt = JWT.encode({uid: user.uid, exp: 1.month.from_now.to_i}, Rails.application.secrets.secret_key_base)
         redirect_to ENV['ORIGIN'] + "?jwt=#{jwt}"
       end          
 
