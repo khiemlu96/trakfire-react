@@ -248,7 +248,7 @@ class PostsController < ApplicationController
 	      config.access_token_secret = "kxClgQI5TADYIrmehbFANER8yFf9CAsmLQkKNaB4LSFl1"
 	    end
 	    hash_tag_artist = '#'+post_artist.gsub(/\s+/, "")
-	    message = "new heat on the site: #{post_title} by #{hash_tag_artist}\nfound by @#{post_author_handle} \n #{post_url}"
+	    message = "Found by @#{post_author_handle} today \n #{post_url}"
 	    client.update(message)
 	  end 
 
