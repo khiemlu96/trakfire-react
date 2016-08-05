@@ -349,7 +349,8 @@ th.upvote-col {
 }
 
 .is-not-upvoted {
-	color: #ff0d60 !important;
+	/*color: #ff0d60 !important;*/
+  color: #fff !important;
 }
 
 /* img */
@@ -12707,4 +12708,11 @@ img.zoom-img {
 
 .tf-followers {
   /*margin-left: 10px !important;*/
+}
+
+.tf-border {
+  border: 1px solid #ff0d55 !important;
+  padding: 2px;
+  background-color: #ff0d55;
+  border-radius: 1px;
 }

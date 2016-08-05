@@ -45,34 +45,34 @@ var PostListItem = React.createClass({
    onClick: ReactPropTypes.func,
    changeIcons: ReactPropTypes.func,
    onUpvote: ReactPropTypes.func,
-   isLoggedIn: ReactPropTypes.bool, 
+   isLoggedIn: ReactPropTypes.bool,
    userId: ReactPropTypes.number,
    isUpvoted: ReactPropTypes.bool,
    rank: ReactPropTypes.string,
-   currStreamUrl: ReactPropTypes.string, 
-   showModal: ReactPropTypes.func, 
+   currStreamUrl: ReactPropTypes.string,
+   showModal: ReactPropTypes.func,
    isFirst: ReactPropTypes.bool,
-   origin: ReactPropTypes.string, 
-   first: ReactPropTypes.bool, 
-   number: ReactPropTypes.number, 
-   showNumber: ReactPropTypes.bool, 
+   origin: ReactPropTypes.string,
+   first: ReactPropTypes.bool,
+   number: ReactPropTypes.number,
+   showNumber: ReactPropTypes.bool,
    showAuthor : ReactPropTypes.bool,
-   artistId: ReactPropTypes.string 
+   artistId: ReactPropTypes.string
   },
 
   getInitialState: function() {
     return {
-              isPlaying:false, 
-              isUpvoted:false, 
-              hasUpvoted:false, 
+              isPlaying:false,
+              isUpvoted:false,
+              hasUpvoted:false,
               isFollowing:false,
-              currentUser: UserStore.getCurrentUser(), 
-              bots: UserStore.getBotUsers(), 
-              isAdmin: UserStore.isAdmin(), 
-              showPopover: false, 
+              currentUser: UserStore.getCurrentUser(),
+              bots: UserStore.getBotUsers(),
+              isAdmin: UserStore.isAdmin(),
+              showPopover: false,
               target: null
             };
-  }, 
+  },
 
   componentDidMount: function() {
     this.state.isUpvoted = this.props.isUpvoted;
@@ -87,7 +87,7 @@ var PostListItem = React.createClass({
     });*/
     this.props.artistId = "";
     var self = this;
-    
+
     /*$(".tf-media").hover(function() {
         $(this).css('cursor', 'pointer');
     });*/
@@ -98,7 +98,7 @@ var PostListItem = React.createClass({
         //hashHistory.push(postLink);
         this.playPauseTrack();
     });*/
-    
+
     $("#tf-post-"+this.props.post.id).find(".upvote-link").click( function(e) {
         e.stopPropagation();
         e.preventDefault();
@@ -127,7 +127,7 @@ var PostListItem = React.createClass({
     });*/
   },
 
-  updatePlayPauseState: function(e, track_id) {    
+  updatePlayPauseState: function(e, track_id) {
     if(this.props.post.id === track_id) {
       var overlay = this.refs.overlay;
 
@@ -145,7 +145,7 @@ var PostListItem = React.createClass({
 
   componentWillMount: function() {
     //this.hasUpvoted("WILL MOUNT", this.props.post);
-  }, 
+  },
 
   upvote: function() {
     var post = this.props.post;
@@ -199,13 +199,13 @@ var PostListItem = React.createClass({
       //console.log(post.id, exists);
       return (exists != -1) ? true : false;
     }
-  }, 
+  },
 
   renderTags: function() {
     t = this.props.post.tags;
     tags = [];
     for(tag in t) {
-      var tag = <div className="tf-tag tf-uppercase"> {t[tag].name} </div> 
+      var tag = <div className="tf-tag tf-uppercase"> {t[tag].name} </div>
       tags.push(tag);
       if(tags.length > 3){
           break;
@@ -246,7 +246,7 @@ var PostListItem = React.createClass({
         <a href="#" onClick = { function(e) { e.preventDefault(); self.batchUpvote(); } }> UPVOTE </a>
       </div>
     );
-  }, 
+  },
 
   renderVoteButton: function() {
     var isAdmin = UserStore.isAdmin();
@@ -256,19 +256,19 @@ var PostListItem = React.createClass({
       //console.log("RENDER VOTE BUTTON");
       var voteButton = (
              <a className = "admin" onClick = { function(e) { console.log("hiiii") } }>
-                <span className={ !upvoted ? notUpvoted : isUpvoted } ref="upvotebtn"> 
+                <span className={ !upvoted ? notUpvoted : isUpvoted } ref="upvotebtn">
             </span>
             </a>);
     } else {
       var voteButton = (<a href = "#"  className = "upvote-link" onClick = {this.upvote}>
-                            <span className={ !upvoted ? notUpvoted : isUpvoted } ref="upvotebtn"> 
+                            <span className={ !upvoted ? notUpvoted : isUpvoted } ref="upvotebtn">
                             </span>
                         </a>);
     }/**/
     //console.log("vb",voteButton);
     return voteButton;
     /*          */
-  }, 
+  },
 
   batchUpvote: function() {
     var data = {};
@@ -285,11 +285,11 @@ var PostListItem = React.createClass({
     //console.log("DATAAA", data);
     PostActions.batchUpvote(this.props.origin+'/votes/batch_create', data);
     this.setState({showPopover:false});
-  }, 
+  },
 
   showPopover: function(e) {
     this.setState({showPopover : true});
-  }, 
+  },
 
   followUser: function(userid,artist_id) {
     var follow_id = userid;
@@ -297,7 +297,7 @@ var PostListItem = React.createClass({
     //this.showFlyOver(artist_id);
     this.setState({isFollowing:true});
   },
-  
+
   unFollowUser: function(userid,artist_id) {
     var follow_id = userid;
     UserActions.unFollowUser(this.props.origin+ '/follower', follow_id);
@@ -316,7 +316,7 @@ var PostListItem = React.createClass({
           if(currentUser_followings.indexOf(userid) > -1) {
               this.unFollowUser(userid,artist_id);
           } else {
-              this.followUser(userid,artist_id); 
+              this.followUser(userid,artist_id);
           }
       } else {
         // If user is not logged in and if he clicks on Follow User button
@@ -344,7 +344,7 @@ var PostListItem = React.createClass({
           if(currentUser_followings.indexOf(this.state.user.id) > -1) {
               this.unFollowUser(this.state.user.id);
           } else {
-              this.followUser(this.state.user.id); 
+              this.followUser(this.state.user.id);
           }
       } else {
         // If user is not logged in and if he clicks on Follow User button
@@ -360,7 +360,7 @@ var PostListItem = React.createClass({
         var follow_text = "", className = "";
         var follow_btn_Html = '';
 
-        if (sessionStorage.getItem('jwt') !== '' && this.state.currentUser !== null && 
+        if (sessionStorage.getItem('jwt') !== '' && this.state.currentUser !== null &&
             this.state.currentUser.id !== this.props.post.user.id) {
             if (this.state.currentUser.id !== null) {
                 var currentUser_followings = [];
@@ -377,10 +377,10 @@ var PostListItem = React.createClass({
                     follow_text = "Follow";
                     className = "button user-flyover-follow-btn btn-primary-outline tf-follow-button tf-background";
                 }
-                var follow_btn_Html = '<button class="btn ' + className + '" id=' + follow_id + '>' + follow_text + '</button>'          
+                var follow_btn_Html = '<button class="btn ' + className + '" id=' + follow_id + '>' + follow_text + '</button>'
             }
         }
-        
+
         var popoverTemplate = ['<div class="popover">',
             '<div class="arrow"></div>',
                 '<div class="popover-content">',
@@ -399,7 +399,7 @@ var PostListItem = React.createClass({
                 '</div>'
                 + follow_btn_Html +
             '</div>',
-        ].join('');        
+        ].join('');
 
         $("#" + artist_id).popover({
             selector: '[rel=popover]',
@@ -450,9 +450,9 @@ var PostListItem = React.createClass({
     var profileLink = "/profile/"+post.author_id;
     var postLink = "/post/"+post.id;
     var isNumbered = this.props.showNumber;
-    
+
     var artist_id = "tf-media-artist-" + post.id;
-    
+
     var voteStyle = { color: "#ff0d60 !important;" };
     var voteStyleUpvoted = { color: "#777 !important;" };
     var postId = "tf-post-"+ post.id;
@@ -462,9 +462,9 @@ var PostListItem = React.createClass({
     return (
         <li className = "media tf-media" id={postId} >
             <div className = "media-left">
-                <span className = "tf-media-number">{isNumbered ? this.props.idx + 1 : ""} </span> 
+                <span className = "tf-media-number">{isNumbered ? this.props.idx + 1 : ""} </span>
                 <a href = "#" className = "tf-media-wrap" onClick = {this.playPauseTrack}>
-                    <img className = "media-object tf-media-thumbnail" width = "64" src = {post.img_url ? post.img_url : "/assets/img/tf-placeholder.png"} alt = "..."></img> 
+                    <img className = "media-object tf-media-thumbnail" width = "64" src = {post.img_url ? post.img_url : "/assets/img/tf-placeholder.png"} alt = "..."></img>
                     <div className = "tf-media-thumbnail-overlay" ref = "overlaybg">
                         <span className = {paused} ref = "overlay"></span>
                     </div>
@@ -472,22 +472,22 @@ var PostListItem = React.createClass({
             </div>
             <div className = "media-body">
                 <h4 className = "tf-media-title">
-                    <span className = "pull-right"> 
+                    <span className = "pull-right tf-border">
                         {this.renderVoteButton()}
                         <small ref = "count"> {(post.vote_count !== null) ? post.vote_count : 0} </small>
                     </span>
                     <Link className = "no-decor" to={postLink} onClick={this.stopPropagation}> { post.title } </Link>
                 </h4>
                 <h6 className = "tf-media-artist">
-                    {post.artist} 
+                    {post.artist}
                     {this.props.showAuthor ?
-                        <small className = "pull-right" > 
+                        <small className = "pull-right" >
                         {/* FOR FLYOVER onMouseEnter = {this.showFlyOver.bind(this, artist_id)}*/}
                             posted by: <Link to = {profileLink} onClick={this.stopPropagation} className = "tf-media-poster nd">
                             <span id = {artist_id} data-trigger = "hover" data-toggle = "popover" data-placement = "top">
-                                <small className = "tf-media-artist-name">{post.author_name}</small> 
-                            </span></Link>  
-                        </small> : "" 
+                                <small className = "tf-media-artist-name">{post.author_name}</small>
+                            </span></Link>
+                        </small> : ""
                     } </h6>
             </div>
             <Overlay
@@ -507,13 +507,13 @@ var PostListItem = React.createClass({
         this.setState({
           currentUser: UserStore.getCurrentUser()
         });
-    }, 
+    },
 
     toDetail: function(e) {
       e.stopPropagation();
       var postLink = "/post/"+this.props.post.id;
       browserHistory.push(postLink);
-    }, 
+    },
 
     stopPropagation: function(e) {
       e.stopPropagation();
