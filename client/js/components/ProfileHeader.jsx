@@ -133,27 +133,28 @@ var ProfileHeader = React.createClass({
         return (
             <div className="profile-header tf-profile-wrapper text-center tf-background">
                 <div className="container">
+                    <div className="row">
                     <div className="col-xs-3"></div>
                     <div className="col-xs-4 tf-profile-info-wrapper">
                         <div className="col-xs-4 tf-profile-img-wrapper" >
                             <img src = {this.props.userOriginalImg} className = "tf-profile-image"></img>
                         </div>
 
-                        <div className="col-xs-4">
+                        <div className="col-xs-8">
                             <h3 className = "row tf-name" > {this.props.userName}&nbsp;&nbsp;{verifiedIcon}</h3>
                             <h4 className = "row tf-bio" > {this.props.userBio} </h4>
                             <div className=" tf-btn tf-btn-follow btn btn-primary" onClick={this.follow_click} style={followBtnStyle}>{follow_text}</div>
                             { !this.state.isBot ? this.renderSocialLinks() : "" }
+                             <a href="#" onClick={this.showFollowers} className="no-decor tf-followers">{this.props.user_follow_count} Followers </a>
+                             <a href="#" onClick={this.showFollowings} className="no-decor tf-followers">{this.props.user_following_count} Following </a>
 
-                                 <a href="#" onClick={this.showFollowers} className="no-decor tf-followers">{this.props.user_follow_count} Followers </a>
-                                 <a href="#" onClick={this.showFollowings} className="no-decor tf-followers">{this.props.user_following_count} Following </a>
-      
                         </div>
                     </div>
+                  </div>
                     <div className="tf-btn">
                         {editLink}
                     </div>
-                    <div className="col-xs-3"></div>
+
                 </div>
 
                 <nav className="profile-header-nav">

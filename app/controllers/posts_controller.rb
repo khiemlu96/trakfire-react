@@ -7,13 +7,13 @@ class PostsController < ApplicationController
 		if(params[:action_type] != 'admin_post_batch')
 			logger.info "WE IN THE INDEX BROTHER"
 			logger.info params[:limit]
-			# get all dates 
+			# get all dates
 			@dates = []
 			# if date is set in the parameter then only select 10 posts
 			# which are posted on that date
-			# else select 
+			# else select
 			# 10 posts for each day initially
-			if( params[:date] != nil ) 
+			if( params[:date] != nil )
 				# get subsquent posts for perticular day
 				@dates.push(params[:date])
 				@offset = params[:offset]
@@ -22,7 +22,7 @@ class PostsController < ApplicationController
 				@offset = params[:offset]
 				page_num = params[:page] ? params[:page] : 0
 
-				# get dates of top 3 days			
+				# get dates of top 3 days
 				#if page_num == 0
 					#@offset = params[:offset] #@offset = 0
 					#@limit = params[:limit] #limit = 3
@@ -43,7 +43,7 @@ class PostsController < ApplicationController
 			  	sql = "	SELECT created_at::date as created
 			     		FROM posts
 							GROUP BY created_at::date
-							ORDER BY created_at::date DESC 
+							ORDER BY created_at::date DESC
 							OFFSET " + @offset.to_s + " LIMIT " + @limit.to_s
 
 				Post.find_by_sql(sql).each do |row|
@@ -55,16 +55,16 @@ class PostsController < ApplicationController
 			@dates.each do |date|
 				#select only 10 posts on each days or selected date
 				posts = Post.where(["created_at::date = ?", date]).order(created_at: :desc, vote_count: :desc).offset(@offset).limit(@limit)
-				posts.each do |post|				
+				posts.each do |post|
 					@posts.push(post)
 				end
-			end	
+			end
 			@posts = Post.order(date: :desc, vote_count: :desc, created_at: :desc).offset(@offset).limit(@limit)
 			logger.info "YOOOOOOOO: "
 			logger.info @posts.count
 			logger.info @offset
-      		render json: @posts #, include: { tags:{}, votes:{}, comments:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :img_url_lg, :date, :created_at, :duration, :genre, :vote_count, :comment_count, :hot_score, :status] 
-		
+      		render json: @posts #, include: { tags:{}, votes:{}, comments:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :img_url_lg, :date, :created_at, :duration, :genre, :vote_count, :comment_count, :hot_score, :status]
+
 		else
 
 			@offset = params[:offset].to_i
@@ -86,7 +86,7 @@ class PostsController < ApplicationController
 			end
 
 			no_of_page = (total_count.to_f / @limit.to_f).round(2).ceil
-			
+
 
 			@state = {
 				total_count: total_count,
@@ -102,7 +102,7 @@ class PostsController < ApplicationController
 				state: @state
 			}
 			render json: @data, include: {user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }
-		end	  	
+		end
 	end
 
 	def create
@@ -120,7 +120,7 @@ class PostsController < ApplicationController
 	  @post.user_id = @post_user.id
 	  @post.date = Date.today
 
-	  if(post_limit(@post.user_id, @post.date)) 
+	  if(post_limit(@post.user_id, @post.date))
 	  	render json: { 'status' => '500', 'error' => 'user has reached the post limit'}
 	  end
 
@@ -130,11 +130,11 @@ class PostsController < ApplicationController
 
 	  	#tweet
 	  	twt_user = User.find(@post.user_id)
-	  	if !twt_user.bot && 
+	  	if !twt_user.bot &&
 	  	  twitter_update(@post.title, twt_user.handle, twt_user.username, @post.artist, @post.id, @post.url)
 	  	end
 
-	  	#create a vote 
+	  	#create a vote
 	  	@vote = Vote.new()
 	  	@vote.user_id = @post_user.id
 	  	@vote.post_id = @post.id
@@ -142,7 +142,7 @@ class PostsController < ApplicationController
 
 	  	#send notifications to all users who are following that user
 	  	@user_followings = Follower.where(follow_id: @post_user.id)
-	  	
+
 	  	logger.info({v:@user_followings})
 	  	@user_followings.each do |user|
 
@@ -160,7 +160,7 @@ class PostsController < ApplicationController
 						},
 				:sender_id => @post.user_id
 			}
-			
+
 			if Notification.sendNotification( @notification, {:consolidate => false} )
 				logger.info("Notification sent successfully")
 			end
@@ -170,9 +170,9 @@ class PostsController < ApplicationController
 	    render json: @post, include: { user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, only: [:id, :title, :stream_url, :duration, :artist, :img_url, :img_url_lg, :created_at, :duration, :genre, :vote_count], status: :created, location: post_url(@post, format: :json)
 
 	  else
-	   
+
 	    render json: @post.errors, status: :unprocessable_entity
-	  
+
 	  end
 
 	end
@@ -181,13 +181,13 @@ class PostsController < ApplicationController
 	  	@post = Post.find(params[:id])
 	    logger.info "POST FOR DETAIL PAGE"
 
-	    @comments = Comment.where(post_id: @post.id, parent_id: nil)	    
+	    @comments = Comment.where(post_id: @post.id, parent_id: nil)
 		@post.post_comments = @comments
 
 		@votes = Vote.where(post_id: @post.id)
 		@post.post_votes = @votes
 
-	  	render json: @post, include: { tags:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, methods: ['post_comments', 'post_votes'], only: [:id, :title, :stream_url, :duration, :artist, :img_url, :img_url_lg, :date, :created_at, :duration, :genre, :vote_count, :hot_score, :status] 
+	  	render json: @post, include: { tags:{}, user: { only: [:handle, :id, :username, :tbio, :img, :isAdmin, :canPost] } }, methods: ['post_comments', 'post_votes'], only: [:id, :title, :stream_url, :duration, :artist, :img_url, :img_url_lg, :date, :created_at, :duration, :genre, :vote_count, :hot_score, :status]
 	end
 
 	def destroy
@@ -211,17 +211,17 @@ class PostsController < ApplicationController
 			@taggings = Tagging.where(post_id: @post.id)
 			@taggings.each do |tagging|
 				tagging.destroy # Delete tagging first, then delete from tag table
-				
+
 				# Find corresponding tags from tag table.
 				# If same tag is used in another post, then
 				# Dont delete it
 				count = Tagging.where(tag_id: tagging.tag_id).count
 				if(count == 0)
-					tag = Tag.find(tagging.tag_id)				
+					tag = Tag.find(tagging.tag_id)
 					if(tag != nil)
 						tag.destroy
-					end		
-				end		
+					end
+				end
 			end
 
 			@post.destroy
@@ -250,13 +250,13 @@ class PostsController < ApplicationController
 	    hash_tag_artist = '#'+post_artist.gsub(/\s+/, "")
 	    message = "new heat on the site: #{post_title} by #{hash_tag_artist}\nfound by @#{post_author_handle} \n #{post_url}"
 	    client.update(message)
-	  end 
+	  end
 
 	  def post_limit(user_id, date)
 	  	posts = Post.where('user_id = ? AND date = ?', user_id, date)
-	  	if posts.count >= 3 
+	  	if posts.count >= 3
 	  	  return true
-	  	else 
+	  	else
 	  	  return false
 	  	 end
 	  end

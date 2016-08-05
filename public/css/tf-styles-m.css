@@ -12741,3 +12741,7 @@ h4.tf-media-title, h6.tf-media-artist {
 #form-two {
 	display: none !important;
 }
+
+.tf-followers {
+  margin-left: 10px;
+}

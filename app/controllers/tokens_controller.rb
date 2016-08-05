@@ -32,6 +32,7 @@ class TokensController < ApplicationController
         u.score = 0
         new_user = true
       end
+      
       user.save
 
       if j_user['profile_image_url_https']

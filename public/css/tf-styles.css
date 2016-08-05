@@ -11909,7 +11909,7 @@ img.zoom-img {
   right: 0;
   bottom: 0;
   left: 0;
-  line-height: 0;
+  top: 190px;
 }
 .profile-header-nav .nav {
   display: inline-block;
@@ -12703,4 +12703,8 @@ img.zoom-img {
 
 #form-two {
 	display: none !important;
+}
+
+.tf-followers {
+  /*margin-left: 10px !important;*/
 }
