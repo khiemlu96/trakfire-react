@@ -6,7 +6,7 @@
  * LICENSE file in the root directory of this source tree. An additional grant
  * of patent rights can be found in the PATENTS file in the same directory.
  */
-
+/*http://d1zb20amprz33r.cloudfront.net/trakfirewhite-sm.png*/
 var React = require('react');
 var Uri = require('jsuri');
 var Router = require('react-router');
@@ -85,7 +85,7 @@ var MenuIconStyle = {
 var showMoreStyle = {
   display: 'none'
 };
- 
+
 /*function getComponentState() {
   return {
     arePendingNotifications: UserStore.getPending()
@@ -98,17 +98,17 @@ var NavBar = React.createClass({
     isLoggedIn: ReactPropTypes.bool,
     origin: ReactPropTypes.string,
     isAdmin: ReactPropTypes.bool,
-    user: ReactPropTypes.object, 
+    user: ReactPropTypes.object,
     showSignupModal: ReactPropTypes.func,
     onPostItemClick: ReactPropTypes.func,
     currStreamUrl: ReactPropTypes.string,
-    searchkey:ReactPropTypes.string, 
+    searchkey:ReactPropTypes.string,
     showGrowl: ReactPropTypes.func
   },
 
-  componentDidMount: function() {  
+  componentDidMount: function() {
     // Check if the url contains 'attempt_failed' search-keyword,
-    // then show signup modal popup 
+    // then show signup modal popup
     var isShowSignUpPopup = false;
     if( window.location.search.indexOf('attempt_failed') !== -1 ){
       isShowSignUpPopup = new Uri(location.search).getQueryParamValue('attempt_failed');
@@ -119,7 +119,7 @@ var NavBar = React.createClass({
       this.showSignupModal();
     }
   },
-  
+
   handleSignOut: function() {
     localStorage.setItem('jwt','');
   },
@@ -128,14 +128,14 @@ var NavBar = React.createClass({
     this.props.showModal(true);
   },
 
-  hideMenuPopup: function() { 
+  hideMenuPopup: function() {
     this.refs.menuIcon.getDOMNode().value = "";
     this.setState({
           isVisible: true
-        }); 
+        });
         MenuIconStyle.display = 'none';
     this.refs.menuPopup.hide();
-  }, 
+  },
 
   showSignupModal: function() {
     this.props.showSignupModal();
@@ -147,38 +147,38 @@ var NavBar = React.createClass({
     console.log(searchkey);
 
     if(searchkey.length == 1)
-    { 
+    {
       this.showSearchResult();
     }
-    else{ 
+    else{
       this.hideSearchResult();
     }
   },
 
-  hideSearchResult: function() { 
+  hideSearchResult: function() {
     document.getElementById("show-more-btn-container").style.display = "none";
   },
 
   showSearchResult: function() {
-    var searchKey = this.refs.searchInput.getDOMNode().value; 
+    var searchKey = this.refs.searchInput.getDOMNode().value;
     console.log(searchKey);
     if(searchKey != ''){
         React.render(
-        <SearchBar 
-          isSearchVisible={true} 
-          searchKeyword={searchKey} 
+        <SearchBar
+          isSearchVisible={true}
+          searchKeyword={searchKey}
           onPlayBtnClick = {this.props.onPlayBtnClick}
-            currStreamUrl={this.props.currStreamUrl} />, 
+            currStreamUrl={this.props.currStreamUrl} />,
         document.getElementById("tf-search-result")
       );
         this.setState({
           isVisible: true
-        }); 
+        });
         searchBoxStyle.display = 'block';
     }else{
       document.getElementById("tf-search-results").style.display = "none";
     }
-    this.props.searchkey = this.refs.searchInput.getDOMNode().value; 
+    this.props.searchkey = this.refs.searchInput.getDOMNode().value;
     this.setState({isVisible:false});
     console.log(this.props);
   },
@@ -186,14 +186,14 @@ var NavBar = React.createClass({
   showSearchResultPage: function() {
     console.log(searchKey);
     //this.setState({isVisible:false});
-    
-  }, 
+
+  },
 
   renderUserInfo: function(){
-    return <OverlayTrigger trigger="click" rootClose placement="bottom" 
-              overlay={ 
+    return <OverlayTrigger trigger="click" rootClose placement="bottom"
+              overlay={
                         <Popover className="tf-notification-popup col-md-4" id="tf-post-detail-popup" style={UserStyle} >
-                          <Notifications origin={this.props.origin} currentUser={this.props.user} />                           
+                          <Notifications origin={this.props.origin} currentUser={this.props.user} />
                         </Popover>
                       }>
               <span className="tf-firestarters-upvotes-count">
@@ -209,9 +209,9 @@ var NavBar = React.createClass({
     }
 
     if(this.props.isAdmin !== undefined && this.props.isAdmin === true) {
-        adminConsoleLink = <div className="tf-menu-popup-list-item"><Link to={'/admin'} className="nd"><h6>ADMIN CONSOLE</h6></Link></div>; 
+        adminConsoleLink = <div className="tf-menu-popup-list-item"><Link to={'/admin'} className="nd"><h6>ADMIN CONSOLE</h6></Link></div>;
     }
-  
+
     return <OverlayTrigger trigger="click" rootClose placement="bottom" ref = "menuPopup" style = {MenuIconStyle}
               overlay={
                   <Popover id="tf-menu-popup">
@@ -219,7 +219,7 @@ var NavBar = React.createClass({
                      <div className="tf-menu-popup-list-item" ref = "menuIcon" onClick = {this.hideMenuPopup}><Link className="nd" to={'/faq'}><h6>FAQ</h6></Link></div>
                      <div className="tf-menu-popup-list-item" ref = "menuIcon" onClick = {this.hideMenuPopup}><Link className="nd" to={'/jobboard'}><h6>JOB BOARD</h6></Link></div>
                      <div className="tf-menu-popup-list-item" ref = "menuIcon" onClick = {this.hideMenuPopup}><Link className="nd" to={'/privacy'}><h6>PRIVACY POLICY</h6></Link></div>
-                     <div className="tf-menu-popup-list-item" ref = "menuIcon" onClick = {this.hideMenuPopup}><Link className="nd" to={'/terms'}><h6>TERMS OF USE</h6></Link></div>                    
+                     <div className="tf-menu-popup-list-item" ref = "menuIcon" onClick = {this.hideMenuPopup}><Link className="nd" to={'/terms'}><h6>TERMS OF USE</h6></Link></div>
                      <div onClick = {this.hideMenuPopup} ref = "menuIcon"> {adminConsoleLink} </div>
                      <div onClick = {this.hideMenuPopup} ref = "menuIcon"> {signinLink} </div>
                   </Popover>
@@ -231,7 +231,7 @@ var NavBar = React.createClass({
   renderSearchBar: function() {
     this.setState({
       isVisible: true
-    }); 
+    });
     searchBoxStyle.display = 'block';
   },
 
@@ -253,16 +253,16 @@ var NavBar = React.createClass({
      //if (this.state.
      if(this.props.user.unread_notifications > 0) {
         var indicator = <div className="tf-bell-unread-indicator"></div>;
-      } 
+      }
     }
     if(this.props.isLoggedIn) {
       console.log("IN NAVBAR ", '/profile/'+this.props.user.id);
       var notificationLink = <li><Link className="app-notifications" to="/notifications">{indicator}<span className="icon icon-bell "></span></Link></li>
       var signinLink = '';
-      
+
       var profileLink = <li><button className="btn btn-default navbar-btn navbar-btn-avitar" data-toggle="popover"><Link to={'/profile/'+this.props.user.id}><img className="img-circle" src={this.props.user.img} ></img></Link></button></li>
       //<span className="tf-menu">{this.renderUserInfo()}</span>
-      //if(this.props.isAdmin || this.props.user.canPost) { 
+      //if(this.props.isAdmin || this.props.user.canPost) {
       var requestInviteLink = '';
       var postLink = <PostForm isVisible={true} origin={this.props.origin} showGrowl={this.props.showGrowl}/>
       var searchIcon =  <span><span className = "glyphicon glyphicon-search" onClick={this.renderSearchBar} style = {searchIconStyle}></span> </span>
@@ -297,7 +297,7 @@ var NavBar = React.createClass({
         <span className="icon-bar"></span>
       </button>
       <Link className="navbar-brand"  to="/" >
-        <img src="http://d1zb20amprz33r.cloudfront.net/trakfirewhite-sm.png" alt="brand"></img>
+        <img src="http://d1zb20amprz33r.cloudfront.net/trakfire-white-brand.png" alt="brand"></img>
       </Link>
     </div>
     <div className="navbar-collapse collapse" id="navbar-collapse-main">
@@ -316,7 +316,7 @@ var NavBar = React.createClass({
             <input type="text" id="tf-search-input" className="form-control tf-search-input" data-action="grow" placeholder="Search" ref="searchInput" onKeyUp={this.handleKeyUp} ></input>
           </div>
         </form>*/}
-        
+
         <ul className="nav navbar-nav hidden-sm hidden-md hidden-lg">
           {notificationLink}
           {postLink}

@@ -12709,10 +12709,78 @@ img.zoom-img {
 .tf-followers {
   /*margin-left: 10px !important;*/
 }
-
+/*.upvote-link {
+  margin-right: 10px;
+}*/
 .tf-border {
   border: 1px solid #ff0d55 !important;
   padding: 2px;
+  /*background-color: #ff0d55;*/
+  border-radius: 2px;
+}
+
+.tf-border :hover {
   background-color: #ff0d55;
-  border-radius: 1px;
+}
+
+/*.tf-upvote-btn {
+  border: 1px solid #ff0d55 !important;
+}
+
+.tf-upvote-btn, .tf-upvote-btn a{
+  color: #fff;
+}
+
+.tf-upvote-btn > span :hover {
+  background-color: #ff0d55;
+}
+
+.tf-upvote-btn :hover {
+  background-color: #ff0d55;
+  background-size: cover;
+}*/
+
+.tf-upvote-btn {
+  color: #FFFFFF;
+  border-color: #FF0D55;
+}
+
+.tf-upvote-btn:hover,
+.tf-upvote-btn:focus,
+.tf-upvote-btn:active,
+.tf-upvote-btn.active,
+.open .dropdown-toggle.tf-upvote-btn {
+  color: #FFFFFF;
+  background-color: #FF0D55;
+  border-color: #FF0D55;
+}
+
+.tf-upvote-btn:active,
+.tf-upvote-btn.active,
+.open .dropdown-toggle.tf-upvote-btn {
+  background-image: none;
+}
+
+.tf-upvote-btn.disabled,
+.tf-upvote-btn[disabled],
+fieldset[disabled] .tf-upvote-btn,
+.tf-upvote-btn.disabled:hover,
+.tf-upvote-btn[disabled]:hover,
+fieldset[disabled] .tf-upvote-btn:hover,
+.tf-upvote-btn.disabled:focus,
+.tf-upvote-btn[disabled]:focus,
+fieldset[disabled] .tf-upvote-btn:focus,
+.tf-upvote-btn.disabled:active,
+.tf-upvote-btn[disabled]:active,
+fieldset[disabled] .tf-upvote-btn:active,
+.tf-upvote-btn.disabled.active,
+.tf-upvote-btn[disabled].active,
+fieldset[disabled] .tf-upvote-btn.active {
+  background-color:#FF0D55;
+  border-color: #FF0D55;
+}
+
+.tf-upvote-btn .badge {
+  color: ;
+  background-color: #FFFFFF;
 }

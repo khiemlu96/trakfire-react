@@ -29,8 +29,8 @@ var isFirstNotPlaying = classNames("tf-post-item--first");
 //var isNotUpvoted = classNames("tf-post-item--votes");
 var playing = classNames("icon icon-controller-paus");
 var paused = classNames("icon icon-controller-play");
-var notUpvoted = classNames("icon icon-chevron-up is-not-upvoted");
-var isUpvoted = classNames("icon icon-chevron-up is-upvoted");
+var notUpvoted = classNames("upvote-link btn btn-xs tf-upvote-btn"); //classNames("icon icon-chevron-up is-not-upvoted");
+var isUpvoted = classNames("upvote-link btn btn-xs tf-upvote-btn disabled");
 var _localVoteCount = 0;
 var hoverStyle = {
   positionLeft: '53%'
@@ -161,9 +161,9 @@ var PostListItem = React.createClass({
     }
     else if(this.props.isLoggedIn && !this.hasUpvoted(this.props.post)){
       this.props.onUpvote(this.props.post.id);
-      var count = this.refs.count.getDOMNode();
+      //var count = this.refs.count.getDOMNode();
       var u = this.refs.upvotebtn.getDOMNode();
-      u.className = isUpvoted;
+      u.className = isUpvoted; //isUpvoted;
       this.setState({hasUpvoted:true});
     } else if(!this.props.isLoggedIn) {
       this.props.showModal(true);
@@ -249,6 +249,7 @@ var PostListItem = React.createClass({
   },
 
   renderVoteButton: function() {
+    var post = this.props.post;
     var isAdmin = UserStore.isAdmin();
     var upvoted = (this.props.isUpvoted || this.state.hasUpvoted);
     //console.log("render vb", isAdmin);
@@ -256,12 +257,14 @@ var PostListItem = React.createClass({
       //console.log("RENDER VOTE BUTTON");
       var voteButton = (
              <a className = "admin" onClick = { function(e) { console.log("hiiii") } }>
-                <span className={ !upvoted ? notUpvoted : isUpvoted } ref="upvotebtn">
-            </span>
+                <span className={ !upvoted ? notUpvoted : isUpvoted } ref="upvotebtn"></span>
+                <span ref = "count"> {(post.vote_count !== null) ? post.vote_count : 0} </span>
             </a>);
     } else {
-      var voteButton = (<a href = "#"  className = "upvote-link" onClick = {this.upvote}>
-                            <span className={ !upvoted ? notUpvoted : isUpvoted } ref="upvotebtn">
+      var voteButton = (<a href = "#"  className = "upvote-link btn btn-xs tf-upvote-btn" onClick = {this.upvote} ref="upvotebtn">
+                            <span>
+                            <span className="icon icon-chevron-up"></span>
+                            <span ref="count"> {(post.vote_count !== null) ? post.vote_count : 0} </span>
                             </span>
                         </a>);
     }/**/
@@ -472,9 +475,9 @@ var PostListItem = React.createClass({
             </div>
             <div className = "media-body">
                 <h4 className = "tf-media-title">
-                    <span className = "pull-right tf-border">
+                    <span className = "pull-right">
                         {this.renderVoteButton()}
-                        <small ref = "count"> {(post.vote_count !== null) ? post.vote_count : 0} </small>
+                        {/*}<span ref = "count"> {(post.vote_count !== null) ? post.vote_count : 0} </span>*/}
                     </span>
                     <Link className = "no-decor" to={postLink} onClick={this.stopPropagation}> { post.title } </Link>
                 </h4>
