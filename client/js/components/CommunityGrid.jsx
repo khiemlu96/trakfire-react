@@ -39,11 +39,11 @@ var imgToUser = {
   "https://pbs.twimg.com/profile_images/515125794461720576/f9lH4ZmA.jpeg": ["GianniHarrell", "Gianni Harrell"],
   "https://pbs.twimg.com/profile_images/761418399314436096/HedVveZX.jpg": ["kalishaxoxo", "Kalisha Perera"],
   "https://scontent.xx.fbcdn.net/v/t1.0-9/10513277_10204097366212105_5368794493219795706_n.jpg?oh=e8469e295b9016676c81863aaceeef4b&oe=57FFC207": ["imnaughtfunny", "Kimari Jones"],
-  "https://scontent-dft4-1.xx.fbcdn.net/v/t1.0-9/1919137_949438948480008_2830479285243350274_n.jpg?oh=abc056c5cf5f0f114de54af2dde36590&oe=58569358", ["Rollin1797", "Collin Remley"]
-  "https://pbs.twimg.com/profile_images/722637224756527104/V2gzyuuA.jpg", ["kwright619", "Kevin Wright"]/* kevin wright */
-  "https://pbs.twimg.com/profile_images/554870903771643904/QptVYRoS.jpeg", ["dillchen", "Dillon Chen"]/* dillon chen */
-  "https://pbs.twimg.com/profile_images/717471203364114432/LRgWlhXY.jpg", ["reedrosenbluth", "Reed Rosenbluth"]/* reed rosenbluth */
-  "https://pbs.twimg.com/profile_images/680826862189191168/_zvtIlYY.jpg" ["adlerike", "Ike Adler"]/* ike adler */
+  "https://scontent-dft4-1.xx.fbcdn.net/v/t1.0-9/1919137_949438948480008_2830479285243350274_n.jpg?oh=abc056c5cf5f0f114de54af2dde36590&oe=58569358": ["Rollin1797", "Collin Remley"],
+  "https://pbs.twimg.com/profile_images/722637224756527104/V2gzyuuA.jpg": ["kwright619", "Kevin Wright"],
+  "https://pbs.twimg.com/profile_images/554870903771643904/QptVYRoS.jpeg": ["dillchen", "Dillon Chen"],
+  "https://pbs.twimg.com/profile_images/717471203364114432/LRgWlhXY.jpg": ["reedrosenbluth", "Reed Rosenbluth"],
+  "https://pbs.twimg.com/profile_images/680826862189191168/_zvtIlYY.jpg": ["adlerike", "Ike Adler"]
 };
 
 var imageUrlArray = [
