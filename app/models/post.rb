@@ -7,7 +7,7 @@ class Post < ActiveRecord::Base
 	has_many :taggings, :dependent => :delete_all
 	has_many :tags, through: :taggings, :dependent => :delete_all
 	validates :url, uniqueness: true
-	validates :title, uniqueness: true
+	validates_uniqueness_of :title, :scope => :artist
 	validates_presence_of :title
 	validates_presence_of :url
 
