@@ -20,23 +20,23 @@ var PostFormFirst = React.createClass({
     onSubmit: ReactPropTypes.func,
     isSignedIn: ReactPropTypes.bool,
     advanceStep: ReactPropTypes.func,
-    updateData: ReactPropTypes.func, 
-    data: ReactPropTypes.object, 
-    submit: ReactPropTypes.func, 
-    showGrowl: ReactPropTypes.func, 
+    updateData: ReactPropTypes.func,
+    data: ReactPropTypes.object,
+    submit: ReactPropTypes.func,
+    showGrowl: ReactPropTypes.func,
     origin: ReactPropTypes.string
-  }, 
+  },
 
   getInitialState: function() {
     return {
-      dataDidLoad: false, 
-      isLoading: false, 
-      user: UserStore.getCurrentUser(), 
-      hasGenre: false, 
-      isAdmin: UserStore.isAdmin(), 
-      botUsers: UserStore.getBotUsers() 
+      dataDidLoad: false,
+      isLoading: false,
+      user: UserStore.getCurrentUser(),
+      hasGenre: false,
+      isAdmin: UserStore.isAdmin(),
+      botUsers: UserStore.getBotUsers()
     };
-  }, 
+  },
 
   componentDidMount: function() {
     mixpanel.track("PostForm step 1");
@@ -64,12 +64,12 @@ var PostFormFirst = React.createClass({
       this.submit();
 
   	}
-  }, 
+  },
 
   fillFields: function() {
     var title = this.refs.title_field.getDOMNode();
-    var artist = this.refs.artist_field.getDOMNode();  
-  }, 
+    var artist = this.refs.artist_field.getDOMNode();
+  },
 
   fetchScData: function(url) {
     var url = this.refs.url_field.getDOMNode().value.trim();
@@ -77,7 +77,7 @@ var PostFormFirst = React.createClass({
     if(url !== "" && !this.state.isLoading) {
       //this.addLoading();
       console.log("FORM STATE", this.state);
-    	
+
     	//var sc = new SoundCloudAudio('9999309763ba9d5f60b28660a5813440');
       sc.initialize({
         client_id: '9999309763ba9d5f60b28660a5813440',
@@ -123,8 +123,8 @@ var PostFormFirst = React.createClass({
             }
           };
           _submit = true;
-      }).catch(function(error){ 
-          console.log(error); 
+      }).catch(function(error){
+          console.log(error);
           if(error.status == 401 || error.status == 403) {
             console.log("Ungrateful");
             component.props.showGrowl("Soundcloud has restricted this song. \n THEY DON'T WANT YOU TO POST THE HEAT.");
@@ -147,10 +147,10 @@ var PostFormFirst = React.createClass({
     var v = this.refs.vocals.getDOMNode();
     var genres = [e, h, v];
     var genre = "";*/
-    
+
    /* if(e.checked) {
       genre += (e.value + " ");
-    } 
+    }
     if(h.checked) {
       genre += (h.value + " ");
     }
@@ -164,13 +164,13 @@ var PostFormFirst = React.createClass({
 
     //console.log(tags);
 
-    
+
     //data["all_tags"] = tags;
     data['genre'] = genre;
     //console.log("add genre to data", data, "add tags", data.tags);
 
     this.setState({hasGenre:true});
-  }, 
+  },
 
   setGenre: function() {
     this.setState({hasGenre:true});
@@ -189,7 +189,7 @@ var PostFormFirst = React.createClass({
     console.log("POST DATA TO SUBMIT", data);
     this.props.submit(JSON.stringify(data));
     mixpanel.track('Complete PostForm');
-  }, 
+  },
 
   onUrlInputChange: function(e) {
     console.log("CHANGE CHANGE CHANGE");
@@ -208,20 +208,20 @@ var PostFormFirst = React.createClass({
     var addBtn = this.refs.add.getDOMNode();
     addBtn.className += " tf-hide";
     this.setState({isLoading:true});
-  }, 
+  },
 
   rmLoading: function() {
     var addBtn = this.refs.add.getDOMNode();
     console.log("REMOVE", this.refs.add.getDOMNode());
-    addBtn.className = "button button--add";    
-    this.setState({isLoading:false}); 
-  }, 
+    addBtn.className = "button button--add";
+    this.setState({isLoading:false});
+  },
 
   dataDidLoad: function() {
     this.setState({dataDidLoad: true});
     //if(!resolved) {}
     this.refs.genres.getDOMNode().className = "align-left tf-show";
-  }, 
+  },
 
   renderAdminSelect: function() {
     var users = this.state.botUsers;
@@ -260,33 +260,33 @@ var PostFormFirst = React.createClass({
       );*/
   },
   render: function() {
-    var disabled = "button button--big is-disabled tf-center";
-    var enabled = "button button--big tf-center";
+    var disabled = "button button--big is-disabled tf-centered";
+    var enabled = "button button--big tf-centered";
     var show = "button button--add";
     var hide = "button button--add tf-hide";
     var isLoading = this.state.isLoading;
 
   	return (
   	 <div>
-       <div className="tf-newtrack-wrapper"> 
+       <div className="tf-newtrack-wrapper">
           <div className="tf-newtrack-title"> ADD A SONG </div>
           <input onChange={this.onUrlInputChange} type="text" ref="url_field" className="tf-soundcloud-link" placeholder="paste a soundcloud link">
             {/*<div className={isLoading ? hide : show} ref="add" onClick={this.fetchScData}> ADD </div> */}
           </input>
-          <div className="align-left" id="track-wrapper"> 
-            <div className="tf-newtrack-img"> 
+          <div className="align-left" id="track-wrapper">
+            <div className="tf-newtrack-img">
               <img src="/assets/img/tf_placeholder.png" ref="img_field"></img>
             </div>
-            <div className="tf-newtrack-form"> 
-              <label> ARTIST </label> 
-              <input type="text" ref="artist_field"></input>  
-              <label> TITLE </label> 
-              <input type="text" ref="title_field"></input>  
+            <div className="tf-newtrack-form">
+              <label> ARTIST </label>
+              <input type="text" ref="artist_field"></input>
+              <label> TITLE </label>
+              <input type="text" ref="title_field"></input>
             </div>
             { this.state.isAdmin ? this.renderAdminSelect() : "" }
           <div className={this.state.dataDidLoad ? enabled : disabled} onClick={this.handleClick}> POST </div>
           </div>
-          {/*(<div className="align-left tf-hide" ref="genres"> 
+          {/*(<div className="align-left tf-hide" ref="genres">
             <input type="checkbox" ref="hiphop" className="tf-checkbox" name="hiphop" id="hiphop" value="HIPHOP"></input>
             <label className="tf-checkbox-label" htmlFor="hiphop" onClick={this.setGenre}>Rhymes</label>
             <input type="checkbox" ref="vocals" className="tf-checkbox" id="vocals" name="vocals" value="VOCALS" onClick={this.setGenre}></input>
