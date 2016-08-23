@@ -43,7 +43,10 @@ var imgToUser = {
   "https://pbs.twimg.com/profile_images/722637224756527104/V2gzyuuA.jpg": ["kwright619", "Kevin Wright"],
   "https://pbs.twimg.com/profile_images/554870903771643904/QptVYRoS.jpeg": ["dillchen", "Dillon Chen"],
   "https://pbs.twimg.com/profile_images/717471203364114432/LRgWlhXY.jpg": ["reedrosenbluth", "Reed Rosenbluth"],
-  "https://pbs.twimg.com/profile_images/680826862189191168/_zvtIlYY.jpg": ["adlerike", "Ike Adler"]
+  "https://pbs.twimg.com/profile_images/680826862189191168/_zvtIlYY.jpg": ["adlerike", "Ike Adler"],
+  "https://pbs.twimg.com/profile_images/767609903192035329/VSZFIYbR.jpg": ["TheRealBpatt", "Brandon Patterson"],
+  "https://pbs.twimg.com/profile_images/767970130630324224/PjHiElWM.jpg": ["Hprado15", "Hector Prado"],
+  "https://pbs.twimg.com/profile_images/714302032996380672/mkhZ_e4V.jpg": ["duzi23", "Mduduzi Hlatshwayo"]
 };
 
 var imageUrlArray = [
@@ -82,7 +85,10 @@ var imageUrlArray = [
   "https://pbs.twimg.com/profile_images/722637224756527104/V2gzyuuA.jpg", /* kevin wright */
   "https://pbs.twimg.com/profile_images/554870903771643904/QptVYRoS.jpeg", /* dillon chen */
   "https://pbs.twimg.com/profile_images/717471203364114432/LRgWlhXY.jpg", /* reed rosenbluth */
-  "https://pbs.twimg.com/profile_images/680826862189191168/_zvtIlYY.jpg" /* ike adler */
+  "https://pbs.twimg.com/profile_images/680826862189191168/_zvtIlYY.jpg", /* ike adler */
+  "https://pbs.twimg.com/profile_images/767609903192035329/VSZFIYbR.jpg", /* brandon patterson */
+  "https://pbs.twimg.com/profile_images/767970130630324224/PjHiElWM.jpg", /* hector prado */
+  "https://pbs.twimg.com/profile_images/714302032996380672/mkhZ_e4V.jpg" /* mduduzi hlatshwayo */
 ];
 
 function toArray(obj) {
