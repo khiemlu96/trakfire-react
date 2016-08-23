@@ -12,7 +12,7 @@ var imgToUser = {
   "https://pbs.twimg.com/profile_images/731728302679937025/-ckljE8x.jpg": ["arjunkmehta", "Arjun Mehta"],
   "https://pbs.twimg.com/profile_images/739238139496013824/Di4Xv3Kl.jpg": ["dosherow23", "Drew Osherow"],
   "https://pbs.twimg.com/profile_images/746855445470445568/vAr7Idcj.jpg": ["djskee", "DJ SKEE"],
-  "https://pbs.twimg.com/profile_images/760503094023118849/03yKeHE0.jpg": ["watchbbg", "Bernard Bennett-Green"],
+  "https://pbs.twimg.com/profile_images/750911648756486144/wRWq7xJZ.jpg": ["watchbbg", "Bernard Bennett-Green"],
   "https://pbs.twimg.com/profile_images/562454001241694209/bVnKVGt1.jpeg": ["Ross_Lindly", "Ross Lindly"],
   "https://scontent-lax3-1.xx.fbcdn.net/v/t1.0-9/10665049_1704769563093633_2815334745558746761_n.jpg?oh=ecd5e93aa7eca1a350d82950e0c84e63&oe=57D42A56": ["_jmace", "Joey Masso"],
   "https://pbs.twimg.com/profile_images/378800000051286778/1584e2c1f9aede7654f278e6cbb985b2.jpeg": ["cruzcontrol5", "Nick De La Cruz"],
@@ -28,7 +28,7 @@ var imgToUser = {
   "https://pbs.twimg.com/profile_images/745145732257058816/c201V1re.jpg": ["TJD_Nneoma", "Nneoma Akubuilo"],
   "https://pbs.twimg.com/profile_images/726807586541023232/k2xsiF_n.jpg": ["ZachCohan", "Zach Cohan"],
   "https://pbs.twimg.com/profile_images/596466463780667393/AKmLhSDB.jpg": ["LarryLoveWB", "Larry Love"],
-  "https://pbs.twimg.com/profile_images/756189810767699968/uYqR_7Ix.jpg": ["luvkushmusic", "Akash Chandani"],
+  "https://pbs.twimg.com/profile_images/745171818617544704/zpMkzLTF.jpg": ["luvkushmusic", "Akash Chandani"],
   "https://pbs.twimg.com/profile_images/741335820347396096/VQX_C8Gm.jpg": ["realtripcarter", "Brandon Canada"],
   "https://pbs.twimg.com/profile_images/622538564002164736/BFau3E6h.jpg": ["filthytaft", "Ben Taft"],
   "https://pbs.twimg.com/profile_images/551066724770934785/KdJr5kRS.jpeg": ["DJSterntables", "Matt Stren"],
@@ -62,7 +62,7 @@ var imageUrlArray = [
   "https://pbs.twimg.com/profile_images/662108755731963904/Rqb7h7fI.jpg", /* helena yohannes */
   "https://pbs.twimg.com/profile_images/1619174303/30388_534773737690_70902851_31598692_2588092_n.jpg", /* noah preston */
   "https://pbs.twimg.com/profile_images/646770209437564928/YRVfrN3b.jpg", /* nate stranzl */
-  "https://pbs.twimg.com/profile_images/626091726088765440/IPc3BNuT.jpg", /* caitlin harriford */
+  "https://scontent.xx.fbcdn.net/v/t1.0-9/11896235_10207878977997982_3363443496669409328_n.jpg?oh=4aa682d28a0c37deff1c61e9c4c1b369&oe=5855A389", /* caitlin harriford */
   "https://pbs.twimg.com/profile_images/694679759599439872/E5XyfE4O.jpg", /* danny cagan */
   "https://pbs.twimg.com/profile_images/745145732257058816/c201V1re.jpg", /* nneoma akubuilo */
   "https://pbs.twimg.com/profile_images/726807586541023232/k2xsiF_n.jpg", /* zach cohan */
@@ -134,13 +134,14 @@ var CommunityGrid = React.createClass({
     var chunks = chunkify(imageUrlArray, Math.floor(imageUrlArray.length/6));
     console.log("chunks", chunks, chunks.length);
     for(var i = 0; i < chunks.length; i++) {
-      var jsx = chunks[i].map(function(url, idx) { 
+      var jsx = chunks[i].map(function(url, idx) {
+        console.log('url', url, idx, imgToUser[url])
         var info = imgToUser[url];
         var handle = info[0];
         var name = info[1];
         var twturl = "https://twitter.com/"+handle
         console.log("COMMUNITY GRID:: ", twturl, name);
-        return <CommunityGridItem imgUrl={url} href={twturl} name={name}/> 
+        return <CommunityGridItem imgUrl={url} href={twturl} name={name}/>
       });
       communityGrid.push(jsx);
     }
