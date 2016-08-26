@@ -33,10 +33,10 @@ module.exports = {
       method: 'get',
       contentType: 'application/json',
       headers: {'Authorization': localStorage.getItem('jwt')},
-      success: function(resp) { 
+      success: function(resp) {
       	console.log("SERVER POST RESPONSE", resp);
       	rawPosts = resp;
-      	PostServerActionCreators.recieveBatch(rawPosts); 
+      	PostServerActionCreators.recieveBatch(rawPosts);
         NProgress.done();
       },
       error: function(error) {
@@ -55,17 +55,17 @@ module.exports = {
       method: 'get',
       contentType: 'application/json',
       headers: {'Authorization': localStorage.getItem('jwt')},
-      success: function(resp) { 
+      success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         user = resp;
-        UserServerActionCreators.recieveCurrentUser(user); 
+        UserServerActionCreators.recieveCurrentUser(user);
       },
       error: function(error) {
         console.error(url, error);
         //console.error(url, error['response']);
         //location = '/';
       }
-    });    
+    });
   },
 
   writePost: function(url, data, callback) {
@@ -79,14 +79,20 @@ module.exports = {
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
+        if(resp.status == '500' && resp.message == 'user has reached the post limit') {
+          callback("You've reached the daily post limit, drop it tomorrow.");
+          NProgress.done();
+          return;
+        }
         callback("Thanks for the new heat fam");
         newPost = resp;
-        PostServerActionCreators.recieveCreatedPost(newPost); 
+        PostServerActionCreators.recieveCreatedPost(newPost);
         NProgress.done();
       },
       error: function(error) {
-        console.error(url, error['response']);
+        console.error(url, error['response'], error);
         callback("This was already posted. U late. Sorry.");
+        NProgress.done();
         //location = '/';
       }
     });
@@ -100,10 +106,10 @@ module.exports = {
       method: 'get',
       contentType: 'application/json',
       headers: {'Authorization': localStorage.getItem('jwt')},
-      success: function(resp) { 
+      success: function(resp) {
         console.log("SERVER RESPONSE FOR USER", resp);
         userPosts = resp;
-        PostServerActionCreators.recieveUserPosts(userPosts); 
+        PostServerActionCreators.recieveUserPosts(userPosts);
         NProgress.done();
       },
       error: function(error) {
@@ -111,8 +117,8 @@ module.exports = {
         //console.error(url, error['response']);
         //location = '/';
       }
-    });    
-  }, 
+    });
+  },
 
   upvotePostFromUser: function(url, post_id) {
     console.log('UPVOTING POST '+post_id+' BY CURR USER');
@@ -128,13 +134,13 @@ module.exports = {
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         newVote = resp;
-        PostServerActionCreators.recieveNewVote(newVote); 
+        PostServerActionCreators.recieveNewVote(newVote);
       },
       error: function(error) {
         console.error(url, error['response']);
         //location = '/';
       }
-    });  
+    });
   },
 
   unvotePostFromUser: function(url, post_id) {
@@ -151,14 +157,14 @@ module.exports = {
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         //newVote = resp;
-        //PostServerActionCreators.recieveNewVote(newVote); 
+        //PostServerActionCreators.recieveNewVote(newVote);
       },
       error: function(error) {
         console.error(url, error['response']);
         //location = '/';
       }
-    });    
-  }, 
+    });
+  },
 
   batchUpvote: function(url, data) {
     Reqwest({
@@ -171,13 +177,13 @@ module.exports = {
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         newVotes = resp;
-        PostServerActionCreators.recieveNewVote(newVotes); 
+        PostServerActionCreators.recieveNewVote(newVotes);
       },
       error: function(error) {
         console.error(url, error['response']);
         //location = '/';
       }
-    }); 
+    });
   },
 
   updateUserWithEmail: function(url, email) {
@@ -193,14 +199,14 @@ module.exports = {
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         //newVote = resp;
-        //UserServerActionCreators.recieveNewVote(newVote); 
+        //UserServerActionCreators.recieveNewVote(newVote);
       },
       error: function(error) {
         console.error(url, error['response']);
         //location = '/';
       }
-    });    
-  }, 
+    });
+  },
 
   getUser: function(url, userid) {
     var data = { user : { id : userid } }
@@ -216,15 +222,15 @@ module.exports = {
       success: function(resp) {
         console.log("USER SERVER RESPONSE", resp);
         newUser = resp;
-        UserServerActionCreators.recieveNewUser(newUser); 
+        UserServerActionCreators.recieveNewUser(newUser);
         NProgress.done();
       },
       error: function(error) {
         console.error(url, error['response']);
         //location = '/';
       }
-    });  
-  }, 
+    });
+  },
 
   sendUserApplication: function(url, data) {
     Reqwest({
@@ -236,13 +242,13 @@ module.exports = {
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
-        //UserServerActionCreators.recieveNewUser(newUser); 
+        //UserServerActionCreators.recieveNewUser(newUser);
       },
       error: function(error) {
         console.error(url, error['response']);
         //location = '/';
       }
-    });    
+    });
   },
 
   getPost: function(url, id) {
@@ -253,17 +259,17 @@ module.exports = {
       method: 'get',
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
-        PostServerActionCreators.recieveSinglePost(resp); 
+        PostServerActionCreators.recieveSinglePost(resp);
         NProgress.done();
       },
       error: function(error) {
         console.error(url, error['response']);
       }
-    });    
+    });
   },
 
-  followUser: function(url, follow_id) { 
-    var data = { follow : {follow_id : follow_id} };  
+  followUser: function(url, follow_id) {
+    var data = { follow : {follow_id : follow_id} };
 
     Reqwest({
       url: url,
@@ -282,8 +288,8 @@ module.exports = {
     });
   },
 
-  unFollowUser: function(url, follow_id) { 
-    var data = { follow : {follow_id : follow_id} };  
+  unFollowUser: function(url, follow_id) {
+    var data = { follow : {follow_id : follow_id} };
     url = url + '/' + follow_id;
     Reqwest({
       url: url,
@@ -315,7 +321,7 @@ module.exports = {
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
         newComment = resp;
-        PostServerActionCreators.recieveNewPostComment(newComment); 
+        PostServerActionCreators.recieveNewPostComment(newComment);
       },
       error: function(error) {
         console.error(url, error['response']);
@@ -335,7 +341,7 @@ module.exports = {
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
-        UserServerActionCreators.recieveCurrentUser(resp); 
+        UserServerActionCreators.recieveCurrentUser(resp);
       },
       error: function(error) {
         console.error(url, error['response']);
@@ -347,10 +353,10 @@ module.exports = {
     console.log("NOTIES", url, data);
     var params = {
       limit: data.limit,
-      offset: data.offset, 
+      offset: data.offset,
       user_id: data.user_id
     };
-    
+
     Reqwest({
       url: url,
       type: 'json',
@@ -360,7 +366,7 @@ module.exports = {
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
-        UserServerActionCreators.recieveUserNotifications(resp); 
+        UserServerActionCreators.recieveUserNotifications(resp);
       },
       error: function(error) {
         console.log("ERRR", data, url);
@@ -374,7 +380,7 @@ module.exports = {
       limit: data.limit,
       offset: data.offset
     };
-    
+
     Reqwest({
       url: url,
       type: 'json',
@@ -384,7 +390,7 @@ module.exports = {
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
-        UserServerActionCreators.recieveMoreUserNotifications(resp); 
+        UserServerActionCreators.recieveMoreUserNotifications(resp);
       },
       error: function(error) {
         console.error(url, error['response']);
@@ -404,7 +410,7 @@ module.exports = {
     if(data.date !== undefined) {
         params.date = data.date;
     }
-    
+
     Reqwest({
         url: url,
         type: 'json',
@@ -446,7 +452,7 @@ module.exports = {
   },
 
   deletePost: function(url) {
-    
+
     Reqwest({
       url: url,
       type: 'json',
@@ -454,13 +460,13 @@ module.exports = {
       contentType: 'application/json',
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
-        PostServerActionCreators.deleteAdminPost(resp);  
+        PostServerActionCreators.deleteAdminPost(resp);
       },
       error: function(error) {
         console.error(url, error['response']);
         //location = '/';
       }
-    });    
+    });
   },
 
   getAllUsers: function(url,data) {
@@ -476,10 +482,10 @@ module.exports = {
       data: data,
       contentType: 'application/json',
       headers: {'Authorization': localStorage.getItem('jwt')},
-      success: function(resp) { 
+      success: function(resp) {
         console.log("RECIEVING USERS BRUH", resp);
         users = resp;
-        UserServerActionCreators.recieveAll(users); 
+        UserServerActionCreators.recieveAll(users);
       },
       error: function(error) {
         console.error(url, error['response']);
@@ -496,12 +502,12 @@ module.exports = {
       contentType: 'application/json',
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
-        UserServerActionCreators.deleteUser(resp); 
+        UserServerActionCreators.deleteUser(resp);
       },
       error: function(error) {
         console.error(url, error['response']);
       }
-    });    
+    });
   },
 
   getAdminState: function(url, data) {
@@ -512,8 +518,8 @@ module.exports = {
       data: data,
       contentType: 'application/json',
       headers: {'Authorization': localStorage.getItem('jwt')},
-      success: function(resp) { 
-        UserServerActionCreators.recieveAdminState(resp); 
+      success: function(resp) {
+        UserServerActionCreators.recieveAdminState(resp);
       },
       error: function(error) {
         console.error(url, error['response']);
@@ -531,12 +537,12 @@ module.exports = {
       contentType: 'application/json',
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
-        UserServerActionCreators.verifyUser(resp); 
+        UserServerActionCreators.verifyUser(resp);
       },
       error: function(error) {
         console.error(url, error['response']);
       }
-    });    
+    });
   },
 
   postFile: function(url, fileData) {
@@ -583,7 +589,7 @@ module.exports = {
       contentType: 'application/json',
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
-        UserServerActionCreators.deleteCarousalFile(resp); 
+        UserServerActionCreators.deleteCarousalFile(resp);
       },
       error: function(error) {
         console.error(url, error['response']);
@@ -629,7 +635,7 @@ module.exports = {
       }
     });
   },
-  
+
   getUserRequestInvites: function(url, data) {
     Reqwest({
         url: url,
@@ -657,7 +663,7 @@ module.exports = {
       contentType: 'application/json',
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
-        UserServerActionCreators.deleteRequest(resp); 
+        UserServerActionCreators.deleteRequest(resp);
       },
       error: function(error) {
         console.error(url, error['response']);
@@ -709,7 +715,7 @@ module.exports = {
       contentType: 'application/json',
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
-        UserServerActionCreators.deleteWhiteListUser(resp); 
+        UserServerActionCreators.deleteWhiteListUser(resp);
       },
       error: function(error) {
         console.error(url, error['response']);
@@ -728,13 +734,13 @@ module.exports = {
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
-        //UserServerActionCreators.updateUserNotification(resp); 
+        //UserServerActionCreators.updateUserNotification(resp);
       },
       error: function(error) {
         console.error(url, error['response']);
       }
     });
-  }, 
+  },
 
   getPending: function(url, data) {
     console.log(data);
@@ -747,13 +753,13 @@ module.exports = {
       headers: {'Authorization': localStorage.getItem('jwt')},
       success: function(resp) {
         console.log("SERVER RESPONSE", resp);
-        UserServerActionCreators.getPending(resp['exists']); 
+        UserServerActionCreators.getPending(resp['exists']);
       },
       error: function(error) {
         console.error(url, error['response']);
       }
-    });   
-  }, 
+    });
+  },
 
   getBotUsers: function(url) {
     console.log(url);
@@ -770,8 +776,8 @@ module.exports = {
       error: function(error) {
         console.error(url, error['response']);
       }
-    });    
-  }, 
+    });
+  },
 
   getTopUsers: function(url) {
     Reqwest({
@@ -787,7 +793,6 @@ module.exports = {
       error: function(error) {
         console.error(url, error['response']);
       }
-    });    
+    });
   }
 };
-

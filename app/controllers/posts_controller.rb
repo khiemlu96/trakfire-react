@@ -121,7 +121,8 @@ class PostsController < ApplicationController
 	  @post.date = Date.today
 
 	  if(post_limit(@post.user_id, @post.date))
-	  	render json: { 'status' => '500', 'error' => 'user has reached the post limit'}
+			logger.info "user has reached the post limit"
+	  	render json: { 'status' => '500', 'message' => 'user has reached the post limit'} and return
 	  end
 
 	  @post.vote_count = 1
@@ -129,10 +130,10 @@ class PostsController < ApplicationController
 	  if @post.save
 
 	  	#tweet
-	  	twt_user = User.find(@post.user_id)
-	  	if !twt_user.bot &&
-	  	  twitter_update(@post.title, twt_user.handle, twt_user.username, @post.artist, @post.id, @post.url)
-	  	end
+	  	#twt_user = User.find(@post.user_id)
+	  	#if !twt_user.bot &&
+	  	#  twitter_update(@post.title, twt_user.handle, twt_user.username, @post.artist, @post.id, @post.url)
+	  	#end
 
 	  	#create a vote
 	  	@vote = Vote.new()
@@ -254,7 +255,7 @@ class PostsController < ApplicationController
 
 	  def post_limit(user_id, date)
 	  	posts = Post.where('user_id = ? AND date = ?', user_id, date)
-	  	if posts.count >= 3
+	  	if posts.count >= 1
 	  	  return true
 	  	else
 	  	  return false
