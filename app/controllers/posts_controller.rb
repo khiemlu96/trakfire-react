@@ -255,7 +255,7 @@ class PostsController < ApplicationController
 
 	  def post_limit(user_id, date)
 	  	posts = Post.where('user_id = ? AND date = ?', user_id, date)
-	  	if posts.count >= 1
+	  	if posts.count >= 3
 	  	  return true
 	  	else
 	  	  return false
