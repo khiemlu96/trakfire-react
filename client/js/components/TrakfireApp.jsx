@@ -357,7 +357,7 @@ var TrakfireApp = React.createClass({
                 We partnered with some productions, playlisters and publications we fuck with heavily and the result is a direct line that starts the moment a curator posts on trakfire and ends with real features.
               </p>
               <p className="tf-justify tf-info">
-                So, from now on we'll periodically feature those tracks that made it out the trap and onto our mans' list in the header.
+                So, from now on we'll periodically feature those tracks that made it out the trap and onto our mans' lists.
                 You'll notice the badge in the header and a few other tweaks are on the way to spotlight the curators who are doing well, dog.
               </p>
               <p className="tf-justify tf-info">
