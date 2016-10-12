@@ -16,7 +16,6 @@ var Link = require('react-router').Link;
 var classNames = require('classnames');
 var UserFlyOver = require('./UserFlyOver.jsx');
 var LeaderBoardItem = require('./LeaderBoardItem.jsx');
-//var namespace = "LeaderBoard::";
 
 function getComponentState() {
   return {
@@ -66,7 +65,7 @@ var LeaderBoard = React.createClass({
     console.log('currentUser leaderboard', this.state.currentUser);
   },
 
-  componentWillUnmount() {
+  componentWillUnmount: function() {
     // Remove same function reference that was added
     UserStore.removeChangeListener(this._onChange);
   },

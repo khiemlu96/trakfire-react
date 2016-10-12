@@ -51,7 +51,7 @@ var PostDetailHeader = React.createClass({
   componentDidMount: function() {
     console.log("MOUNTING THE DETAIL HEADER");
   },
-  componentWillUnmount() {
+  componentWillUnmount: function() {
     // Remove same function reference that was added
     UserStore.removeChangeListener(this._onChange);
   },
