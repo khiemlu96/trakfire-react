@@ -349,16 +349,22 @@ var TrakfireApp = React.createClass({
             </Modal.Body>
           </Modal>*/}
           <Modal show={this.state.showDetailModal} onHide={this.closeDetailModal}>
-            <Modal.Body closeButton className={"tf-modal-body"}>
-              <p> <h2 className="tf-centered tf-uppercase">{"diamonds on us dancin' "}</h2></p>
+            <Modal.Body closeButton className={"tf-modal-body--detail"}>
+              <p> <h2 className="tf-centered tf-uppercase">Major bag alert</h2></p>
               <p className="tf-justify tf-info">
-                Yo. Thanks to our curators we've generated a bit of respek on our name for our finds.
+                Thanks to our curators we've generated a bit of respek on our name for our finds.
                 The industry has been watching and now we've brought it full circle.
                 We partnered with some productions, playlisters and publications we fuck with heavily and the result is a direct line that starts the moment a curator posts on trakfire and ends with real features.
-                <br/><br/> To our curators: thank you and keep building.
+              </p>
+              <p className="tf-justify tf-info">
+                To our curators: thank you and keep building.
                 <br/> To our listeners: look at god.
-                <img className="tf-centered" src="https://66.media.tumblr.com/8d9d03dc87c14c421f36ab4ad54affcd/tumblr_mz2isrQere1sgwk7uo1_400.gif"/>
-                <br/><br/> - the trakfire team.
+              </p>
+              <p className="tf-justify tf-info">
+                - the trakfire team.
+              </p>
+              <p className="tf-centered">
+                <img src="https://66.media.tumblr.com/8d9d03dc87c14c421f36ab4ad54affcd/tumblr_mz2isrQere1sgwk7uo1_400.gif"/>
               </p>
             </Modal.Body>
           </Modal>

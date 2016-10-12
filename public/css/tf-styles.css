@@ -2230,6 +2230,13 @@ label.ownsong-label {
 	background-color: #1f1f1f;
 }
 
+.tf-modal-body--detail {
+  font-family: "Benton Sans RE", sans-serif;
+	color: #fff;
+	background-color: #1f1f1f;
+  padding: 25px !important;  
+}
+
 .tf-modal-body {
 	font-family: "Benton Sans RE", sans-serif;
 	color: #fff;
