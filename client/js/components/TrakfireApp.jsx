@@ -10,7 +10,7 @@ var Modal = Bootstrap.Modal;
 var Button = Bootstrap.Button;
 var Input = Bootstrap.Input;
 var Row = Bootstrap.Row;
-var Col = Bootstrap.Col; 
+var Col = Bootstrap.Col;
 
 var NavBar = require('./NavBar.jsx');
 var Footer = require('./Footer.jsx');
@@ -51,7 +51,7 @@ function mergeState(s, o) {
   var g = {};
   for (var attrname in s) { g[attrname] = s[attrname]; }
   for (var attrname in o) { g[attrname] = o[attrname]; }
-  return g; 
+  return g;
 }
 
 function formatStreamUrl(url) {
@@ -73,9 +73,10 @@ var TrakfireApp = React.createClass({
         volume: 1.0,
         duration: 0,
         currTrack: null,
-        currStreamUrl: null, 
+        currStreamUrl: null,
         currSongList: {},
-        currSongIdx: 0     
+        currSongIdx: 0,
+        showDetailModal: false
     }
 
     return mergeState(storeState, ownedState);
@@ -95,7 +96,7 @@ var TrakfireApp = React.createClass({
     if (!!jwt) {
       console.log('SET SESSION W JWT');
       localStorage.setItem('jwt', jwt);
-    } 
+    }
   },
 
   componentDidMount: function() {
@@ -131,18 +132,18 @@ var TrakfireApp = React.createClass({
       //console.log("CURR SONG LIST IS", this.state.currentSongList, this.state.currSongIdx);
       console.log("NEXT SONG IS", next);
       this.setState({
-        currTrack:next, 
+        currTrack:next,
         currStreamUrl:next.stream_url,
         currSongIdx: next.sortedIdx
       });
       scPlayer.play({streamUrl: next.stream_url});
       $(document).trigger("ReactComponent:PostListItem:handlePlayPauseClick", [next.id]);
-  }, 
+  },
 
   shouldComponentUpdate: function(nextProps, nextState) {
     //console.log("NEXT: ", nextState, "CURR: ", this.state);
     return true;
-  }, 
+  },
 
   readPostsFromApi: function(){
     //console.log('FETCHING POST BATCH', this.props.origin);
@@ -173,7 +174,7 @@ var TrakfireApp = React.createClass({
       this.showSignupModal();
     }
 
-  }, 
+  },
 
   updateUserWithEmail: function(email) {
     UserActions.updateEmail(this.props.origin+'/users/'+userid, email);
@@ -192,12 +193,12 @@ var TrakfireApp = React.createClass({
       return;
     }
 
-    var data = { 
+    var data = {
       application :  {
         name : name,
-        handle : handle, 
-        email : email, 
-        sc1 : track1, 
+        handle : handle,
+        email : email,
+        sc1 : track1,
         sc2 : track2,
         sc3 : track3
       }
@@ -205,7 +206,7 @@ var TrakfireApp = React.createClass({
 
     UserActions.sendUserApplication(this.props.origin+'/applications', data);
     this.closeSignupModal();
-  }, 
+  },
 
   handleUserSelection: function(genre, sort) {
     var currGenre = this.state.genre;
@@ -220,27 +221,36 @@ var TrakfireApp = React.createClass({
     this.setState({
       genre: currGenre,
       sort: sort ? sort : currSort
-    }); 
+    });
     PostActions.filterPosts(currGenre, sort);
   },
 
   showModal: function(showState) {
     console.log("Test showModal");
     this.setState({showModal:showState});
-  }, 
+  },
 
   closeModal: function() {
     this.setState({showModal:false});
-  }, 
+  },
 
   showSignupModal: function(){
     console.log("SHOW THE SU MODAL");
     this.setState({showSignupModal:true});
-  }, 
+  },
 
   closeSignupModal: function() {
     this.setState({showSignupModal:false});
-  }, 
+  },
+
+  showDetailModal: function(){
+    console.log("SHOW THE D MODAL");
+    this.setState({showDetailModal:true});
+  },
+
+  closeDetailModal: function() {
+    this.setState({showDetailModal:false});
+  },
 
   isCurrentTrackUpvoted: function() {
     var track = this.state.currTrack;
@@ -248,11 +258,11 @@ var TrakfireApp = React.createClass({
     console.log("USERRR", user, "TRACKKK", track);
     if(user && track && track.votes)
       var exists = track.votes.indexOf(user.id);
-    else 
+    else
       var exists = -1;
     //console.log(post.id, exists);
     return (exists != -1) ? true : false;
-  }, 
+  },
 
   setSongList: function(songs) {
     //console.log("SETTING THE SONG LIST WITH ", songs);
@@ -271,13 +281,13 @@ var TrakfireApp = React.createClass({
     var upvoted = this.isCurrentTrackUpvoted();
     var playing = this.state.isPlaying;
     var currTrack = this.state.currTrack;
-    var currUserId = this.state.currentUser ? this.state.currentUser.id : -1; 
+    var currUserId = this.state.currentUser ? this.state.currentUser.id : -1;
 
-    var tfPlayer =  <TrakfirePlayer 
+    var tfPlayer =  <TrakfirePlayer
                       currTrack={this.state.currTrack}
                       isPlaying={this.state.isPlaying}
-                      onPlayPauseClick={this.onPlayCtrlClick} 
-                      onProgressClick={this.onProgressClick} 
+                      onPlayPauseClick={this.onPlayCtrlClick}
+                      onProgressClick={this.onProgressClick}
                       onNextClick={this.onNextCtrlClick}
                       onPrevClick={this.onPrevCtrlClick}
                       isLoggedIn={this.state.isLoggedIn}
@@ -289,8 +299,8 @@ var TrakfireApp = React.createClass({
                       />;
     //var tfEmailAcq = <EmailAcquirePage updateUserWithEmail={this.updateUserWithEmail}/>;
     var Routes =  <div>
-           { React.cloneElement(this.props.children, 
-              { 
+           { React.cloneElement(this.props.children,
+              {
                 sort: this.state.sort,
                 genre: this.state.genre,
                 posts: {},
@@ -301,16 +311,17 @@ var TrakfireApp = React.createClass({
                 onPostItemClick: this.onPlayBtnClick,
                 currUser: this.state.currentUser,
                 origin: this.props.origin,
-                value: scPlayer.audio.currentTime, 
-                currStreamUrl: this.state.currStreamUrl, 
+                value: scPlayer.audio.currentTime,
+                currStreamUrl: this.state.currStreamUrl,
                 setSongList: this.setSongList,
                 filterPosts: this.handleUserSelection
               }) }</div>;
-    
+
     return (
       <div className="tf-body">
+        <a href="#" className="tf-alert-static" onClick={this.showDetailModal}> We made it. </a>
         <div>
-            <NavBar 
+            <NavBar
               isLoggedIn={this.state.isLoggedIn}
               origin={this.props.origin}
               isAdmin={this.state.isAdmin}
@@ -322,7 +333,7 @@ var TrakfireApp = React.createClass({
           <div id ="main-container">
             <span ref="growl"></span>
             {Routes}
-          </div>          
+          </div>
           <div>
           {active ? tfPlayer : ''}
           </div>
@@ -331,12 +342,26 @@ var TrakfireApp = React.createClass({
               <p><h2 className="tf-centered tf-uppercase">Sign In</h2></p>
               <p className="tf-centered">Fill in your invite code or sign up with Twitter or Facebook to upvote, post, and save tracks to your collection</p>
               <input type="text" ref="url_field" className="tf-soundcloud-link" placeholder="fill in the invite code">
-                <div className="button button--join" ref="add" onClick={this.fetchScData}> JOIN </div> 
+                <div className="button button--join" ref="add" onClick={this.fetchScData}> JOIN </div>
               </input>
               <p className="tf-centered"> OR </p>
               <a href={this.props.origin+'/request_token'} className="btn btn-primary btn-block"> Sign in with Twitter </a>
             </Modal.Body>
           </Modal>*/}
+          <Modal show={this.state.showDetailModal} onHide={this.closeDetailModal}>
+            <Modal.Body closeButton className={"tf-modal-body"}>
+              <p> <h2 className="tf-centered tf-uppercase">{"diamonds on us dancin' "}</h2></p>
+              <p className="tf-justify tf-info">
+                Yo. Thanks to our curators we've generated a bit of respek on our name for our finds.
+                The industry has been watching and now we've brought it full circle.
+                We partnered with some productions, playlisters and publications we fuck with heavily and the result is a direct line that starts the moment a curator posts on trakfire and ends with real features.
+                <br/><br/> To our curators: thank you and keep building.
+                <br/> To our listeners: look at god.
+                <img className="tf-centered" src="https://66.media.tumblr.com/8d9d03dc87c14c421f36ab4ad54affcd/tumblr_mz2isrQere1sgwk7uo1_400.gif"/>
+                <br/><br/> - the trakfire team.
+              </p>
+            </Modal.Body>
+          </Modal>
 
           <Modal show={this.state.showSignupModal} onHide={this.closeSignupModal}>
             <Modal.Body closeButton className={"tf-modal-body"}>
@@ -398,9 +423,9 @@ var TrakfireApp = React.createClass({
       isPlaying = true;
       //SongActions.play();
       this.setState({
-        isPlaying : isPlaying, 
-        isPaused : isPaused, 
-        currStreamUrl : stream_url, 
+        isPlaying : isPlaying,
+        isPaused : isPaused,
+        currStreamUrl : stream_url,
         currTrack : track,
         currSongIdx : idx
       });
@@ -411,28 +436,28 @@ var TrakfireApp = React.createClass({
         isPlaying = false;
         isPaused = true;
         //SongActions.pause();
-        this.setState({isPlaying : isPlaying, isPaused : isPaused});     
+        this.setState({isPlaying : isPlaying, isPaused : isPaused});
     } else if(isPlaying && stream_url != this.state.currStreamUrl) {
         scPlayer.pause();
         scPlayer.play({streamUrl : stream_url});
         isPlaying = true;
-        isPaused = false;  
+        isPaused = false;
         this.setState({
-          isPlaying : isPlaying, 
-          isPaused : isPaused, 
-          currStreamUrl : stream_url, 
+          isPlaying : isPlaying,
+          isPaused : isPaused,
+          currStreamUrl : stream_url,
           currTrack : track,
           currSongIdx : idx
-        }); 
+        });
         PostActions.setCurrentPost(idx);
-        PostStore.setPlaylist(track);    
+        PostStore.setPlaylist(track);
     }
-    
+
     if(isPlaying){
       mixpanel.track('Playing track', {
       'title': track.title,
       'id': track.id,
-      'artist' : track.artist, 
+      'artist' : track.artist,
       'filter' : this.state.genre,
       'sort' : this.state.sort
       });
@@ -440,10 +465,10 @@ var TrakfireApp = React.createClass({
       mixpanel.track('Paused track', {
       'title': track.title,
       'id': track.id,
-      'artist' : track.artist, 
-      'filter' : this.state.genre, 
-      'sort' : this.state.sort 
-      });      
+      'artist' : track.artist,
+      'filter' : this.state.genre,
+      'sort' : this.state.sort
+      });
     }
   },
 
@@ -474,30 +499,30 @@ var TrakfireApp = React.createClass({
       var next = PostStore.getNextTrack();
       console.log("CTRL: NEXT SONG IS", next);
       this.setState({
-        currTrack:next, 
+        currTrack:next,
         currStreamUrl:next.stream_url,
         currSongIdx: next.sortedIdx,
         isPlaying: true
       });
       scPlayer.play({streamUrl: next.stream_url});
-  }, 
+  },
 
   onPrevCtrlClick: function() {
       var next = PostStore.getPrevTrack();
       console.log("CTRL: NEXT SONG IS", next);
       this.setState({
-        currTrack:next, 
+        currTrack:next,
         currStreamUrl:next.stream_url,
         currSongIdx: next.sortedIdx,
         isPlaying: true
       });
       scPlayer.play({streamUrl: next.stream_url});
-  }, 
+  },
 
   onProgressClick: function(millipos) {
     //console.log("SEEKING BOI");
     scPlayer.seekTo(millipos);
-  }, 
+  },
 
   showGrowlNotification: function(text) {
     console.log("ATTACHING GROWL");
@@ -508,7 +533,7 @@ var TrakfireApp = React.createClass({
         '</button>' + text +'</div></div>';
     var notifDiv = this.refs.growl.getDOMNode();
     notifDiv.innerHTML = notif;
-  }, 
+  },
 
   /**
    * Event handler for 'change' events coming from the PostStore
