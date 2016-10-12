@@ -118,7 +118,7 @@ var PostListFeatureHeader = React.createClass({
     var postLink = "/post/"+post.id;
     var artist_id = "tf-media-artist-" + post.id;
     //var content = this.renderCarousel();
-    //console.log('2 yung', content)
+    console.log('2 yung')
     return (
       <div className="main-page">
         {this.renderCarousel()}
