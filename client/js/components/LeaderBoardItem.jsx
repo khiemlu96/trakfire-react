@@ -1,4 +1,4 @@
-//leader board item 
+//leader board item
 /**
  * Copyright (c) 2014-2015, Facebook, Inc.
  * All rights reserved.
@@ -19,10 +19,10 @@ var classNames = require('classnames');
 var UserFlyOver = require('./UserFlyOver.jsx');
 
 var FollowButtonStyle = {
-  backgroundColor: 'transparent' 
+  backgroundColor: 'transparent'
 }
 var FollowingButtonStyle = {
-  backgroundColor: '#ff0d60' 
+  backgroundColor: '#ff0d60'
 }
 
 var nodecor = {
@@ -34,6 +34,7 @@ var LeaderBoardItem = React.createClass({
 
   propTypes: {
   	user: ReactPropTypes.object,
+    currentUser: ReactPropTypes.object,
   	origin: ReactPropTypes.string,
     showModal: ReactPropTypes.func
   },
@@ -50,18 +51,18 @@ var LeaderBoardItem = React.createClass({
     //console.log(namespace, this.props.currentUser, UserStore.getCurrentUser());
   },
 
-  componentWillMount: function() {}, 
-  
+  componentWillMount: function() {},
+
   followUser: function() {
   	var follow_id = this.props.user.id;
   	UserActions.followUser(this.props.origin+ '/follower', follow_id);
   },
-  
+
   unFollowUser: function() {
   	var follow_id = this.props.user.id;
   	UserActions.unFollowUser(this.props.origin+ '/follower', follow_id);
   },
-  
+
   followClick: function(){
     if(!this.state.currentUser) {
       this.props.showModal();
@@ -81,7 +82,7 @@ var LeaderBoardItem = React.createClass({
    */
   render: function() {
   	var user = this.props.user;
-  	var currentUser = this.state.currentUser;
+  	var currentUser = this.props.currentUser;
 
     var isFollowing = false;
   	if(currentUser !== null && user !== null) {
@@ -92,20 +93,20 @@ var LeaderBoardItem = React.createClass({
         }
     }
     var followBtnHtml = <button className = "btn btn-primary-outline btn-sm pull-right" style = {isFollowing ? FollowingButtonStyle : FollowButtonStyle} onClick = {this.followClick}>
-                    {isFollowing ? "Following" : "Follow"} 
+                    {isFollowing ? "Following" : "Follow"}
                     </button>;
     // Do not show Edit Follow Button if user is not logged in
     if( !UserStore.isSignedIn() || (currentUser !== null && user.id === currentUser.id)) {
         // Do not show Edit Profile Button if user is not logged in
         //var showFolloweBtn = true;
         followBtnHtml = <button className = "btn btn-primary-outline btn-sm pull-right" style = {FollowButtonStyle} onClick = {this.followClick}>
-                    {"Follow"} 
+                    {"Follow"}
                     </button>;
     } else if (currentUser !== null && user.id !== currentUser.id) {
         // Do not show Edit Profile Button if user is not on its own profile page
         //var showFolloweBtn = true;
         followBtnHtml = <button className = "btn btn-primary-outline btn-sm pull-right" style = {isFollowing ? FollowingButtonStyle : FollowButtonStyle} onClick = {this.followClick}>
-                    {isFollowing ? "Following" : "Follow"} 
+                    {isFollowing ? "Following" : "Follow"}
                     </button>;
     }
     //console.log("FOLLOWER", followBtnHtml)
@@ -126,14 +127,12 @@ var LeaderBoardItem = React.createClass({
 	  </li>
     );
   },
-  
+
   _onChange: function() {
-      this.setState({
+      /*this.setState({
         currentUser: UserStore.getCurrentUser()
-      });
+      });*/
   }
 });
 
 module.exports = LeaderBoardItem;
-
-

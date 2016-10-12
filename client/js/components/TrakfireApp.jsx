@@ -354,18 +354,18 @@ var TrakfireApp = React.createClass({
               <p className="tf-justify tf-info">
                 Thanks to our curators we've generated a bit of respek on our name for our finds.
                 The industry has been watching and now we've brought it full circle.
-                We partnered with some productions, playlisters and publications we fuck with heavily and the result is a direct line that starts the moment a curator posts on trakfire and ends with real features.
+                We partnered with some radio stations, playlisters, and publications that are vibin in this bih and the result is a direct line that starts the moment a curator posts on trakfire and ends with real features.
               </p>
               <p className="tf-justify tf-info">
-                So, from now on we'll periodically feature those tracks that made it out the trap and onto our mans' lists.
+                So, from now on we'll periodically feature those tracks that made it out the trap.
                 You'll notice the badge in the header and a few other tweaks are on the way to spotlight the curators who are doing well, dog.
               </p>
               <p className="tf-justify tf-info">
                 To our curators: thank you and keep building.
-                <br/> To our listeners: look at god.
+                <br/> To our listeners: you could have been anywhere in the world; but you're here with us. We appreciate that.
               </p>
               <p className="tf-justify tf-info">
-                - the trakfire team.
+                - the trakfire team
               </p>
               <p className="tf-centered">
                 <img src="https://66.media.tumblr.com/8d9d03dc87c14c421f36ab4ad54affcd/tumblr_mz2isrQere1sgwk7uo1_400.gif"/>

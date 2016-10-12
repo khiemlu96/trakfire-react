@@ -56,7 +56,7 @@ function getCommentLength(comments) {
     }
   }
   return {
-    comment_count: comment_count, 
+    comment_count: comment_count,
     reply_count: reply_count
   };
 }
@@ -69,16 +69,16 @@ var PostDetailPage = React.createClass({
 
   propTypes : {
     onPostItemClick: ReactPropTypes.func, //Playability
-    currStreamUrl: ReactPropTypes.string, 
+    currStreamUrl: ReactPropTypes.string,
     origin: ReactPropTypes.string,
     currUser: ReactPropTypes.object,
-    isPlaying: false,
-    isPaused: true,
-    isActive: false,
-    currTrack: null,
-    currStreamUrl: null,
-    currSongIdx: 0
-  }, 
+    isPlaying: ReactPropTypes.bool,
+    isPaused: ReactPropTypes.bool,
+    isActive: ReactPropTypes.bool,
+    currTrack: ReactPropTypes.object,
+    currStreamUrl: ReactPropTypes.string,
+    currSongIdx: ReactPropTypes.number
+  },
 
   getInitialState: function() {
     return getAppState();
@@ -97,12 +97,12 @@ var PostDetailPage = React.createClass({
 
   componentWillUnmount: function() {
     PostStore.removeChangeListener(this._onChange);
-  }, 
+  },
 
   getPost: function(postid) {
     NProgress.start();
     PostActions.getPost(this.props.origin+'/posts/'+postid, postid);
-  }, 
+  },
 
   onPostListItemClick:function() {
     this.props.onPostItemClick(this.state.post.stream_url, this.state.post);
@@ -113,9 +113,9 @@ var PostDetailPage = React.createClass({
   },
 
   buildTweet: function(post) {
-    var surlines = ["premium unleaded gasoline", 
-                    "a tidal wave of pure fire", 
-                    "pure unadulterated fire", 
+    var surlines = ["premium unleaded gasoline",
+                    "a tidal wave of pure fire",
+                    "pure unadulterated fire",
                     "the next wave",
                     "undeniable"];
     var choice = randomIntFromInterval(0, 4);
@@ -124,7 +124,7 @@ var PostDetailPage = React.createClass({
     //var url = post.url  TODO ONCE SERVER RENDERING IS COMPLETE
     var base = "https://twitter.com/intent/tweet?";
     return base + "text=" + text + "&via=" + via; // TODO ES6 TEMPLATE STRINGS
-  }, 
+  },
 
   renderTags: function(post) {
     t = post.tags;
@@ -134,7 +134,7 @@ var PostDetailPage = React.createClass({
       if(i === 4) {
         break;
       }
-      var tag = <div className="tf-post-category">{"#" + t[tag].name}</div> 
+      var tag = <div className="tf-post-category">{"#" + t[tag].name}</div>
       tags.push(tag);
       i++
     }
@@ -145,7 +145,7 @@ var PostDetailPage = React.createClass({
     var genres = post.genre;
     var html = [];
     for(g in genres) {
-      var genre = <div className="tf-post-genre">{genres[g]}</div> 
+      var genre = <div className="tf-post-genre">{genres[g]}</div>
       html.push(genre);
     }
     return html;
@@ -172,9 +172,9 @@ var PostDetailPage = React.createClass({
       isPlaying = true;
       //SongActions.play();
       this.setState({
-        isPlaying : isPlaying, 
-        isPaused : isPaused, 
-        currStreamUrl : stream_url, 
+        isPlaying : isPlaying,
+        isPaused : isPaused,
+        currStreamUrl : stream_url,
         currTrack : track,
         currSongIdx : track.id
       });
@@ -184,28 +184,28 @@ var PostDetailPage = React.createClass({
         isPlaying = false;
         isPaused = true;
         //SongActions.pause();
-        this.setState({isPlaying : isPlaying, isPaused : isPaused});     
+        this.setState({isPlaying : isPlaying, isPaused : isPaused});
     } else if(isPlaying && stream_url != this.state.currStreamUrl) {
         scPlayer.pause();
         scPlayer.play({streamUrl : stream_url});
         isPlaying = true;
-        isPaused = false;  
+        isPaused = false;
         //SongActions.play();
         this.setState({
-          isPlaying : isPlaying, 
-          isPaused : isPaused, 
-          currStreamUrl : stream_url, 
+          isPlaying : isPlaying,
+          isPaused : isPaused,
+          currStreamUrl : stream_url,
           currTrack : track,
           currSongIdx : track.id
-        }); 
-        //PostActions.setCurrentPost(track.id);    
+        });
+        //PostActions.setCurrentPost(track.id);
     }
-    
+
     if(isPlaying){
       mixpanel.track('Playing track', {
       'title': track.title,
       'id': track.id,
-      'artist' : track.artist, 
+      'artist' : track.artist,
       'filter' : this.state.genre,
       'sort' : this.state.sort
       });
@@ -213,10 +213,10 @@ var PostDetailPage = React.createClass({
       mixpanel.track('Paused track', {
       'title': track.title,
       'id': track.id,
-      'artist' : track.artist, 
-      'filter' : this.state.genre, 
-      'sort' : this.state.sort 
-      });      
+      'artist' : track.artist,
+      'filter' : this.state.genre,
+      'sort' : this.state.sort
+      });
     }*/
   },
 
@@ -236,13 +236,13 @@ var PostDetailPage = React.createClass({
       isPlaying = false;
       isPaused = true;
       this.setState({isPlaying : isPlaying, isPaused : isPaused});
-    }    
+    }
   },
 
   onProgressClick: function(millipos) {
     scPlayer.seekTo(millipos);
   },
-  
+
   hasUpvoted: function(post) {
     if(this.state.isLoggedIn && post.id !== undefined){
       //console.log("POST TO UPVOTE", post);
@@ -289,14 +289,14 @@ var PostDetailPage = React.createClass({
                             duration={ post ? parseInt(post.duration) : 0 }
                             isPlaying={this.state.isPlaying}
                             onProgressClick={this.handleProgressClick}
-                            toggle={this.state.toggle} 
+                            toggle={this.state.toggle}
                             showTrackDuration={true} />;
 
     var play =  <div className = "tpf-play-button"  onClick={this.onPlayBtnClick} >
-                    <img src = {'../assets/img/player-play-white.svg'}/>  
+                    <img src = {'../assets/img/player-play-white.svg'}/>
                 </div>;
     var pause = <div className = "tpf-pause-button"  onClick={this.onPlayBtnClick} >
-                     <img src = {'../assets/img/player-pause-white.svg'}/>  
+                     <img src = {'../assets/img/player-pause-white.svg'}/>
                 </div>;
 
     return (
@@ -313,11 +313,11 @@ var PostDetailPage = React.createClass({
           /*<a className="tf-link" href={"/profile/" + votes[key].user.id} >
             <img className="tf-author-img" src={votes[key].user.img} />
           </a>*/
-          <Link to={'/profile/'+votes[key].user.id}> 
+          <Link to={'/profile/'+votes[key].user.id}>
             <UserFlyOver user = {votes[key].user} origin={this.props.origin} />
           </Link>
         );
-      }                              
+      }
     }
     return (voteHtml);
   },
@@ -329,25 +329,25 @@ var PostDetailPage = React.createClass({
       if (count.comment_count === 0){
         return (<div>
                   <div className='container tf-comment-count-section'>No comments yet.</div>
-                  <PostComment 
-                    post = {post} 
+                  <PostComment
+                    post = {post}
                     post_id = {post.id}
-                    origin = {this.props.origin} 
+                    origin = {this.props.origin}
                     currUser = {this.state.currUser} />
                 </div>
-               ); 
+               );
       }else{
         return (
-        <PostComment 
-          post = {post} 
+        <PostComment
+          post = {post}
           post_id = {post.id}
-          origin = {this.props.origin} 
+          origin = {this.props.origin}
           currUser = {this.state.currUser} />
         );
       }
     } else {
       return (<div>This post does not exist bruh.</div>);
-    }    
+    }
   },
 
   renderCommentCount: function(post){
@@ -360,7 +360,7 @@ var PostDetailPage = React.createClass({
    * @return {object}
    */
   render: function() {
-   
+
     var post = this.state.post;
     <div> Loading </div>
     return (
@@ -385,4 +385,3 @@ var PostDetailPage = React.createClass({
 });
 
 module.exports = PostDetailPage;
-

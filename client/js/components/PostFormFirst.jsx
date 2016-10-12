@@ -212,7 +212,7 @@ var PostFormFirst = React.createClass({
 
   rmLoading: function() {
     var addBtn = this.refs.add.getDOMNode();
-    console.log("REMOVE", this.refs.add.getDOMNode());
+    //console.log("REMOVE", this.refs.add.getDOMNode());
     addBtn.className = "button button--add";
     this.setState({isLoading:false});
   },
@@ -220,7 +220,7 @@ var PostFormFirst = React.createClass({
   dataDidLoad: function() {
     this.setState({dataDidLoad: true});
     //if(!resolved) {}
-    this.refs.genres.getDOMNode().className = "align-left tf-show";
+    //this.refs.genres.getDOMNode().className = "align-left tf-show";
   },
 
   renderAdminSelect: function() {

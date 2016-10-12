@@ -55,14 +55,20 @@ var LeaderBoard = React.createClass({
 	propTypes: {
 		origin: ReactPropTypes.string,
     showModal: ReactPropTypes.func
-	}, 
+	},
 
-  getInitialState: function() { return getComponentState(); }, 
+  getInitialState: function() { return getComponentState(); },
 
   componentDidMount: function() {
   	//console.log("LB MOUNTED");
   	UserStore.addChangeListener(this._onChange);
   	UserActions.getTopUsers(this.props.origin+'/top', {limit:10, offset:0});
+    console.log('currentUser leaderboard', this.state.currentUser);
+  },
+
+  componentWillUnmount() {
+    // Remove same function reference that was added
+    UserStore.removeChangeListener(this._onChange);
   },
 
   renderUserItems: function(sortedUsers) {
@@ -77,19 +83,19 @@ var LeaderBoard = React.createClass({
       //console.log(i, sortedUsers[i]);
   		var u = sortedUsers[i];
       if(u.score > 0){
-  		  var uItem = <LeaderBoardItem user={u} origin={this.props.origin} currentUser={this.state.currentUser} showModal={this.props.showModal}/>
+  		  var uItem = <LeaderBoardItem key={i} user={u} origin={this.props.origin} currentUser={this.state.currentUser} showModal={this.props.showModal}/>
   		  leaderBoardItems.push(uItem);
       }
   	}
     //console.log(leaderBoardItems.length)
   	return leaderBoardItems;
-  }, 
+  },
 
   /**
    * @return {object}
    */
   render: function() {
-    
+
   	var users = [];
     users = toArray(this.state.users);
     console.log("USER LIST", users, this.state.users);
@@ -103,7 +109,7 @@ var LeaderBoard = React.createClass({
 	    </ul>
       </div>
     );
-  }, 
+  },
 
   _onChange: function() {
     this.setState(getComponentState());
@@ -112,5 +118,3 @@ var LeaderBoard = React.createClass({
 });
 
 module.exports = LeaderBoard;
-
-

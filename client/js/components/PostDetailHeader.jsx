@@ -38,9 +38,9 @@ function getLength(arr) {
 var PostDetailHeader = React.createClass({
   propTypes: {
    post: ReactPropTypes.object,
-   onClick: ReactPropTypes.func, 
+   onClick: ReactPropTypes.func,
    origin: ReactPropTypes.string,
-   currUser: ReactPropTypes.object 
+   currUser: ReactPropTypes.object
   },
 
   componentWillMount: function() {
@@ -50,12 +50,15 @@ var PostDetailHeader = React.createClass({
 
   componentDidMount: function() {
     console.log("MOUNTING THE DETAIL HEADER");
-  }, 
-
+  },
+  componentWillUnmount() {
+    // Remove same function reference that was added
+    UserStore.removeChangeListener(this._onChange);
+  },
   buildTweet: function(post) {
-    var surlines = ["premium unleaded gasoline", 
-                    "a tidal wave of pure fire", 
-                    "pure unadulterated fire", 
+    var surlines = ["premium unleaded gasoline",
+                    "a tidal wave of pure fire",
+                    "pure unadulterated fire",
                     "the next wave",
                     "undeniable"];
     var choice = randomIntFromInterval(0, 4);
@@ -64,7 +67,7 @@ var PostDetailHeader = React.createClass({
     //var url = post.url  TODO ONCE SERVER RENDERING IS COMPLETE
     var base = "https://twitter.com/intent/tweet?";
     return base + "text=" + text + "&via=" + via; // TODO ES6 TEMPLATE STRINGS
-  }, 
+  },
 
   renderVotes: function(post) {
     var votes = post.votes_data;
@@ -77,13 +80,13 @@ var PostDetailHeader = React.createClass({
         /*<a className="tf-link" href={"/profile/" + votes[key].user.id} >
           <img className="tf-author-img" src={votes[key].user.img} />
         </a>*/
-      
+
         <Link to={'/profile/'+votes[key].user.id} className="tf-link">
             {/*onMouseEnter = {this.showFlyOver.bind(this, artist_id, votes[key].user)}*/}
             <img id = {artist_id} data-trigger = "hover" data-toggle = "popover" data-placement = "top" className='tf-author-img' src={ votes[key].user ? votes[key].user.img : "assets/img/trakfirefavicon.ico"}></img>
         </Link>
       );
-      }                            
+      }
     }
     return (voteHtml);
   },
@@ -165,12 +168,12 @@ var PostDetailHeader = React.createClass({
                       </div>
                       <div className="col-xs-6">
                         <div >
-                          <i className="glyphicon glyphicon-fire tf-social-icons"></i> 
+                          <i className="glyphicon glyphicon-fire tf-social-icons"></i>
                           <span>&nbsp;<b>{voteCount = getLength(post.votes)} {this.personOrPeople(post)}</b></span>
                           <span>&nbsp;upvoted</span>
                         </div>
-                        <div className="tf-auther-panel">         
-                          {this.renderVotes(post)}                     
+                        <div className="tf-auther-panel">
+                          {this.renderVotes(post)}
                         </div>
                       </div>
                     </div>
@@ -182,7 +185,7 @@ var PostDetailHeader = React.createClass({
         </div>
 
       </div>
-      </div> 
+      </div>
     );
   },
 
@@ -191,7 +194,7 @@ var PostDetailHeader = React.createClass({
     UserActions.followUser(this.props.origin+ '/follower', follow_id);
     this.setState({isFollowing:true});
   },
-  
+
   unFollowUser: function(userid) {
     var follow_id = userid;
     UserActions.unFollowUser(this.props.origin+ '/follower', follow_id);
@@ -209,7 +212,7 @@ var PostDetailHeader = React.createClass({
           if(currentUser_followings.indexOf(userid) > -1) {
               this.unFollowUser(userid);
           } else {
-              this.followUser(userid); 
+              this.followUser(userid);
           }
       } else {
         // If user is not logged in and if he clicks on Follow User button
@@ -224,7 +227,7 @@ var PostDetailHeader = React.createClass({
         var follow_text = "", className = "";
         var follow_btn_Html = '';
 
-        if (sessionStorage.getItem('jwt') !== '' && ( this.state.currentUser !== undefined && this.state.currentUser !== null ) && 
+        if (sessionStorage.getItem('jwt') !== '' && ( this.state.currentUser !== undefined && this.state.currentUser !== null ) &&
             this.state.currentUser.id !== user.id) {
             if (this.state.currentUser.id !== null) {
                 var currentUser_followings = [];
@@ -239,10 +242,10 @@ var PostDetailHeader = React.createClass({
                     follow_text = "Follow";
                     className = "button user-flyover-follow-btn btn-primary-outline tf-follow-button tf-background";
                 }
-                var follow_btn_Html = '<button class="btn ' + className + '">' + follow_text + '</button>'          
+                var follow_btn_Html = '<button class="btn ' + className + '">' + follow_text + '</button>'
             }
         }
-        
+
         var popoverTemplate = ['<div class="popover">',
             '<div class="arrow"></div>',
                 '<div class="popover-content">',
@@ -261,7 +264,7 @@ var PostDetailHeader = React.createClass({
                 '</div>'
                 + follow_btn_Html +
             '</div>',
-        ].join('');        
+        ].join('');
 
         $("#" + artist_id).popover({
             selector: '[rel=popover]',
@@ -305,7 +308,7 @@ var PostDetailHeader = React.createClass({
           if(currentUser_followings.indexOf(userid) > -1) {
               this.unFollowUser(userid,artist_id);
           } else {
-              this.followUser(userid,artist_id); 
+              this.followUser(userid,artist_id);
           }
       } else {
         // If user is not logged in and if he clicks on Follow User button

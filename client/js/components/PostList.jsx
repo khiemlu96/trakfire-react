@@ -242,8 +242,8 @@ var PostsList = React.createClass({
   },
 
   componentWillMount: function() {
-    UserStore.addChangeListener(this._onChange);
-    PostStore.addChangeListener(this._onChange);
+    //UserStore.addChangeListener(this._onChange);
+    //PostStore.addChangeListener(this._onChange);
     //console.log('Posts to be displayed ', posts);
   },
 

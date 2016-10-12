@@ -97,11 +97,11 @@ var PostComment = React.createClass({
 			return comment;
 
 		taggedMembers.forEach(function(taggedMember) {
-  			var user = taggedMember;  			
+  			var user = taggedMember;
   			var name = user.username;
-  			var regex;  			
+  			var regex;
 			var replace = "<a href = '/profile/" + user.id + "' class = 'tf-link'>" + user.username + "</a>";
-			
+
 			if( (comment.indexOf('@'+name) !== -1 ) || (comment.indexOf('@'+name) === 0 ) ){
 				regex = new RegExp('@'+name,"gm");
 				comment = comment.replace(regex, replace);
@@ -116,12 +116,17 @@ var PostComment = React.createClass({
 	},
 
   	componentDidMount: function() {
-		PostStore.addChangeListener(this._onChange);		
+		PostStore.addChangeListener(this._onChange);
 		React.render(
 			<CommentInput origin={this.props.origin} post_id = {this.props.post_id} />,
 			document.getElementById("comment-input-container")
 		);
   	},
+
+    componentWillUnmount() {
+      // Remove same function reference that was added
+      PostStore.removeChangeListener(this._onChange);
+    },
 
   	renderCommentText: function(comment) {
   		var comment_text = comment.comment_detail;
@@ -133,7 +138,7 @@ var PostComment = React.createClass({
     renderSingleComment: function(comment) {
     	var replies = comment.replies;
     	var vFirstLine = classNames("");
- 
+
     	if(replies.length != 0){
     		vFirstLine = hasReply;
     	}
@@ -143,11 +148,11 @@ var PostComment = React.createClass({
 				<div className = "tf-comment-profile col-md-12">
 					<div className="col-md-0 tf-comment-auther-panel left">
 						<UserFlyOver user = {comment.user} origin={this.props.origin} />
-					</div>	
+					</div>
 					<div className="col-md-8 tf-user-profile-section">
-						<a className="tf-profile-link"> {comment.user.username}</a> 
+						<a className="tf-profile-link"> {comment.user.username}</a>
 						<span className="tf-user-tbio"> - {comment.user.bio} </span>
-					</div>				
+					</div>
 					<div className="col-md-3 tf-comment-time right">
 						<span className="tf-reply-btn" id={"reply-btn-" + comment.id} onClick = {this.renderCommentReplyInput}>
 							<img ref="replyBtn" src="../assets/img/reply-comment-icon.png"></img>
@@ -155,8 +160,8 @@ var PostComment = React.createClass({
 						<span className="">{moment(comment.created_at).fromNow()}</span>
 					</div>
 				</div>
-				
-				<div  id="comment-text" className="tf-comment-text col-md-12">					
+
+				<div  id="comment-text" className="tf-comment-text col-md-12">
 					<div className="tf-comment-detail"  dangerouslySetInnerHTML={{__html: this.renderCommentText(comment)}} />
 					<div className={vFirstLine}></div>
 				</div>
@@ -166,7 +171,7 @@ var PostComment = React.createClass({
 
 					</div>
 					{this.renderCommentReplies(comment)}
-				</div>			
+				</div>
 			</div>
 		);
     },
@@ -184,37 +189,37 @@ var PostComment = React.createClass({
 		}
 
 		ReactDOM.unmountComponentAtNode(document.getElementById('comment-input-container'));
-		
+
 		ReactDOM.render(
-			<CommentReplyInput 
-				origin={this.props.origin} 
-				comment={comment} 
+			<CommentReplyInput
+				origin={this.props.origin}
+				comment={comment}
 				currUser = {this.props.currUser}
-    			post_id={this.props.post_id} />, 
+    			post_id={this.props.post_id} />,
 			document.getElementById("comment-input-container")
 		);
 	},
-    
+
     renderCommentReplies: function(comment) {
     	var replies = comment.replies;
-    	
+
     	if(replies !== undefined){
 	      replies = replies.sort(compareCreatedAt); //sort dates in decending order
 	    }
 
 		var length = replies.length;
     	var replyHtml = [];
-    	
+
     	for(key in replies) {
     		replyHtml.push(this.renderSingleReply(replies[key],key,length));
     	}
-    	
+
     	return replyHtml;
     },
 
     renderSingleReply: function(reply,key,length) {
     	var vLine = notLastReply;
-    	
+
         if(key == (length-1)){
     		vLine = classNames("");
         }
@@ -226,16 +231,16 @@ var PostComment = React.createClass({
 					<div className="tf-comment-reply-hr-line"></div>
 					<div className="col-md-0 tf-comment-auther-panel left">
 						<UserFlyOver user = {reply.user} origin={this.props.origin} />
-					</div>	
+					</div>
 					<div className="col-md-8 tf-user-profile-section">
 						<a className="tf-profile-link"> {reply.user.username}</a>
 						<span className="tf-user-tbio"> {reply.user.bio} </span>
-					</div>				
-					<div className="col-md-3 tf-comment-time right">				
+					</div>
+					<div className="col-md-3 tf-comment-time right">
 						<span className="">{moment(reply.created_at).fromNow()}</span>
 					</div>
 				</div>
-				
+
 				<div id="reply-comment-text" className="tf-comment-text col-md-12">
 					<div className="tf-comment-detail" dangerouslySetInnerHTML={{__html: this.renderCommentText(reply)}} />
 				</div>
@@ -263,8 +268,8 @@ var PostComment = React.createClass({
 					<div className="tf-comment-list-panel col-md-12">
 						{commentHtml}
 					</div>
-				</div>  
-			</div>);		
+				</div>
+			</div>);
     },
 
 	_onChange: function() {
