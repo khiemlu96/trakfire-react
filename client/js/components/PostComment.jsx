@@ -123,7 +123,7 @@ var PostComment = React.createClass({
 		);
   	},
 
-    componentWillUnmount() {
+    componentWillUnmount: function() {
       // Remove same function reference that was added
       PostStore.removeChangeListener(this._onChange);
     },
