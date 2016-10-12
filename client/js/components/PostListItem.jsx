@@ -163,7 +163,7 @@ var PostListItem = React.createClass({
       this.props.onUpvote(this.props.post.id);
       //var count = this.refs.count.getDOMNode();
       var u = this.refs.upvotebtn.getDOMNode();
-      u.className = isUpvoted; //isUpvoted;
+      u.className = isUpvo; //isUpvoted;
       this.setState({hasUpvoted:true});
     } else if(!this.props.isLoggedIn) {
       this.props.showModal(true);

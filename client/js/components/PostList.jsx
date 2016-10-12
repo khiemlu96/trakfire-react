@@ -14,8 +14,9 @@ var CarouselItem = require('react-bootstrap').CarouselItem;
 var Moment = require('moment');
 var PostActions = require('../actions/PostActions');
 var PostListItem = require('./PostListItem.jsx');
-var PostListDateHeader = require('./PostListDateHeader.jsx'); 
+var PostListDateHeader = require('./PostListDateHeader.jsx');
 var PostListHeader = require('./PostListHeader.jsx');
+var PostListFeatureHeader = require('./PostListFeatureHeader.jsx');
 var FilterBar = require('./FilterBar.jsx');
 var PostStore = require('../stores/PostStore');
 var UserStore = require('../stores/UserStore');
@@ -25,7 +26,7 @@ var UserActions = require('../actions/UserActions.js');
 var LeaderBoard = require('./LeaderBoard.jsx');
 var moment = require('moment');
 var _postListItems = [];
-var _dayCount = 0; 
+var _dayCount = 0;
 var _init = false;
 var _songList = {};
 var _songsSet = false;
@@ -54,7 +55,7 @@ function sortPostsByDate(posts) {
       dateKeys.push(dstr);
       dates[dstr][key] = posts[key];
       _dayCount+=1;
-    } 
+    }
     else {
       dates[dstr][key] = posts[key];
     }
@@ -103,13 +104,13 @@ function toArray(obj) {
 
 function getComponentState() {
   return {
-    isLoggedIn : UserStore.isSignedIn(), 
-    currentUser : UserStore.getCurrentUser(),    
-    posts : PostStore.getAll(), 
+    isLoggedIn : UserStore.isSignedIn(),
+    currentUser : UserStore.getCurrentUser(),
+    posts : PostStore.getAll(),
     postsByDate: PostStore.getPostsByDate(),
-    sortedPosts : PostStore.getSortedPosts(), 
+    sortedPosts : PostStore.getSortedPosts(),
     getCurrentSong : PostStore.getCurrentSong(),
-    carousal_images : UserStore.getAdminCarousalFiles(), 
+    carousal_images : UserStore.getAdminCarousalFiles(),
     botUsers : UserStore.getBotUsers()
   };
 }
@@ -126,7 +127,7 @@ function getSongList(posts) {
       //console.log("ARRAY BOI", array);
       for(key in array) {
         songList[songCount] = array[key];
-        songCount += 1;          
+        songCount += 1;
       }
     }
     return songList;
@@ -150,13 +151,13 @@ function getCarousalImageArray(images) {
 }
 
 function isToday(momentDate) {
-    var ref = moment(); 
+    var ref = moment();
     var today = ref.clone().startOf('day');
     return momentDate.isSame(today, 'd');
 }
 
 function isYesterday(momentDate) {
-    var ref = moment(); 
+    var ref = moment();
     var yesterday = ref.clone().subtract(1, 'days').startOf('day');
     return momentDate.isSame(yesterday, 'd');
 }
@@ -171,12 +172,12 @@ var PostsList = React.createClass({
     loadSortedPlaylist: ReactPropTypes.func,
     onPostUpvote:ReactPropTypes.func,
     isLoggedIn: ReactPropTypes.bool,
-    userId: ReactPropTypes.number, 
+    userId: ReactPropTypes.number,
     currStreamUrl: ReactPropTypes.string,
-    currUser: ReactPropTypes.object, 
+    currUser: ReactPropTypes.object,
     showModal: ReactPropTypes.func,
     setSongList: ReactPropTypes.func,
-    origin: ReactPropTypes.string, 
+    origin: ReactPropTypes.string,
     filterPosts: ReactPropTypes.func
   },
 
@@ -185,7 +186,7 @@ var PostsList = React.createClass({
     storedState.currentTrack = null;
     storedState["hasSetSongList"] = false;
     return storedState;
-  }, 
+  },
 
   getFile: function(key, fileKey) {
       var self = this;
@@ -193,7 +194,7 @@ var PostsList = React.createClass({
       originalImgRef.child( fileKey ).on('value', function(snapshot) {
           var file = snapshot.val();
           carousal_images[key].file = file.file;
-          
+
           self.setState({
               carousal_images: carousal_images
           });
@@ -224,7 +225,7 @@ var PostsList = React.createClass({
   componentDidMount: function() {
     var self = this;
     var carousal_images = [];
-  
+
     this.getAdminCarousalFiles();
     //console.log("POSTS IN POST LIST", this.props.posts);
     //var posts = getSongList(p);
@@ -254,14 +255,14 @@ var PostsList = React.createClass({
       this.setState({hasSetSongList:true});
       //this.setParentState(prevProps.posts);
     }
-  }, 
+  },
 
   setParentState: function(posts) {
     var sl = getSongList(posts);
     if(Object.keys(sl).length > 0) {
       this.props.setSongList(sl);
     }
-  }, 
+  },
 
   upvote: function(postid) {
     console.log("in post list upvote");
@@ -271,7 +272,7 @@ var PostsList = React.createClass({
   updateIcons: function(track, isPlaying) {
     if(this.state.currentTrack != null) {
       var pli = this.refs[track.id].refs.overlay;
-      if(pli != null){ 
+      if(pli != null){
         // if state isPlaying is true then show pause icon in square,
         // else show 'play' icon
         console.log("TOGGLE THE TRACK", isPlaying, pli);
@@ -279,12 +280,12 @@ var PostsList = React.createClass({
           pli.getDOMNode().className = "icon icon-controller-paus";
         } else {
           pli.getDOMNode().className = "icon icon-controller-play";
-        }        
-      } 
+        }
+      }
     }
     this.setState({currentTrack:track.id});
-  }, 
-  
+  },
+
   playPauseItem: function(stream_url, track, idx, isPlaying) {
     console.log("playing the track");
     if(this.state.currentTrack != null) {
@@ -292,14 +293,14 @@ var PostsList = React.createClass({
       var pli = this.refs[prevPli].refs.overlay;
       var pliBG = this.refs[prevPli].refs.overlaybg;
       console.log("managing icon state", pli);
-      if(pli != null){ 
+      if(pli != null){
         pli.getDOMNode().className = "icon icon-controller-play";
         pliBG.getDOMNode().className = isNotPlaying;
-      } 
+      }
     }
 
-    // deactivate other tracks 
-    
+    // deactivate other tracks
+
     var posts = this.state.posts;
     for(idx in posts) {
       var post = posts[idx];
@@ -317,15 +318,15 @@ var PostsList = React.createClass({
     pli = this.refs[nextTrack].refs.overlay;
     pliBG = this.refs[nextTrack].refs.overlaybg;
 
-    if(pli != null){ 
+    if(pli != null){
       if( isPlaying == true ) {
         pli.getDOMNode().className = "icon icon-controller-paus";
         pliBG.getDOMNode().className = "tf-media-thumbnail-overlay playing";
       } else {
         pli.getDOMNode().className = "icon icon-controller-play";
         pliBG.getDOMNode().className = "tf-media-thumbnail-overlay paused";
-      } 
-    }    
+      }
+    }
 
     this.setState({currentTrack:track.id});
     this.props.onPostListItemClick(stream_url, track, idx);
@@ -347,7 +348,7 @@ var PostsList = React.createClass({
     var testDate = new Date(event.currentTarget.id);
     var date = moment(testDate).format('MM/DD/YYYY');
     //console.log("DATER", date)
-    // get total count of posts for that day 
+    // get total count of posts for that day
     // to get next subsequent post
     var count = postCountByDates[event.currentTarget.id];
 
@@ -366,10 +367,10 @@ var PostsList = React.createClass({
 
   //render load more link below each day
   renderPostLoadMoreLink: function(date) {
-      return ( 
+      return (
           <div className = "row tf-posts-load-more-section">
               <span>LOAD MORE FOR &nbsp;
-                  <a onClick = {this.loadMorePosts} id = {date} className = "tf-link tf-load-more-link"> {date} </a>  
+                  <a onClick = {this.loadMorePosts} id = {date} className = "tf-link tf-load-more-link"> {date} </a>
                   <a className = "tf-link tf-load-more-link"> &#9660; </a>
               </span>
           </div>
@@ -410,13 +411,13 @@ var PostsList = React.createClass({
         if(isLoggedIn){
           var isUpvotedByUser = this.hasUpvoted(post, user.id);
         }
-        var item = <PostListItem 
+        var item = <PostListItem
                         key={"p_"+count}
-                        idx={j} 
+                        idx={j}
                         ref={post.id}
                         post={post}
                         onUpvote={this.upvote}
-                        onClick={this.playPauseItem} 
+                        onClick={this.playPauseItem}
                         isLoggedIn={isLoggedIn}
                         userId={ user != null ? user.id : null }
                         isUpvoted={isUpvotedByUser}
@@ -439,7 +440,7 @@ var PostsList = React.createClass({
 
     return {"postList" : postList, "firstPost" : firstPost};
 
-  }, 
+  },
 
   /**
    * @return {object}
@@ -449,7 +450,7 @@ var PostsList = React.createClass({
     var _postListItems = retVal.postList;
     var firstSong = retVal.firstPost;
     //console.log(_postListItems, firstSong);
-    
+
     if(!_postListItems.length) {
       return (<div></div>);
     }
@@ -461,7 +462,7 @@ var PostsList = React.createClass({
       carousal_items = getCarousalImageArray( this.state.carousal_images );
       var keys = carousal_items[0];
       var original_images = carousal_items[1];
-      carousalItemHtml = 
+      carousalItemHtml =
       <Carousel>
             <CarouselItem>
               <img width={900} height={500} alt="900x500" src={original_images[keys[0]] ? original_images[keys[0]].file : ""} alt="pure fire pic"/>
@@ -478,11 +479,11 @@ var PostsList = React.createClass({
     return (
       <div>
 
-      <PostListHeader post={firstSong}/>
+      {/*<PostListHeader post={firstSong}/>*/}
+      <PostListFeatureHeader post={firstSong}/>
       <div className="container p-t-md" style={postListStyle}>
         <div className="row">
           <div className="col-md-8">
-            {/*<FilterBar onClick={this.props.filterPosts} genre={this.props.genre} sort={this.props.sort}/>*/}
             <ul className="media-list">{_postListItems}</ul>
           </div>
           <div className="col-md-4">

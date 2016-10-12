@@ -185,8 +185,6 @@ var NavBar = React.createClass({
 
   showSearchResultPage: function() {
     console.log(searchKey);
-    //this.setState({isVisible:false});
-
   },
 
   renderUserInfo: function(){

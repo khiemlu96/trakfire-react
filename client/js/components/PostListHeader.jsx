@@ -23,7 +23,7 @@ var PostListHeader = React.createClass({
 
   componentDidMount: function() {
     console.log("MOUNTING THE HEADER");
-  }, 
+  },
 
   /**
    * @return {object}
@@ -62,7 +62,7 @@ var PostListHeader = React.createClass({
         </div>
 
       </div>
-      </div> 
+      </div>
     );}
 
 });
