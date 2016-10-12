@@ -12332,6 +12332,12 @@ img.zoom-img {
   color: #1f1f1f !important;
 }
 
+.tf-header-info h6 > a{
+  font-size: 17px;
+  font-family: "Benton Sans Black", sans-serif !important;
+  color: #1f1f1f !important;
+}
+
 .tf-header-info h6 {
   font-size: 17px;
   font-family: "Benton Sans RE", sans-serif !important;

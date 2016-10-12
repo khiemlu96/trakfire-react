@@ -13,6 +13,50 @@ var Link = require('react-router').Link;
 var Carousel = require('react-bootstrap').Carousel;
 var CarouselItem = require('react-bootstrap').CarouselItem;
 
+var posts = [
+  {
+    id: '1560',
+    title: 'Losing',
+    img_url_lg: 'https://i1.sndcdn.com/artworks-000181812359-1jjrvp-crop.jpg',
+    artist: {
+      name:'H.E.R',
+      url: 'https://soundcloud.com/iamhermusic'
+    },
+    user: {
+      name: 'Mduduzi Hlatshwayo',
+      id: '301'
+    },
+    partner: 'spotify'
+  },
+  {
+    id: '1041',
+    title: 'Wolf',
+    img_url_lg: 'https://i1.sndcdn.com/artworks-000173514472-xkbdl8-crop.jpg',
+    artist: {
+      name:'SKOTT',
+      url: 'https://soundcloud.com/skottpeace'
+    },
+    user: {
+      name: 'Helena Yohannes',
+      id: '215'
+    },
+    partner: 'apple'
+  },
+  {
+    id: '1573',
+    title: 'No One Knows',
+    img_url_lg: 'https://i1.sndcdn.com/artworks-000183269129-qjzvw5-crop.jpg',
+    artist: {
+      name:'Brent Faiyaz',
+      url: 'https://soundcloud.com/brentfaiyaz'
+    },
+    user: {
+      name: 'Dan Mehler',
+      id: '50'
+    },
+    partner: 'dash'
+  }
+];
 
 var style = {
   ul: {
@@ -44,12 +88,23 @@ var PostListFeatureHeader = React.createClass({
     console.log("MOUNTING THE HEADER");
   },
 
+  renderFeatureBadge: function(partner) {
+    switch(partner) {
+      case 'apple':
+        return 'assets/img/features/beats1.png'
+      case 'spotify':
+        return 'assets/img/features/beats1.png'
+      case 'dash':
+        return 'assets/img/features/dashradio.png'
+      default: return 'assets/img/tf-placeholder.png'
+    }
+  },
+
   renderCarouselItem: function(post) {
-    var post = this.props.post;
     var background_img = { backgroundImage: "url("+post.img_url_lg+"?time)" };
-    var userImgLink = post.user.img;
-    var autherName = post.author_name;
-    var profileLink = "/profile/"+post.author_id;
+    //var userImgLink = post.user.img;
+    var autherName = post.user.name;
+    var profileLink = "/profile/"+post.user.id;
     var postLink = "/post/"+post.id;
     var artist_id = "tf-media-artist-" + post.id;
     var thumb = post.img_url_lg ? post.img_url_lg : "assets/img/tf-placeholder.png"
@@ -74,18 +129,18 @@ var PostListFeatureHeader = React.createClass({
             <div className="col-xs-5">
               <div className="tf-header-info">
                   <h4>{post.title}</h4>
-                  <h6>{post.artist}</h6>
+                  <h6><a href={post.artist.url} target="_blank">{post.artist.name}</a></h6>
                   <br/>
                   <h6>
-                  <span className="tf-feature-name">posted by:</span> <a href = {profileLink} onClick={this.stopPropagation} className = "tf-media-poster nd">
+                  <span className="tf-feature-name">posted by:</span> <Link to = {profileLink} onClick={this.stopPropagation} className = "tf-media-poster nd">
                   <span id = {artist_id}>
-                      <span className = "tf-media-artist-name tf-feature-name">{post.author_name}</span>
-                  </span></a>
+                      <span className = "tf-media-artist-name tf-feature-name">{post.user.name}</span>
+                  </span></Link>
                   </h6>
                </div>
             </div>
             <div className="col-xs-3">
-              <div className="tf-feature-badge"><img src="assets/img/features/beats1.png"/></div>
+              <div className="tf-feature-badge"><img src={this.renderFeatureBadge(post.partner)}/></div>
             </div>
           </div>
         </div>
@@ -96,8 +151,7 @@ var PostListFeatureHeader = React.createClass({
   },
 
   renderCarousel : function() {
-    var post = this.props.post;
-    var items = [post, post, post];
+    var items = posts;
     var self = this;
     var carouselItems = items.map(function(post){
       return self.renderCarouselItem(post)
@@ -117,8 +171,6 @@ var PostListFeatureHeader = React.createClass({
     var profileLink = "/profile/"+post.author_id;
     var postLink = "/post/"+post.id;
     var artist_id = "tf-media-artist-" + post.id;
-    //var content = this.renderCarousel();
-    console.log('2 yung')
     return (
       <div className="main-page">
         {this.renderCarousel()}
