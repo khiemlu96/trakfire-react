@@ -319,7 +319,7 @@ var TrakfireApp = React.createClass({
 
     return (
       <div className="tf-body">
-        <a href="#" className="tf-alert-static" onClick={this.showDetailModal}> We made it. </a>
+        <a href="#" className="tf-alert-static" onClick={this.showDetailModal}> Major bag alert </a>
         <div>
             <NavBar
               isLoggedIn={this.state.isLoggedIn}
@@ -350,11 +350,15 @@ var TrakfireApp = React.createClass({
           </Modal>*/}
           <Modal show={this.state.showDetailModal} onHide={this.closeDetailModal}>
             <Modal.Body closeButton className={"tf-modal-body--detail"}>
-              <p> <h2 className="tf-centered tf-uppercase">Major bag alert</h2></p>
+              <p> <h2 className="tf-centered tf-uppercase">We made it</h2></p>
               <p className="tf-justify tf-info">
                 Thanks to our curators we've generated a bit of respek on our name for our finds.
                 The industry has been watching and now we've brought it full circle.
                 We partnered with some productions, playlisters and publications we fuck with heavily and the result is a direct line that starts the moment a curator posts on trakfire and ends with real features.
+              </p>
+              <p className="tf-justify tf-info">
+                So, from now on we'll periodically feature those tracks that made it out the trap and onto our mans' list in the header.
+                You'll notice the badge in the header and a few other tweaks are on the way to spotlight the curators who are doing well, dog.
               </p>
               <p className="tf-justify tf-info">
                 To our curators: thank you and keep building.

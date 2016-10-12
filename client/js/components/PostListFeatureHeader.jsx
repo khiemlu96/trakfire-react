@@ -93,7 +93,7 @@ var PostListFeatureHeader = React.createClass({
       case 'apple':
         return 'assets/img/features/beats1.png'
       case 'spotify':
-        return 'assets/img/features/beats1.png'
+        return 'assets/img/features/spotify.png'
       case 'dash':
         return 'assets/img/features/dashradio.png'
       default: return 'assets/img/tf-placeholder.png'
