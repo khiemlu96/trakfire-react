@@ -2234,7 +2234,7 @@ label.ownsong-label {
   font-family: "Benton Sans RE", sans-serif;
 	color: #fff;
 	background-color: #1f1f1f;
-  padding: 25px !important;  
+  padding: 25px !important;
 }
 
 .tf-modal-body {
@@ -11917,7 +11917,7 @@ img.zoom-img {
   right: 0;
   bottom: 0;
   left: 0;
-  top: 190px;
+  top: 250px !important;
 }
 .profile-header-nav .nav {
   display: inline-block;
@@ -12720,8 +12720,13 @@ img.zoom-img {
 }
 
 .tf-followers {
-  /*margin-left: 10px !important;*/
+
 }
+
+.tf-gutter-bottom {
+  margin-bottom: 20px !important;
+}
+
 /*.upvote-link {
   margin-right: 10px;
 }*/
