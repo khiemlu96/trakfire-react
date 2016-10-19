@@ -137,7 +137,7 @@ var TrakfireApp = React.createClass({
         currSongIdx: next.sortedIdx
       });
       scPlayer.play({streamUrl: next.stream_url});
-      $(document).trigger("ReactComponent:PostListItem:handlePlayPauseClick", [next.id]);
+      $(document).trigger("ReactComponent:PostList:updateIcons", {next:next, isPlaying:true});
   },
 
   shouldComponentUpdate: function(nextProps, nextState) {
@@ -492,17 +492,21 @@ var TrakfireApp = React.createClass({
       scPlayer.play({streamUrl: stream_url});
       isPlaying = true;
       isPaused = false;
+      var curr = PostStore.getCurrentTrack();
+      $(document).trigger("ReactComponent:PostList:updateIcons", {next:curr, isPlaying:true});
       this.setState({isPlaying : isPlaying, isPaused : isPaused});
     } else if(isPlaying && !isPaused || isPlaying) {
       //console.log('pausing');
       scPlayer.pause();
       isPlaying = false;
       isPaused = true;
+      var curr = PostStore.getCurrentTrack();
+      $(document).trigger("ReactComponent:PostList:updateIcons", {next:curr, isPlaying:false});
       this.setState({isPlaying : isPlaying, isPaused : isPaused});
     }
     $(document).trigger("ReactComponent:PostListItem:handlePlayPauseClick", [this.state.currTrack.id]);
-    //$(document).trigger("ReactComponent:PostListItem:handlePlayPauseClick", [this.state.currTrack.id]);
 
+    //$(document).trigger("ReactComponent:PostListItem:handlePlayPauseClick", [this.state.currTrack.id]);
   },
 
   onNextCtrlClick: function() {
@@ -515,6 +519,7 @@ var TrakfireApp = React.createClass({
         isPlaying: true
       });
       scPlayer.play({streamUrl: next.stream_url});
+      $(document).trigger("ReactComponent:PostList:updateIcons", {next:next, isPlaying:true});
   },
 
   onPrevCtrlClick: function() {
@@ -527,6 +532,7 @@ var TrakfireApp = React.createClass({
         isPlaying: true
       });
       scPlayer.play({streamUrl: next.stream_url});
+      $(document).trigger("ReactComponent:PostList:updateIcons", {next:next, isPlaying:true});
   },
 
   onProgressClick: function(millipos) {
