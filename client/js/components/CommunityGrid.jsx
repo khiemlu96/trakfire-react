@@ -15,6 +15,7 @@ var imgToUser = {
   "https://pbs.twimg.com/profile_images/760503094023118849/03yKeHE0.jpg": ["watchbbg", "Bernard Bennett-Green"],
   "https://pbs.twimg.com/profile_images/562454001241694209/bVnKVGt1.jpeg": ["Ross_Lindly", "Ross Lindly"],
   "https://pbs.twimg.com/profile_images/770115508884701184/oJ9z7-zY.jpg": ["_jmace", "Joey Masso"],
+  "https://pbs.twimg.com/profile_images/675158010122117120/r0cPvKv2.jpg": ["JonTanners", "Jon Tanners"],
   "https://pbs.twimg.com/profile_images/378800000051286778/1584e2c1f9aede7654f278e6cbb985b2.jpeg": ["cruzcontrol5", "Nick De La Cruz"],
   "https://pbs.twimg.com/profile_images/739154832540340225/oq3T--as.jpg": ["Clo4Sho", "Chloe Heavey"],
   "https://pbs.twimg.com/profile_images/616016098270404608/6WYwLSB6.jpg": ["nicholasstillwell", "Nick Stillwell"],
@@ -46,7 +47,9 @@ var imgToUser = {
   "https://pbs.twimg.com/profile_images/680826862189191168/_zvtIlYY.jpg": ["adlerike", "Ike Adler"],
   "https://pbs.twimg.com/profile_images/787567105348542464/hwDxmaam.jpg": ["TheRealBpatt", "Brandon Patterson"],
   "https://pbs.twimg.com/profile_images/767970130630324224/PjHiElWM.jpg": ["Hprado15", "Hector Prado"],
-  "https://pbs.twimg.com/profile_images/714302032996380672/mkhZ_e4V.jpg": ["duzi23", "Mduduzi Hlatshwayo"]
+  "https://pbs.twimg.com/profile_images/714302032996380672/mkhZ_e4V.jpg": ["duzi23", "Mduduzi Hlatshwayo"],
+  "https://pbs.twimg.com/profile_images/782671840309350401/WqqMD1eO.jpg": ["LoHenderson", "Lauren Henderson"],
+  "https://pbs.twimg.com/profile_images/775941330606231552/1_EeP3wl.jpg": ["venturebuddha", "Ben Choe"]
 };
 
 var imageUrlArray = [
@@ -57,6 +60,7 @@ var imageUrlArray = [
   "https://pbs.twimg.com/profile_images/760503094023118849/03yKeHE0.jpg", /* bernard bennett-green */
   "https://pbs.twimg.com/profile_images/562454001241694209/bVnKVGt1.jpeg", /* ross lindly */
   "https://pbs.twimg.com/profile_images/770115508884701184/oJ9z7-zY.jpg", /* joey masso */
+  "https://pbs.twimg.com/profile_images/675158010122117120/r0cPvKv2.jpg", /* jon tanners */
   "https://pbs.twimg.com/profile_images/378800000051286778/1584e2c1f9aede7654f278e6cbb985b2.jpeg", /* nick dela cruz */
   "https://pbs.twimg.com/profile_images/739154832540340225/oq3T--as.jpg", /* chloe heavey */
   "https://pbs.twimg.com/profile_images/616016098270404608/6WYwLSB6.jpg", /* nick stilwell */
@@ -88,7 +92,9 @@ var imageUrlArray = [
   "https://pbs.twimg.com/profile_images/680826862189191168/_zvtIlYY.jpg", /* ike adler */
   "https://pbs.twimg.com/profile_images/787567105348542464/hwDxmaam.jpg", /* brandon patterson */
   "https://pbs.twimg.com/profile_images/767970130630324224/PjHiElWM.jpg", /* hector prado */
-  "https://pbs.twimg.com/profile_images/714302032996380672/mkhZ_e4V.jpg" /* mduduzi hlatshwayo */
+  "https://pbs.twimg.com/profile_images/714302032996380672/mkhZ_e4V.jpg", /* mduduzi hlatshwayo */
+  "https://pbs.twimg.com/profile_images/782671840309350401/WqqMD1eO.jpg", /* lauren henderson */
+  "https://pbs.twimg.com/profile_images/775941330606231552/1_EeP3wl.jpg" /* ben choe */
 ];
 
 function toArray(obj) {
