@@ -226,6 +226,7 @@ var PostsList = React.createClass({
     var self = this;
     var carousal_images = [];
 
+    $(document).on("ReactComponent:PostList:updateIcons", this.updateIcons);
     this.getAdminCarousalFiles();
     //console.log("POSTS IN POST LIST", this.props.posts);
     //var posts = getSongList(p);
@@ -269,7 +270,7 @@ var PostsList = React.createClass({
     this.props.onPostUpvote(postid);
   },
 
-    updateIcons: function(track, isPlaying) {
+  updateIcons: function(track, isPlaying) {
     console.log("night tracking", track, isPlaying); //argument list is shifted right one
     if( typeof isPlaying === 'object') {
       track = isPlaying.next;
@@ -312,7 +313,7 @@ var PostsList = React.createClass({
       console.log("managing icon state", pli);
       if(pli != null){
         pli.getDOMNode().className = "icon icon-controller-play";
-        pliBG.getDOMNode().className = isNotPlaying;
+        pliBG.getDOMNode().className = isPlaying;
       }
     }
 
@@ -347,6 +348,13 @@ var PostsList = React.createClass({
 
     this.setState({currentTrack:track.id});
     this.props.onPostListItemClick(stream_url, track, idx);
+  },
+
+  isPlaying: function(post) {
+    console.log('posty', post, 'currStreamUrl', this.state.currentTrack);
+    if(!this.state.currentTrack) { return false; }
+    if(post.stream_url == this.state.currentTrack.stream_url) { return true; }
+    return false;
   },
 
   hasUpvoted: function(post, userid) {
@@ -447,7 +455,8 @@ var PostsList = React.createClass({
                         showNumber={true}
                         showAuthor={true}
                         changeIcons={this.updateIcons}
-                        bot_users={this.state.botUsers}/>
+                        bot_users={this.state.botUsers}
+                        playing={this.isPlaying}/>
 
         if(idx == 1) { firstPost = post; }
         postList.push(item);
