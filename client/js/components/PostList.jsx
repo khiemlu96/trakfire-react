@@ -269,17 +269,34 @@ var PostsList = React.createClass({
     this.props.onPostUpvote(postid);
   },
 
-  updateIcons: function(track, isPlaying) {
+    updateIcons: function(track, isPlaying) {
+    console.log("night tracking", track, isPlaying); //argument list is shifted right one
+    if( typeof isPlaying === 'object') {
+      track = isPlaying.next;
+      isPlaying = isPlaying.isPlaying;
+    }
     if(this.state.currentTrack != null) {
       var pli = this.refs[track.id].refs.overlay;
       if(pli != null){
         // if state isPlaying is true then show pause icon in square,
         // else show 'play' icon
+        console.log('inside the dms');
+        for(idx in this.props.posts) {
+          var post = this.props.posts[idx];
+          var p = this.refs[post.id];
+          if(p) {
+            p.refs.overlay.getDOMNode().className = "icon icon-controller-play";
+            p.refs.overlaybg.getDOMNode().className = "tf-media-thumbnail-overlay";
+          }
+        }
+
         console.log("TOGGLE THE TRACK", isPlaying, pli);
         if( isPlaying === true ) {
           pli.getDOMNode().className = "icon icon-controller-paus";
+          this.refs[track.id].refs.overlaybg.getDOMNode().className = 'tf-media-thumbnail-overlay playing';
         } else {
           pli.getDOMNode().className = "icon icon-controller-play";
+          this.refs[track.id].refs.overlaybg.getDOMNode().className = 'tf-media-thumbnail-overlay';
         }
       }
     }
