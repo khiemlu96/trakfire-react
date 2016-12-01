@@ -15,40 +15,40 @@ var CarouselItem = require('react-bootstrap').CarouselItem;
 
 var posts = [
   {
-    id: '1560',
-    title: 'Losing',
-    img_url_lg: 'https://i1.sndcdn.com/artworks-000181812359-1jjrvp-crop.jpg',
+    id: '2020',
+    title: 'Sisters',
+    img_url_lg: 'https://i1.sndcdn.com/artworks-000187663230-30md4p-crop.jpg',
     artist: {
-      name:'H.E.R',
-      url: 'https://soundcloud.com/iamhermusic'
+      name:'Lion Sphere',
+      url: 'https://soundcloud.com/lionspheremusic'
     },
     user: {
-      name: 'Mduduzi Hlatshwayo',
-      id: '301'
+      name: 'Martin Wolff',
+      id: '336'
     },
-    partner: 'spotify'
+    partner: 'dash'
   },
   {
-    id: '1041',
-    title: 'Wolf',
-    img_url_lg: 'https://i1.sndcdn.com/artworks-000173514472-xkbdl8-crop.jpg',
+    id: '1777',
+    title: 'Scumbag',
+    img_url_lg: 'https://i1.sndcdn.com/artworks-000157981361-xjf0a8-crop.jpg',
     artist: {
-      name:'SKOTT',
-      url: 'https://soundcloud.com/skottpeace'
+      name:'Gabe Nandez',
+      url: 'https://soundcloud.com/gabe-nandez'
     },
     user: {
-      name: 'Helena Yohannes',
-      id: '215'
+      name: 'Grant Collins',
+      id: '1'
     },
-    partner: 'apple'
+    partner: 'dash'
   },
   {
-    id: '1573',
-    title: 'No One Knows',
-    img_url_lg: 'https://i1.sndcdn.com/artworks-000183269129-qjzvw5-crop.jpg',
+    id: '1783',
+    title: 'Latency',
+    img_url_lg: 'https://i1.sndcdn.com/artworks-000186246558-9za6a2-crop.jpg',
     artist: {
-      name:'Brent Faiyaz',
-      url: 'https://soundcloud.com/brentfaiyaz'
+      name:'Soft Glas',
+      url: 'https://soundcloud.com/softglas'
     },
     user: {
       name: 'Dan Mehler',
